@@ -1,0 +1,63 @@
+---
+title: "Data Management"
+author: "Stephanie Archer"
+date: "6/5/2020"
+output: html_document
+---
+You can use markdown to make more polished reports, write papers, make presentations (currently beyond my skill level) and all sorts of other things. For me, the main advantage of this is being able to directly pull in my results without having to toggle back and forth with word or otherwise save the results. There is a bit of a learning curve though. So we'll walk through it a bit. 
+
+First, the bit of stuff above is called the YAML header. It tells markdown something about the options you'd like to use for the whole document. It, obviously, also includes things such as the title of the document, the author, and the date of creation. A YAML is automatically created for you when you start a markdown document, but there are many many options you can include here. For example, I've added the editor_options bit because I prefer output to show up in the console instead of under my code when I'm working on the document. When you start writing papers in markdown (if you do) this is also where you can put your citation library, etc. We will not go over that for now, but I am happy to walk you through that if you want to learn later.
+
+So, now we're going to run some set up code. In markdown documents bits of code separated by a set of ```
+is called a chunk. You can actually use different programming languages within markdown (I have not yet) so you have to specify. that is what the r inside the brackets does- it tells markdown to work in the r language. Next you can label each chunk of code. This does the same thing as adding sets of '#' or "-" after your comment in a script. Finally, you can include chunk specific settings in the opening brackets. These are separated from the name by a comma. There are lots of options but two of the most common are include and echo. include=FALSE tells markdown not to print the chunk of code or any of the output in the markdown document. echo = TRUE tells markdown to include the code along with the output. I typically use markdown for papers so I usually set this universally to FALSE in this first bit of setup code, then for any chunks where I do want the code to appear I set that in the opening brackets for that chunk. You'll notice when you knit this that this next bit of code doesn't appear in the output.
+
+```{r setup, include=FALSE,cache=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+if(!require(here))install.packages('here');library(here)
+source(here::here('scripts','01_installpackage.R'))
+source(here::here('scripts','03_reimport.R'))
+knitr::read_chunk(here::here('scripts',"04_explore_algae.R"))
+```
+For purposes of making the knitted document more clear I'll now include the same chunk but include eval=FALSE in the header. This tells markdown not to run the code.
+```{r setup2, eval=FALSE, echo=TRUE}
+knitr::opts_chunk$set(echo = FALSE)
+if(!require(here))install.packages('here');library(here)
+source(here::here('scripts','01_installpackage.R'))# the information from the sourced scripts is made available the whole markdown document from the get go
+source(here::here('scripts','03_reimport.R'))
+knitr::read_chunk(here::here('scripts',"04_explore_algae.R"))# information from chunks within the read_chunk scripts is not evaluated until called later in the markdown document
+```
+*shortcut- you can insert a new chunk of code by pressing Ctrl + Alt + i*
+
+Now- there are a couple of ways to include code in your markdown document. You can directly work in the code chunks. I used to do this but it made my markdown documents unwieldy. So, now I've moved to writing individual scripts and then using some "special" notation to run them in my markdown document. So, if you recall in our scripts we have some comments that look like this:
+
+```{r example1, eval=FALSE, echo=TRUE}
+## ---- loadpackages ----
+```
+
+This tells markdown that the bit of code under this heading is a chunk of code. We can call up these by putting them in the name of the chunk in markdown. This only works if we've loaded the scripts already in the document. We did this in the setup chunk above with the read_chunk line.
+
+```{r,algaeplot}
+```
+I also added in a chunk where I can call up the univariate plots we made. Another thing you can do is set the size of the plot in the chunk options using fig.height and fig.width. For example, in this plot I set the fig.height and width to be 5.  
+```{r, algaediv.p1,fig.height=5,fig.width=5}
+```
+  
+But this one I set height to 7 and width to 5  
+```{r, algaediv.p2,fig.height=7,fig.width=5}
+```
+
+Getting the code right means I can call the same chunk of code again but just change the figure dimensions (note- I'm not sure why you would ever want to do this but you can).  
+```{r, algaediv.p2,fig.height=5,fig.width=7}
+```
+    
+You can also use inline r code to pull up values. For example  
+`r algae[1,]`  
+displays the first row of data in the algae dataset.  
+Perhaps the easiest way to "knit" your markdown document is simply to press the knit button at the top of this document in r studio. There are other ways, but this works for now.  
+
+*I put a rmarkdown cheat sheet on slack. This should help significantly. And again, google is your friend.*
+  
+
+
+
+
