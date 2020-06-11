@@ -5,7 +5,7 @@
 # @knitr reimport
 
 ## import reworked data ####
-files <- list.files(here("working_data"), pattern = "2020-05-08")
+files <- list.files(here("working_data"), pattern = "*.csv")
 # this bit of code finds all the files in the working data directory that match the date I
 # exported the reorganized data you can replace the date with "*.csv" if you want to find all the csv
 # files in a folder- or replace the date with any text pattern really.
