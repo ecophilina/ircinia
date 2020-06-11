@@ -2,6 +2,8 @@
 .DS_Store
 *.Rproj
 *.html
+*.pdf
+
 
 # History files
 .Rhistory
