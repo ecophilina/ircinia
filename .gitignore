@@ -3,7 +3,12 @@
 *.Rproj
 *.html
 *.pdf
-
+*.xlsx
+*.csv
+*.png
+*.jpeg
+*.docx
+*.doc
 
 # History files
 .Rhistory
