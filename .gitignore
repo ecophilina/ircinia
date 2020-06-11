@@ -1,3 +1,8 @@
+# Add file types
+.DS_Store
+*.Rproj
+*.html
+
 # History files
 .Rhistory
 .Rapp.history
