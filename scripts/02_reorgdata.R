@@ -63,9 +63,9 @@ sg_shoot2<-sg_shoot%>%
 # @knitr writereorg
 # now we're going to save all the reorganized data sets the code below shows you how to include the
 # date in the name of a file you are saving. 
-write.csv(algae2,here("working_data",paste0("algae",Sys.Date(),".csv")))
-write.csv(fish2,here("working_data",paste0("fish",Sys.Date(),".csv")))
-write.csv(inverts2,here("working_data",paste0("inverts",Sys.Date(),".csv")))
-write.csv(sg_grow2,here("working_data",paste0("sg_grow",Sys.Date(),".csv")))
-write.csv(sg_nuts2,here("working_data",paste0("sg_nuts",Sys.Date(),".csv")))
-write.csv(sg_shoot2,here("working_data",paste0("sg_shoot",Sys.Date(),".csv")))
+write.csv(algae2,here("working_data",paste0("algae",".csv")))
+write.csv(fish2,here("working_data",paste0("fish",".csv")))
+write.csv(inverts2,here("working_data",paste0("inverts",".csv")))
+write.csv(sg_grow2,here("working_data",paste0("sg_grow",".csv")))
+write.csv(sg_nuts2,here("working_data",paste0("sg_nuts",".csv")))
+write.csv(sg_shoot2,here("working_data",paste0("sg_shoot",".csv")))
