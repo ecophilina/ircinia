@@ -10,5 +10,4 @@ if(!require(readxl))install.packages('readxl');library(readxl)
 if(!require(vegan))install.packages('vegan');library(vegan)
 
 if(!require(usethis))install.packages('usethis')
-
 #usethis::use_git_config(user.name = "username", user.email = "email")
