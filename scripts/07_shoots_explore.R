@@ -23,6 +23,14 @@ head(sg_shoot)
 # SH.SD = S. filliforme and H. wrightii 
 # SD = total density
 
+# sampling 2 is 1 month after sampling 1
+# sampling 3 is 5 months after 2
+# sampling 4 is 12 months after 2 (7 after 3)
+# sampling 5 is 17 months after 2 (5 after 4)
+
+sg_shoot %>% ggplot(aes(T.SD, SH.SD )) + geom_point() + 
+  facet_grid(treatment~sampling)
+
 # transform longer
 ddat <- sg_shoot %>% pivot_longer(
   T.SD:SD, 
@@ -38,6 +46,12 @@ ddat <- sg_shoot %>% pivot_longer(
   ) 
 
 glimpse(ddat)
+
+
+m <- aov(density~treatment, data = filter(ddat, dist=="0-1" & sampling == 1))
+summary(m)
+TukeyHSD(m)
+
 
 ddat %>% filter(type== "T.SD") %>%
   ggplot(aes(as.factor(dist), density))+
@@ -120,11 +134,11 @@ ddat2 %>% filter(type== "SD") %>%
 ### add change variables
 glimpse(ddat2)
 
-start_val <- filter(ddat2, sampling == 1) %>% 
+start_val <- filter(ddat2, sampling == 2) %>% 
   rename(start_dens = density) %>% select(id, type, start_dens)
 
 ddat3 <- left_join(ddat2, start_val) %>% 
-  mutate(delta = density - start_dens) %>% filter(sampling != 1) 
+  mutate(delta = density - start_dens) %>% filter(!(sampling %in% c(1,2))) 
 
 ddat3 %>% filter(type== "SD") %>%
   ggplot(aes(as.factor(sampling), delta, group = id))+
@@ -149,5 +163,23 @@ ddat3 %>% filter(type== "T.SD") %>%
   geom_line() +
   facet_grid(treatment ~ dist) +
   ggtitle("T.SD")
+
+ddat3 %>% filter(type== "T.SD") %>%
+  ggplot(aes((sampling), delta))+
+  geom_hline(yintercept = 0, colour= "red") +
+  geom_point() +
+  geom_smooth(method = lm) +
+  facet_grid(treatment ~ dist) +
+  ggtitle("T.SD")
+
+m <- lm(delta~treatment, data = filter(ddat3, dist=="0-1" & sampling == 2))
+summary(m)
+m <- lm(delta~treatment, data = filter(ddat3, dist=="1-2" & sampling == 2))
+summary(m)
+m <- lm(delta~treatment, data = filter(ddat3, dist=="0-1" & sampling == 3))
+summary(m)
+m <- lm(delta~treatment, data = filter(ddat3, dist=="1-2" & sampling == 3))
+summary(m)
+
 
 
