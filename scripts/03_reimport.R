@@ -21,5 +21,3 @@ fd <- data.frame(files = files, dname = files) %>%
 for (i in 1:nrow(fd))assign(fd[i, 2], read.csv(here("working_data", fd[i, 1]))[, -1])
 # this bit of code says for every row in the fd data frame assign the file in column 1
 # to the name in column 2. You should now have all the reorganized data sets imported.
-
-
