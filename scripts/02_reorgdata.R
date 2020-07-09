@@ -47,7 +47,11 @@ sg_nuts2<-sg_nuts %>%
   mutate(treatment=case_when(
     treatment=="B"~"blank",
     treatment=="F"~"fake",
-    treatment=="R"~"real"))
+    treatment=="R"~"real"),
+    plot=case_when(
+      treatment=="blank"~plot,
+      treatment=="fake"~plot+5,
+      treatment=="real"~plot+10))
 #Mutate allows you to create new variables or redefine old ones. case_when allows you to say what
 # the new variable will be given the value of another variable or, as in this case, what the variable was before
 # this code basically says when treatment is equal to "B" I'd like to change it to "blank".
