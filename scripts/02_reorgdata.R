@@ -1,6 +1,8 @@
 ## this is a project to learn best practices of data management in R ##
 ## @knitr loaddata
 # load original data ####
+if(!require(tidyverse))install.packages('tidyverse');library(tidyverse)
+if(!require(readxl))install.packages('readxl');library(readxl)
 
 sg_grow<-read_xlsx(here("Original_data","ForFinella_Transplant_data.xlsx"),sheet="Sg_growth")
 algae<-read_xlsx(here("Original_data","ForFinella_Transplant_data.xlsx"),sheet="Algae")
