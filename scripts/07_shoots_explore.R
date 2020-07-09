@@ -13,6 +13,10 @@ theme_set(theme_bw())
 # notes ----
 # what does the shoot data look like
 glimpse(sg_shoot)
+str(sg_shoot)
+head(sg_shoot)
+
+# sg_shoot <- as_tibble(sg_shoot)
 
 # there are four replicates within each plot/dist/sampling combination
 # T.SD = T. testudinum 
@@ -116,12 +120,15 @@ ddat2 %>% filter(type== "SD") %>%
 ### add change variables
 glimpse(ddat2)
 
-start_val <- filter(ddat2, sampling == 1) %>% rename(start_dens = density) %>% select(id, type, start_dens)
+start_val <- filter(ddat2, sampling == 1) %>% 
+  rename(start_dens = density) %>% select(id, type, start_dens)
 
-ddat3 <- left_join(ddat2, start_val) %>% mutate(delta = density - start_dens) %>% filter(sampling != 1) 
+ddat3 <- left_join(ddat2, start_val) %>% 
+  mutate(delta = density - start_dens) %>% filter(sampling != 1) 
 
 ddat3 %>% filter(type== "SD") %>%
   ggplot(aes(as.factor(sampling), delta, group = id))+
+  geom_hline(yintercept = 0, colour= "red") +
   geom_point() +
   geom_line() +
   facet_grid(treatment ~ dist) +
@@ -129,6 +136,7 @@ ddat3 %>% filter(type== "SD") %>%
 
 ddat3 %>% filter(type== "SH.SD") %>%
   ggplot(aes(as.factor(sampling), delta, group = id))+
+  geom_hline(yintercept = 0, colour= "red") +
   geom_point() +
   geom_line() +
   facet_grid(treatment ~ dist) +
@@ -136,7 +144,10 @@ ddat3 %>% filter(type== "SH.SD") %>%
 
 ddat3 %>% filter(type== "T.SD") %>%
   ggplot(aes(as.factor(sampling), delta, group = id))+
+  geom_hline(yintercept = 0, colour= "red") +
   geom_point() +
   geom_line() +
   facet_grid(treatment ~ dist) +
   ggtitle("T.SD")
+
+

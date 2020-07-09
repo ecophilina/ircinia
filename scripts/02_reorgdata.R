@@ -57,7 +57,8 @@ sg_shoot2<-sg_shoot%>%
   mutate(treatment=case_when(
     treatment=="Blank"~"blank",
     treatment=="Fake"~"fake",
-    treatment=="Real"~"real"))
+    treatment=="Real"~"real"),
+    T.SD=ifelse(T.SD==111,84,T.SD))
 
 # write reorganized data ####
 # @knitr writereorg
