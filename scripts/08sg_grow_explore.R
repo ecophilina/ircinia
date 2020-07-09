@@ -65,7 +65,8 @@ bp+
 #here I am attempting to do the same as just above (viewing mgd over time and distance) but only looking at the real sponge. I realized that changing treatment to 'real' did not do what I wanted it to do but I got stuck----
 
 bp<-sg_grow %>% 
-  group_by(plot,sampling,treatment='real',dist) %>%
+  filter(treatment=='real') %>%
+  group_by(plot,sampling,treatment,dist) %>%
   summarise(mgd=mean(gd), sdgd=sd(gd)) %>%
   ggplot()
 
@@ -77,7 +78,8 @@ bp+
 
 ##here I am attempting to do the same as just above (viewing mgd over time and distance) but only looking at the fake sponge.
 bp<-sg_grow %>% 
-  group_by(plot,sampling,treatment='fake',dist) %>%
+  filter(treatment=='fake') %>%
+  group_by(plot,sampling,treatment,dist) %>%
   summarise(mgd=mean(gd), sdgd=sd(gd)) %>%
   ggplot()
 
@@ -88,7 +90,8 @@ bp+
 
 ##here I am attempting to do the same as just above (viewing mgd over time and distance) but only looking at the blank treatment.
 bp<-sg_grow %>% 
-  group_by(plot,sampling,treatment='blank',dist) %>%
+  filter(treatment=='blank') %>%
+  group_by(plot,sampling,treatment,dist) %>%
   summarise(mgd=mean(gd), sdgd=sd(gd)) %>%
   ggplot()
 
@@ -97,14 +100,29 @@ bp+
   geom_line(aes(x=sampling, y=mgd, color=treatment, group=plot))+
   facet_wrap(~dist)
 
-#Now I would like to review mgd over time ONLY reviewing summer time of sampling (1,2,and 4)
+#Now I would like to review mgd over time ONLY reviewing summer time of sampling (1,2,and 4) with the real treatment
 
 bp<-sg_grow %>% 
-  group_by(plot,sampling== (1, 2, 4 ),treatment,dist) %>%
+  filter(sampling %in% c(1,2,4) & treatment=='real') %>%
+  group_by(plot,sampling,treatment,dist) %>%
   summarise(mgd=mean(gd), sdgd=sd(gd)) %>%
   ggplot()
 
 bp+
-  geom_point(aes(x=sampling== 1,2,4, y=mgd, color=treatment))+
+  geom_point(aes(x=sampling, y=mgd, color=treatment))+
   geom_line(aes(x=sampling, y=mgd, color=treatment, group=plot))+
   facet_wrap(~dist)
+
+#Now I would like to review mgd over time ONLY reviewing winter time of sampling (3 and 5) with the real treatment
+bp<-sg_grow %>% 
+  filter(sampling %in% c(3,5)) %>%
+  group_by(plot,sampling,treatment,dist) %>%
+  summarise(mgd=mean(gd), sdgd=sd(gd)) %>%
+  ggplot()
+
+bp+
+  geom_point(aes(x=sampling, y=mgd, color=treatment))+
+  geom_line(aes(x=sampling, y=mgd, color=treatment, group=plot))+
+  facet_wrap(~dist)
+
+
