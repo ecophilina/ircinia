@@ -14,7 +14,8 @@ files <- list.files(here("working_data"), pattern = "*.csv")
 
 fd <- data.frame(files = files, dname = files) %>%
   # this line creates a data frame that I'll use to import the files in a couple lines
-  separate(dname, into = c("dname", "extra"), sep = "2020")
+  separate(dname, into = c("dname", "extra"), sep = "[.]") 
+# use sep = "2020" if dates are included in filenames
 # this bit separates out of the name of the dataset from the date and the file extension- note
 # we still have one column with the full file name
 
