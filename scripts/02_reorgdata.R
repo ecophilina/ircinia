@@ -40,6 +40,11 @@ sg_grow2<-sg_grow%>%
   select(c(-treat,-ID2,-ID))%>%
   rename(sampling=time)
 
+sg_grow2[sg_grow2$plot==12&
+           sg_grow2$dist==2&
+           sg_grow2$sampling==1&
+           sg_grow2$days==14,3]<-1
+
 
 sg_nuts2<-sg_nuts %>%
   select(c(-ID,-CNRatio,-NP,-CP))%>%
