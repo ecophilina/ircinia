@@ -3,6 +3,7 @@
 # load original data ####
 if(!require(tidyverse))install.packages('tidyverse');library(tidyverse)
 if(!require(readxl))install.packages('readxl');library(readxl)
+if(!require(here))install.packages('here');library(here)
 
 sg_grow<-read_xlsx(here("Original_data","ForFinella_Transplant_data.xlsx"),sheet="Sg_growth")
 algae<-read_xlsx(here("Original_data","ForFinella_Transplant_data.xlsx"),sheet="Algae")
@@ -43,8 +44,15 @@ sg_grow2<-sg_grow%>%
 sg_grow2[sg_grow2$plot==12&
            sg_grow2$dist==2&
            sg_grow2$sampling==1&
-           sg_grow2$days==14,3]<-1
-
+           sg_grow2$days==14,2]<-13
+sg_grow2[sg_grow2$plot==12&
+           sg_grow2$dist==2&
+           sg_grow2$sampling==2&
+           sg_grow2$total.growth.mm2 %in% c(245,330,345,370,500),2]<-13
+sg_grow2[sg_grow2$plot==12&
+           sg_grow2$dist==2&
+           sg_grow2$sampling==4&
+           sg_grow2$days==15,2]<-13
 
 sg_nuts2<-sg_nuts %>%
   select(c(-ID,-CNRatio,-NP,-CP))%>%
