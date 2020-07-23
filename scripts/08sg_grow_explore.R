@@ -9,9 +9,12 @@
 if(!require(here))install.packages('here');library(here)
 if(!require(tidyverse))install.packages('tidyverse');library(tidyverse)
 if(!require(readxl))install.packages('readxl');library(readxl)
+#imports all the data sets with awesome new code!
+source("scripts/03_reimport.R")
 
 #Before exploring, we need to make the growth per day added as a new column because collection days were not done in even intervals
 sg_grow$gd <- sg_grow$total.growth.mm2/sg_grow$days
+
 
 #creating an object for ggplot
 bp<-ggplot(data=sg_grow)
@@ -125,4 +128,15 @@ bp+
   geom_line(aes(x=sampling, y=mgd, color=treatment, group=plot))+
   facet_wrap(~dist)
 
+#This is additional explorational code I wanted to add after our meeting on 7/9/2020. 
+
+#comparing growth per day by distance separated into treatment groups and sampling group
+sg_grow %>% ggplot(aes(as.factor(dist), gd)) + geom_point(alpha=0.5) + 
+  facet_grid(treatment~sampling)
+
+sg_grow %>% 
+  ggplot(aes(gd, dist))+
+  geom_point() +
+  geom_line() +
+  facet_grid(treatment ~ as.factor(sampling))
 
