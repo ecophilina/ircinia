@@ -134,9 +134,53 @@ bp+
 sg_grow %>% ggplot(aes(as.factor(dist), gd)) + geom_point(alpha=0.5) + 
   facet_grid(treatment~sampling)
 
-sg_grow %>% 
-  ggplot(aes(gd, dist))+
+sg_grow %>% filter(treatment=="blank") %>%
+  ggplot(aes(dist, gd, color=as.factor(plot)))+
   geom_point() +
-  geom_line() +
-  facet_grid(treatment ~ as.factor(sampling))
+ # geom_line() +
+  geom_smooth(method="lm", se=F) +
+  facet_grid(dist ~ as.factor(sampling))
 
+#Using sampling one as a start value and creating a new dataframe.
+start_val <- filter(sg_grow, sampling == 1) %>%  
+  #group_by(plot, dist) %>% 
+  group_by(plot) %>% 
+  mutate(start_gd = mean(gd)) %>% 
+ # select(plot, dist, start_gd) %>% unique()
+  select(plot, start_gd) %>% unique()
+#taking the original dataframe and adding on th eaverage start value. For every value you it will repeat the start value of mean gd. Delta gd. sampling 1 is now our baseline so it is removed here
+sg_grow2 <- left_join(sg_grow, start_val) %>% 
+  mutate(delta_gd = gd - start_gd) %>% filter(sampling != 1)
+
+#Now I am plotting the change in gd from the start value across distances.
+sg_grow2 %>% 
+  ggplot(aes(dist, delta_gd, color=as.factor(plot)))+
+  geom_point() +
+  # geom_line() +
+  geom_smooth(method="lm", se=F) +
+  facet_grid(sampling~ treatment)
+
+#violin plot of change in gd from the start gd across distances.Not as informative as the plot but still fun:)
+sg_grow2 %>% 
+  ggplot(aes(as.factor(dist), delta_gd))+
+  geom_violin()+
+  geom_point() +
+  facet_grid(sampling~ treatment)
+
+#messing around with mixed models
+install.packages('lmerTest')
+
+pretreat <- sg_grow %>% filter(sampling==1)
+
+#This is showing a significant difference of real treatment and distance from the blank treatment. We need to keep this in mind for future analysis.
+mod <- lmerTest::lmer(gd~treatment * dist + (1|plot) , data = pretreat) 
+summary(mod)
+
+#this plot shows two plots increased in gd with increasing distance. This probably just happened by chance.
+pretreat %>% filter(treatment=='real') %>%
+  ggplot(aes(dist, gd, color=as.factor(plot))) +
+  geom_point() +
+  geom_smooth(method='lm', se=F)
+  
+
+  
