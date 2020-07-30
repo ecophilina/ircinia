@@ -1,110 +1,154 @@
 # How does the sponge Ircinia felix influence seagrass bed primary producers? #
 
 # this script will examining nutrient data #
-# run 03_reimport.R fist #
+
 
 # packages----
 if(!require(tidyverse))install.packages("tidyverse");library(tidyverse)
+if(!require(car))install.packages("car");library(car)
+if(!require(lmerTest))install.packages("lmerTest");library(lmerTest)
 
+theme_set(theme_bw())
+# load data----
+source("scripts/03_reimport.R")#imports all the data sets
+mn<-readxl::read_xlsx("Original_data/missing_nutrients.xlsx")
+sg_nuts<-bind_rows(sg_nuts,mn)%>%
+  select(-mg)%>%
+  group_by(treatment,plot,dist,sampling)%>%
+  summarize(PN=sum(PN,na.rm = TRUE),PC=sum(PC,na.rm = TRUE),PP=sum(PP,na.rm = TRUE))
 # find missing data----
 
-nut.miss<-sg_nuts%>%
-  group_by(treatment,
-           plot,
-           dist,
-           sampling)%>%
-  summarize(pn=ifelse(is.na(PN),1,0),
-            pp=ifelse(is.na(PP),1,0),
-            pc=ifelse(is.na(PC),1,0),
-            miss=pn+pp+pc)# this dataset has a 1 anywhere there's missing data 
-# there should be 5 measures per treatment per distance per sampling. So I'm going to group by treatment, distance, and sampling
-# to see if there are some with 0 bits of missing data across the board. If not, find which ones have the least amount of missing data
-
-nm2<-nut.miss%>%
+nm2<-sg_nuts%>%
+  mutate(pn=ifelse(PN==0,1,0),
+            pp=ifelse(PP==0,1,0),
+            pc=ifelse(PC==0,1,0))%>%
   group_by(treatment,
            dist,
            sampling)%>%
   summarize(pn=sum(pn),
             pp=sum(pp),
             pc=sum(pc))%>%
-  pivot_longer(4:6,names_to = "nutrient",values_to = "nmiss")
+  pivot_longer(pn:pc,names_to = "nutrient",values_to = "nmiss")
 
 # making plots to make this easier
 
 ggplot(nm2,aes(x=nutrient,y=nmiss,fill=treatment))+
   geom_bar(stat="identity",position=position_dodge())+
   facet_grid(sampling~dist)
-
-# inconveniently not much is all the way there. But it looks like we could look at % phosphorus at most distances
-# and samplings
-# sampling 5 is the best (after sampling 1) for data availability, but this is in the winter. If we go with
-# sampling 1 and 4 we could look at the 0 distance... if we go with 0.5 we could leave out sampling 4. I kind of
-# vote for looking at patterns at 0 between 1 and 4 and 5 and then looking at patterns associated with
-# distance from the sponge at sampling 5 first I'm going to look at mean values over distance and time.
-
-# ----dist----
-ggplot(sg_nuts%>%
-         pivot_longer(6:8,names_to="nuts",values_to = "percent")%>%
-         group_by(treatment,dist,sampling,nuts)%>%
-         summarize(mn=mean(percent,na.rm = TRUE)))+
-  geom_point(aes(x=as.factor(dist),y=mn,color=treatment))+
-  facet_grid(nuts~sampling,scales = "free")
   
-# there don't seem to be logical consistent patterns in the nutrient data on first glance. I'm going to look
-# at ratios (i.e. C:N, C:P, and N:P)
 
-# --- ratios---
-nr<-sg_nuts %>%
+#now no treatment is missing more than 1 sample at each sampling/dist combination
+
+# now I'm going to look at the distributions of the variables
+
+# Because as the experiment goes on fish abundance may be correlated with nutrients 
+# I'm going to look at the fish data and how fish abundance correlates with nutrient values
+
+f2<-fish %>%
+  group_by(treatment,plot,sampling)%>%
+  summarize(abund=sum(abundance))
+# join this with nutrient data
+
+sgn<-sg_nuts %>%
   mutate(cn=PC/PN,
          cp=PC/PP,
          np=PN/PP)%>%
-  filter(!is.na(cn)|!is.na(cp)|!is.na(np))
-# look at carbon:phosphorus
-ggplot(nr)+
-  geom_boxplot(aes(y=cp,fill=treatment))+
-  facet_grid(dist~sampling)
-# don't see any interesting patterns here
-# look at carbon:nitrogen
-ggplot(nr)+
-  geom_boxplot(aes(y=cn,fill=treatment))+
-  facet_grid(dist~sampling)
-# don't see any interesting patterns here
-# look at nitrogen:phosphorus
-ggplot(nr)+
-  geom_boxplot(aes(y=np,fill=treatment))+
-  facet_grid(dist~sampling)
-# don't see any interesting patterns here
+  pivot_longer(PN:np,names_to = "nut",values_to = "nvalue")%>%
+  left_join(f2)%>%
+  mutate(abund=ifelse(is.na(abund),0,abund),)%>%
+  filter(!is.na(nvalue))
 
-# originally I looked at the change in % nutrients from sampling 1 and 4- there is a pattern there, but after
-# being removed from the experiment for so long and looking at the data more thoroughly I don't know if I
-# actually buy it. Maybe if I look at the change from initial conditions for each sampling point it 
-# will make me feel better about that?
+# before I plot up I'm going to look at the distributions of the data
+ggplot(data=sgn,aes(nvalue))+
+  geom_histogram()+
+  facet_wrap(~nut,scales="free")
+# there are some outliers in PC and PN- look at what these are
+filter(sgn,nut=="PC" & nvalue>55)
+filter(sgn,nut=="PN" & nvalue>2.5)
+# carbon and nitrogen are calculated from the same sample and plot 6 (sampling 2 dist 0)
+# is an outlier for both- makes me think something besides seagrass got in there.
+# I'm going to remove this point before going further. 
 
-# calculating change from initial conditions
+sgn_no<-sgn %>%
+  filter(plot==6 & dist ==0 & sampling==2 & nut %in% c("PC","PN"))
 
-dn<-sg_nuts%>%
-  pivot_wider(-mg,names_from = sampling,values_from = c(PN,PC,PP))%>%
-  mutate(pn12=(PN_2-PN_1)/PN_1,
-         pn13=(PN_3-PN_1)/PN_1,
-         pn14=(PN_4-PN_1)/PN_1,
-         pn15=(PN_5-PN_1)/PN_1,
-         pp12=(PP_2-PP_1)/PP_1,
-         pp13=(PP_3-PP_1)/PP_1,
-         pp14=(PP_4-PP_1)/PP_1,
-         pp15=(PP_5-PP_1)/PP_1,
-         pc12=(PC_2-PC_1)/PC_1,
-         pc13=(PC_3-PC_1)/PC_1,
-         pc14=(PC_4-PC_1)/PC_1,
-         pc15=(PC_5-PC_1)/PC_1)%>%
-  select(treatment,plot,dist,pn12,pn13,pn14,pn15,pp12,pp13,pp14,pp15,pc12,pc13,pc14,pc15)%>%
-  pivot_longer(-1:-3,names_to = "m",values_to = "dn")%>%
-  separate(m,into = c("nut","sp"),sep = 2)
+sgn<-sgn %>%
+  anti_join(sgn_no)
+# now plot up 
 
-ggplot(dn)+
-  geom_boxplot(aes(x=as.factor(dist),y=dn,fill=treatment))+
-  facet_grid(nut~sp)
+ggplot(data=sgn,aes(x=abund,y=nvalue,color=treatment))+
+  geom_point()+
+  geom_smooth(method="lm")+
+  facet_grid(nut~dist,scales="free")
 
-# nope that didn't make me feel better. 
-# my conclusion is that its hard to explain the nutrient data without the fish data (fish pee a lot and it
-# influences seagrass nutrient content). So, if we're keeping this manuscript to the primary producers
-# then I think we have to leave the nutrient data out. 
+#there is one plot with a lot more fish than all the others- going to look at 
+# things without that plot
+ggplot(data=sgn%>% filter(abund<20),aes(x=abund,y=nvalue,color=treatment))+
+  geom_point()+
+  geom_smooth(method="lm")+
+  facet_grid(nut~dist,scales="free")
+# doesn't actually look like there's much going on there. 
+
+# going to do the same thing with growth
+
+sgg<-sg_grow%>%
+  mutate(gpd=total.growth.mm2/days)%>%
+  group_by(treatment,plot,dist,sampling)%>%
+  summarize(mgd=mean(gpd),sdgd=sd(gpd))
+
+sgn<-sgn %>%
+  left_join(sgg)%>%
+  mutate(mnths=case_when(
+    sampling==1~0,
+    sampling==2~1,
+    sampling==3~5,
+    sampling==4~12,
+    sampling==5~17))
+
+ggplot(data=sgn,aes(x=mgd,y=nvalue,color=treatment))+
+  geom_point()+
+  geom_smooth(method="lm")+
+  facet_wrap(~nut,scales="free")
+
+# well there doesn't seem to be much there either.
+
+# now I'm going to look at the change in nutrients from initial conditions
+
+sv<-filter(sgn, sampling == 1) %>% 
+  rename(snv = nvalue)%>%select(treatment,plot,dist,snv,nut)
+
+dsgn<-left_join(sgn,sv)%>%
+  mutate(delta=nvalue-snv)%>%filter(sampling!=1)
+
+ggplot(data=dsgn%>%
+         filter(dist==0 &nut %in% c("PC","PN","PP"))%>%
+         group_by(treatment,dist,sampling,nut)%>%
+         summarize(mv=mean(delta),sev=sd(delta)/sqrt(n())),
+       aes(y=mv,color=treatment,x=as.factor(sampling)))+
+  geom_point(position=position_dodge(width=.3),size=2)+
+  geom_errorbar(aes(ymin=mv-sev,ymax=mv+sev,color=treatment),width=.1,position=position_dodge(width=0.3))+
+  facet_grid(rows = vars(nut),scales="free")
+
+# looks like we should look at %C, %N, and %P
+pn05<-aov(nvalue~treatment,data=sgn%>%filter(sampling==1&nut=="PN"&dist==0.5))
+summary(pn05)
+TukeyHSD(pn05)
+ipn<-lmer(nvalue~treatment+as.factor(dist)+(1|plot),data=sgn%>%filter(sampling==1&nut=="PN"))
+summary(ipn)
+
+ipp<-lmer(nvalue~treatment+(1|plot),data=sgn%>%filter(sampling==1&nut=="PP"))
+summary(ipp)
+
+ipc<-lmer(nvalue~treatment+dist+(1|plot),data=sgn%>%filter(sampling==1&nut=="PC"))
+summary(ipc)
+
+pn<-aov(delta~treatment,data=dsgn %>%filter(sampling%in%c(4)&dist==0&nut=="PN"))
+summary(pn)
+TukeyHSD(pn)
+
+pp<-aov(delta~treatment,data=dsgn %>%filter(sampling%in%c(4)&dist==0&nut=="PP"))
+summary(pp)
+
+pc<-aov(delta~treatment,data=dsgn %>%filter(sampling%in%c(4)&dist==0&nut=="PC"))
+summary(pc)
+
