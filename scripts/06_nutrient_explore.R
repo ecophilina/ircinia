@@ -170,6 +170,7 @@ n.lmer<-lmer(nvalue~treatment*sampling+(1|plot),
 summary(n.lmer)
 # relevel with real as the base
 # first make treatment a factor
+sgn <- sgn %>% ungroup() 
 sgn$treatment<-as.factor(sgn$treatment)
 n.lmer<-lmer(nvalue~treatment*sampling+(1|plot),
              data=sgn%>%
