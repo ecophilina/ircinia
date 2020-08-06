@@ -177,6 +177,16 @@ n.lmer<-lmer(nvalue~treatment*sampling+(1|plot),
                filter(nut=="PN" & dist==0 & sampling %in% c(1,4))%>%
                mutate(treatment=relevel(treatment,ref="real")))
 summary(n.lmer)
+
+# alternatively, setting fake to reference level --
+# simplifies output to highlight that the only sig effect is the one we are interested in :)
+n.lmerF<-lmer(nvalue~treatment*sampling+(1|plot),
+  data=sgn%>%
+    filter(nut=="PN" & dist==0 & sampling %in% c(1,4))%>%
+    mutate(treatment=relevel(treatment,ref="fake")))
+summary(n.lmerF)
+
+
 # one year later seagrass in plots with sponges have higher %N than either treatment
 # even though they started out lower than both and significantly lower than blank.
 # although this increase is not statistically significant. 
@@ -184,7 +194,7 @@ summary(n.lmer)
 
 n.lmer<-lmer(nvalue~treatment*sampling+(1|plot),
              data=sgn%>%
-               filter(nut=="P" & dist==0 & sampling %in% c(1,4))%>%
+               filter(nut=="PN" & dist==0 & sampling %in% c(1,4))%>%
                mutate(treatment=relevel(treatment,ref="fake")))
 summary(n.lmer)
 # fake decreased but not significantly.
