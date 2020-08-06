@@ -50,6 +50,7 @@ f2<-fish %>%
 # join this with nutrient data
 
 sgn<-sg_nuts %>%
+  filter(PC >0 & PN >0 & PP >0)%>%
   mutate(cn=PC/PN,
          cp=PC/PP,
          np=PN/PP)%>%
@@ -65,12 +66,13 @@ ggplot(data=sgn,aes(nvalue))+
 # there are some outliers in PC and PN- look at what these are
 filter(sgn,nut=="PC" & nvalue>55)
 filter(sgn,nut=="PN" & nvalue>2.5)
-# carbon and nitrogen are calculated from the same sample and plot 6 (sampling 2 dist 0)
-# is an outlier for both- makes me think something besides seagrass got in there.
-# I'm going to remove this point before going further. 
+# carbon and nitrogen are calculated from the same sample and plot 6 (sampling 2 dist 0), 
+# plot 7 sampling 2 dist 0, and plot 8 sampling 2 dist 1
+# are outliers for both- makes me think something besides seagrass got in there.
+# I'm going to remove these points before going further. 
 
 sgn_no<-sgn %>%
-  filter(plot==6 & dist ==0 & sampling==2 & nut %in% c("PC","PN"))
+  filter(nut=="PC" & nvalue > 60)
 
 sgn<-sgn %>%
   anti_join(sgn_no)
@@ -123,32 +125,117 @@ dsgn<-left_join(sgn,sv)%>%
 ggplot(data=dsgn%>%
          filter(dist==0 &nut %in% c("PC","PN","PP"))%>%
          group_by(treatment,dist,sampling,nut)%>%
-         summarize(mv=mean(delta),sev=sd(delta)/sqrt(n())),
+         summarize(mv=mean(delta),sd=sd(delta)),
        aes(y=mv,color=treatment,x=as.factor(sampling)))+
   geom_point(position=position_dodge(width=.3),size=2)+
-  geom_errorbar(aes(ymin=mv-sev,ymax=mv+sev,color=treatment),width=.1,position=position_dodge(width=0.3))+
+  geom_errorbar(aes(ymin=mv-sd,ymax=mv+sd,color=treatment),width=.1,position=position_dodge(width=0.3))+
   facet_grid(rows = vars(nut),scales="free")
 
-# looks like we should look at %C, %N, and %P
-pn05<-aov(nvalue~treatment,data=sgn%>%filter(sampling==1&nut=="PN"&dist==0.5))
-summary(pn05)
-TukeyHSD(pn05)
-ipn<-lmer(nvalue~treatment+as.factor(dist)+(1|plot),data=sgn%>%filter(sampling==1&nut=="PN"))
-summary(ipn)
+# investigating if there are seasonal differences within blank plots
 
-ipp<-lmer(nvalue~treatment+(1|plot),data=sgn%>%filter(sampling==1&nut=="PP"))
-summary(ipp)
+sgn<-sgn%>%
+  mutate(season=case_when(
+    sampling==1~"summer",
+    sampling==2~"summer",
+    sampling==4~"summer",
+    sampling==3~"winter",
+    sampling==5~"winter"))
 
-ipc<-lmer(nvalue~treatment+dist+(1|plot),data=sgn%>%filter(sampling==1&nut=="PC"))
-summary(ipc)
+ggplot(sgn %>%
+         filter(treatment=="blank"))+
+  geom_violin(aes(x=season,y=nvalue))+
+  facet_wrap(~nut,scales = "free")
 
-pn<-aov(delta~treatment,data=dsgn %>%filter(sampling%in%c(4)&dist==0&nut=="PN"))
-summary(pn)
-TukeyHSD(pn)
+pns<-lmer(nvalue~season+(1|plot),
+          data=sgn%>%
+            filter(treatment=="blank" & nut=="PN"))
+summary(pns)
+# no difference due to season in %N in blank plots
+pps<-lmer(nvalue~season+(1|plot),
+          data=sgn%>%
+            filter(treatment=="blank" & nut=="PP"))
+summary(pps)
+# no difference due to season in %P in blank plots
+pcs<-lmer(nvalue~season+(1|plot),
+          data=sgn%>%
+            filter(treatment=="blank" & nut=="PC"))
+summary(pcs)
+# but there is a significant effect for carbon, but plot explains basically no variance
 
-pp<-aov(delta~treatment,data=dsgn %>%filter(sampling%in%c(4)&dist==0&nut=="PP"))
-summary(pp)
+# look at change after 1 year
+#in %N
+n.lmer<-lmer(nvalue~treatment*sampling+(1|plot),
+             data=sgn%>%
+               filter(nut=="PN" & dist==0 & sampling %in% c(1,4)))
+summary(n.lmer)
+# relevel with real as the base
+# first make treatment a factor
+sgn$treatment<-as.factor(sgn$treatment)
+n.lmer<-lmer(nvalue~treatment*sampling+(1|plot),
+             data=sgn%>%
+               filter(nut=="PN" & dist==0 & sampling %in% c(1,4))%>%
+               mutate(treatment=relevel(treatment,ref="real")))
+summary(n.lmer)
+# one year later seagrass in plots with sponges have higher %N than either treatment
+# even though they started out lower than both and significantly lower than blank.
+# although this increase is not statistically significant. 
+# seagrass in blank plots did decrease significantly- check fake
 
-pc<-aov(delta~treatment,data=dsgn %>%filter(sampling%in%c(4)&dist==0&nut=="PC"))
-summary(pc)
+n.lmer<-lmer(nvalue~treatment*sampling+(1|plot),
+             data=sgn%>%
+               filter(nut=="P" & dist==0 & sampling %in% c(1,4))%>%
+               mutate(treatment=relevel(treatment,ref="fake")))
+summary(n.lmer)
+# fake decreased but not significantly.
+
+# now doing percent phosphorus
+p.lmer<-lmer(nvalue~treatment*sampling+(1|plot),
+             data=sgn%>%
+               filter(nut=="PP" & dist==0 & sampling %in% c(1,4)))
+summary(p.lmer)
+# no significant change in %P over time in blank plots (but it decreased), but a significant increase in 
+# real compared to blank one year later
+# relevel with real as the base
+p.lmer<-lmer(nvalue~treatment*sampling+(1|plot),
+             data=sgn%>%
+               filter(nut=="PP" & dist==0 & sampling %in% c(1,4))%>%
+               mutate(treatment=relevel(treatment,ref="real")))
+summary(p.lmer)
+# one year later seagrass in plots with sponges have higher %P than blank, but not fake
+# % P increased in real plots over the year,
+# although this increase is not statistically significant. 
+# check trend in fake
+
+p.lmer<-lmer(nvalue~treatment*sampling+(1|plot),
+             data=sgn%>%
+               filter(nut=="PP" & dist==0 & sampling %in% c(1,4))%>%
+               mutate(treatment=relevel(treatment,ref="fake")))
+summary(p.lmer)
+# %P decreased in fake plots, but again, not significantly
+
+# look at %C now
+
+c.lmer<-lmer(nvalue~treatment*sampling+(1|plot),
+             data=sgn%>%
+               filter(nut=="PC" & dist==0 & sampling %in% c(1,4)))
+summary(c.lmer)
+# real was significantly lower than blank at the beginning
+# decrease in %C over the year in blank, but its not significant
+# barely not significant increase in %C in sponge plots after 1 year.
+# relevel with real as the base
+c.lmer<-lmer(nvalue~treatment*sampling+(1|plot),
+             data=sgn%>%
+               filter(nut=="PC" & dist==0 & sampling %in% c(1,4))%>%
+               mutate(treatment=relevel(treatment,ref="real")))
+summary(c.lmer)
+# increase in %C in sponge plots, but again not significant. There is a significant 
+# difference between real and fake after a year
+
+c.lmer<-lmer(nvalue~treatment*sampling+(1|plot),
+             data=sgn%>%
+               filter(nut=="PC" & dist==0 & sampling %in% c(1,4))%>%
+               mutate(treatment=relevel(treatment,ref="fake")))
+summary(c.lmer)
+# %C decreased significantly in fake plots after 1 year.
+
 
