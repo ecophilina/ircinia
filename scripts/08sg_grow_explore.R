@@ -181,6 +181,13 @@ pretreat %>% filter(treatment=='real') %>%
   ggplot(aes(dist, gd, color=as.factor(plot))) +
   geom_point() +
   geom_smooth(method='lm', se=F)
+
+#trying to do mixed effets modeling
+sgg05<-lmerTest::lmer(gd~treatment,data=pretreat%>%filter(sampling==1&dist==0.5))
+summary(pn05)
+TukeyHSD(pn05)
+
+ipn<-lmer(nvalue~treatment+as.factor(dist)+(1|plot),data=sgn%>%filter(sampling==1&nut=="PN"))
   
 
   
