@@ -1,0 +1,27 @@
+---
+title: "The sponge Ircinia felix influences seagrass productivity through XX"
+output: html_document
+---
+Stephanie K. Archer^1^*, Philina English^2^, Finella Campanino^1^,Craig A. Layman   
+  
+1. Louisiana Universities Marine Consortium, Chauvin, Louisiana USA
+2. Pacific Biological Station, Fisheries and Oceans Canada, Nanaimo, British Columbia Canada  
+  
+*corresponding author: Sarcher@lumcon.edu
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+source("scripts/03_reimport.R")#imports all the data sets
+```
+
+# Abstract  
+  
+# Introduction  
+  
+# Methods  
+## Study site and experimental design  
+This study was conducted in a shallow (1.1m low tide depth) seagrass bed located off of Southern Great Abaco Island, The Bahamas (26.03 N, -77.37 W). Fifteen 5 x 5 m plots were delineated in a continuous seagrass bed on June 9, 2013 by placing wooden stakes at the corners and center of each plot. All plots were separated >2 m from each other. Prior to the establishment of the treatments, all response variables were measured (see below). After preliminary data were collected, each plot was randomly assigned to one of three treatments: control (n=5), structure control (n=5), or sponge (n=5). A polypropylene model of a sponge was placed inside a cage at the center of each structure control plot. A single sponge (*Ircinia felix*, average volume ± standard deviation, 2.5 ± 0.75 L) was placed inside a cage in the center of each sponge plot.  Control plots were not manipulated. All response variables were measured 1, 5, 12, and 17 months after the treatments were established. Live sponges were replaced as needed with a total of 3 sponge replacements. 
+
+Seagrass Response Variables
+Three species of seagrass were observed in the experimental plots: *Thalassia testudinum*, *Syringodium filliforme*, and *Halodule wrightii*. *S. filliforme* and *H. wrightii* were initially relatively rare and patchily distributed with a combined density of 149.2 ± 172 shoots m-2 (mean ± sd).  Therefore our initial focus was on the response of *T. testudinum* and species specific responses were not measured for either *S. filliforme* or *H. wrightii*. *T. testudinum* growth, short shoot density, and nutrient content were measured.
+Shoot densities were determined in three 1x1 m quadrats within each plot. One quadrat was placed around the sponge or sponge model (sponge and s. control plots) or the center (control plots), this quadrat is referred to as the 0-0.5m quadrat. The next 1m2 quadrat was placed immediately adjacent to the 0-0.5m quadrat extending from 0.5-1.5m away from the center point of the plot. A final quadrat was placed 1.5-2.5m away from the center point (Fig S1). Within each 1m2 quadrat four 20 cm x 20 cm quadrats were haphazardly placed and the shoots of each seagrass were counted (*S. filliforme* and *H. wrightii* were recorded together). *T. testudinum* growth was measured using the standard blade hole punching technique (Zieman, 1974) at the center of the plot or immediately next to either the sponge, or polypropylene model of the sponge, 0.5m, and 1.0m away. In order to minimize disturbance to the plots, the growth and morphometrics (blade length and width) of five short shoots per distance were measured *in situ*. The second youngest blade was collected from 10 shoots in the center of each plot for nutrient analysis prior to the beginning of the experiment and again after 1 year. Seagrass nutrient content (%C and %N) was determined by drying the blades at 60ºC for 48-72 hours. The dried tissue was then ground, weighed into tin capsules, and sent to the University of Georgia Stable Isotope Ecology Laboratory for analysis. 
