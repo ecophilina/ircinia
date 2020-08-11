@@ -164,80 +164,80 @@ summary(pcs)
 
 # look at change after 1 year
 #in %N
-n.lmer<-lmer(nvalue~treatment*sampling+(1|plot),
+n.lmerb<-lmer(nvalue~treatment*sampling+(1|plot),
              data=sgn%>%
                filter(nut=="PN" & dist==0 & sampling %in% c(1,4)))
-summary(n.lmer)
+nbs<-summary(n.lmerb)
 # relevel with real as the base
 # first make treatment a factor
 sgn <- sgn %>% ungroup() 
 sgn$treatment<-as.factor(sgn$treatment)
-n.lmer<-lmer(nvalue~treatment*sampling+(1|plot),
+n.lmerr<-lmer(nvalue~treatment*sampling+(1|plot),
              data=sgn%>%
                filter(nut=="PN" & dist==0 & sampling %in% c(1,4))%>%
                mutate(treatment=relevel(treatment,ref="real")))
-summary(n.lmer)
+nrs<-summary(n.lmerr)
 
 # one year later seagrass in plots with sponges have higher %N than either treatment
 # even though they started out lower than both and significantly lower than blank.
 # although this increase is not statistically significant. 
 # seagrass in blank plots did decrease significantly- check fake
 
-n.lmer<-lmer(nvalue~treatment*sampling+(1|plot),
+n.lmerf<-lmer(nvalue~treatment*sampling+(1|plot),
              data=sgn%>%
                filter(nut=="PN" & dist==0 & sampling %in% c(1,4))%>%
                mutate(treatment=relevel(treatment,ref="fake")))
-summary(n.lmer)
+nfs<-summary(n.lmerf)
 # fake decreased but not significantly.
 
 # now doing percent phosphorus
-p.lmer<-lmer(nvalue~treatment*sampling+(1|plot),
+p.lmerb<-lmer(nvalue~treatment*sampling+(1|plot),
              data=sgn%>%
                filter(nut=="PP" & dist==0 & sampling %in% c(1,4)))
-summary(p.lmer)
+pbs<-summary(p.lmerb)
 # no significant change in %P over time in blank plots (but it decreased), but a significant increase in 
 # real compared to blank one year later
 # relevel with real as the base
-p.lmer<-lmer(nvalue~treatment*sampling+(1|plot),
+p.lmerr<-lmer(nvalue~treatment*sampling+(1|plot),
              data=sgn%>%
                filter(nut=="PP" & dist==0 & sampling %in% c(1,4))%>%
                mutate(treatment=relevel(treatment,ref="real")))
-summary(p.lmer)
+prs<-summary(p.lmerr)
 # one year later seagrass in plots with sponges have higher %P than blank, but not fake
 # % P increased in real plots over the year,
 # although this increase is not statistically significant. 
 # check trend in fake
 
-p.lmer<-lmer(nvalue~treatment*sampling+(1|plot),
+p.lmerf<-lmer(nvalue~treatment*sampling+(1|plot),
              data=sgn%>%
                filter(nut=="PP" & dist==0 & sampling %in% c(1,4))%>%
                mutate(treatment=relevel(treatment,ref="fake")))
-summary(p.lmer)
+pfs<-summary(p.lmerf)
 # %P decreased in fake plots, but again, not significantly
 
 # look at %C now
 
-c.lmer<-lmer(nvalue~treatment*sampling+(1|plot),
+c.lmerb<-lmer(nvalue~treatment*sampling+(1|plot),
              data=sgn%>%
                filter(nut=="PC" & dist==0 & sampling %in% c(1,4)))
-summary(c.lmer)
+cbs<-summary(c.lmerb)
 # real was significantly lower than blank at the beginning
 # decrease in %C over the year in blank, but its not significant
 # barely not significant increase in %C in sponge plots after 1 year.
 # relevel with real as the base
-c.lmer<-lmer(nvalue~treatment*sampling+(1|plot),
+c.lmerr<-lmer(nvalue~treatment*sampling+(1|plot),
              data=sgn%>%
                filter(nut=="PC" & dist==0 & sampling %in% c(1,4))%>%
                mutate(treatment=relevel(treatment,ref="real")))
-summary(c.lmer)
+crls<-summary(c.lmerr)
 # increase in %C in sponge plots, but again not significant. There is a significant 
 # difference between real and fake after a year
 
-c.lmer<-lmer(nvalue~treatment*sampling+(1|plot),
+c.lmerf<-lmer(nvalue~treatment*sampling+(1|plot),
              data=sgn%>%
                filter(nut=="PC" & dist==0 & sampling %in% c(1,4))%>%
                mutate(treatment=relevel(treatment,ref="fake")))
-summary(c.lmer)
+cfs<-summary(c.lmerf)
 # %C decreased significantly in fake plots after 1 year.
 
 

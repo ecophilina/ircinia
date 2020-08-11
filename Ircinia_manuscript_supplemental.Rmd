@@ -1,0 +1,11 @@
+---
+title: 'The sponge Ircinia felix influences seagrass productivity through XX: Supplemental
+  Material'
+author: "Stephanie K. Archer, Finella Campanino, Philina English"
+output: html_document
+---
+
+```{r expdes, echo=FALSE,fig.align = 'center', out.width = "100%"}
+knitr::include_graphics("figures/Experimental design.png")
+```
+Figure S1. Experimental design and sampling scheme  
