@@ -41,12 +41,6 @@ The response of the macroalgae communities was monitored throughout the course o
 ## Macroalgae abundance and community structure
 
 # Results  
-## Shoot densities
-## *Thalassia testudinum* growth  
-## *Thalassia testudinum* nutrient concentrations  
-```{r nutrients, include=FALSE}
-source("scripts/06_nutrient_explore.R")
-```
 ```{r results function,include=FALSE}
 aov.res<-function(rtable,row){
   tv<-round(rtable[row,4],2)
@@ -59,8 +53,16 @@ aov.df<-function(rtable,row){
 
 ```
 
+## Shoot densities
+## *Thalassia testudinum* growth  
+## *Thalassia testudinum* nutrient concentrations  
+```{r nutrients, include=FALSE}
+source("scripts/06_nutrient_explore.R")
+```
+
+
 Initially, seagrass in sponge plots had significantly lower nitrogen concentrations than control plots (Fig. \@ref(fig:nuts)A, t~`r aov.df(nbs$coefficients,3)`~ `r aov.res(nbs$coefficients,3)`) but not structure control plots (t~`r aov.df(nfs$coefficients,3)`~ `r aov.res(nfs$coefficients,3)`). Percent nitrogen in seagrass tissues in both control and structure control plots declined similarly over time (Fig. \@ref(fig:nuts)A, t~`r aov.df(nbs$coefficients,5)`~ `r aov.res(nbs$coefficients,5)`), but the decrease was only significant in control plots (control: t~`r aov.df(nbs$coefficients,4)`~ `r aov.res(nbs$coefficients,4)`, structure control: t~`r aov.df(nfs$coefficients,4)`~ `r aov.res(nfs$coefficients,4)`). Conversely, seagrass in sponge plots responded differently than both the control (t~`r aov.df(nrs$coefficients,5)`~ `r aov.res(nrs$coefficients,5)`) and structure control (t~`r aov.df(nrs$coefficients,6)`~ `r aov.res(nrs$coefficients,6)`) plots: it had a higher % nitrogen after one year (Fig. \@ref(fig:nuts)A). However, this increase was not significant (t~`r aov.df(nrs$coefficients,4)`~ `r aov.res(nrs$coefficients,4)`).  
-The pattern was similar for percent carbon, seagrass in sponge plots was initially lower than control (Fig. \@ref(fig:nuts)B, t~`r aov.df(cbs$coefficients,3)`~ `r aov.res(cbs$coefficients,3)`) and structure control plots (t~`r aov.df(cfs$coefficients,3)`~ `r aov.res(cfs$coefficients,3)`). Again, percent carbon in seagrass tissue decreased in a similar way in both control and structure control plots (Fig. \@ref(fig:nuts)A, t~`r aov.df(cbs$coefficients,5)`~ `r aov.res(cbs$coefficients,5)`). However, this decrease was only significant in structure control plots (control: t~``r aov.df(cbs$coefficients,4)`~ `r aov.res(cbs$coefficients,4)`, structure control: t~`r aov.df(cfs$coefficients,4)`~ `r aov.res(cfs$coefficients,4)`). In sponge plots, % carbon showed a slight increased in seagrass tissues (t~`r aov.df(crls$coefficients,4)`~ `r aov.res(crls$coefficients,4)`), resulting in a significantly different response than structure control plots (t~`r aov.df(crls$coefficients,6)`~ `r aov.res(crls$coefficients,6)`) but not control plots (t~`r aov.df(crls$coefficients,5)`~ `r aov.res(crls$coefficients,5)`).  
+The pattern was similar for percent carbon, seagrass in sponge plots was initially lower than control (Fig. \@ref(fig:nuts)B, t~`r aov.df(cbs$coefficients,3)`~ `r aov.res(cbs$coefficients,3)`) and structure control plots (t~`r aov.df(cfs$coefficients,3)`~ `r aov.res(cfs$coefficients,3)`). Again, percent carbon in seagrass tissue decreased in a similar way in both control and structure control plots (Fig. \@ref(fig:nuts)B, t~`r aov.df(cbs$coefficients,5)`~ `r aov.res(cbs$coefficients,5)`). However, this decrease was only significant in structure control plots (control: t~``r aov.df(cbs$coefficients,4)`~ `r aov.res(cbs$coefficients,4)`, structure control: t~`r aov.df(cfs$coefficients,4)`~ `r aov.res(cfs$coefficients,4)`). In sponge plots, % carbon showed a slight increased in seagrass tissues (t~`r aov.df(crls$coefficients,4)`~ `r aov.res(crls$coefficients,4)`), resulting in a significantly different response than structure control plots (t~`r aov.df(crls$coefficients,6)`~ `r aov.res(crls$coefficients,6)`) but not control plots (t~`r aov.df(crls$coefficients,5)`~ `r aov.res(crls$coefficients,5)`).  
 Phosphorus concentrations were similar in all plot types at the beginning of the experiment (Fig. \@ref(fig:nuts)C, control:structure control t~`r aov.df(pbs$coefficients,2)`~ `r aov.res(pbs$coefficients,2)`; control:sponge t~`r aov.df(pbs$coefficients,3)`~ `r aov.res(pbs$coefficients,3)`; structure control:sponge t~`r aov.df(pfs$coefficients,3)`~ `r aov.res(pfs$coefficients,3)`). Although % phosphorus in seagrass tissues followed the same patterns as both % nitrogen and % carbon, decreasing in control (Fig. \@ref(fig:nuts)C, t~`r aov.df(pbs$coefficients,4)`~ `r aov.res(pbs$coefficients,4)`) and structure control plots (t~`r aov.df(pfs$coefficients,4)`~ `r aov.res(pfs$coefficients,4)`) while increasing in sponge plots (Fig. \@ref(fig:nuts)C, t~`r aov.df(prs$coefficients,4)`~ `r aov.res(prs$coefficients,4)`), none of these changes are significant. However, the pattern of change over time was significantly different between control and sponge plots (t~`r aov.df(pbs$coefficients,6)`~ `r aov.res(pbs$coefficients,6)`), but not between structure control and sponge plots (t~`r aov.df(prs$coefficients,6)`~ `r aov.res(prs$coefficients,6)`) or control and structure control plots (t~`r aov.df(pbs$coefficients,5)`~ `r aov.res(pbs$coefficients,5)`).
 
   
