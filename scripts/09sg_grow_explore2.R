@@ -151,7 +151,6 @@ sgmd0s<-lmer(gpd~ treatment + yr + season * previous_gpd + (1|plot), #+ (1|quad_
   # data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "fake"))
   %>% filter(dist >= 1)
 )
-
 summary(sgmd0s)
 
 # if both close distances pooled
@@ -161,17 +160,26 @@ sgmd0s<-lmer(gpd~ treatment + yr + season * previous_gpd + (1|plot), #+ (1|quad_
   # data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "fake"))
   %>% filter(dist < 1)
 )
-
 summary(sgmd0s)
 
 #### most powerful option but feels a bit contrived...
 # if both close (< 1m ) distances pooled and compared with further distances
-sgmd0s<-lmer(gpd~ treatment * dist_factor + yr + season * previous_gpd + (1|plot), #+ (1|quad_id)
+sgmd0s<-lmer(gpd~ treatment * dist_factor + yr + season * previous_gpd + (1|quad_id), #(1|plot) + 
   offset=start_gr,
   # data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "blank"))
   data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "real"))
   # data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "fake"))
-  # %>% filter(dist < 2)
 )
-
 summary(sgmd0s)
+
+
+#### removing previous growth rate makes sense because seasonal difference explains most of the relationship 
+sgmd0s<-lmer(gpd~ treatment * dist_factor + yr + season  + (1|quad_id), 
+  offset=start_gr,
+  # data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "blank"))
+  data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "real"))
+  # data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "fake"))
+)
+summary(sgmd0s)
+
+
