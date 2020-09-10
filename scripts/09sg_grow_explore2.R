@@ -174,12 +174,27 @@ summary(sgmd0s)
 
 
 #### removing previous growth rate makes sense because seasonal difference explains most of the relationship 
+sgg2$treatment<-factor(sgg2$treatment)
 sgmd0s<-lmer(gpd~ treatment * dist_factor + yr + season  + (1|quad_id), 
   offset=start_gr,
   # data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "blank"))
   data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "real"))
   # data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "fake"))
 )
-summary(sgmd0s)
+sgr<-summary(sgmd0s)
+sgmd0sb<-lmer(gpd~ treatment * dist_factor + yr + season  + (1|quad_id), 
+             offset=start_gr,
+              data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "blank"))
+             #data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "real"))
+             # data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "fake"))
+)
+sgb<-summary(sgmd0sb)
+sgmd0sf<-lmer(gpd~ treatment * dist_factor + yr + season  + (1|quad_id), 
+             offset=start_gr,
+             # data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "blank"))
+             #data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "real"))
+              data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "fake"))
+)
+sgf<-summary(sgmd0sf)
 
 

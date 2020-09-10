@@ -1,115 +1,111 @@
-## this is a project to learn best practices of data management in R ##
-## this script is only to load packages and data ##
+# How does the Ircinia sponge influence seagrass growth? #
+#Here I will explore the sg_growth data set#
 
+# packages----
 ## @knitr loadpackages
-# load packages ####
+# load packages #
 
 if(!require(here))install.packages('here');library(here)
 if(!require(tidyverse))install.packages('tidyverse');library(tidyverse)
 if(!require(readxl))install.packages('readxl');library(readxl)
-## this is a project to learn best practices of data management in R ##
+if(!require(lmerTest))install.packages('lmerTest');library(lmerTest)
+#imports all the data sets with awesome new code!
+source("scripts/03_reimport.R")
 
-## this script will import the reorganized data and do initial data explorations ##
+# is there a sig dif in seagrass growth per day among blank, fake, 
+# and real treatment over time
 
-# @knitr reimport
+sg_grow$gpd<-sg_grow$total.growth.mm2/sg_grow$days
 
-## import reworked data ####
-files <- list.files(here("working_data"), pattern = "2020-06-04")
-# this bit of code finds all the files in the working data directory that match the date I
-# exported the reorganized data you can replace the date with "*.csv" if you want to find all the csv
-# files in a folder- or replace the date with any text pattern really.
+sv<-sg_grow%>%
+  filter(sampling==1)%>% group_by(plot,dist,treatment) %>%
+  mutate(start_gr = mean(gpd)) %>% 
+  select(plot, dist, treatment, start_gr) %>% distinct()
 
-fd <- data.frame(files = files, dname = files) %>%
-  # this line creates a data frame that I'll use to import the files in a couple lines
-  separate(dname, into = c("dname", "extra"), sep = "2020")
-# this bit separates out of the name of the dataset from the date and the file extension- note
-# we still have one column with the full file name
+# add lagged values as possible predictors
+sg_lag <- sg_grow %>% group_by(plot, dist, sampling, treatment) %>% 
+  summarise(mean_gpd=mean(gpd, na.rm = T)) %>%
+  ungroup() %>% group_by(plot,dist) %>%
+  arrange(sampling, .by_group = TRUE) %>% 
+  mutate(
+    previous_gpd = lag(mean_gpd, order_by = sampling),
+    previous_gpd2 = lag(previous_gpd, order_by = sampling)
+  )
+sgg1<- left_join(sg_grow, sg_lag) 
 
-for (i in 1:nrow(fd))assign(fd[i, 2], read.csv(here("working_data", fd[i, 1]))[, -1])
-# this bit of code says for every row in the fd data frame assign the file in column 1
-# to the name in column 2. You should now have all the reorganized data sets imported.
-
-#growth per day added as a new column
-sg_grow$gd <- sg_grow$total.growth.mm2/sg_grow$days
-
-#adding seasons to the plots
-sg_grow <- sg_grow %>% 
+sgg2<- left_join(sgg1, sv) %>% 
+  filter(sampling!=1)%>%
   mutate(season=case_when(
-    sampling==1~"summer",
-    sampling==2~"summer",
-    sampling==3~"winter",
-    sampling==4~"summer",
-    sampling==5~"winter" ))
+    sampling==2~"s",
+    sampling==3~"w",
+    sampling==4~"s",
+    sampling==5~"w"),
+    yr=case_when(
+      sampling==2~1,
+      sampling==3~1,
+      sampling==4~2,
+      sampling==5~2),
+    delta_gpd = gpd - previous_gpd,
+    delta_gpd_st = gpd - start_gr,
+    dist_factor = case_when(
+      dist >= 1~"farther",
+      # dist < 1~"nearer"),
+      dist < 1~"closer"),
+    quad_id = paste0(plot, dist)
+  )
 
-# @knitr dataexplore
-
-bp<-ggplot(data=sg_grow)
-
-#boxplot of growth per day by treatment sorted into sampling categories
-bp+
-  geom_boxplot(aes(x=treatment,y=gd))+ 
-facet_wrap(~sampling)
-
-
-#boxplot of gpd by treated sorted into seasons and distance
-bp+
-  geom_boxplot(aes(x=treatment,y=gd))+ 
-  facet_grid(dist~season)
-
-#boxplot of gpd by treatment categorized by distance and sampling
-bp+
-  geom_boxplot(aes(x=treatment,y=gd))+ 
-  facet_grid(dist~sampling)
-
-#change in growth over time(sampling) by plot
-#changing the data set
-
-bp<-sg_grow %>% filter(dist==0.5) %>% 
-  group_by(plot,sampling,treatment) %>%
-  summarise(mgd=mean(gd), sdgd=sd(gd)) %>%
-  ggplot()
-
-bp+
-  geom_point(aes(x=sampling, y=mgd, color=treatment))+
-  geom_line(aes(x=sampling, y=mgd, color=treatment, group=plot))
-
-
-#comparing by distance
-
-bp<-sg_grow %>% 
-  group_by(plot,sampling,treatment,dist) %>%
-  summarise(mgd=mean(gd), sdgd=sd(gd)) %>%
-  ggplot()
-
-bp+
-  geom_point(aes(x=sampling, y=mgd, color=treatment))+
-  geom_line(aes(x=sampling, y=mgd, color=treatment, group=plot))+
-  facet_wrap(~dist)
+#### removing previous growth rate makes sense because seasonal difference explains most of the relationship 
+sgg2$treatment<-factor(sgg2$treatment)
+sgmd0s<-lmer(gpd~ treatment * dist_factor+treatment * yr + treatment*season   + (1|quad_id), 
+             offset=start_gr,
+             # data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "blank"))
+             data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "real"))
+             # data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "fake"))
+)
+sgr<-summary(sgmd0s)
+sgmd0sb<-lmer(gpd~ treatment * dist_factor+treatment * yr + treatment*season   + (1|quad_id), 
+              offset=start_gr,
+              data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "blank"))
+              #data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "real"))
+              # data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "fake"))
+)
+sgb<-summary(sgmd0sb)
+sgmd0sf<-lmer(gpd~ treatment * dist_factor+treatment * yr + treatment*season  + (1|quad_id), 
+              offset=start_gr,
+              # data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "blank"))
+              #data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "real"))
+              data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "fake"))
+)
+sgf<-summary(sgmd0sf)
+sgaov<-anova(sgmd0sf)
 
 
-#Philina's way----
-install.packages('ggpubr')
 
-library(ggpubr)
-ggpaired(sg_grow, x = "season", y = "gd",
-         id = "plot", facet.by = c("treatment") )
+## distance pooling
+# at 0 both real and fake have increased growth
+sgmd0s<-lmer(gpd~ treatment + yr + season +  (1|quad_id),
+             offset=start_gr,
+             data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "real"))
+             # data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "fake"))
+             %>% filter(dist == 0)
+)
 
-2:06
-ggpaired(sg_grow, x = "season", y = "gd",
-         id = "plot", facet.by = c("treatment")) +
-  stat_compare_means(
-    aes(label = paste0("p = ", ..p.format..)),
-    method = "t.test",
-    # paired = TRUE,
-    ref.group = NULL)
+sg0<-anova(sgmd0s)
 
-#another way
-ggpaired(sg_grow, x = "season", y = "gd",
-         id = "plot", facet.by = c("treatment") )
-ggpaired(sg_grow %<, x = "season", y = "gd",
-         id = "plot", facet.by = c("treatment")) +
-  stat_compare_means(
-    aes(label = paste0("p = ", ..p.format..)),
-    method = "t.test",
-    # paired = TRUE,
-    ref.group = NULL)
+sgmd0s<-lmer(gpd~ treatment + yr + season +  (1|quad_id),
+             offset=start_gr,
+             data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "real"))
+             # data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "fake"))
+             %>% filter(dist == 0.5)
+)
+
+sg05<-anova(sgmd0s)
+
+# at >= 1: no differences
+sgmd0s<-lmer(gpd~ treatment + yr + season * previous_gpd + (1|plot), #+ (1|quad_id)
+             offset=start_gr,
+             data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "real"))
+             # data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "fake"))
+             %>% filter(dist == 1)
+)
+sg1<-anova(sgmd0s)
