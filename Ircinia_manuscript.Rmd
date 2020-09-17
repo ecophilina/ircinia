@@ -67,7 +67,7 @@ aov.df2<-function(rtable,row){
 ```{r growth, include=FALSE}
 source("scripts/05_sg_grow_explore.R")
 ```
-Seagrass growth was impacted by treatment at 0 (F~`r aov.df2(sg0,1)`~`r aov.res2(sg0,1)`) and 0.5 m (F~`r aov.df2(sg05,1)`~`r aov.res2(sg05,1)`) but this effect had disappeared by 1 m (F~`r aov.df2(sg1,1)`~`r aov.res2(sg1,1)`). As a result, we pooled seagrass growth for the near (0 and 0.5 m) and far (1 and 2 m) distances for further analysis. Seagrass growth was slower in the winter (t~`r aov.df(sgr$coefficients,6)`~ `r aov.res(sgr$coefficients,6)`) and the decrease in growth during the winter was not different between treatments (F~`r aov.df2(sgaov,7)`~`r aov.res2(sgaov,7)`). In sponge plots seagrass grew faster in the near distances (t~`r aov.df(sgr$coefficients,4)`~ `r aov.res(sgr$coefficients,4)`). There was no difference in seagrass growth between distances in the control (t~`r aov.df(sgb$coefficients,4)`~ `r aov.res(sgb$coefficients,4)`) or structure control plots (t~`r aov.df(sgf$coefficients,4)`~ `r aov.res(sgf$coefficients,4)`). In sponge plots seagrass grew faster in the second year of the experiment (t~`r aov.df(sgr$coefficients,5)`~ `r aov.res(sgr$coefficients,5)`). However, seagrass growth declined in the control (t~`r aov.df(sgb$coefficients,5)`~ `r aov.res(sgb$coefficients,5)`) and structure control plots (t~`r aov.df(sgf$coefficients,5)`~ `r aov.res(sgf$coefficients,5)`), but this decline was only significant in the control.  
+Seagrass growth was impacted by treatment at 0 (F~`r aov.df2(sg0,1)`~`r aov.res2(sg0,1)`) and 0.5 m (F~`r aov.df2(sg05,1)`~`r aov.res2(sg05,1)`) but this effect had disappeared by 1 m (F~`r aov.df2(sg1,1)`~`r aov.res2(sg1,1)`). As a result, we pooled seagrass growth for the near (0 and 0.5 m) and far (1 and 2 m) distances for further analysis. Seagrass growth was slower in the winter (t~`r aov.df(sgr$coefficients,6)`~ `r aov.res(sgr$coefficients,6)`) and the decrease in growth during the winter was not different between treatments (F~`r aov.df2(sgaov,7)`~`r aov.res2(sgaov,7)`). In sponge plots seagrass grew faster in the near distances (t~`r aov.df(sgr$coefficients,4)`~ `r aov.res(sgr$coefficients,4)`, Fig. \@ref(fig:grow)). There was no difference in seagrass growth between distances in the control (t~`r aov.df(sgb$coefficients,4)`~ `r aov.res(sgb$coefficients,4)`) or structure control plots (t~`r aov.df(sgf$coefficients,4)`~ `r aov.res(sgf$coefficients,4)`). In sponge plots seagrass grew faster in the second year of the experiment (t~`r aov.df(sgr$coefficients,5)`~ `r aov.res(sgr$coefficients,5)`, Fig. \@ref(fig:grow)). However, seagrass growth declined in the control (t~`r aov.df(sgb$coefficients,5)`~ `r aov.res(sgb$coefficients,5)`) and structure control plots (t~`r aov.df(sgf$coefficients,5)`~ `r aov.res(sgf$coefficients,5)`), but this decline was only significant in the control (Fig. \@ref(fig:grow)).  
 
 ## *Thalassia testudinum* nutrient concentrations  
 ```{r nutrients, include=FALSE}
@@ -90,107 +90,152 @@ Phosphorus concentrations were similar in all plot types at the beginning of the
 
 # Figures
 
+```{r grow,echo=FALSE,message=FALSE, fig.cap="Segrass growth"}
+# sgf<-sgg2%>%
+#   # mutate(dy=case_when(
+#   #   yr==1 & dist_factor=="closer"~"Yr 1 near",
+#   #   yr==1 & dist_factor!="closer"~"Yr 1 far",
+#   #   yr==2 & dist_factor=="closer"~"Yr 2 near",
+#   #   yr==2 & dist_factor!="closer"~"Yr 2 far"))%>%
+#   group_by(treatment,dist_factor,season,yr)%>%
+# #  group_by(treatment,dy,season)%>%
+#   summarize(mdsg=mean(delta_gpd_st,na.rm=TRUE),sddsg=sd(delta_gpd_st,na.rm=TRUE))
+# 
+# sgf$season<-factor(sgf$season,levels=c("s","w"),labels=c("Summer","Winter"))
+# 
+# sgf$dist_factor<-factor(sgf$dist_factor,levels=c("closer","farther"),labels=c("Near","Far"))
+# 
+# sglab<-expression(paste(Delta," Seagrass growth (mm "^2,"d "^"-1",")"))
+# 
+# ggplot(sgf, aes(x=as.factor(yr),y=mdsg,group=treatment,color=treatment)) +
+#   geom_point(size=5,position=position_dodge(0.5))+
+#   geom_path(position=position_dodge(0.5))+
+#   geom_errorbar(aes(x=as.factor(yr),ymin=mdsg-sddsg,ymax=mdsg+sddsg),width=.2,position=position_dodge(0.5))+
+#   facet_grid(season~dist_factor,scales = "free")+
+#   scale_color_brewer(type="qual",
+#                      palette="Set2",
+#                      name="",
+#                      labels=c("Control","Structure control","Sponge"))+
+#   theme_bw()+
+#   theme(panel.grid=element_blank(),
+#         panel.spacing = unit(0, "lines"),
+#         strip.background = element_blank(),
+#         legend.position = "top",
+#         legend.text = element_text(size=14),
+#         axis.title=element_text(size=14),
+#         axis.text = element_text(size=12),
+#         strip.text = element_text(size=14))+
+#   xlab("Year")+
+#   ylab(sglab)
+#   
+# 
+# ggsave("figures/sggrow.jpg",width=6,height=6.25)
+knitr::include_graphics("figures/sggrow.jpg")
+
+```
+
+
 ```{r nuts, echo=FALSE,message=FALSE, fig.cap="Seagrass nutrient concentrations prior to the initiation of the experiment and at one year into the experiment. (A) Percent nitrogen, (B) percent carbon, and (C) percent carbon in Thalassia testudinum tissue."}
-pn<-ggplot(sgn %>%
-    group_by(treatment, sampling, nut, dist) %>%
-    summarize(mn = mean(nvalue), sdn = sd(nvalue)) %>%
-    filter(sampling %in% c(1, 4) &
-             dist == 0 & 
-             nut %in% c("PN"))) +
-   geom_line(aes(group=treatment,
-                 x=as.factor(sampling),
-                 y=mn,
-                 color=treatment),
-             position = position_dodge(width = .5))+
-  geom_point(aes( x = as.factor(sampling),
-      y = mn,
-      color = treatment),
-    size = 5,
-    position = position_dodge(width = .5)) +
-  geom_errorbar(aes(x = as.factor(sampling),
-      ymin = mn - sdn,
-      ymax = mn + sdn,
-      color = treatment),
-    width = .1,
-    position = position_dodge(width = .5))+
-  ylab("% Nitrogen")+
-  scale_color_brewer(type="qual",
-                      palette="Set2",
-                      name="",
-                      labels=c("Control","Structure control","Sponge"))+
-  scale_x_discrete(labels = c(0,12))+
-  theme(panel.grid = element_blank(),
-         legend.position = "none",
-        axis.title.x = element_blank())+
-  scale_y_continuous(breaks=c(1.60,1.80,2.00),labels=c("1.60","1.80","2.00"))
-
-pp<-ggplot(sgn %>%
-    group_by(treatment, sampling, nut, dist) %>%
-    summarize(mn = mean(nvalue), sdn = sd(nvalue)) %>%
-    filter(sampling %in% c(1, 4) &
-             dist == 0 & 
-             nut %in% c("PP"))) +
-  geom_line(aes(group=treatment,
-                 x=as.factor(sampling),
-                 y=mn,
-                 color=treatment),
-             position = position_dodge(width = .5))+
-  geom_point(aes( x = as.factor(sampling),
-      y = mn,
-      color = treatment),
-    size = 5,
-    position = position_dodge(width = .5)) +
-  geom_errorbar(aes(x = as.factor(sampling),
-      ymin = mn - sdn,
-      ymax = mn + sdn,
-      color = treatment),
-    width = .1,
-    position = position_dodge(width = .5))+
-  ylab("% Phosphorus")+
-  xlab("Months into the experiment")+
-  scale_color_brewer(type="qual",palette="Set2")+
-  scale_x_discrete(labels = c(0,12))+
-  theme(panel.grid = element_blank(),
-         legend.position = "none")+
-  scale_y_continuous(breaks=c(0.05,0.06,0.07))
-
-pc<-ggplot(sgn %>%
-    group_by(treatment, sampling, nut, dist) %>%
-    summarize(mn = mean(nvalue), sdn = sd(nvalue)) %>%
-    filter(sampling %in% c(1, 4) &
-             dist == 0 & 
-             nut %in% c("PC"))) +
-  geom_line(aes(group=treatment,
-                 x=as.factor(sampling),
-                 y=mn,
-                 color=treatment),
-             position = position_dodge(width = .5))+
-  geom_point(aes( x = as.factor(sampling),
-      y = mn,
-      color = treatment),
-    size = 5,
-    position = position_dodge(width = .5)) +
-  geom_errorbar(aes(x = as.factor(sampling),
-      ymin = mn - sdn,
-      ymax = mn + sdn,
-      color = treatment),
-    width = .1,
-    position = position_dodge(width = .5))+
-  ylab("% Carbon")+
-  scale_color_brewer(type="qual",palette="Set2")+
-  scale_x_discrete(labels = c(0,12))+
-  theme(panel.grid = element_blank(),
-         legend.position = "none",
-        axis.title.x = element_blank())
-lgnd<-get_legend(pn + 
-    guides(color = guide_legend(nrow = 1)) +
-    theme(legend.position = "bottom"))
-#without carbon
-n1<-plot_grid(lgnd,pn,pp,labels = c("","A","B"),nrow=3,ncol = 1,rel_heights = c(.1,1,1))
-#with carbon
-n2<-plot_grid(lgnd,pn,pc,pp,labels = c("","A","B","C"),nrow=4,ncol = 1,rel_heights = c(.1,1,1,1.1))
-ggsave(filename = "figures/nuts.pdf",plot=n2,width=3,height = 6)
-ggsave(filename = "figures/nuts.jpg",plot=n2,width=3,height = 6)
+# pn<-ggplot(sgn %>%
+#     group_by(treatment, sampling, nut, dist) %>%
+#     summarize(mn = mean(nvalue), sdn = sd(nvalue)) %>%
+#     filter(sampling %in% c(1, 4) &
+#              dist == 0 & 
+#              nut %in% c("PN"))) +
+#    geom_line(aes(group=treatment,
+#                  x=as.factor(sampling),
+#                  y=mn,
+#                  color=treatment),
+#              position = position_dodge(width = .5))+
+#   geom_point(aes( x = as.factor(sampling),
+#       y = mn,
+#       color = treatment),
+#     size = 5,
+#     position = position_dodge(width = .5)) +
+#   geom_errorbar(aes(x = as.factor(sampling),
+#       ymin = mn - sdn,
+#       ymax = mn + sdn,
+#       color = treatment),
+#     width = .1,
+#     position = position_dodge(width = .5))+
+#   ylab("% Nitrogen")+
+#   scale_color_brewer(type="qual",
+#                       palette="Set2",
+#                       name="",
+#                       labels=c("Control","Structure control","Sponge"))+
+#   scale_x_discrete(labels = c(0,12))+
+#   theme(panel.grid = element_blank(),
+#          legend.position = "none",
+#         axis.title.x = element_blank())+
+#   scale_y_continuous(breaks=c(1.60,1.80,2.00),labels=c("1.60","1.80","2.00"))
+# 
+# pp<-ggplot(sgn %>%
+#     group_by(treatment, sampling, nut, dist) %>%
+#     summarize(mn = mean(nvalue), sdn = sd(nvalue)) %>%
+#     filter(sampling %in% c(1, 4) &
+#              dist == 0 & 
+#              nut %in% c("PP"))) +
+#   geom_line(aes(group=treatment,
+#                  x=as.factor(sampling),
+#                  y=mn,
+#                  color=treatment),
+#              position = position_dodge(width = .5))+
+#   geom_point(aes( x = as.factor(sampling),
+#       y = mn,
+#       color = treatment),
+#     size = 5,
+#     position = position_dodge(width = .5)) +
+#   geom_errorbar(aes(x = as.factor(sampling),
+#       ymin = mn - sdn,
+#       ymax = mn + sdn,
+#       color = treatment),
+#     width = .1,
+#     position = position_dodge(width = .5))+
+#   ylab("% Phosphorus")+
+#   xlab("Months into the experiment")+
+#   scale_color_brewer(type="qual",palette="Set2")+
+#   scale_x_discrete(labels = c(0,12))+
+#   theme(panel.grid = element_blank(),
+#          legend.position = "none")+
+#   scale_y_continuous(breaks=c(0.05,0.06,0.07))
+# 
+# pc<-ggplot(sgn %>%
+#     group_by(treatment, sampling, nut, dist) %>%
+#     summarize(mn = mean(nvalue), sdn = sd(nvalue)) %>%
+#     filter(sampling %in% c(1, 4) &
+#              dist == 0 & 
+#              nut %in% c("PC"))) +
+#   geom_line(aes(group=treatment,
+#                  x=as.factor(sampling),
+#                  y=mn,
+#                  color=treatment),
+#              position = position_dodge(width = .5))+
+#   geom_point(aes( x = as.factor(sampling),
+#       y = mn,
+#       color = treatment),
+#     size = 5,
+#     position = position_dodge(width = .5)) +
+#   geom_errorbar(aes(x = as.factor(sampling),
+#       ymin = mn - sdn,
+#       ymax = mn + sdn,
+#       color = treatment),
+#     width = .1,
+#     position = position_dodge(width = .5))+
+#   ylab("% Carbon")+
+#   scale_color_brewer(type="qual",palette="Set2")+
+#   scale_x_discrete(labels = c(0,12))+
+#   theme(panel.grid = element_blank(),
+#          legend.position = "none",
+#         axis.title.x = element_blank())
+# lgnd<-get_legend(pn + 
+#     guides(color = guide_legend(nrow = 1)) +
+#     theme(legend.position = "bottom"))
+# #without carbon
+# n1<-plot_grid(lgnd,pn,pp,labels = c("","A","B"),nrow=3,ncol = 1,rel_heights = c(.1,1,1))
+# #with carbon
+# n2<-plot_grid(lgnd,pn,pc,pp,labels = c("","A","B","C"),nrow=4,ncol = 1,rel_heights = c(.1,1,1,1.1))
+# ggsave(filename = "figures/nuts.pdf",plot=n2,width=3,height = 6)
+# ggsave(filename = "figures/nuts.jpg",plot=n2,width=3,height = 6)
 knitr::include_graphics("figures/nuts.jpg")
 ```
 
