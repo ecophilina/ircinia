@@ -19,22 +19,34 @@ sgsd1<-sgsd0%>%
   ungroup()
 # look at differences in the beginning
 sd1lm<-lmer(SD~treatment*dist2+(1|plot),data=sgsd1)
-sd1aov<-anova(sd1lm)
+(sd1aov<-anova(sd1lm))
+# distance is significant at the start and this looks to be be because of the far distance. To remove pre-existing bias we're 
+# going to see if removing the far distance makes us have no significant differences before the start of the experiment.
+# this will also work out to be consistent with the growth analysis.
+# this effect was likely do to some plots being near the edge of the seagrass bed.
 
-tsd1lm<-lmer(T.SD~treatment*dist2+(1|plot),data=sgsd1)
+# look at differences in the beginning without far distance
+sd1lm2<-lmer(SD~treatment*dist2+(1|plot),data=sgsd1%>%filter(dist2!="far"))
+(sd1aov2<-anova(sd1lm2))
+# for overall shoot density this gets rid of the significant differences. Make sure this holds true for each spp group individually
+
+tsd1lm<-lmer(T.SD~treatment*dist2+(1|plot),data=sgsd1%>%filter(dist2!="far"))
 anova(tsd1lm)
-shsd1lm<-lmer(SH.SD~treatment*dist2+(1|plot),data=sgsd1)
+
+shsd1lm<-lmer(SH.SD~treatment*dist2+(1|plot),data=sgsd1%>%filter(dist2!="far"))
 anova(shsd1lm)
+
+
+#join back to main dataset to create the dataset for analysis.
 
 sgsd1<-sgsd1%>%
   select(-sampling,-T.SD,-SH.SD,-SD)%>%
   distinct()
 
-
-#join back to main dataset
 sgsd<-sgsd0%>%
   filter(sampling!=1)%>%
   left_join(sgsd1)%>%
+  filter(dist2!="far")%>%
   mutate(yr=case_when(
     sampling==2~1,
     sampling==3~1,
@@ -44,102 +56,115 @@ sgsd<-sgsd0%>%
       sampling==2~"summer",
       sampling==3~"winter",
       sampling==4~"summer",
-      sampling==5~"winter"))
+      sampling==5~"winter"),
+    samp2=case_when(
+      sampling==2~1,
+      sampling==3~6,
+      sampling==4~12,
+      sampling==5~17))
 
 #looking at overall shoot densities
-ggplot(data=sgsd,aes(y=SD-msd,x=sampling))+
+ggplot(data=sgsd,aes(y=SD-msd,x=samp2))+
   geom_jitter(aes(color=treatment))+
   geom_smooth()+
   geom_hline(yintercept = 0)+
   facet_grid(treatment~dist2)
 
-sdlmb<-lmer(SD~treatment * yr+treatment*season+(1|plot/dist2),
+# now start analysis
+
+# overall shoot density
+# run the model with each treatment as the reference level to help with interpretation
+# for all groupings of seagrass shoot density the model we decided on was treatment interacting with months into the experiment and then treatment
+# interacting with distance and having plot as a random factor. We included months into the experiment as the time variable
+# because there is no a priori reason to think shoot density would vary with season.
+
+sdlmb<-lmer(SD~treatment * samp2+treatment*dist2+(1|plot),
            offset=msd,
-           data=sgsd)#%>%filter(dist2!="near"))
-
-sdb.sum<-summary(sdlmb)
-sd.aov<-anova(sdlmb)
-
-sdlmf<-lmer(SD~treatment * yr+treatment*season+(1|plot/dist2),
+           data=sgsd)
+sdlmf<-lmer(SD~treatment * samp2+dist2*treatment+(1|plot),
             offset=msd,
             data=sgsd%>%
-              #filter(dist2!="near")%>%
-              mutate(treatment=relevel(treatment, ref = "fake")))
-
-sdf.sum<-summary(sdlmf)
-
-
-sdlmr<-lmer(SD~treatment * yr+treatment*season+(1|plot/dist2),
+            mutate(treatment=relevel(treatment, ref = "fake")))
+sdlmr<-lmer(SD~treatment * samp2+dist2*treatment+(1|plot),
             offset=msd,
             data=sgsd%>%
-              #filter(dist2!="near")%>%
               mutate(treatment=relevel(treatment, ref = "real")))
+# now look at results, first overall anova then each linear model
+(sd.aov<-anova(sdlmb))
+(sdb.sum<-summary(sdlmb))
+(sdf.sum<-summary(sdlmf))
+(sdr.sum<-summary(sdlmr))
 
-sdr.sum<-summary(sdlmr)
+# over time, there is a decrease in overall shoot density in control and structure control plots (only significant in struct. control)
+# there is a non-significant increase in overall shoot density in sponge plots. While the increase is not significant the 
+# pattern is significantly different than both the control and structure control.
 
 
 #looking at Thalassia shoot densities
-ggplot(data=sgsd,aes(y=T.SD-mtsd,x=sampling))+
+ggplot(data=sgsd,aes(y=T.SD-mtsd,x=samp2))+
   geom_jitter(aes(color=treatment))+
   geom_smooth()+
   geom_hline(yintercept = 0)+
   facet_grid(treatment~dist2)
 
-tsdlmb<-lmer(T.SD~treatment * yr+treatment*season+(1|plot/dist2),
+# run the model with each treatment as the reference level to help with interpretation
+
+tsdlmb<-lmer(T.SD~treatment * samp2+dist2*treatment+(1|plot),
             offset=mtsd,
-            data=sgsd)#%>%
-            #filter(dist2!="near"))
-
-tsdb.sum<-summary(tsdlmb)
-tsd.aov<-anova(tsdlmb)
-
-tsdlmf<-lmer(T.SD~treatment * yr+treatment*season+(1|plot/dist2),
+            data=sgsd)
+tsdlmf<-lmer(T.SD~treatment *  samp2+dist2*treatment+(1|plot),
             offset=mtsd,
             data=sgsd%>%
-              #filter(dist2!="near")%>%
-              mutate(treatment=relevel(treatment, ref = "fake")))
-
-tsdf.sum<-summary(tsdlmf)
-
-
-tsdlmr<-lmer(T.SD~treatment * yr+treatment*season+(1|plot/dist2),
+            mutate(treatment=relevel(treatment, ref = "fake")))
+tsdlmr<-lmer(T.SD~treatment *  samp2+dist2*treatment+(1|plot),
             offset=mtsd,
             data=sgsd%>%
- #             filter(dist2!="near")%>%
-              mutate(treatment=relevel(treatment, ref = "real")))
+            mutate(treatment=relevel(treatment, ref = "real")))
+# now look at results, first overall anova then each linear model
+(tsd.aov<-anova(tsdlmb))
+(tsdb.sum<-summary(tsdlmb))
+(tsdf.sum<-summary(tsdlmf))
+(tsdr.sum<-summary(tsdlmr))
 
-tsdr.sum<-summary(tsdlmr)
+# conclusion here is that all treatments lost Thalassia shoot density over time. However, this is not significant for sponge
+# treatments. Conversely, there is an increase in Thalassia shoot density at mid-distances in all treatments, but its 
+# only significant in the real sponge treatment. 
 
 #looking at syringodium/halodule shoot densities
-ggplot(data=sgsd,aes(y=SH.SD-mshsd,x=sampling))+
+ggplot(data=sgsd,aes(y=SH.SD-mshsd,x=samp2))+
   geom_jitter(aes(color=as.factor(plot)))+
   geom_smooth()+
   geom_hline(yintercept = 0)+
   facet_grid(treatment~dist2)
-
-shsdlmb<-lmer(SH.SD~treatment * yr+treatment*season+(1|plot/dist2),
+# run the model with each treatment as the reference level to help with interpretation
+shsdlmb<-lmer(SH.SD~treatment *  samp2+dist2*treatment+(1|plot),
              offset=mshsd,
-             data=sgsd)#%>%
-               #filter(dist2!="near"))
+             data=sgsd)
 
-shsdb.sum<-summary(shsdlmb)
-shsd.aov<-anova(shsdlmb)
-
-shsdlmf<-lmer(SH.SD~treatment * yr+treatment*season+(1|plot/dist2),
+shsdlmf<-lmer(SH.SD~treatment  *  samp2+dist2*treatment+(1|plot),
              offset=mshsd,
              data=sgsd%>%
-#               filter(dist2!="near")%>%
-               mutate(treatment=relevel(treatment, ref = "fake")))
+             mutate(treatment=relevel(treatment, ref = "fake")))
 
-shsdf.sum<-summary(shsdlmf)
-
-
-shsdlmr<-lmer(SH.SD~treatment * yr+treatment*season+(1|plot/dist2),
+shsdlmr<-lmer(SH.SD~treatment * samp2+dist2*treatment+(1|plot),
              offset=mshsd,
              data=sgsd%>%
-               filter(dist2!="near")%>%
-               mutate(treatment=relevel(treatment, ref = "real")))
+             mutate(treatment=relevel(treatment, ref = "real")))
 
-shsdr.sum<-summary(shsdlmr)
+# now look at results, first overall anova then each linear model
+(shsd.aov<-anova(shsdlmb))
+
+(shsdb.sum<-summary(shsdlmb))
+(shsdf.sum<-summary(shsdlmf))
+(shsdr.sum<-summary(shsdlmr))
+
+# Syringodium and Halodule (SH) increase slightly, but non-significantly over time in the control. There is a significant decrease in the mid
+# distance in the control- this appears to be driven by a single plot.
+# SH decrease slightly, but not significantly over time in structure control plots. There is no effect of distance
+# in structure control plots
+# There is a significant increase in SH in sponge plots over time and this is significantly different than
+# both the control and structure control. There is no effect of distance in sponge plots.
+
+
 
 
