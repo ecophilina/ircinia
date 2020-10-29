@@ -59,7 +59,7 @@ sgsd<-sgsd0%>%
       sampling==5~"winter"),
     samp2=case_when(
       sampling==2~1,
-      sampling==3~6,
+      sampling==3~5,
       sampling==4~12,
       sampling==5~17))
 
@@ -78,14 +78,14 @@ ggplot(data=sgsd,aes(y=SD-msd,x=samp2))+
 # interacting with distance and having plot as a random factor. We included months into the experiment as the time variable
 # because there is no a priori reason to think shoot density would vary with season.
 
-sdlmb<-lmer(SD~treatment * samp2+treatment*dist2+(1|plot),
+sdlmb<-lmer(SD~treatment*samp2 + treatment*dist2+(1|plot),
            offset=msd,
            data=sgsd)
-sdlmf<-lmer(SD~treatment * samp2+dist2*treatment+(1|plot),
+sdlmf<-lmer(SD~treatment*samp2 + dist2*treatment+(1|plot),
             offset=msd,
             data=sgsd%>%
             mutate(treatment=relevel(treatment, ref = "fake")))
-sdlmr<-lmer(SD~treatment * samp2+dist2*treatment+(1|plot),
+sdlmr<-lmer(SD~treatment*samp2 + dist2*treatment+(1|plot),
             offset=msd,
             data=sgsd%>%
               mutate(treatment=relevel(treatment, ref = "real")))
@@ -98,6 +98,19 @@ sdlmr<-lmer(SD~treatment * samp2+dist2*treatment+(1|plot),
 # over time, there is a decrease in overall shoot density in control and structure control plots (only significant in struct. control)
 # there is a non-significant increase in overall shoot density in sponge plots. While the increase is not significant the 
 # pattern is significantly different than both the control and structure control.
+
+# Look at overall shoot density at the end of the experiment.
+sgsd.end<-sgsd%>%
+  filter(sampling==5)
+
+sd.endb<-lmer(SD~treatment+(1|plot),
+              offset=msd,
+              data=sgsd.end%>%
+                filter(dist2=="near"))
+
+(sd.end.aov<-anova(sd.endb))
+summary(sd.endb)
+# not significant
 
 
 #looking at Thalassia shoot densities

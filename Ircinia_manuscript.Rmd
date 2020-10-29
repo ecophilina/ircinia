@@ -42,6 +42,7 @@ The response of the macroalgae communities was monitored throughout the course o
 
 # Results  
 ```{r results function,include=FALSE}
+# summary tables
 aov.res<-function(rtable,row){
   tv<-round(rtable[row,4],2)
   pv<-ifelse(rtable[row,5]< 0.001, "p < 0.001", paste("p =", round(rtable[row,5],2)))
@@ -51,7 +52,24 @@ aov.df<-function(rtable,row){
   return(round(rtable[row,3],0))
 }
 
+efsize<-function(rtable,row){
+#  browser()
+#  betas<-ifelse(abs(rtable$coefficients[row,1])<.005,round(rtable$coefficients[row,1],3),round(rtable$coefficients[row,1],2))
+  betas<-rtable$coefficients[row,1]
+  betas<-formatC(signif(betas,2), digits=2,format="fg", flag="#")
+  se<-rtable$coefficients[row,2]
+  cil<-rtable$coefficients[row,1]-1.96*se
+#  cil<-signif(cil,2)
+#  cil<-ifelse(abs(cil)<0.005,round(cil,3),round(cil,2))
+  cil<-formatC(signif(cil,2), digits=2,format="fg", flag="#")
+  cih<-rtable$coefficients[row,1]+1.96*se
+  cih<-formatC(signif(cih,2), digits=2,format="fg", flag="#")
+#  cih<-signif(cih,2)
+#  se<-ifelse(rtable$coefficients[row,2]>.005,round(rtable$coefficients[row,2],3),round(rtable$coefficients[row,2],2))
+  return(paste(betas,",",cil,"to",cih))
+}
 
+# overall anovas
 aov.res2<-function(rtable,row){
   tv<-round(rtable[row,5],2)
   pv<-ifelse(rtable[row,6]< 0.001, "p < 0.001", paste("p =", round(rtable[row,6],2)))
@@ -63,6 +81,11 @@ aov.df2<-function(rtable,row){
 ```
 
 ## Shoot densities
+```{r shoot.density, include=FALSE}
+source("scripts/10_sg_shoots_analysis.R")
+```  
+*Thalassia testudinum* shoot densities declined in all treatments over time (overall:F~`r aov.df2(tsd.aov,2)`~`r aov.res2(tsd.aov,2)` , control: $\beta$ = `r efsize(tsdb.sum,4)`, t~`r aov.df(tsdb.sum$coefficients,4)`~ `r aov.res(tsdb.sum$coefficients,4)`, structure control: $\beta$ = `r efsize(tsdf.sum,4)`, t~`r aov.df(tsdf.sum$coefficients,4)`~ `r aov.res(tsdf.sum$coefficients,4)`, and sponge: $\beta$ = `r efsize(tsdr.sum,4)`,  t~`r aov.df(tsdr.sum$coefficients,4)`~ `r aov.res(tsdr.sum$coefficients,4)`). Combined shoot densities of *S. filiformes* and *H. wrightii*  increased significantly in sponge plots over time ($\beta$ = `r efsize(shsdr.sum,4)`, t~`r aov.df(shsdr.sum$coefficients,4)`~ `r aov.res(shsdr.sum$coefficients,4)`) but did not significantly change in control ($\beta$ = `r efsize(shsdb.sum,4)`, t~`r aov.df(shsdb.sum$coefficients,4)`~ `r aov.res(shsdb.sum$coefficients,4)`) or structure control plots($\beta$ = `r efsize(shsdf.sum,4)`, t~`r aov.df(shsdf.sum$coefficients,4)`~ `r aov.res(shsdf.sum$coefficients,4)`). 
+
 ## *Thalassia testudinum* growth  
 ```{r growth, include=FALSE}
 source("scripts/05_sg_grow_explore.R")
@@ -89,6 +112,53 @@ Phosphorus concentrations were similar in all plot types at the beginning of the
 <div id="refs"></div>  
 
 # Figures
+
+```{r shootd,echo=FALSE,message=FALSE,fig.cap="Seagrass shoot densities"}
+# sdplot<-sgsd%>%
+#   mutate(thalassia=T.SD-mtsd,sh=SH.SD-mshsd)%>%
+#   select(treatment,samp2,thalassia,sh)%>%
+#   pivot_longer(thalassia:sh,names_to="seagrass",values_to="shoots")
+# 
+# 
+# 
+# sdplot2<-sdplot%>%
+#   mutate(samp=case_when(
+#     treatment=="blank"~samp2-1,
+#     treatment=="fake"~samp2,
+#     treatment=="real"~samp2+1),
+#     seagrass=factor(seagrass,levels=c("thalassia","sh")))
+# 
+# sdsum<-sdplot2%>%
+#   group_by(treatment,samp,seagrass)%>%
+#   summarize(msd=mean(shoots),sdsd=sd(shoots))
+# 
+# sdlab<-expression(paste(Delta," seagrass shoots per m"^2))
+# 
+# sdp<-ggplot()+
+#   geom_jitter(data=sdplot2,aes(x=samp,shoots,color=treatment),width=.5,alpha=.2)+
+#   geom_point(data=sdsum,aes(x=samp,y=msd,color=treatment),size=3)+
+#   geom_errorbar(data=sdsum,aes(x=samp,ymin=msd-sdsd,ymax=msd+sdsd,color=treatment),width=.2)+
+#    scale_color_brewer(type="qual",
+#                       palette="Set2",
+#                       name="",
+#                       labels=c("Control","Structure control","Sponge"))+
+#   theme_bw()+
+#   theme(panel.grid = element_blank(),
+#         strip.background = element_blank(),
+#         strip.text = element_blank())+
+#   ylab(sdlab)+
+#   xlab("Months into experiment")+
+#   facet_wrap(~seagrass,scales="free_y",nrow=2)
+# 
+# if(!require(egg))install.packages("egg")
+# 
+# sdp<-egg::tag_facet(sdp)
+# sdp
+# ggsave(filename="figures/shootdensity.jpg",plot=sdp,width = 6,height=4)
+knitr::include_graphics("figures/shootdensity.jpg")
+
+```
+
 
 ```{r grow,echo=FALSE,message=FALSE, fig.cap="Segrass growth"}
 # sgf<-sgg2%>%
@@ -140,7 +210,7 @@ knitr::include_graphics("figures/sggrow.jpg")
 #     group_by(treatment, sampling, nut, dist) %>%
 #     summarize(mn = mean(nvalue), sdn = sd(nvalue)) %>%
 #     filter(sampling %in% c(1, 4) &
-#              dist == 0 & 
+#              dist == 0 &
 #              nut %in% c("PN"))) +
 #    geom_line(aes(group=treatment,
 #                  x=as.factor(sampling),
@@ -173,7 +243,7 @@ knitr::include_graphics("figures/sggrow.jpg")
 #     group_by(treatment, sampling, nut, dist) %>%
 #     summarize(mn = mean(nvalue), sdn = sd(nvalue)) %>%
 #     filter(sampling %in% c(1, 4) &
-#              dist == 0 & 
+#              dist == 0 &
 #              nut %in% c("PP"))) +
 #   geom_line(aes(group=treatment,
 #                  x=as.factor(sampling),
@@ -203,7 +273,7 @@ knitr::include_graphics("figures/sggrow.jpg")
 #     group_by(treatment, sampling, nut, dist) %>%
 #     summarize(mn = mean(nvalue), sdn = sd(nvalue)) %>%
 #     filter(sampling %in% c(1, 4) &
-#              dist == 0 & 
+#              dist == 0 &
 #              nut %in% c("PC"))) +
 #   geom_line(aes(group=treatment,
 #                  x=as.factor(sampling),
@@ -227,15 +297,19 @@ knitr::include_graphics("figures/sggrow.jpg")
 #   theme(panel.grid = element_blank(),
 #          legend.position = "none",
 #         axis.title.x = element_blank())
-# lgnd<-get_legend(pn + 
+# library(cowplot)
+# lgnd<-get_legend(pn +
 #     guides(color = guide_legend(nrow = 1)) +
 #     theme(legend.position = "bottom"))
+# pn<-egg::tag_facet(pn)
+# pc<-egg::tag_facet(pc,tag_pool = c("b"))
+# pp<-egg::tag_facet(pp,tag_pool = c("c"))
 # #without carbon
-# n1<-plot_grid(lgnd,pn,pp,labels = c("","A","B"),nrow=3,ncol = 1,rel_heights = c(.1,1,1))
+# #n1<-plot_grid(lgnd,pn,pp,labels = c("","A","B"),nrow=3,ncol = 1,rel_heights = c(.1,1,1))
 # #with carbon
-# n2<-plot_grid(lgnd,pn,pc,pp,labels = c("","A","B","C"),nrow=4,ncol = 1,rel_heights = c(.1,1,1,1.1))
-# ggsave(filename = "figures/nuts.pdf",plot=n2,width=3,height = 6)
-# ggsave(filename = "figures/nuts.jpg",plot=n2,width=3,height = 6)
+# n2<-plot_grid(lgnd,pn,pc,pp,nrow=4,ncol = 1,rel_heights = c(.1,1,1,1.1))
+#  ggsave(filename = "figures/nuts.pdf",plot=n2,width=3,height = 6)
+#  ggsave(filename = "figures/nuts.jpg",plot=n2,width=3,height = 6)
 knitr::include_graphics("figures/nuts.jpg")
 ```
 
