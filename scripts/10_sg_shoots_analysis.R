@@ -143,6 +143,13 @@ tsdlmr<-lmer(T.SD~treatment *  samp2+dist2*treatment+(1|plot),
 # treatments. Conversely, there is an increase in Thalassia shoot density at mid-distances in all treatments, but its 
 # only significant in the real sponge treatment. 
 
+# # could simplify if we need overall estimate of Thalassia density change
+# 
+# tsdlmb<-lmer(T.SD~treatment + samp2 + dist2 + (1|plot),
+#   offset=mtsd,
+#   data=sgsd)
+# (tsd.sum<-summary(tsdlmb))
+
 #looking at syringodium/halodule shoot densities
 ggplot(data=sgsd,aes(y=SH.SD-mshsd,x=samp2))+
   geom_jitter(aes(color=as.factor(plot)))+
