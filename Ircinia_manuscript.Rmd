@@ -56,14 +56,15 @@ efsize<-function(rtable,row){
 #  browser()
 #  betas<-ifelse(abs(rtable$coefficients[row,1])<.005,round(rtable$coefficients[row,1],3),round(rtable$coefficients[row,1],2))
   betas<-rtable$coefficients[row,1]
-  betas<-formatC(signif(betas,2), digits=2,format="fg", flag="#")
+  # betas<-formatC(signif(betas,2), digits=2,format="fg", flag="#")
+  betas<-ifelse(abs(betas)<10,formatC(signif(betas,2), digits=2, format="fg", flag="#"), round(betas))
   se<-rtable$coefficients[row,2]
   cil<-rtable$coefficients[row,1]-1.96*se
 #  cil<-signif(cil,2)
 #  cil<-ifelse(abs(cil)<0.005,round(cil,3),round(cil,2))
-  cil<-formatC(signif(cil,2), digits=2,format="fg", flag="#")
+  cil<-ifelse(abs(cil)<10,formatC(signif(cil,2), digits=2, format="fg", flag="#"), round(cil))
   cih<-rtable$coefficients[row,1]+1.96*se
-  cih<-formatC(signif(cih,2), digits=2,format="fg", flag="#")
+  cih<-ifelse(abs(cih)<10,formatC(signif(cih,2), digits=2, format="fg", flag="#"), round(cih))
 #  cih<-signif(cih,2)
 #  se<-ifelse(rtable$coefficients[row,2]>.005,round(rtable$coefficients[row,2],3),round(rtable$coefficients[row,2],2))
   return(paste(betas,",",cil,"to",cih))
@@ -90,7 +91,7 @@ source("scripts/10_sg_shoots_analysis.R")
 ```{r growth, include=FALSE}
 source("scripts/05_sg_grow_explore.R")
 ```
-Seagrass growth was impacted by treatment at 0 (F~`r aov.df2(sg0,1)`~`r aov.res2(sg0,1)`) and 0.5 m (F~`r aov.df2(sg05,1)`~`r aov.res2(sg05,1)`) but this effect had disappeared by 1 m (F~`r aov.df2(sg1,1)`~`r aov.res2(sg1,1)`). As a result, we pooled seagrass growth for the near (0 and 0.5 m) and far (1 and 2 m) distances for further analysis. Seagrass growth was slower in the winter (t~`r aov.df(sgr$coefficients,6)`~ `r aov.res(sgr$coefficients,6)`) and the decrease in growth during the winter was not different between treatments (F~`r aov.df2(sgaov,7)`~`r aov.res2(sgaov,7)`). In sponge plots seagrass grew faster in the near distances (t~`r aov.df(sgr$coefficients,4)`~ `r aov.res(sgr$coefficients,4)`, Fig. \@ref(fig:grow)). There was no difference in seagrass growth between distances in the control (t~`r aov.df(sgb$coefficients,4)`~ `r aov.res(sgb$coefficients,4)`) or structure control plots (t~`r aov.df(sgf$coefficients,4)`~ `r aov.res(sgf$coefficients,4)`). In sponge plots seagrass grew faster in the second year of the experiment (t~`r aov.df(sgr$coefficients,5)`~ `r aov.res(sgr$coefficients,5)`, Fig. \@ref(fig:grow)). However, seagrass growth declined in the control (t~`r aov.df(sgb$coefficients,5)`~ `r aov.res(sgb$coefficients,5)`) and structure control plots (t~`r aov.df(sgf$coefficients,5)`~ `r aov.res(sgf$coefficients,5)`), but this decline was only significant in the control (Fig. \@ref(fig:grow)).  
+Seagrass growth was impacted by treatment at 0 (F~`r aov.df2(sg0,1)`~`r aov.res2(sg0,1)`) and 0.5 m (F~`r aov.df2(sg05,1)`~`r aov.res2(sg05,1)`) but this effect had disappeared by 1 m (F~`r aov.df2(sg1,1)`~`r aov.res2(sg1,1)`). As a result, we pooled seagrass growth for the near (0 and 0.5 m) and far (1 and 2 m) distances for further analysis. Seagrass growth was slower in the winter ($\beta$ = `r efsize(sgr,6)`, t~`r aov.df(sgr$coefficients,6)`~ `r aov.res(sgr$coefficients,6)`) and the decrease in growth during the winter was not different between treatments (F~`r aov.df2(sgaov,7)`~`r aov.res2(sgaov,7)`). In sponge plots seagrass grew faster in the near distances (t~`r aov.df(sgr$coefficients,4)`~ `r aov.res(sgr$coefficients,4)`, Fig. \@ref(fig:grow)). There was no difference in seagrass growth between distances in the control (t~`r aov.df(sgb$coefficients,4)`~ `r aov.res(sgb$coefficients,4)`) or structure control plots (t~`r aov.df(sgf$coefficients,4)`~ `r aov.res(sgf$coefficients,4)`). In sponge plots seagrass grew faster in the second year of the experiment (t~`r aov.df(sgr$coefficients,5)`~ `r aov.res(sgr$coefficients,5)`, Fig. \@ref(fig:grow)). However, seagrass growth declined in the control (t~`r aov.df(sgb$coefficients,5)`~ `r aov.res(sgb$coefficients,5)`) and structure control plots (t~`r aov.df(sgf$coefficients,5)`~ `r aov.res(sgf$coefficients,5)`), but this decline was only significant in the control (Fig. \@ref(fig:grow)).  
 
 ## *Thalassia testudinum* nutrient concentrations  
 ```{r nutrients, include=FALSE}
