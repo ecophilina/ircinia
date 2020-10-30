@@ -67,12 +67,13 @@ efsize<-function(rtable,row){
   betas<-ifelse(abs(betas)<10,
     formatC(signif(betas,2), digits=2, format="fg", flag="#"), 
     round(betas))
-  betas <- as.numeric(betas)
+  betas2 <- as.numeric(betas)
+  decicount <- ifelse(betas2>1 & betas2 <10, 1, decimalplaces(betas2))
   se<-rtable$coefficients[row,2]
   cil<-rtable$coefficients[row,1]-1.96*se
-  cil<-round(cil, digits=decimalplaces(betas))
+  cil<-format(round(cil, digits=decicount), scientific=F)
   cih<-rtable$coefficients[row,1]+1.96*se
-  cih<-round(cih, digits=decimalplaces(betas))
+  cih<-format(round(cih, digits=decicount), scientific=F)
   return(paste(betas,",",cil,"to",cih))
 }
 
