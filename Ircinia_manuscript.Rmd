@@ -45,7 +45,7 @@ The response of the macroalgae communities was monitored throughout the course o
 # summary tables
 aov.res<-function(rtable,row){
   tv<-round(rtable[row,4],2)
-  pv<-ifelse(rtable[row,5]< 0.001, "p < 0.001", paste("p =", round(rtable[row,5],2)))
+  pv<-ifelse(rtable[row,5]< 0.001, "p < 0.001", paste("p =", signif(rtable[row,5],1)))
   return(paste("=",tv,",",pv))
 }
 aov.df<-function(rtable,row){
@@ -54,8 +54,8 @@ aov.df<-function(rtable,row){
 
 efsize<-function(rtable,row){
 #  browser()
-#  betas<-ifelse(abs(rtable$coefficients[row,1])<.005,round(rtable$coefficients[row,1],3),round(rtable$coefficients[row,1],2))
-  betas<-rtable$coefficients[row,1]
+ betas<-ifelse(abs(rtable$coefficients[row,1])<.005,round(rtable$coefficients[row,1],3),round(rtable$coefficients[row,1],2))
+  # betas<-rtable$coefficients[row,1]
   # betas<-formatC(signif(betas,2), digits=2,format="fg", flag="#")
   betas<-ifelse(abs(betas)<10,formatC(signif(betas,2), digits=2, format="fg", flag="#"), round(betas))
   se<-rtable$coefficients[row,2]
