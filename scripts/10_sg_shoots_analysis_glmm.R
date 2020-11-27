@@ -21,14 +21,15 @@ overdisp_fun <- function(model) {
 }
 
 
-#make things into factors
+# make things into factors and create a continuous distance variable
 sgsd0<-sg_shoot%>%
   mutate(dist2=factor(dist,
                       level=c("0-1","1-2","2-3"),labels = c("near","mid","far")),
-         dist1=case_when(dist2=="near"~0.75,
-           dist2=="mid"~1.5,
-           dist2=="far"~2.5),
+         dist1=case_when(dist2=="near"~0,
+           dist2=="mid"~1,
+           dist2=="far"~2),
          treatment=factor(treatment))
+
 #calcualte the mean of the pre-experiment sampling to add as an offset in analysis
 sgsd1<-sgsd0%>%
   filter(sampling==1)%>%
@@ -38,58 +39,186 @@ sgsd1<-sgsd0%>%
 # look at differences in the beginning
 
 # check distributions
+# raw counts
 hist(sgsd1$SD, breaks = 20)
 hist(sgsd1$T.SD, breaks = 20)
 hist(sgsd1$SH.SD, breaks = 20)
+
+# change in counts
+hist(sgsd1$SD-sgsd1$msd, breaks = 20)
+hist(sgsd1$T.SD-sgsd1$mtsd, breaks = 20)
+hist(sgsd1$SH.SD-sgsd1$mshsd, breaks = 20)
+
 # some look normalish so try a range of model types
 
 
-sd1lm<-lmer(SD~treatment*dist2+(1|plot), data=sgsd1) 
-sd1lm<-lmer(T.SD~treatment*dist2+(1|plot), data=sgsd1) 
-sd1lm<-lmer(SH.SD~treatment*dist2+(1|plot), data=sgsd1) 
-plot(sd1lm)
+### test for initial differences between treatments and distance as factor
 # residuals ok for first but terrible for last...
+sd1lm<-lmer(SD~treatment*dist2+(1|plot), data=sgsd1) 
+tsd1lm<-lmer(T.SD~treatment*dist2+(1|plot), data=sgsd1) 
+shsd1lm<-lmer(SH.SD~treatment*dist2+(1|plot), data=sgsd1) 
+plot(sd1lm)
+plot(tsd1lm)
+plot(shsd1lm)
 
-sd1lm<-glmer(SD~treatment*dist2+(1|plot), data=sgsd1, family = poisson) # overdispersed
-sd1lm<-glmer.nb(SD~treatment*dist2+(1|plot), data=sgsd1, family = quasipoisson) # not converging
-overdisp_fun(sd1lm)
+shsd1lm<-glmer(SH.SD~treatment*dist2+(1|plot), data=sgsd1, family = poisson) # overdispersed
+shsd1lm<-glmer.nb(SH.SD~treatment*dist2+(1|plot), data=sgsd1, family = quasipoisson) # not converging
+overdisp_fun(shsd1lm)
 
 # this model both solves overdispersion and converges for all 
-sd1lm<-glmmTMB(SD~treatment*dist2+(1|plot), data=sgsd1, family = nbinom1) 
-# sd1lm<-glmmTMB(T.SD~treatment*dist2+(1|plot), data=sgsd1, family = nbinom1)
-# sd1lm<-glmmTMB(SH.SD~treatment*dist2+(1|plot), data=sgsd1, family = nbinom1)
+sd1glm<-glmmTMB(SD~treatment*dist2+(1|plot), data=sgsd1, family = nbinom1) 
+tsd1glm<-glmmTMB(T.SD~treatment*dist2+(1|plot), data=sgsd1, family = nbinom1)
+shsd1glm<-glmmTMB(SH.SD~treatment*dist2+(1|plot), data=sgsd1, family = nbinom1)
 
-sd1lm_simres <- simulateResiduals(sd1lm)
-plot(sd1lm_simres)
-testOverdispersion(sd1lm_simres)
-(sd1aov<-glmmTMB:::Anova.glmmTMB(sd1lm, type = "III"))
-# distance is significant at the start and this looks to be be because of the far distance. To remove pre-existing bias we're 
-# going to see if removing the far distance makes us have no significant differences before the start of the experiment.
-# this will also work out to be consistent with the growth analysis.
-# this effect was likely do to some plots being near the edge of the seagrass bed.
+# # residual checks look great
+tsd1glm_simres <- simulateResiduals(tsd1glm)
+plot(tsd1glm_simres)
+testOverdispersion(tsd1glm_simres)
 
-# look at differences in the beginning without far distance
-
-sd1lm2<-glmmTMB(SD~treatment*dist2+(1|plot), data=sgsd1%>%filter(dist2!="far"), family = nbinom1) 
-# sd1lm2_simres <- simulateResiduals(sd1lm2)
-# plot(sd1lm2_simres)
-
-(sd1aov2<-glmmTMB:::Anova.glmmTMB(sd1lm2, type = "III"))
-# for overall shoot density this gets rid of the significant differences. Make sure this holds true for each spp group individually
+sd1glm_simres <- simulateResiduals(shsd1glm)
+plot(sd1glm_simres)
+testOverdispersion(sd1glm_simres)
 
 
-tsd1lm<-glmmTMB(T.SD~treatment*dist2+(1|plot), data=sgsd1%>%filter(dist2!="far"), family = nbinom1) 
-tsd1lm_simres <- simulateResiduals(tsd1lm)
-plot(tsd1lm_simres)
-testOverdispersion(tsd1lm_simres)
+(sd1aov<-glmmTMB:::Anova.glmmTMB(sd1glm, type = "III"))
+(tsd1aov<-glmmTMB:::Anova.glmmTMB(tsd1glm, type = "III"))
+(shsd1aov<-glmmTMB:::Anova.glmmTMB(shsd1glm, type = "III"))
+
+# (sd1sum<-summary(sd1glm))
+# (tsd1sum<-summary(tsd1glm))
+# (shsd1sum<-summary(shsd1glm))
+
+# no significant differences between treatments or distances
+# weak, non-sig lower T density at far distance in sponge treatments
+# likely due to some plots being near the edge of the seagrass bed
+# similar non-sig lower SH density in sponge treatments
+
+# same pattern for continuous distance, so will use that in models
+tsd1lm<-glmmTMB(T.SD~treatment*dist1+(1|plot), data=sgsd1, family = nbinom1) 
 (tsd1aov<-glmmTMB:::Anova.glmmTMB(tsd1lm, type = "III"))
-# (tsd1aov<-summary(tsd1lm))
+(tsd1aov<-summary(tsd1lm))
 
-shsd1lm<-glmmTMB(SH.SD~treatment*dist2+(1|plot),data=sgsd1%>%filter(dist2!="far"), family = nbinom1)
+shsd1lm<-glmmTMB(SH.SD~treatment*dist1+(1|plot),data=sgsd1, family = nbinom1)
 (shsd1aov<-glmmTMB:::Anova.glmmTMB(shsd1lm, type = "III"))
+(shsd1aov<-summary(shsd1lm))
 
-#join back to main dataset to create the dataset for analysis.
 
+# #looking at overall shoot densities
+# ggplot(data=sgsd,aes(y=SD-msd,x=samp2))+
+#   geom_jitter(aes(color=season))+
+#   geom_smooth(method = "lm", colour = "black")+
+#   geom_hline(yintercept = 0)+
+#   facet_grid(treatment~dist2)
+# 
+# #looking at overall shoot densities
+# ggplot(data=sgsd%>% filter(dist2=="near"),
+#   aes(y=SD-msd,x=samp2))+
+#   geom_jitter(aes(color=season))+
+#   geom_smooth(method = "lm", colour = "darkgrey")+
+#   geom_hline(yintercept = 0)+
+#   facet_grid(rows=vars(treatment))
+ 
+
+#looking at Thalassia shoot density change
+ggplot(data=sgsd,aes(y=T.SD-mtsd,x=samp2))+
+  # geom_jitter(aes(color=treatment))+
+  geom_jitter(aes(color=season))+
+  geom_smooth(method = "lm", colour = "black")+
+  geom_hline(yintercept = 0)+
+  facet_grid(treatment~dist2)
+# facet_grid(row=vars(treatment))
+# appears to decline everywhere, but maybe less so in real near
+
+#looking at syringodium/halodule shoot density change
+ggplot(data=sgsd,aes(y=SH.SD-mshsd,x=samp2))+
+  # geom_jitter(aes(color=treatment))+
+  geom_jitter(aes(color=season))+
+  geom_smooth(method = "lm", colour = "black")+
+  geom_hline(yintercept = 0)+
+  facet_grid(treatment~dist2)
+# increaseing for real only, especially in near
+
+# actual syringodium/halodule shoot densities
+ggplot(data=sgsd,aes(y=SH.SD,x=samp2))+
+  # geom_jitter(aes(color=treatment))+
+  geom_boxplot(aes(group = as.factor(samp2), color=season))+
+  geom_jitter(aes(color=season))+
+  geom_smooth(method = "lm", colour = "black")+
+  geom_hline(yintercept = 0)+
+  facet_grid(treatment~dist2)
+
+
+
+# # overall shoot density
+# # run the model with each treatment as the reference level to help with interpretation
+# # for all groupings of seagrass shoot density the model we decided on was treatment interacting with months into the experiment and then treatment
+# # interacting with distance and having plot as a random factor. We included months into the experiment as the time variable
+# # because there is no a priori reason to think shoot density would vary with season.
+# 
+# sdlmb1<-glmmTMB(SD ~ treatment*samp2 + treatment*dist1 + samp2*dist1 +
+#     (1|plot),
+#   offset=log(msd),
+#   data=sgsd %>%
+#     mutate(treatment=relevel(treatment, ref = "real")), 
+#   REML = F,
+#   family = nbinom1) 
+# 
+# sdlmb_simres <- simulateResiduals(sdlmb1) #, refit = TRUE
+# testDispersion(sdlmb_simres) #, "greater"
+# plot(sdlmb_simres)
+# (sdlmbaov<-summary(sdlmb1))
+# 
+# # 
+# # # because of offset resulting in negative and possitive changes in counts, gaussian actually works better for SD and T, but not for SH
+# # sdlmb2<-glmmTMB(SD ~ treatment*samp2 + treatment*dist1 +
+# #     (dist1|plot),
+# #   offset=msd,
+# #   data=sgsd %>%
+# #     mutate(treatment=relevel(treatment, ref = "real")),
+# #   REML = F,
+# #   family = gaussian)
+# # 
+# # sdlmb_simres2 <- simulateResiduals(sdlmb2) #, refit = TRUE
+# # testDispersion(sdlmb_simres2) #, "greater"
+# # plot(sdlmb_simres2)
+# # (sdlmbaov<-summary(sdlmb2))
+# 
+# # over time, there is a decrease in overall shoot density in control and structure control plots (only significant in struct. control)
+# # there is a non-significant increase in overall shoot density in sponge plots. While the increase is not significant the 
+# # pattern is significantly different than both the control and structure control.
+
+
+# Why not just look at shoot density at the end of the experiment?
+
+range(sgsd$mtsd) # no zeros means log(mtsd) could work
+range(sgsd$mshsd) # but zeros means log(mshsd +1) needed
+
+sgsd.end<-sgsd%>%
+  filter(sampling==5)
+
+tsd.endb<-glmmTMB(T.SD~treatment*dist1+(1|plot),
+  offset=log(mtsd+1),
+  data=sgsd.end%>% mutate(treatment=relevel(treatment, ref = "real")), 
+  REML = F,
+  family = nbinom1)
+
+(tsd.end.aov<-glmmTMB:::Anova.glmmTMB(tsd.endb, type = "III"))
+summary(tsd.endb)
+# no treatment effects for T
+
+shsd.endb<-glmmTMB(SH.SD~treatment*dist1+(1|plot),
+  offset=(mshsd+1),
+  data=sgsd.end%>% mutate(treatment=relevel(treatment, ref = "real")), 
+  REML = F,
+  family = nbinom1)
+
+(shsd.end.aov<-glmmTMB:::Anova.glmmTMB(shsd.endb, type = "III"))
+summary(shsd.endb)
+# treatment interacts with dist for SH
+
+
+
+# join back to main dataset to create the dataset for analysis.
 sgsd1<-sgsd1%>%
   select(-sampling,-T.SD,-SH.SD,-SD)%>%
   distinct()
@@ -97,7 +226,7 @@ sgsd1<-sgsd1%>%
 sgsd<-sgsd0%>%
   filter(sampling!=1)%>%
   left_join(sgsd1)%>%
-  # filter(dist2!="far")%>%
+  # filter(dist2=="near")%>%
   mutate(yr=case_when(
     sampling==2~1,
     sampling==3~1,
@@ -115,176 +244,117 @@ sgsd<-sgsd0%>%
       sampling==5~17),
     delta = (SD-msd),
     ratio = delta/msd
-    )
+  )
 
-#looking at overall shoot densities
-ggplot(data=sgsd,aes(y=SD-msd,x=samp2))+
-  geom_jitter(aes(color=treatment))+
-  geom_smooth()+
-  geom_hline(yintercept = 0)+
-  facet_grid(treatment~dist2)
 
-# now start analysis
 
-# overall shoot density
-# run the model with each treatment as the reference level to help with interpretation
-# for all groupings of seagrass shoot density the model we decided on was treatment interacting with months into the experiment and then treatment
-# interacting with distance and having plot as a random factor. We included months into the experiment as the time variable
-# because there is no a priori reason to think shoot density would vary with season.
-hist(sgsd$SD)
-hist(sgsd$SD-sgsd$msd)
-hist(log((sgsd$SD-sgsd$msd)/sgsd$msd))
-hist(sgsd$ratio)
+tsdlmr<-glmmTMB(T.SD ~ 
+    treatment*samp2*dist1 +
+    # treatment*samp2 + treatment*dist1 + samp2*dist1 + # still no sig treatment effects
+    (1|plot),
+  offset=log(mtsd+1),
+  data=sgsd %>% mutate(treatment=relevel(treatment, ref = "real")), 
+  REML = F, 
+  family = nbinom1)
+  # family = gaussian) # improves residuals but still no sig. treatment effects
 
-sdlmb1<-glmmTMB(SD ~ treatment*samp2 + treatment*dist1 + 
-    # season +
-    # dist2 +
-    # samp2*log(msd) +
-    # (1|plot),
-    # (1|plot/dist2) +
-  (dist1|plot),
-  offset=log(msd),
+(tsd.aov<-glmmTMB:::Anova.glmmTMB(tsdlmr, type = "III"))
+(tsdr.sum<-summary(tsdlmr))
+
+# check residuals: not amazing, but not terrible
+tsdlmr_simres <- simulateResiduals(tsdlmr) 
+testDispersion(tsdlmr_simres) 
+plot(tsdlmr_simres)
+
+
+# other intercepts for getting coefs
+tsdlmb<-glmmTMB(T.SD ~ treatment*samp2*dist1 +
+    (1|plot),
+  offset=log(mtsd+1),
+  data=sgsd, 
+  REML = F, family = nbinom1) 
+(tsdb.sum<-summary(tsdlmb))
+
+tsdlmf<-glmmTMB(T.SD ~ treatment*samp2*dist1 +
+    (1|plot),
+  offset=log(mtsd+1),
+  data=sgsd %>% mutate(treatment=relevel(treatment, ref = "fake")), 
+  REML = F, family = nbinom1) 
+(tsdf.sum<-summary(tsdlmf))
+
+
+# conclusion here is still not treatment effect but there is some evidence of an overall loss in Thalassia shoot density over time
+# could simplify if we need overall estimate of Thalassia density change
+tsdlm<-glmmTMB(T.SD ~ samp2  +
+    # treatment*dist1 + 
+    # (1|plot,
+     (1|plot/dist2),
+  offset=log(mtsd+1),
+  data=sgsd, 
+  REML = F, 
+  family = nbinom1)
+# family = gaussian) # improves residuals but still no sig. treatment effects
+
+(tsd.sum<-summary(tsdlm))
+
+# tsdlm_simres <- simulateResiduals(tsdlm)
+# testDispersion(tsdlm_simres)
+# plot(tsdlm_simres)
+
+
+
+# Knowing that Syringodium and Halodule (SH) differ by treatment by end of experiment. 
+# How does this develop through time and with distance from sponge?
+
+shsdlmr<-glmmTMB(SH.SD ~ 
+    treatment * samp2 * dist1 + # squared term never sig
+    # treatment * poly(samp2,2) * dist1 + # squared term never sig
+    # treatment*samp2 + treatment*dist1 + #samp2*dist1 +
+    (1|plot),
+  offset=log(mshsd+1),
   data=sgsd %>%
     mutate(treatment=relevel(treatment, ref = "real")), 
   REML = F,
   family = nbinom1) 
 
-sdlmb_simres <- simulateResiduals(sdlmb1) #, refit = TRUE
-testDispersion(sdlmb_simres) #, "greater"
-plot(sdlmb_simres)
-(sdlmbaov<-summary(sdlmb1))
-
-
-# because of offset resulting in negative and possitive changes in counts, gaussian actually works better!
-sdlmb2<-glmmTMB(SD ~ treatment*samp2 + treatment*dist1 +
-    (dist1|plot),
-  offset=msd,
-  data=sgsd %>%
-    mutate(treatment=relevel(treatment, ref = "real")),
-  REML = F,
-  family = gaussian)
-
-sdlmb_simres2 <- simulateResiduals(sdlmb2) #, refit = TRUE
-testDispersion(sdlmb_simres2) #, "greater"
-plot(sdlmb_simres2)
-(sdlmbaov<-summary(sdlmb2))
-
-# so lmer works too so we can keep the rest of the models as they were before
-
-sdlmb<-lmer(SD~treatment*samp2 + treatment*dist2 + (1|plot),
-  offset=msd,
-  data=sgsd)
-plot(sdlmb)
-
-# sdlmb<-lmer(ratio~treatment*samp2 + treatment*dist2 + (1|plot),
-#   # offset=msd,
-#   data=sgsd)
-# plot(sdlmb)
-
-sdlmf<-lmer(SD~treatment*samp2 + dist2*treatment+(1|plot),
-            offset=msd,
-            data=sgsd%>%
-            mutate(treatment=relevel(treatment, ref = "fake")))
-
-sdlmr<-lmer(SD~treatment*samp2 + dist2*treatment+(1|plot),
-            offset=msd,
-            data=sgsd%>%
-              mutate(treatment=relevel(treatment, ref = "real")))
-# now look at results, first overall anova then each linear model
-(sd.aov<-anova(sdlmb))
-(sdb.sum<-summary(sdlmb))
-(sdf.sum<-summary(sdlmf))
-(sdr.sum<-summary(sdlmr))
-
-# over time, there is a decrease in overall shoot density in control and structure control plots (only significant in struct. control)
-# there is a non-significant increase in overall shoot density in sponge plots. While the increase is not significant the 
-# pattern is significantly different than both the control and structure control.
-
-# Look at overall shoot density at the end of the experiment.
-sgsd.end<-sgsd%>%
-  filter(sampling==5)
-
-sd.endb<-lmer(SD~treatment+(1|plot),
-              offset=msd,
-              data=sgsd.end%>%
-                filter(dist2=="near"))
-
-(sd.end.aov<-anova(sd.endb))
-summary(sd.endb)
-# not significant
-
-
-#looking at Thalassia shoot densities
-ggplot(data=sgsd,aes(y=T.SD-mtsd,x=samp2))+
-  geom_jitter(aes(color=treatment))+
-  geom_smooth()+
-  geom_hline(yintercept = 0)+
-  facet_grid(treatment~dist2)
-
-# run the model with each treatment as the reference level to help with interpretation
-
-tsdlmb<-lmer(T.SD~treatment * samp2+dist2*treatment+(1|plot),
-            offset=mtsd,
-            data=sgsd)
-tsdlmf<-lmer(T.SD~treatment *  samp2+dist2*treatment+(1|plot),
-            offset=mtsd,
-            data=sgsd%>%
-            mutate(treatment=relevel(treatment, ref = "fake")))
-tsdlmr<-lmer(T.SD~treatment *  samp2+dist2*treatment+(1|plot),
-            offset=mtsd,
-            data=sgsd%>%
-            mutate(treatment=relevel(treatment, ref = "real")))
-# now look at results, first overall anova then each linear model
-(tsd.aov<-anova(tsdlmb))
-(tsdb.sum<-summary(tsdlmb))
-(tsdf.sum<-summary(tsdlmf))
-(tsdr.sum<-summary(tsdlmr))
-
-# conclusion here is that all treatments lost Thalassia shoot density over time. However, this is not significant for sponge
-# treatments. Conversely, there is an increase in Thalassia shoot density at mid-distances in all treatments, but its 
-# only significant in the real sponge treatment. 
-
-# # could simplify if we need overall estimate of Thalassia density change
-# 
-# tsdlmb<-lmer(T.SD~treatment + samp2 + dist2 + (1|plot),
-#   offset=mtsd,
-#   data=sgsd)
-# (tsd.sum<-summary(tsdlmb))
-
-#looking at syringodium/halodule shoot densities
-ggplot(data=sgsd,aes(y=SH.SD-mshsd,x=samp2))+
-  geom_jitter(aes(color=as.factor(plot)))+
-  geom_smooth()+
-  geom_hline(yintercept = 0)+
-  facet_grid(treatment~dist2)
-# run the model with each treatment as the reference level to help with interpretation
-shsdlmb<-lmer(SH.SD~treatment *  samp2+dist2*treatment+(1|plot),
-             offset=mshsd,
-             data=sgsd)
-
-shsdlmf<-lmer(SH.SD~treatment  *  samp2+dist2*treatment+(1|plot),
-             offset=mshsd,
-             data=sgsd%>%
-             mutate(treatment=relevel(treatment, ref = "fake")))
-
-shsdlmr<-lmer(SH.SD~treatment * samp2+dist2*treatment+(1|plot),
-             offset=mshsd,
-             data=sgsd%>%
-             mutate(treatment=relevel(treatment, ref = "real")))
-
-# now look at results, first overall anova then each linear model
-(shsd.aov<-anova(shsdlmb))
-
-(shsdb.sum<-summary(shsdlmb))
-(shsdf.sum<-summary(shsdlmf))
+(shsd.aov<-glmmTMB:::Anova.glmmTMB(shsdlmr, type = "III"))
 (shsdr.sum<-summary(shsdlmr))
 
-# Syringodium and Halodule (SH) increase slightly, but non-significantly over time in the control. There is a significant decrease in the mid
-# distance in the control- this appears to be driven by a single plot.
-# SH decrease slightly, but not significantly over time in structure control plots. There is no effect of distance
-# in structure control plots
-# There is a significant increase in SH in sponge plots over time and this is significantly different than
-# both the control and structure control. There is no effect of distance in sponge plots.
+shsdlmr_simres <- simulateResiduals(shsdlmr) 
+testDispersion(shsdlmr_simres) 
+plot(shsdlmr_simres)
+
+# other intercepts for getting coefs
+shsdlmb<-glmmTMB(SH.SD ~ 
+    treatment*samp2*dist1 +
+    (1|plot),
+  offset=log(mshsd+1),
+  data=sgsd, REML = F, family = nbinom1) 
+(shsdb.sum<-summary(shsdlmb))
+
+shsdlmf<-glmmTMB(SH.SD ~ 
+    treatment*samp2*dist1 +
+    # treatment*samp2 + treatment*dist1 + 
+    # (dist1|plot),
+    (1|plot),
+  offset=log(mshsd+1),
+  data=sgsd %>%
+    mutate(treatment=relevel(treatment, ref = "fake")), 
+  REML = F, family = nbinom1) 
+(shsdf.sum<-summary(shsdlmf))
+
+
+
+shsdr.sum
+shsdb.sum
+shsdf.sum
+
+# Syringodium and Halodule (SH) increase significantly in sponge plots over time and this is significantly different than both the control and structure control. 
+# There is now an effect of distance in sponge plots.
+# Further plots start out with more SH, but show less of an increase through time.
+# Control and structural control shows no change through time and both only differ sig from real.
+
+
 
 
 
