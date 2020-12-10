@@ -169,13 +169,34 @@ hist((a3%>%
 
 # try out more appropriate model
 
+a5<-a5%>%
+  mutate(year=case_when(
+    sampling==2~1,
+    sampling==3~1,
+    sampling==4~2,
+    sampling==5~2))
+
 # trying the one global model first
-alm1<-glmmTMB(abundance~treatment*sampling+ (1|plot)+(treatment:sampling|taxa),
-            data=a5,
+alm1<-glmmTMB(abundance~treatment*year+treatment*season+ (1|plot)+(sampling|taxa),
+            data=a5%>%
+              mutate(treatment=relevel(treatment, ref = "real")),
             offset=log(start.abund+1),
             REML=F,
-            family=poisson)
-#this model doesn't converge no matter the family you choose using glmmTMB
+            family=nbinom2)
+
+
+# look at residuals
+alm1_simres <- simulateResiduals(alm1)
+testDispersion(alm1_simres)
+plot(alm1_simres)
+
+# residuals look meh
+summary(alm1)
+
+# BUT we now have a significant increase over time in real treatment that is 
+# significantly different than the other treatments.
+# USE THIS MODEL IGNORE BELOW
+# Now talk through whether or not the figure I made is appropriate.
 
 # going with species-specific models. 
 #First I'm going to try a model with only total abundance of algae
@@ -196,16 +217,22 @@ a6<-a6 %>%
     sampling==2~1,
     sampling==3~5,
     sampling==4~12,
-    sampling==5~17))
+    sampling==5~17),
+    year=case_when(
+      sampling==2~1,
+      sampling==3~1,
+      sampling==4~2,
+      sampling==5~2))
 
 a6$treatment<-factor(a6$treatment)
+a6$season<-factor(a6$season)
 
-atot<-glmmTMB(total~treatment*samp2+(1|plot),
+atot<-glmmTMB(total~treatment*year+treatment*season+(1|plot),
               data=a6%>%
                 mutate(treatment=relevel(treatment, ref = "real")),
               offset=log(start.total),
               REML = FALSE,
-              family=nbinom1)
+              family=nbinom2)
 # look at residuals
 atot_simres <- simulateResiduals(atot)
 testDispersion(atot_simres)
