@@ -97,20 +97,33 @@ hist((a3%>%
 # try out more appropriate model
 
 a5<-a5%>%
-  mutate(year=case_when(
+  mutate(
+    delta.abund = abundance-start.abund,
+    delta.abund2 = exp(log(abundance+1)-log(start.abund+1)),
+    year=case_when(
     sampling==2~1,
     sampling==3~1,
     sampling==4~2,
-    sampling==5~2))
+    sampling==5~2),
+    start = log(start.abund+1))
+
+
+# if we need sampling in months
+a5<-a5%>%
+  mutate(samp2=case_when(
+    sampling==2~1,
+    sampling==3~5,
+    sampling==4~12,
+    sampling==5~17))
+
 
 # trying the one global model first
-alm1<-glmmTMB(abundance~treatment*year+treatment*season+ (1|plot)+(sampling|taxa),
-            data=a5%>%
-              mutate(treatment=relevel(treatment, ref = "real")),
-            offset=log(start.abund+1),
-            REML=F,
-            family=nbinom2)
-
+alm1<-glmmTMB(abundance~treatment*year+treatment*season + 
+    offset(start) + 
+    (1|plot)+(sampling|taxa),
+    data = a5 %>% mutate(treatment=relevel(treatment, ref = "real")),
+    REML=F,
+    family=nbinom2)
 
 # look at residuals
 alm1_simres <- simulateResiduals(alm1)
@@ -123,17 +136,86 @@ summary(alm1)
 # BUT we now have a significant increase over time in real treatment that is 
 # significantly different than the other treatments.
 
-# Now talk through whether or not the figure I made is appropriate.
+library(ggeffects)
+# library(sjstats)
+# ggpredict(alm1, "year")
+
+p1 <- ggpredict(alm1, terms = c("year", "season","treatment" )) %>% 
+  rename(year = x, season = group, treatment = facet)%>% 
+  mutate(
+    sampling = case_when(
+      year==1&season=="summer"~2,
+      year==1&season=="winter"~3,
+      year==2&season=="summer"~4,
+      year==2&season=="winter"~5
+    )
+  )
+
+p1$treatment<-factor(p1$treatment,levels=c("blank","fake","real"),labels=c("Control","Structure Control","Sponge"))
+
+p2 <- ggpredict(alm1, terms = c("sampling", "taxa", "treatment"), type = "random")
+plot(p2)
+
+# making a more appropriate figure
+
+a6<-a5%>%
+  mutate(delta.abund=abundance-start.abund)
+
+a6$treatment<-factor(a6$treatment,levels=c("blank","fake","real"),labels=c("Control","Structure Control","Sponge"))
+my.labels <- paste0(c("S","W","S","W"), "\n", c("Year 1","Year 1","Year 2", "Year 2"))
+
+ggplot(data=a6)+
+  geom_hline(aes(yintercept=0), linetype = "dashed", colour = "darkgrey")+
+  scale_x_continuous(name="",breaks=c(2,3,4,5),label = my.labels)+
+  geom_ribbon(data = p1, aes(sampling,
+    ymin = conf.low,
+    ymax = conf.high, 
+    group = season),
+    alpha = 0.3
+    ) + 
+  geom_line(data = p1, aes(sampling, predicted, group = season)) +
+  geom_point(aes(x=sampling,y=delta.abund,color=taxa), alpha =0.5,
+    position=position_dodge(0.5))+
+  facet_wrap(~treatment)+
+  theme_bw()+
+  theme(panel.grid = element_blank(),
+    legend.title.align = 0.5,
+    strip.background = element_blank(),
+    strip.text = element_text(size=14))+
+  ylab("Macroalgal Abundance")+
+  scale_color_brewer(palette = "Set2",name="Taxa",labels=c("Acetabularia",
+    "Halimeda",
+    "Laurencia",
+    "Penicillus",
+    "Udotea"))
 
 
-a5<-a5%>%
+# old global figure
+a6<-a3 %>%
+  select(treatment, plot,sampling,total,season)%>%
+  distinct()
+
+a6.1<-a6%>%
+  filter(sampling==1)%>%
+  rename(start.total=total)%>%
+  select(-sampling,-season)
+
+a6<-a6 %>%
+  filter(sampling!=1)%>%
+  left_join(a6.1)%>%
   mutate(samp2=case_when(
     sampling==2~1,
     sampling==3~5,
     sampling==4~12,
-    sampling==5~17))
+    sampling==5~17),
+    year=case_when(
+      sampling==2~1,
+      sampling==3~1,
+      sampling==4~2,
+      sampling==5~2))
 
-# potential figure
+a6$treatment<-factor(a6$treatment)
+a6$season<-factor(a6$season)
 
 a6<-a6%>%
   mutate(delta.tot=total-start.total)
