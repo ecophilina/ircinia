@@ -57,6 +57,8 @@ ggplot(data=a4)+
 
 # try a global model with taxa as a random effect.
 
+# get data organized
+
 a3.1<-a3%>%
   filter(sampling==1)%>%
   rename(start.abund=abundance)%>%
@@ -68,81 +70,6 @@ a5<-a3 %>%
 
 a5$treatment<-factor(a5$treatment)
 
-
-alm1<-glmer(abundance~treatment*sampling+ (1|plot)+(treatment:sampling|taxa),
-           data=a5,offset=log(start.abund+1),family=poisson)
-alm1.r<-glmer(abundance~treatment*sampling+ (1|plot)+(sampling|taxa),
-            data=a5%>%
-              mutate(treatment=relevel(treatment, ref = "real")),
-            offset=log(start.abund+1),family=poisson)
-alm1.f<-glmer(abundance~treatment*sampling+ (1|plot)+(sampling|taxa),
-            data=a5%>%
-              mutate(treatment=relevel(treatment, ref = "fake")),
-            offset=log(start.abund+1),family=poisson)
-summary(alm1)
-summary(alm1.r)
-ranef(alm1)
-
-# overall algal abundance increases over time
-#halimeda
-ahm1<-glmer(abundance~treatment*sampling+ (1|plot),
-            data=a5%>%
-              filter(taxa=="halimeda"),
-            offset=log(start.abund+1),family=poisson)
-ahm1.r<-glmer(abundance~treatment*sampling+ (1|plot),
-            data=a5%>%
-              filter(taxa=="halimeda")%>%
-              mutate(treatment=relevel(treatment, ref = "real")),
-            offset=log(start.abund+1),family=poisson)
-ahm1.f<-glmer(abundance~treatment*sampling+ (1|plot),
-            data=a5%>%
-              filter(taxa=="halimeda")%>%
-              mutate(treatment=relevel(treatment, ref = "fake")),
-            offset=log(start.abund+1),family=poisson)
-summary(ahm1)
-summary(ahm1.r)
-summary(ahm1.f)
-
-# acetabularia
-aam1<-glmer(abundance~treatment*sampling+ (1|plot),
-            data=a5%>%
-              filter(taxa=="acetabularia"),
-            offset=log(start.abund+1),family=poisson)
-aam1.r<-glmer(abundance~treatment*sampling+ (1|plot),
-              data=a5%>%
-                filter(taxa=="acetabularia")%>%
-                mutate(treatment=relevel(treatment, ref = "real")),
-              offset=log(start.abund+1),family=poisson)
-aam1.f<-glmer(abundance~treatment*sampling+ (1|plot),
-              data=a5%>%
-                filter(taxa=="acetabularia")%>%
-                mutate(treatment=relevel(treatment, ref = "fake")),
-              offset=log(start.abund+1),family=poisson)
-summary(aam1)
-summary(aam1.r)
-summary(aam1.f)
-
-# laurencia
-alm1<-glmer(abundance~treatment*sampling+ (1|plot),
-            data=a5%>%
-              filter(taxa=="laurencia"),
-            offset=log(start.abund+1),family=poisson)
-alm1.r<-glmer(abundance~treatment*sampling+ (1|plot),
-              data=a5%>%
-                filter(taxa=="laurencia")%>%
-                mutate(treatment=relevel(treatment, ref = "real")),
-              offset=log(start.abund+1),family=poisson)
-alm1.f<-glmer(abundance~treatment*sampling+ (1|plot),
-              data=a5%>%
-                filter(taxa=="laurencia")%>%
-                mutate(treatment=relevel(treatment, ref = "fake")),
-              offset=log(start.abund+1),family=poisson)
-summary(alm1)
-summary(alm1.r)
-summary(alm1.f)
-
-
-# restarting all of this trying out the appropriate model
 
 # Philina's custom function for checking for overdispersion
 overdisp_fun <- function(model) {
@@ -195,55 +122,9 @@ summary(alm1)
 
 # BUT we now have a significant increase over time in real treatment that is 
 # significantly different than the other treatments.
-# USE THIS MODEL IGNORE BELOW
+
 # Now talk through whether or not the figure I made is appropriate.
 
-# going with species-specific models. 
-#First I'm going to try a model with only total abundance of algae
-
-a6<-a3 %>%
-  select(treatment, plot,sampling,total,season)%>%
-  distinct()
-
-a6.1<-a6%>%
-  filter(sampling==1)%>%
-  rename(start.total=total)%>%
-  select(-sampling,-season)
-
-a6<-a6 %>%
-  filter(sampling!=1)%>%
-  left_join(a6.1)%>%
-  mutate(samp2=case_when(
-    sampling==2~1,
-    sampling==3~5,
-    sampling==4~12,
-    sampling==5~17),
-    year=case_when(
-      sampling==2~1,
-      sampling==3~1,
-      sampling==4~2,
-      sampling==5~2))
-
-a6$treatment<-factor(a6$treatment)
-a6$season<-factor(a6$season)
-
-atot<-glmmTMB(total~treatment*year+treatment*season+(1|plot),
-              data=a6%>%
-                mutate(treatment=relevel(treatment, ref = "real")),
-              offset=log(start.total),
-              REML = FALSE,
-              family=nbinom2)
-# look at residuals
-atot_simres <- simulateResiduals(atot)
-testDispersion(atot_simres)
-plot(atot_simres)
-# residuals look good
-
-summary(atot)
-
-# after changing sampling to represent the actual # of months into experiment
-# algae increase significantly in the real treatment over time, but there's
-# no significant difference between treatments.
 
 a5<-a5%>%
   mutate(samp2=case_when(
@@ -251,111 +132,6 @@ a5<-a5%>%
     sampling==3~5,
     sampling==4~12,
     sampling==5~17))
-
-# now look at halimeda alone
-hal<-glmmTMB(abundance~treatment*samp2+(1|plot),
-              data=a5%>%
-               filter(taxa=="halimeda")%>%
-                mutate(treatment=relevel(treatment, ref = "real")),
-              offset=log(start.abund),
-              REML = FALSE,
-              family=nbinom1)
-# look at residuals
-hal_simres <- simulateResiduals(hal)
-testDispersion(hal_simres)
-plot(hal_simres)
-# residuals look good
-
-summary(hal)
-# nothing significant
-# note gaussian residuals look good too, and sampling is almost sig. but not there
-
-# look at acetabularia- might not be enough there for models to converge
-
-ace<-glmmTMB(abundance~treatment*samp2+(1|plot),
-             data=a5%>%
-               filter(taxa=="acetabularia")%>%
-               mutate(treatment=relevel(treatment, ref = "real")),
-             offset=log(start.abund+1),
-             REML = FALSE,
-             family=nbinom1)
-# look at residuals
-ace_simres <- simulateResiduals(ace)
-testDispersion(ace_simres)
-plot(ace_simres)
-# residuals look good
-
-summary(ace)
-# model did converge- significant increase over time in real, but not different
-# than other two treatments. But note that change over time is not significant in other two
-
-# now look at Laurencia
-lau<-glmmTMB(abundance~treatment*samp2+(1|plot),
-             data=a5%>%
-               filter(taxa=="laurencia")%>%
-               mutate(treatment=relevel(treatment, ref = "real")),
-             offset=log(start.abund+1),
-             REML = FALSE,
-             family=nbinom1())
-# look at residuals
-lau_simres <- simulateResiduals(lau)
-testDispersion(lau_simres)
-plot(lau_simres)
-# residuals look good
-
-summary(lau)
-# no significant change over time and no difference between treatments for real.
-# note that fake and blank do significantly decrease over time
-
-# now penicillus
-
-pen<-glmmTMB(abundance~treatment*samp2+(1|plot),
-             data=a5%>%
-               filter(taxa=="penicillus")%>%
-               mutate(treatment=relevel(treatment, ref = "real")),
-             offset=log(start.abund+1),
-             REML = FALSE,
-             family=poisson)
-#nbinom1 didn't converge
-# look at residuals
-pen_simres <- simulateResiduals(pen)
-testDispersion(pen_simres)
-plot(pen_simres)
-# residuals look good
-
-summary(pen)
-# penicillus increases over time, no significant differences with other treatments
-# but note: model doesn't converge with blank or fake as the reference level and there is
-# ridiculous error associated with the fake sampling this is a result of 
-# penicilus mostly not occurring in the fake and blank... perhaps a better 
-# approach for this taxa is just to see if it increases in real plots over time?
-
-# finally udotea
-
-udot<-glmmTMB(abundance~treatment*samp2+(1|plot),
-             data=a5%>%
-               filter(taxa=="udotea")%>%
-               mutate(treatment=relevel(treatment, ref = "real")),
-             offset=log(start.abund+1),
-             REML = FALSE,
-             family=nbinom1)
-# look at residuals
-udot_simres <- simulateResiduals(udot)
-testDispersion(udot_simres)
-plot(udot_simres)
-# residuals look good
-
-summary(udot)
-# nothing significant going on
-
-
-# my thoughts- since the by species info isnt that much more interesting than 
-# the total algae story we just look at total algae and live with not having 
-# a totally significant result for one set of primary producers.
-
-# reminder what the total algae results look like
-
-summary(atot)
 
 # potential figure
 
