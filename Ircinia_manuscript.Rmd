@@ -31,14 +31,19 @@ This study was conducted in a shallow (1.1 m low tide depth) seagrass bed locate
 Three species of seagrass were observed in the experimental plots: *Thalassia testudinum*, *Syringodium filliforme*, and *Halodule wrightii*. *S. filliforme* and *H. wrightii* were initially rare and patchily distributed with a combined density of 149.2 ± 172 shoots m^-2^ (mean ± sd).  Therefore our initial focus was on the response of *T. testudinum* and species specific responses were not measured for either *S. filliforme* or *H. wrightii*. *T. testudinum* growth, short shoot density, and nutrient content were measured.  
 Shoot densities were determined in three 1x1 m quadrats within each plot. One quadrat was placed around the sponge or sponge model (sponge and s. control plots) or the center (control plots), this quadrat is referred to as the 0-0.5m quadrat. The next 1 m^2^ quadrat was placed immediately adjacent to the 0-0.5 m quadrat extending from 0.5-1.5 m away from the center point of the plot. A final quadrat was placed 1.5-2.5 m away from the center point (Fig. S1). Within each 1 m^2^ quadrat four 20 cm x 20 cm quadrats were haphazardly placed and the shoots of each seagrass were counted (*S. filliforme* and *H. wrightii* were recorded together). *T. testudinum* growth was measured using the standard blade hole punching technique [@zieman1974] at the center of the plot or immediately next to either the sponge, or polypropylene model of the sponge (i.e., 0 m), 0.5 m, 1.0 m, and 2.0 m away. In order to minimize disturbance to the plots, the growth and morphometrics (blade length and width) of five short shoots per distance were measured *in situ*. The second youngest blade was collected from 10 shoots in the center of each plot for nutrient analysis prior to the beginning of the experiment and again after 1 year. Seagrass nutrient content (%C, %N, and %P) was determined by drying the blades at 60ºC for 48-72 hours. The dried tissue was then ground. For %C and %N analysis seagrass tissue was then weighed into tin capsules, and sent to the University of Georgia Stable Isotope Ecology Laboratory for analysis.Percent phosphorus (%P) was determined by dry oxidation acid hydrolysis extraction followed by colorimetric analysis [@fourqurean1992].  
 
+### Statistical methods  
+#### Shoot densities
+
+#### *Thalassia testudinum* growth
+Seagrass growth (mm^2^) was divided by the collection day in order to attain a value consistent across time (called growth per day). Because sampling 1 was our preliminary data and seasonal variation occured, sampling 1 was removed from the data set. Sampling 1&3 were categorized as summer and sampling 2&4 were winter.We created a lag but I am unsure why... "possible predictor variables". Distances were pooled at 0-0.5 m and 1.0-2.0 m and termed "closer" and "further" distance respectively. A linear model was made
+#### *Thalassia testudinum* nutrient concentrations 
+
+
 ## Macroalgae Response Variables  
 The response of the macroalgae communities was monitored throughout the course of the experiment. All macroalgae were identified to genus and recorded.If identification was not possible in situ, a representative sample was photographed and subsequently collected.For algae where individuals were difficult to distinguish (e.g. *Laurencia* spp.) clumps of algae were recorded as individuals.Macroalgae densities were averaged over three 1 m^2^ quadrats to get a per m^2^ estimate of abundance for each plot. The macroalgae community was quantified within the same 1 m^2^ quadrats as seagrass shoot density. 
-  
-## Analysis  
-## Shoot densities
-## *Thalassia testudinum* growth  
-## *Thalassia testudinum* nutrient concentrations 
-## Macroalgae abundance and community structure
+
+#### Macroalgae abundance and community structure  
+
 
 # Results  
 ```{r results function,include=FALSE}
