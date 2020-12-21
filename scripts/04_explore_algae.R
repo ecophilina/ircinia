@@ -157,6 +157,7 @@ p2 <- ggpredict(alm1, terms = c("sampling", "taxa", "treatment"), type = "random
 plot(p2)
 
 # making a more appropriate figure
+ylab<-expression(paste(Delta," Macroalgae Abundance"))
 
 a6<-a5%>%
   mutate(delta.abund=abundance-start.abund)
@@ -164,10 +165,18 @@ a6<-a5%>%
 a6$treatment<-factor(a6$treatment,levels=c("blank","fake","real"),labels=c("Control","Structure Control","Sponge"))
 my.labels <- paste0(c("S","W","S","W"), "\n", c("Year 1","Year 1","Year 2", "Year 2"))
 
+a7<-a6%>%
+  filter(season!="winter")
+p3<-ggpredict(alm1, terms = c("year", "treatment" ))%>% 
+  rename(year = x,treatment = group)
+p3$treatment<-factor(p3$treatment,levels=c("blank","fake","real"),labels=c("Control","Structure Control","Sponge"))
+
+
+
 ggplot(data=a6)+
   geom_hline(aes(yintercept=0), linetype = "dashed", colour = "darkgrey")+
   scale_x_continuous(name="",breaks=c(2,3,4,5),label = my.labels)+
-  geom_ribbon(data = p1, aes(sampling,
+  geom_ribbon(data = p3, aes(sampling,
     ymin = conf.low,
     ymax = conf.high, 
     group = season),
@@ -189,6 +198,112 @@ ggplot(data=a6)+
     "Penicillus",
     "Udotea"))
 
+# only summer
+
+ggplot(data=a7)+
+  geom_hline(aes(yintercept=0), linetype = "dashed", colour = "darkgrey")+
+#  scale_x_continuous(name="",breaks=c(2,3,4,5),label = my.labels)+
+  geom_ribbon(data = p3, aes(year,
+                             ymin = conf.low,
+                             ymax = conf.high, 
+                             group = treatment),
+              alpha = 0.3
+  ) + 
+  geom_line(data = p3, aes(year, predicted, group = treatment)) +
+  geom_point(aes(x=year,y=delta.abund,color=taxa), alpha =0.5,
+             position=position_dodge(0.5))+
+  facet_wrap(~treatment)+
+  theme_bw()+
+  theme(panel.grid = element_blank(),
+        legend.title.align = 0.5,
+        strip.background = element_blank(),
+        strip.text = element_text(size=14))+
+  ylab("Macroalgal Abundance")+
+  scale_color_brewer(palette = "Set2",name="Taxa",labels=c("Acetabularia",
+                                                           "Halimeda",
+                                                           "Laurencia",
+                                                           "Penicillus",
+                                                           "Udotea"))
+
+# try summer with means
+a8<-a7 %>%
+  group_by(year,treatment,taxa)%>%
+  summarize(m.abund=mean(delta.abund),se.abund=sd(delta.abund)/sqrt(5))
+
+
+ggplot(data=a8)+
+  geom_hline(aes(yintercept=0), linetype = "dashed", colour = "darkgrey")+
+  scale_x_continuous(name="Year of Experiment",breaks=c(1,2),label = c(1,2))+
+  geom_ribbon(data = p3, aes(year,
+                             ymin = conf.low,
+                             ymax = conf.high, 
+                             group = treatment),
+              alpha = 0.3
+  ) + 
+  geom_line(data = p3, aes(year, predicted, group = treatment)) +
+  geom_errorbar(aes(x=year,ymin=m.abund-se.abund,ymax=m.abund+se.abund,color=taxa),
+                position=position_dodge(0.5),width=.3)+
+  geom_point(aes(x=year,y=m.abund,color=taxa), alpha =0.95,
+             position=position_dodge(0.5),size=4)+
+  facet_wrap(~treatment)+
+  theme_bw()+
+  theme(panel.grid = element_blank(),
+        legend.title.align = 0.5,
+        strip.background = element_blank(),
+        strip.text = element_text(size=14))+
+  ylab(ylab)+
+  # scale_color_brewer(palette = "Set2",name="Taxa",labels=c("Acetabularia",
+  #                                                          "Halimeda",
+  #                                                          "Laurencia",
+  #                                                          "Penicillus",
+  #                                                          "Udotea"))
+  scale_color_viridis_d(name="Taxa",
+                        end=.9,
+                        labels=c("Acetabularia",
+                                             "Halimeda",
+                                             "Laurencia",
+                                             "Penicillus",
+                                             "Udotea"))
+
+
+ggsave("figures/algae_summer_means_viridis.jpg")
+
+# make figure for supplemental
+a6$season<-factor(a6$season,levels=c("summer","winter"),labels=c("Summer","Winter"))
+p1$season<-factor(p1$season,levels=c("summer","winter"),labels=c("Summer","Winter"))
+
+ggplot()+
+  geom_hline(yintercept=0, linetype = "dashed", colour = "darkgrey")+
+  geom_point(aes(x=year,y=delta.abund,color=taxa),
+             data=a6,
+             position = position_dodge(0.5),
+             size=3,
+             alpha=.5)+
+  geom_line(aes(x=year,y=predicted,group=season),data=p1)+
+  geom_ribbon(aes(year,
+                  ymin = conf.low,
+                  ymax = conf.high, 
+                  group = season),
+              alpha = 0.3,data=p1)+
+  facet_grid(season~treatment,scales = "free")+
+  ylab(ylab)+
+  scale_x_continuous(breaks=c(1,2),name = "Year of Experiment")+
+  theme_bw()+
+  theme(
+    panel.grid = element_blank(),
+    strip.background = element_blank(),
+    strip.text = element_text(size=14),
+    legend.title.align = 0.5)+
+  scale_color_viridis_d(name="Taxa",
+                        end=.9,
+                        labels=c("Acetabularia",
+                                 "Halimeda",
+                                 "Laurencia",
+                                 "Penicillus",
+                                 "Udotea"))
+
+
+ggsave("figures/algae_for_supplemental.jpg")  
 
 # old global figure
 a6<-a3 %>%
@@ -222,7 +337,7 @@ a6<-a6%>%
 a7<-a6%>%
   group_by(treatment,samp2)%>%
   summarize(m.tot=mean(delta.tot),sd.tot=sd(delta.tot))
-ylab<-expression(paste(Delta," macroalgae abundance"))
+
 
 (afig <- ggplot() +
     geom_hline(aes(yintercept = 0)) +
