@@ -33,10 +33,10 @@ Shoot densities were determined in three 1x1 m quadrats within each plot. One qu
 
 ### Statistical methods  
 
-For all response variables, the values measured prior to the initiation of the experiment were used as an offset in the mixed effect models discussed below. Additionally, two sampling events occurred in the summer (1 and 12 months into the experiment) and two in the winter (5 and 17 months into the experiment). All response variables were visually examined for a seasonal effect. Evidence of a seasonal effect was apparent for seagrass growth and algal abundance. Consequently season (summer or winter) and year of the experiment (1st or 2nd year) were included as explanatory variables in those analyses. Seagrass shoot density did not show evidence of a seasonal effect.   
+For all response variables other than nutrient concentrations, the values measured prior to the initiation of the experiment were used as an offset in the mixed effect models discussed below. Additionally, two sampling events occurred in the summer (1 and 12 months into the experiment) and two in the winter (5 and 17 months into the experiment). All response variables were visually examined for a seasonal effect. Evidence of a seasonal effect was apparent for seagrass growth and algal abundance. Consequently season (summer or winter) and year of the experiment (1st or 2nd year) were included as explanatory variables in those analyses. Seagrass shoot density did not show evidence of a seasonal effect.   
  
 #### Shoot densities  
-*Thalassia testudinum* shoot densities (shoots m^-2^) were analyzed separately from *S. filiforme* and *H. wrightii*. Because shoot densities are counts, both sets of shoot densities were analyzed using a generalized linear mixed effects model with a negative binomial **note for Philina we used nbinom1** and a log link. Treatment, sampling, and distance and their interactions were included as fixed effects and plot was included as a random factor.
+*Thalassia testudinum* shoot densities (shoots m^-2^) were analyzed separately from *S. filiforme* and *H. wrightii*. Because shoot densities are counts, both sets of shoot densities were analyzed with a generalized linear mixed effects model with a negative binomial **note for Philina we used nbinom1** and a log link using the glmmTMB package [@brooks2017] in R version 4.0.2 [@rcoreteam2020]. Treatment, sampling, and distance and their interactions were included as fixed effects and plot was included as a random factor.
 
 
 #### *Thalassia testudinum* growth  
@@ -88,6 +88,21 @@ efsize<-function(rtable,row){
   return(paste(betas,",",cil,"to",cih))
 }
 
+efsize.tmb<-function(rtable,row){
+  betas<-signif(rtable$coefficients$cond[row,1], 2)
+  betas<-ifelse(abs(betas)<10,
+    formatC(signif(betas,2), digits=2, format="fg", flag="#"), 
+    round(betas))
+  betas2 <- as.numeric(betas)
+  decicount <- ifelse(betas2>1 & betas2 <10, 1, decimalplaces(betas2))
+  se<-rtable$coefficients$cond[row,2]
+  cil<-rtable$coefficients$cond[row,1]-1.96*se
+  cil<-format(round(cil, digits=decicount), scientific=F)
+  cih<-rtable$coefficients$cond[row,1]+1.96*se
+  cih<-format(round(cih, digits=decicount), scientific=F)
+  return(paste(betas,",",cil,"to",cih))
+}
+
 # overall anovas
 aov.res2<-function(rtable,row){
   tv<-round(rtable[row,5],2)
@@ -98,14 +113,23 @@ aov.df2<-function(rtable,row){
   return(paste0(round(rtable[row,3],0),",",round(rtable[row,4],0)))
 }
 
+# tmb models
+# overall anovas
+tmb.res<-function(rtable,row){
+  tv<-round(rtable$coefficients$cond[row,3],2)
+  pv<-ifelse(rtable$coefficients$cond[row,4]< 0.001, "p < 0.001", paste("p =", round(rtable$coefficients$cond[row,4],2)))
+  return(paste("=",tv,",",pv))
+}
+
+# degrees of freedom??
+
 ```
 
 ## Shoot densities
 ```{r shoot.density, include=FALSE}
-source("scripts/10_sg_shoots_analysis.R")
+source("scripts/10_sg_shoots_analysis_USE.R")
 ```  
-*Thalassia testudinum* shoot densities declined in all treatments over time (overall:F~`r aov.df2(tsd.aov,2)`~`r aov.res2(tsd.aov,2)` , control: $\beta$ = `r efsize(tsdb.sum,4)`, t~`r aov.df(tsdb.sum$coefficients,4)`~ `r aov.res(tsdb.sum$coefficients,4)`, structure control: $\beta$ = `r efsize(tsdf.sum,4)`, t~`r aov.df(tsdf.sum$coefficients,4)`~ `r aov.res(tsdf.sum$coefficients,4)`, and sponge: $\beta$ = `r efsize(tsdr.sum,4)`, t~`r aov.df(tsdr.sum$coefficients,4)`~ `r aov.res(tsdr.sum$coefficients,4)`). 
-Combined shoot densities of *S. filiformes* and *H. wrightii*  increased significantly in sponge plots over time ($\beta$ = `r efsize(shsdr.sum,4)`, t~`r aov.df(shsdr.sum$coefficients,4)`~ `r aov.res(shsdr.sum$coefficients,4)`) but did not significantly change in control ($\beta$ = `r efsize(shsdb.sum,4)`, t~`r aov.df(shsdb.sum$coefficients,4)`~ `r aov.res(shsdb.sum$coefficients,4)`) or structure control plots($\beta$ = `r efsize(shsdf.sum,4)`, t~`r aov.df(shsdf.sum$coefficients,4)`~ `r aov.res(shsdf.sum$coefficients,4)`). 
+*Thalassia testudinum* shoot densities decreased similarly in all treatments over time (control: $\beta$ = `r efsize.tmb(tsdb.sum,4)`, z `r tmb.res(tsdb.sum,4)`; structure control: $\beta$ = `r efsize.tmb(tsdf.sum,4)`, z `r tmb.res(tsdf.sum,4)`; sponge: $\beta$ = `r efsize.tmb(tsdr.sum,4)`, z `r tmb.res(tsdr.sum,4)`), but this decrease was not significant in sponge plots. There was no significant effect of distance for any treatment  initially (control: $\beta$ = `r efsize.tmb(tsdb.sum,5)`, z `r tmb.res(tsdb.sum,5)`; structure control: $\beta$ = `r efsize.tmb(tsdf.sum,5)`, z `r tmb.res(tsdf.sum,5)`; sponge: $\beta$ = `r efsize.tmb(tsdr.sum,5)`, z `r tmb.res(tsdr.sum,5)`) or over time (control: $\beta$ = `r efsize.tmb(tsdb.sum,10)`, z `r tmb.res(tsdb.sum,10)`; structure control: $\beta$ = `r efsize.tmb(tsdf.sum,10)`, z `r tmb.res(tsdf.sum,10)`; sponge: $\beta$ = `r efsize.tmb(tsdr.sum,10)`, z `r tmb.res(tsdr.sum,10)`). *Syringodium filiforme* and *H. wrightii* shoot densities did not change in control ( $\beta$ = `r efsize.tmb(shsdb.sum,4)`, z `r tmb.res(shsdb.sum,4)`)  or structure control plots ( $\beta$ = `r efsize.tmb(shsdf.sum,4)`, z `r tmb.res(shsdf.sum,4)`) but increased in sponge plots ( $\beta$ = `r efsize.tmb(shsdr.sum,4)`, z `r tmb.res(shsdr.sum,4)`). The increase in sponge plots was significantly different than both control ($\beta$ = `r efsize.tmb(shsdr.sum,6)`, z `r tmb.res(shsdr.sum,6)`) and structure control plots ($\beta$ = `r efsize.tmb(shsdr.sum,7)`, z `r tmb.res(shsdr.sum,7)`). Initially, *S. filiforme* and *H. wrightii* were more abundant at further distances from the center of sponge plots ( $\beta$ = `r efsize.tmb(shsdr.sum,5)`, z `r tmb.res(shsdr.sum,5)`). However, over time *S. filiforme* and *H. wrightii* increased more near the center of sponge plots (time * distance: $\beta$ = `r efsize.tmb(shsdr.sum,10)`, z `r tmb.res(shsdr.sum,10)`). There was no significant effect of distance at any point in control (initially: $\beta$ = `r efsize.tmb(shsdb.sum,5)`, z `r tmb.res(shsdb.sum,5)`; time * distance: $\beta$ = `r efsize.tmb(shsdb.sum,10)`, z `r tmb.res(shsdb.sum,10)`) or structure control plots (initially: $\beta$ = `r efsize.tmb(shsdf.sum,5)`, z `r tmb.res(shsdf.sum,5)`; time * distance: $\beta$ = `r efsize.tmb(shsdf.sum,10)`, z `r tmb.res(shsdf.sum,10)`).
 
 ## *Thalassia testudinum* growth  
 ```{r growth, include=FALSE}

@@ -94,32 +94,13 @@ tsdlmf<-glmmTMB(T.SD ~ treatment*samp2*dist1 +
 
 
 # conclusion here is still not treatment effect but there is some evidence of an overall loss in Thalassia shoot density over time
-# could simplify if we need overall estimate of Thalassia density change
-tsdlm<-glmmTMB(T.SD ~ samp2  +
-                 # treatment*dist1 + 
-                 # (1|plot,
-                 (1|plot/dist2),
-               offset=log(mtsd+1),
-               data=sgsd, 
-               REML = F, 
-               family = nbinom1)
-# family = gaussian) # improves residuals but still no sig. treatment effects
-
-(tsd.sum<-summary(tsdlm))
-
-# tsdlm_simres <- simulateResiduals(tsdlm)
-# testDispersion(tsdlm_simres)
-# plot(tsdlm_simres)
-
 
 
 # Knowing that Syringodium and Halodule (SH) differ by treatment by end of experiment. 
 # How does this develop through time and with distance from sponge?
 
 shsdlmr<-glmmTMB(SH.SD ~ 
-                   treatment * samp2 * dist1 + # squared term never sig
-                   # treatment * poly(samp2,2) * dist1 + # squared term never sig
-                   # treatment*samp2 + treatment*dist1 + #samp2*dist1 +
+                   treatment * samp2 * dist1 + 
                    (1|plot),
                  offset=log(mshsd+1),
                  data=sgsd %>%
@@ -144,8 +125,6 @@ shsdlmb<-glmmTMB(SH.SD ~
 
 shsdlmf<-glmmTMB(SH.SD ~ 
                    treatment*samp2*dist1 +
-                   # treatment*samp2 + treatment*dist1 + 
-                   # (dist1|plot),
                    (1|plot),
                  offset=log(mshsd+1),
                  data=sgsd %>%
