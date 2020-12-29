@@ -57,10 +57,13 @@ Percent phosphorus (%P) was determined by dry oxidation acid hydrolysis extracti
 ### Statistical methods  
 
 All experimental responses were assessed with linear or generalized linear mixed effect models using the lme4 **[REF]** or glmmTMB [@brooks2017] packages respectively in R version 4.0.2 [@rcoreteam2020]. 
+**not sure how to add this bit of info- "releveling with real or fake as the base"**
 For all models, plot was included as a random factor and additional random effects only included as described below.  
 For all response variables other than nutrient concentrations, the values measured prior to the initiation of the experiment were used as an offset. 
 Two sampling events occurred in the summer (1 and 12 months into the experiment) and two in the winter (5 and 17 months into the experiment); therefore, all response variables were visually examined for a seasonal effect. 
-If responses differed noticably between summer and winter, separate factors for season and year of the experiment (1st or 2nd year) were included as explanatory variables in those analyses. **result? Seagrass shoot density did not show evidence of a seasonal effect, while growth and algal abundance did.**
+If responses differed noticably between summer and winter, separate factors for season and year of the experiment (1st or 2nd year) were included as explanatory variables in those analyses, otherwise a continuous effect of months into experiment was the only temporal variable. 
+In either case, the effects of temporal variables were allowed to interact with experimental treatment (control, structure control, or sponge), but not with eachother. 
+**result? Seagrass shoot density did not show evidence of a seasonal effect, while growth and algal abundance did.**
  
 #### Shoot densities  
 Shoot densities (counts of shoots m^-2^) were modeled with a quasi-poisson distribution **aka nbinom1** and a log link. 
@@ -73,8 +76,8 @@ Because a threshold was identified (see results), distance was turned into a fac
 Growth per day was analyzed using a linear response to treatment (control, structure control, or sponge) interacting separately with distance (near or far), season, and year as fixed factors and quadrat ID as an additional random factor.  
 
 #### *T. testudinum* nutrient concentrations 
-Nutrient concentrations (% of nitrogen, carbon, and phosphorus) were examined at distance= 0 for seasonal variation in blank treatment using a linear mixed effects model. 
-After no seaonal differences were detected (see results), each nutrient concentration(% nitrogen, carbon, and phosphorus) was individually analyzed using a liner mixed effects model with treament (control, structure control, or sponge) interacting with sampling (months into the experiment) and plot as a random factor**not sure how to add this bit of info- "releveling with real or fake as the base"**
+Nutrient concentrations (% of nitrogen, carbon, and phosphorus) were examined at distance = 0 for seasonal variation in blank treatment using a linear mixed effects model. **why just this distance?**
+After no seaonal differences were detected (see results), each nutrient concentration(% nitrogen, carbon, and phosphorus) was individually analyzed using a liner mixed effects model with treament interacting with months into the experiment. 
 
 ## Macroalgae Response Variables  
 The response of the macroalgae communities was monitored throughout the course of the experiment. 
