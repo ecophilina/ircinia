@@ -172,11 +172,14 @@ nbs<-summary(n.lmerb)
 # first make treatment a factor
 sgn <- sgn %>% ungroup() 
 sgn$treatment<-as.factor(sgn$treatment)
+
+sgn$sampling<-as.factor(sgn$sampling)
+
 n.lmerr<-lmer(nvalue~treatment*sampling+(1|plot),
              data=sgn%>%
                filter(nut=="PN" & dist==0 & sampling %in% c(1,4))%>%
                mutate(treatment=relevel(treatment,ref="real")))
-nrs<-summary(n.lmerr)
+(nrs<-summary(n.lmerr))
 
 # one year later seagrass in plots with sponges have higher %N than either treatment
 # even though they started out lower than both and significantly lower than blank.
@@ -240,4 +243,10 @@ c.lmerf<-lmer(nvalue~treatment*sampling+(1|plot),
 cfs<-summary(c.lmerf)
 # %C decreased significantly in fake plots after 1 year.
 
-
+# check distributions
+sgn1 <- sgn %>% filter(nut=="PC" & dist==0 & sampling %in% c(1,4))
+hist(sgn1$nvalue, breaks=30)
+sgn2 <- sgn %>% filter(nut=="PP" & dist==0 & sampling %in% c(1,4))
+hist(sgn2$nvalue, breaks=30)
+sgn3 <- sgn %>% filter(nut=="PN" & dist==0 & sampling %in% c(1,4))
+hist(sgn3$nvalue, breaks=30)
