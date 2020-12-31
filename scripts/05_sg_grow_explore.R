@@ -54,15 +54,57 @@ sgg2<- left_join(sgg1, sv) %>%
     quad_id = paste0(plot, dist)
   )
 
+
+
+## distance pooling
+# at 0 both real and fake have increased growth
+sgmd0s<-lmer(gpd~ treatment + yr + season +  (1|plot),
+  offset=start_gr,
+  data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "real"))
+  # data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "fake"))
+  %>% filter(dist == 0)
+)
+
+(sg0<-anova(sgmd0s))
+
+sgmd0s<-lmer(gpd~ treatment + yr + season +  (1|plot),
+  offset=start_gr,
+  data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "real"))
+  # data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "fake"))
+  %>% filter(dist == 0.5)
+)
+
+(sg05<-anova(sgmd0s))
+
+# at >= 1: no differences
+sgmd0s<-lmer(gpd~ treatment + yr + season * previous_gpd + (1|plot), 
+  data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "real"))
+  # data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "fake"))
+  %>% filter(dist == 1)
+)
+(sg1<-anova(sgmd0s))
+
+
+
 #### removing previous growth rate makes sense because seasonal difference explains most of the relationship 
 sgg2$treatment<-factor(sgg2$treatment)
-sgmd0s<-lmer(gpd~ treatment * dist_factor+treatment * yr + treatment*season   + (1|quad_id), 
+sgmd0s<-lmer(gpd~ 
+    treatment * dist_factor + 
+    treatment * yr + 
+    # dist_factor * yr +
+    treatment * season + 
+              (1|plot) + # adding this explains so little variation that it doesn't change anything...
+              (1|quad_id), 
              offset=start_gr,
              # data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "blank"))
              data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "real"))
              # data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "fake"))
 )
-sgr<-summary(sgmd0s)
+
+
+(sgr.aov<-glmmTMB:::Anova.glmmTMB(sgmd0s, type = "III"))
+(sgr<-summary(sgmd0s))
+
 sgmd0sb<-lmer(gpd~ treatment * dist_factor+treatment * yr + treatment*season   + (1|quad_id), 
               offset=start_gr,
               data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "blank"))
@@ -70,42 +112,14 @@ sgmd0sb<-lmer(gpd~ treatment * dist_factor+treatment * yr + treatment*season   +
               # data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "fake"))
 )
 sgb<-summary(sgmd0sb)
-sgmd0sf<-lmer(gpd~ treatment * dist_factor+treatment * yr + treatment*season  + (1|quad_id), 
+sgmd0sf<-lmer(gpd~ treatment * dist_factor+treatment * yr + treatment*season  + 
+    (1|plot) + # adding this explains so little variation that it doesn't change anything...
+    (1|quad_id), 
               offset=start_gr,
               # data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "blank"))
               #data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "real"))
               data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "fake"))
 )
 sgf<-summary(sgmd0sf)
-sgaov<-anova(sgmd0sf)
+(sgaov<-anova(sgmd0sf))
 
-
-
-## distance pooling
-# at 0 both real and fake have increased growth
-sgmd0s<-lmer(gpd~ treatment + yr + season +  (1|quad_id),
-             offset=start_gr,
-             data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "real"))
-             # data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "fake"))
-             %>% filter(dist == 0)
-)
-
-sg0<-anova(sgmd0s)
-
-sgmd0s<-lmer(gpd~ treatment + yr + season +  (1|quad_id),
-             offset=start_gr,
-             data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "real"))
-             # data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "fake"))
-             %>% filter(dist == 0.5)
-)
-
-sg05<-anova(sgmd0s)
-
-# at >= 1: no differences
-sgmd0s<-lmer(gpd~ treatment + yr + season * previous_gpd + (1|plot), #+ (1|quad_id)
-             offset=start_gr,
-             data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "real"))
-             # data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "fake"))
-             %>% filter(dist == 1)
-)
-sg1<-anova(sgmd0s)
