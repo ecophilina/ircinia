@@ -105,7 +105,7 @@ a5<-a5%>%
     sampling==3~1,
     sampling==4~2,
     sampling==5~2),
-    start = log(start.abund+1))
+    logstart = log(start.abund+1))
 
 
 # if we need sampling in months
@@ -119,8 +119,11 @@ a5<-a5%>%
 
 # trying the one global model first
 alm1<-glmmTMB(abundance~treatment*year+treatment*season + 
-    offset(start) + 
-    (1|plot)+(sampling|taxa),
+    offset(logstart) + 
+    (1|plot)+
+    (year:season|taxa),
+    # (season|taxa),
+    # (sampling|taxa),
     data = a5 %>% mutate(treatment=relevel(treatment, ref = "real")),
     REML=F,
     family=nbinom2)
@@ -140,7 +143,7 @@ library(ggeffects)
 # library(sjstats)
 # ggpredict(alm1, "year")
 
-p1 <- ggpredict(alm1, terms = c("year", "season","treatment" )) %>% 
+p1 <- ggpredict(alm1, terms = c("year", "season", "treatment" )) %>% 
   rename(year = x, season = group, treatment = facet)%>% 
   mutate(
     sampling = case_when(
@@ -153,7 +156,7 @@ p1 <- ggpredict(alm1, terms = c("year", "season","treatment" )) %>%
 
 p1$treatment<-factor(p1$treatment,levels=c("blank","fake","real"),labels=c("Control","Structure Control","Sponge"))
 
-p2 <- ggpredict(alm1, terms = c("sampling", "taxa", "treatment"), type = "random")
+p2 <- ggpredict(alm1, terms = c("year", "treatment", "taxa", "season" ), type = "random")
 plot(p2)
 
 # making a more appropriate figure
@@ -167,8 +170,16 @@ my.labels <- paste0(c("S","W","S","W"), "\n", c("Year 1","Year 1","Year 2", "Yea
 
 a7<-a6%>%
   filter(season!="winter")
-p3<-ggpredict(alm1, terms = c("year", "treatment" ))%>% 
-  rename(year = x,treatment = group)
+p3<-ggpredict(alm1, terms = c("year", "treatment", "season"))%>% 
+  rename(year = x,treatment = group, season = facet)%>% 
+  mutate(
+    sampling = case_when(
+      year==1&season=="summer"~2,
+      year==1&season=="winter"~3,
+      year==2&season=="summer"~4,
+      year==2&season=="winter"~5
+    )
+  )
 p3$treatment<-factor(p3$treatment,levels=c("blank","fake","real"),labels=c("Control","Structure Control","Sponge"))
 
 
