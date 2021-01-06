@@ -37,21 +37,20 @@ Live sponges were replaced as needed with a total of 3 individual sponge replace
 
 ## Primary producer response variables  
 
-Primary producers were quantified with in three 1x1 m quadrats at increasing distances from the center of each plot. 
-One quadrat was placed around the sponge or sponge model (sponge and structural control plots) or the center (control plots), this quadrat is referred to as being at 0 distance. 
+Primary producers (seagrasses and macroalgae) were quantified within three 1x1 m quadrats at increasing distances from the center of each plot. 
+The 0 distance quadrat was placed around the sponge or sponge model (sponge and structural control plots) or the center (control plots). 
 The 1 m distance quadrat was placed immediately adjacent to the 0 distance quadrat, extending from 0.5-1.5 m away from the center point of the plot and the 2 m distance quadrat covered an area 1.5-2.5 m away from the center point (Fig. S1). 
-Macroalgae were identified to genus and counts were averaged across the three 1 m^2^ quadrats to get a per m^2^ estimate of abundance for each plot. 
+Macroalgae were identified to genus and counts were summed across the three 1 m^2^ quadrats. 
 Where individuals were difficult to distinguish (e.g. *Laurencia* spp.) clumps of algae were recorded as individuals. 
 If identification was not possible *in situ*, a representative sample was photographed and subsequently collected. 
 Three species of seagrass were observed in the experimental plots: *Thalassia testudinum*, *Syringodium filliforme*, and *Halodule wrightii*. 
-Shoots densities of these species were counted within four 20 cm x 20 cm "sub-quadrats" that were placed haphazardly within each of the above quadrats. 
-*S. filliforme* and *H. wrightii* were initially rare and patchily distributed with a combined density of 149.2 ± 172 shoots m^-2^ (mean ± sd), compared to *T. testudinum*'s initial density of 788.1 ± 386.2 shoots m^-2^ (mean ± sd).
-<!-- OR: *S. filliforme* and *H. wrightii* were initially rare and patchily distributed (combined density (mean ± sd) of 149.2 ± 172 shoots m^-2^, compared to *T. testudinum*'s initial density of 788.1 ± 386.2 shoots m^-2^). -->
-Therefore our counts of *S. filliforme* and *H. wrightii* were pooled, and we took measurements of growth and nutrient content only for *T. testudinum*. 
+Shoots densities of these species were counted within four 20 cm x 20 cm "sub-quadrats" that were placed haphazardly within each of the quadrats described above (Fig. S1). 
+*S. filliforme* and *H. wrightii* were initially rare and patchily distributed (combined density (mean ± sd) of 149.2 ± 172 shoots m^-2^, compared to *T. testudinum*'s initial density of 788.1 ± 386.2 shoots m^-2^).
+Therefore our counts of *S. filliforme* and *H. wrightii* were pooled, and growth and nutrient content were only measured in *T. testudinum*. 
 
 Growth rates of *T. testudinum* shoots were measured at four distances from the center of each plot: the center of the plot or immediately next to the sponge, or polypropylene model of the sponge (designated as 0 m) and in permanently marked points (using stakes) at 0.5 m, 1.0 m, and 2.0 m away from the center of the plot. 
 Growth rates were calculated using the standard blade hole punching technique [@zieman1974] on five short *T. testudinum* shoots per distance. 
-Measurementes were taken after an approximately two week period and done *in situ* in order to minimize disturbance to the plots. 
+Approximately two weeks after the blades were marked growth was measured *in situ* in order to minimize disturbance to the plots. 
 
 Nutrient content (%C, %N, and %P) was assessed for 10 shoots growing near the center of each plot, prior to the beginning of the experiment and again after 1 year. 
 The second youngest blade from each shoot was collected, combined with other blades from the same plot and sampling period, and dried at 60ºC for 48-72 hours. 
@@ -72,9 +71,10 @@ If responses differed noticeably between summer and winter, separate factors for
 In either case, the effects of temporal variables were allowed to interact with experimental treatment (control, structure control, or sponge), but season and year were only allowed to interact except when included as random slopes (for algal abundance only). 
 **result? Seagrass shoot density and nutrient levels did not show evidence of a seasonal effect, while growth and algal abundance did.** **I think this becomes clear in the discussion of the models we used**
 
-Macroalgal abundances per m^2^ were modeled with a negative binomial distribution **aka nbinom2** and a log link.
-Overall abundance did fluctuate seasonally, so we used a mixed-effect model as decribed above with random slopes for the effect of season and year for each taxa. 
-This provides an estimate of the overall treatment effect between years and seasons, as well as taxa-specific differences in these effects. **is this clearer?**  
+**So, for all of the descriptions of the models I think we need a definitive statement of what the fixed effects were in each model, which interactions were included, and any random effects other than plot. I'm having trouble concentrating right now, but perhaps we can work on this as a group during our meeting**
+Macroalgal abundances were modeled with a negative binomial distribution **aka nbinom2** and a log link.
+Overall abundance did fluctuate seasonally, so we used a mixed-effect model as described above with random slopes for the effect of season and year for each taxa. 
+This provides an estimate of the overall treatment effect between years and seasons, as well as taxa-specific differences in these effects.  
 
 Shoot densities (counts of shoots m^-2^) were modeled with a quasi-poisson distribution **aka nbinom1** and a log link. 
 Seagrass shoots did not fluctuate between seasons, so we tested for a continuous effect of months into experiment and the three-way interaction with treatment and distance (a linear covariate representing the center of contiguous 1 m^2^ sampling quadrats). **note to self, wording of this sentence is a bit confusing**
@@ -82,7 +82,7 @@ Because species-specific shoot counts were not collected for *S. filliforme* or 
 
 *T. testudinum* growth rate (mm^2^ day^-1^) was analyzed in response to treatment interacting separately with distance, season, and year and the stake ID as an additional random factor. **I guess it's actually stake ID **   
 We tested for a treatment effect at each distance sampled (0, 0.5, 1, and 2 m) to identify a potential threshold of response. 
-Because no effect was detected at the 1 m or 2 m sampling points, distance was turned into a factor with 0 and 0.5 m assigned as "near" and 1 and 2 m assigned as "far". 
+An effect was detected at 0 and 0.5 m but not at the 1 m or 2 m sampling points. Therefore distance was turned into a factor with 0 and 0.5 m assigned as "near" and 1 and 2 m assigned as "far". 
 
 Finally, nutrient concentrations (% of nitrogen, carbon, and phosphorus) in *T. testudinum* shoots one year into the experiment were compared with prior values. 
 
@@ -160,6 +160,15 @@ tmb.res<-function(rtable,row){
 # degrees of freedom??
 
 ```
+## Macroalgal abundance  
+```{r algae, include=FALSE}
+source("scripts/04_explore_algae_ska.R")
+```  
+Macroalgal abundances decreased in the winter, regardless of treatment (control: $\beta$ = `r efsize.tmb(alm1b.sum,5)`, z `r tmb.res(alm1b.sum,5)`; structure control: $\beta$ = `r efsize.tmb(alm1f.sum,5)`, z `r tmb.res(alm1f.sum,5)`; sponge: $\beta$ = `r efsize.tmb(alm1r.sum,5)`, z `r tmb.res(alm1r.sum,5)`).
+Macroalgal abundances did not change significantly between the first and second year of the experiment in control ($\beta$ = `r efsize.tmb(alm1b.sum,4)`, z `r tmb.res(alm1b.sum,4)`) or structure control plots ($\beta$ = `r efsize.tmb(alm1f.sum,4)`, z `r tmb.res(alm1f.sum,4)`, \@ref(fig:algaep)). **note if we keep this figure, we should add panel labels to it**
+However, macroalgal abundances increased in sponge treatments in year two of the experiment ($\beta$ = `r efsize.tmb(alm1r.sum,4)`, z `r tmb.res(alm1r.sum,4)`, \@ref(fig:algaep)). 
+This increase is significantly different than the response in control (z `r tmb.res(alm1r.sum,6)`) and structure control (z `r tmb.res(alm1r.sum,7)`) plots. 
+The change in macroalgal abundances was not significantly different in control and structure control plots (z `r tmb.res(alm1b.sum,6)`). 
 
 ## Shoot densities
 ```{r shoot.density, include=FALSE}
@@ -192,8 +201,7 @@ source("scripts/06_nutrient_explore.R")
 ```
 
 
-Before the the experiment, seagrass in sponge plots had significantly lower nitrogen concentrations than control plots (Fig. \@ref(fig:nuts)A, $\beta$ = `r efsize(nbs,3)`, t~`r aov.df(nbs$coefficients,3)`~ `r aov.res(nbs$coefficients,3)`) but not structure control plots ($\beta$ = `r efsize(nfs,3)`, t~`r aov.df(nfs$coefficients,3)`~ `r aov.res(nfs$coefficients,3)`). 
-Percent nitrogen in seagrass tissues in both control and structure control plots declined similarly over time (Fig. \@ref(fig:nuts)A, $\beta$ = `r efsize(nbs,5)`, t~`r aov.df(nbs$coefficients,5)`~ `r aov.res(nbs$coefficients,5)`), but the decrease was only significant in control plots (control: $\beta$ = `r efsize(nbs,4)`, t~`r aov.df(nbs$coefficients,4)`~ `r aov.res(nbs$coefficients,4)`, structure control: t~`r aov.df(nfs$coefficients,4)`~ `r aov.res(nfs$coefficients,4)`). 
+Before the the experiment, seagrass in sponge plots had significantly lower nitrogen concentrations than control plots (Fig. \@ref(fig:nuts)A, $\beta$ = `r efsize(nbs,3)`, t~`r aov.df(nbs$coefficients,3)`~ `r aov.res(nbs$coefficients,3)`) but not structure control plots ($\beta$ = `r efsize(nfs,3)`, t~`r aov.df(nfs$coefficients,3)`~ `r aov.res(nfs$coefficients,3)`). Percent nitrogen in seagrass tissues in both control and structure control plots declined similarly over time (Fig. \@ref(fig:nuts)A, $\beta$ = `r efsize(nbs,5)`, t~`r aov.df(nbs$coefficients,5)`~ `r aov.res(nbs$coefficients,5)`), but the decrease was only significant in control plots (control: $\beta$ = `r efsize(nbs,4)`, t~`r aov.df(nbs$coefficients,4)`~ `r aov.res(nbs$coefficients,4)`, structure control: t~`r aov.df(nfs$coefficients,4)`~ `r aov.res(nfs$coefficients,4)`). 
 Conversely, seagrass in sponge plots responded differently than both the control ($\beta$ = `r efsize(nrs,5)`, t~`r aov.df(nrs$coefficients,5)`~ `r aov.res(nrs$coefficients,5)`) and structure control ($\beta$ = `r efsize(nrs,6)`, t~`r aov.df(nrs$coefficients,6)`~ `r aov.res(nrs$coefficients,6)`) plots: it had a higher % nitrogen after one year (Fig. \@ref(fig:nuts)A). 
 However, this increase was not significant ($\beta$ = `r efsize(nrs,4)`, t~`r aov.df(nrs$coefficients,4)`~ `r aov.res(nrs$coefficients,4)`).  
 
@@ -207,7 +215,7 @@ Although % phosphorus in seagrass tissues followed the same patterns as both % n
 However, the pattern of change over time was significantly different between control and sponge plots ($\beta$ = `r efsize(pbs,6)`, t~`r aov.df(pbs$coefficients,6)`~ `r aov.res(pbs$coefficients,6)`), but not between structure control and sponge plots ($\beta$ = `r efsize(prs,6)`, t~`r aov.df(prs$coefficients,6)`~ `r aov.res(prs$coefficients,6)`) or control and structure control plots ($\beta$ = `r efsize(pbs,5)`, t~`r aov.df(pbs$coefficients,5)`~ `r aov.res(pbs$coefficients,5)`).
 
   
-## Macroalgae abundance and community structure
+
   
 # Discussion  
   
@@ -415,5 +423,10 @@ knitr::include_graphics("figures/sggrow.jpg")
 #  ggsave(filename = "figures/nuts.pdf",plot=n2,width=3,height = 6)
 #  ggsave(filename = "figures/nuts.jpg",plot=n2,width=3,height = 6)
 knitr::include_graphics("figures/nuts.jpg")
+```
+
+```{r algaep,echo=FALSE,message=FALSE, fig.cap="The change in macroalgal abundances in control, structure control, and sponge plots between the first and second summer of the experiment. Taxa-specific mean counts and standard errors are presented. The line and shaded area represent the global model fit with 95% confidence intervals."}
+
+knitr::include_graphics("figures/algae_summer_means_viridis.jpg")
 ```
 

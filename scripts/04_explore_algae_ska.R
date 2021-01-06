@@ -129,7 +129,7 @@ alm1.b<-glmmTMB(abundance~treatment*year+treatment*season+ (1|plot)+(sampling|ta
 
 
 # look at residuals
-alm1_simres <- simulateResiduals(alm1)
+alm1_simres <- simulateResiduals(alm1.r)
 testDispersion(alm1_simres)
 plot(alm1_simres)
 
