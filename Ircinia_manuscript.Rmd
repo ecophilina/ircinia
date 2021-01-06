@@ -37,20 +37,17 @@ Live sponges were replaced as needed with a total of 3 individual sponge replace
 
 ## Primary producer response variables  
 
-Macroalgae were identified to genus and counted within the same 1 m^2^ quadrats as seagrass shoot density. 
-If identification was not possible *in situ*, a representative sample was photographed and subsequently collected. 
-For algae where individuals were difficult to distinguish (e.g. *Laurencia* spp.) clumps of algae were recorded as individuals. 
-Macroalgae densities were averaged over three 1 m^2^ quadrats to get a per m^2^ estimate of abundance for each plot. 
-
-Three species of seagrass were observed in the experimental plots: *Thalassia testudinum*, *Syringodium filliforme*, and *Halodule wrightii*. 
-*S. filliforme* and *H. wrightii* were initially rare and patchily distributed with a combined density of 149.2 ± 172 shoots m^-2^ (mean ± sd), compared to *T. testudinum*'s initial density of 788.1 ± 386.2 shoots m^-2^ (mean ± sd).
-Therefore our initial focus was on the response of *T. testudinum* and species specific responses were not measured for either *S. filliforme* or *H. wrightii*. 
-*T. testudinum* growth, short shoot density, and nutrient content were measured. 
-
-Shoot densities were determined in three 1x1 m quadrats at increasing distances from the center of each plot. 
+Primary producers were quantified with in three 1x1 m quadrats at increasing distances from the center of each plot. 
 One quadrat was placed around the sponge or sponge model (sponge and structural control plots) or the center (control plots), this quadrat is referred to as being at 0 distance. 
 The 1 m distance quadrat was placed immediately adjacent to the 0 distance quadrat, extending from 0.5-1.5 m away from the center point of the plot and the 2 m distance quadrat covered an area 1.5-2.5 m away from the center point (Fig. S1). 
-Within each 1 m^2^ quadrat four 20 cm x 20 cm "sub-quadrats" were haphazardly placed and the shoots of each seagrass were counted (*S. filliforme* and *H. wrightii* were recorded and analyzed together). 
+Macroalgae were identified to genus and counts were averaged across the three 1 m^2^ quadrats to get a per m^2^ estimate of abundance for each plot. 
+Where individuals were difficult to distinguish (e.g. *Laurencia* spp.) clumps of algae were recorded as individuals. 
+If identification was not possible *in situ*, a representative sample was photographed and subsequently collected. 
+Three species of seagrass were observed in the experimental plots: *Thalassia testudinum*, *Syringodium filliforme*, and *Halodule wrightii*. 
+Shoots densities of these species were counted within four 20 cm x 20 cm "sub-quadrats" that were placed haphazardly within each of the above quadrats. 
+*S. filliforme* and *H. wrightii* were initially rare and patchily distributed with a combined density of 149.2 ± 172 shoots m^-2^ (mean ± sd), compared to *T. testudinum*'s initial density of 788.1 ± 386.2 shoots m^-2^ (mean ± sd).
+<!-- OR: *S. filliforme* and *H. wrightii* were initially rare and patchily distributed (combined density (mean ± sd) of 149.2 ± 172 shoots m^-2^, compared to *T. testudinum*'s initial density of 788.1 ± 386.2 shoots m^-2^). -->
+Therefore our counts of *S. filliforme* and *H. wrightii* were pooled, and we took measurements of growth and nutrient content only for *T. testudinum*. 
 
 Growth rates of *T. testudinum* shoots were measured at four distances from the center of each plot: the center of the plot or immediately next to the sponge, or polypropylene model of the sponge (designated as 0 m) and in permanently marked points **note for Steph: if saying quadrat, say of what size, but I'd rather use a different word here** **we should not say quadrat, there were permanent stakes and random shoots around those stakes were selected to be marked at each sampling, there was no quadrat for growth** at 0.5 m, 1.0 m, and 2.0 m away from the center of the plot. 
 Growth rates were calculated using the standard blade hole punching technique [@zieman1974] on five short *T. testudinum* shoots per distance. **note for Steph: I think we should state how long the time period was** **it varied between sampling points between 13-18 days and growth is standardized by how long this period is, in my experience its not reported, but we can if you feel strongly about it**
