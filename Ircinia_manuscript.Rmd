@@ -49,11 +49,11 @@ Shoots densities of these species were counted within four 20 cm x 20 cm "sub-qu
 <!-- OR: *S. filliforme* and *H. wrightii* were initially rare and patchily distributed (combined density (mean ± sd) of 149.2 ± 172 shoots m^-2^, compared to *T. testudinum*'s initial density of 788.1 ± 386.2 shoots m^-2^). -->
 Therefore our counts of *S. filliforme* and *H. wrightii* were pooled, and we took measurements of growth and nutrient content only for *T. testudinum*. 
 
-Growth rates of *T. testudinum* shoots were measured at four distances from the center of each plot: the center of the plot or immediately next to the sponge, or polypropylene model of the sponge (designated as 0 m) and in permanently marked points at 0.5 m, 1.0 m, and 2.0 m away from the center of the plot. 
+Growth rates of *T. testudinum* shoots were measured at four distances from the center of each plot: the center of the plot or immediately next to the sponge, or polypropylene model of the sponge (designated as 0 m) and in permanently marked points (using stakes) at 0.5 m, 1.0 m, and 2.0 m away from the center of the plot. 
 Growth rates were calculated using the standard blade hole punching technique [@zieman1974] on five short *T. testudinum* shoots per distance. 
 Measurementes were taken after an approximately two week period and done *in situ* in order to minimize disturbance to the plots. 
 
-Nutrient content (%C, %N, and %P) was assessed for 10 shoots growing near the center of each plot, prior to the beginning of the experiment and again after 1 year. **note: I think more time periods and distances were collected, but we excluded them? can anyone remember why? Missing samples, or just too weak effects? Might need to say something more here.** **sufficient samples weren't collected and/or the analysis was contaminated and then I ran out of material, so I don't think its worth mentioning, just complicates it**
+Nutrient content (%C, %N, and %P) was assessed for 10 shoots growing near the center of each plot, prior to the beginning of the experiment and again after 1 year. 
 The second youngest blade from each shoot was collected, combined with other blades from the same plot and sampling period, and dried at 60ºC for 48-72 hours. 
 For %C and %N analysis seagrass tissue was then weighed into tin capsules, and sent to the University of Georgia Stable Isotope Ecology Laboratory for analysis. 
 Percent phosphorus (%P) was determined by dry oxidation acid hydrolysis extraction followed by colorimetric analysis [@fourqurean1992].  
@@ -63,23 +63,24 @@ Percent phosphorus (%P) was determined by dry oxidation acid hydrolysis extracti
 
 All experimental responses were assessed with linear or generalized linear mixed effect models using the lme4 [@bates2015] or glmmTMB [@brooks2017] packages respectively in R version 4.0.2 [@rcoreteam2020]. 
 Unless otherwise indicated, the response distribution was linear. **terrible sentence but will do for now**
-**not sure how to add this bit of info- "releveling with real or fake as the base"** **do we need to? It changes nothing, just helps us interpret the results, right?**
 For all response variables except nutrient concentrations, an offset of the mean values measured prior to the initiation of the experiment was included (when a log link was used, this value had 1 added to it and was log transformed). 
 All models included plot as a random factor, along with any additional random effects as described below.  
+**could add statement about how differences between treatments are reported**
 
 Two sampling events occurred in the summer (1 and 12 months into the experiment) and two in the winter (5 and 17 months into the experiment); therefore, all response variables were visually examined for a seasonal effect. 
 If responses differed noticeably between summer and winter, separate factors for season and year of the experiment (1st or 2nd year) were included as explanatory variables in those analyses, otherwise a continuous effect of months into experiment was the only temporal variable. 
-In either case, the effects of temporal variables were allowed to interact with experimental treatment (control, structure control, or sponge), but season and year were not allowed to interact. 
+In either case, the effects of temporal variables were allowed to interact with experimental treatment (control, structure control, or sponge), but season and year were only allowed to interact except when included as random slopes (for algal abundance only). 
 **result? Seagrass shoot density and nutrient levels did not show evidence of a seasonal effect, while growth and algal abundance did.** **I think this becomes clear in the discussion of the models we used**
 
 Macroalgal abundances per m^2^ were modeled with a negative binomial distribution **aka nbinom2** and a log link.
-Overall abundance did fluctuate seasonally, so we used a mixed-effect model with random slopes able to vary with season and year for each taxa. This provides an estimate of the overall treatment effect as well as seasonal and taxa-specific differences. **need to add what the rest of the model did, current description incomplete**  
+Overall abundance did fluctuate seasonally, so we used a mixed-effect model as decribed above with random slopes for the effect of season and year for each taxa. 
+This provides an estimate of the overall treatment effect between years and seasons, as well as taxa-specific differences in these effects. **is this clearer?**  
 
 Shoot densities (counts of shoots m^-2^) were modeled with a quasi-poisson distribution **aka nbinom1** and a log link. 
 Seagrass shoots did not fluctuate between seasons, so we tested for a continuous effect of months into experiment and the three-way interaction with treatment and distance (a linear covariate representing the center of contiguous 1 m^2^ sampling quadrats). **note to self, wording of this sentence is a bit confusing**
 Because species-specific shoot counts were not collected for *S. filliforme* or *H. wrightii*, shoot density was modelled for *T. testudinum* alone as the dominant species and for *S. filliforme* and *H. wrightii* combined.
 
-*T. testudinum* growth rate (mm^2^ day^-1^) was analyzed in response to treatment interacting separately with distance, season, and year and the sub-quadrat ID as an additional random factor. **there were no sub-quadrats for growth, only for shoot density**  
+*T. testudinum* growth rate (mm^2^ day^-1^) was analyzed in response to treatment interacting separately with distance, season, and year and the stake ID as an additional random factor. **I guess it's actually stake ID **   
 We tested for a treatment effect at each distance sampled (0, 0.5, 1, and 2 m) to identify a potential threshold of response. 
 Because no effect was detected at the 1 m or 2 m sampling points, distance was turned into a factor with 0 and 0.5 m assigned as "near" and 1 and 2 m assigned as "far". 
 
