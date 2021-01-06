@@ -51,7 +51,7 @@ sgg2<- left_join(sgg1, sv) %>%
       dist >= 1~"farther",
       # dist < 1~"nearer"),
       dist < 1~"closer"),
-    quad_id = paste0(plot, dist)
+    stake_id = paste0(plot, dist)
   )
 
 
@@ -94,7 +94,7 @@ sgmd0s<-lmer(gpd~
     # dist_factor * yr +
     treatment * season + 
               (1|plot) + # adding this explains so little variation that it doesn't change anything...
-              (1|quad_id), 
+              (1|stake_id), 
              offset=start_gr,
              # data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "blank"))
              data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "real"))
@@ -105,7 +105,7 @@ sgmd0s<-lmer(gpd~
 (sgr.aov<-glmmTMB:::Anova.glmmTMB(sgmd0s, type = "III"))
 (sgr<-summary(sgmd0s))
 
-sgmd0sb<-lmer(gpd~ treatment * dist_factor+treatment * yr + treatment*season   + (1|quad_id), 
+sgmd0sb<-lmer(gpd~ treatment * dist_factor+treatment * yr + treatment*season   + (1|stake_id), 
               offset=start_gr,
               data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "blank"))
               #data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "real"))
@@ -114,7 +114,7 @@ sgmd0sb<-lmer(gpd~ treatment * dist_factor+treatment * yr + treatment*season   +
 sgb<-summary(sgmd0sb)
 sgmd0sf<-lmer(gpd~ treatment * dist_factor+treatment * yr + treatment*season  + 
     (1|plot) + # adding this explains so little variation that it doesn't change anything...
-    (1|quad_id), 
+    (1|stake_id), 
               offset=start_gr,
               # data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "blank"))
               #data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "real"))
