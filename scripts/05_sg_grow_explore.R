@@ -51,13 +51,13 @@ sgg2<- left_join(sgg1, sv) %>%
       dist >= 1~"farther",
       # dist < 1~"nearer"),
       dist < 1~"closer"),
-    stake_id = paste0(plot, dist)
+    stake_id = paste0(plot, "-", dist)
   )
 
 
 
 ## distance pooling
-# at 0 both real and fake have increased growth
+# at 0 and 0.5 both real and fake have increased growth
 sgmd0s<-lmer(gpd~ treatment + yr + season +  (1|plot),
   offset=start_gr,
   data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "real"))
@@ -102,7 +102,7 @@ sgmd0s<-lmer(gpd~
 )
 
 
-(sgr.aov<-glmmTMB:::Anova.glmmTMB(sgmd0s, type = "III"))
+# (sgr.aov<-glmmTMB:::Anova.glmmTMB(sgmd0s, type = "III"))
 (sgr<-summary(sgmd0s))
 
 sgmd0sb<-lmer(gpd~ treatment * dist_factor+treatment * yr + treatment*season   + (1|stake_id), 
