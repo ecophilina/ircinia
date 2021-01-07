@@ -95,7 +95,6 @@ hist((a3%>%
         filter(taxa=="penicillus"))$abundance, breaks = 20)
 
 # try out more appropriate model
-
 a5<-a5%>%
   mutate(year=case_when(
     sampling==2~1,
@@ -133,8 +132,6 @@ alm1.b<-glmmTMB(abundance~treatment*year+treatment*season +
     family=nbinom2)
                   
 
-
-
 # look at residuals
 alm1_simres <- simulateResiduals(alm1.r)
 testDispersion(alm1_simres)
@@ -145,14 +142,11 @@ plot(alm1_simres)
 (alm1f.sum<-summary(alm1.f))
 (alm1b.sum<-summary(alm1.b))
 
-
-
-
 library(ggeffects)
 # library(sjstats)
 # ggpredict(alm1, "year")
 
-p1 <- ggpredict(alm1, terms = c("year", "season", "treatment" )) %>% 
+p1 <- ggpredict(alm1.r, terms = c("year", "season", "treatment" )) %>% 
   rename(year = x, season = group, treatment = facet)%>% 
   mutate(
     sampling = case_when(
@@ -165,17 +159,14 @@ p1 <- ggpredict(alm1, terms = c("year", "season", "treatment" )) %>%
 
 p1$treatment<-factor(p1$treatment,levels=c("blank","fake","real"),labels=c("Control","Structure Control","Sponge"))
 
-p2 <- ggpredict(alm1, terms = c("year", "treatment", "taxa", "season" ), type = "random")
+p2 <- ggpredict(alm1.r, terms = c("year", "treatment", "taxa", "season" ), type = "random")
 plot(p2)
-
-
 
 
 # BUT we now have a significant increase over time in real treatment that is 
 # significantly different than the other treatments.
 
 # Now talk through whether or not the figure I made is appropriate.
-
 
 a5<-a5%>%
   mutate(samp2=case_when(
@@ -210,7 +201,6 @@ a6<-a6 %>%
 
 a6$treatment<-factor(a6$treatment)
 a6$season<-factor(a6$season)
-
 
 a6<-a6%>%
   mutate(delta.tot=total-start.total)

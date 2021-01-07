@@ -231,7 +231,7 @@ However, the pattern of change over time was significantly different between con
 knitr::include_graphics("figures/algae_summer_means_viridis.jpg")
 ```
 
-```{r shootd,echo=FALSE,message=FALSE,fig.cap="Seagrass shoot densities"}
+```{r shootd,echo=FALSE,message=FALSE,fig.cap="Shoot densities of (A) *T. testudinum* and (B) *S. filliforme* and *H. wrightii* combind. "}
 # sdplot<-sgsd%>%
 #   mutate(thalassia=T.SD-mtsd,sh=SH.SD-mshsd)%>%
 #   select(treatment,samp2,thalassia,sh)%>%
