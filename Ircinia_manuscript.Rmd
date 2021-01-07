@@ -44,7 +44,7 @@ Macroalgae were identified to genus and counts were summed across the three 1 m^
 Where individuals were difficult to distinguish (e.g. *Laurencia* spp.) clumps of algae were recorded as individuals. 
 If identification was not possible *in situ*, a representative sample was photographed and subsequently collected. 
 Three species of seagrass were observed in the experimental plots: *Thalassia testudinum*, *Syringodium filliforme*, and *Halodule wrightii*. 
-Shoots densities of these species were counted within four 20 cm x 20 cm "sub-quadrats" that were placed haphazardly within each of the quadrats described above (Fig. S1). 
+Shoots densities of these species were counted within four 20 cm x 20 cm "sub-quadrats" that were placed haphazardly within each of the quadrats described above (Fig. S1 **I'd not reference this here since the sub-quadrats aren't illustrated**). 
 *S. filliforme* and *H. wrightii* were initially rare and patchily distributed (combined density (mean ± sd) of 149.2 ± 172 shoots m^-2^, compared to *T. testudinum*'s initial density of 788.1 ± 386.2 shoots m^-2^).
 Therefore our counts of *S. filliforme* and *H. wrightii* were pooled, and growth and nutrient content were only measured in *T. testudinum*. 
 
@@ -68,21 +68,22 @@ All models included plot as a random factor, along with any additional random ef
 
 Two sampling events occurred in the summer (1 and 12 months into the experiment) and two in the winter (5 and 17 months into the experiment); therefore, all response variables were visually examined for a seasonal effect. 
 If responses differed noticeably between summer and winter, separate factors for season and year of the experiment (1st or 2nd year) were included as explanatory variables in those analyses, otherwise a continuous effect of months into experiment was the only temporal variable. 
-In either case, the effects of temporal variables were allowed to interact with experimental treatment (control, structure control, or sponge), but season and year were only allowed to interact except when included as random slopes (for algal abundance only). 
+In either case, the effects of temporal variables were allowed to interact with experimental treatment (control, structure control, or sponge), but season and year were only allowed to interact with each other when included as random slopes (for algal abundance only). 
 **result? Seagrass shoot density and nutrient levels did not show evidence of a seasonal effect, while growth and algal abundance did.** **I think this becomes clear in the discussion of the models we used**
 
-**So, for all of the descriptions of the models I think we need a definitive statement of what the fixed effects were in each model, which interactions were included, and any random effects other than plot. I'm having trouble concentrating right now, but perhaps we can work on this as a group during our meeting**
+**I've tried to add more definitive statements of what the fixed effects were in each model, which interactions were included, and any random effects other than plot.**
 Macroalgal abundances were modeled with a negative binomial distribution **aka nbinom2** and a log link.
-Overall abundance did fluctuate seasonally, so we used a mixed-effect model as described above with random slopes for the effect of season and year for each taxa. 
+Overall abundance did fluctuate seasonally, so we included fixed effects of treatment, year, and season, and random slopes for the effect of season and year for each taxa. 
 This provides an estimate of the overall treatment effect between years and seasons, as well as taxa-specific differences in these effects.  
 
 Shoot densities (counts of shoots m^-2^) were modeled with a quasi-poisson distribution **aka nbinom1** and a log link. 
-Seagrass shoots did not fluctuate between seasons, so we tested for a continuous effect of months into experiment and the three-way interaction with treatment and distance (a linear covariate representing the center of contiguous 1 m^2^ sampling quadrats). **note to self, wording of this sentence is a bit confusing**
+Seagrass shoots did not fluctuate between seasons, so we included fixed effects of a months into experiment in a three-way interaction with treatment and distance (a linear covariate representing the center of contiguous 1 m^2^ sampling quadrats). **is this wording any less confusing**
 Because species-specific shoot counts were not collected for *S. filliforme* or *H. wrightii*, shoot density was modelled for *T. testudinum* alone as the dominant species and for *S. filliforme* and *H. wrightii* combined.
 
-*T. testudinum* growth rate (mm^2^ day^-1^) was analyzed in response to treatment interacting separately with distance, season, and year and the stake ID as an additional random factor. **I guess it's actually stake ID **   
+*T. testudinum* growth rate (mm^2^ day^-1^) was analyzed in response to treatment interacting separately with fixed effects of distance, season, and year, as well as stake ID as an additional random factor.  
 We tested for a treatment effect at each distance sampled (0, 0.5, 1, and 2 m) to identify a potential threshold of response. 
-An effect was detected at 0 and 0.5 m but not at the 1 m or 2 m sampling points. Therefore distance was turned into a factor with 0 and 0.5 m assigned as "near" and 1 and 2 m assigned as "far". 
+An effect was detected at 0 and 0.5 m but not at the 1 m or 2 m sampling points. 
+Therefore distance was turned into a factor with 0 and 0.5 m assigned as "near" and 1 and 2 m assigned as "far". 
 
 Finally, nutrient concentrations (% of nitrogen, carbon, and phosphorus) in *T. testudinum* shoots one year into the experiment were compared with prior values. 
 
