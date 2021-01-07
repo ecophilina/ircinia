@@ -4,6 +4,7 @@ source("scripts/03_reimport.R")#imports all the data sets
 if(!require(lmerTest))install.packages("lmerTest");library(lmerTest)
 if(!require(DHARMa))install.packages("DHARMa");library(DHARMa)
 if(!require(glmmTMB))install.packages("glmmTMB");library(glmmTMB)
+if(!require(ggeffects))install.packages("ggeffects");library(ggeffects)
 
 
 # ---- algaeplot ----
@@ -142,9 +143,6 @@ plot(alm1_simres)
 (alm1f.sum<-summary(alm1.f))
 (alm1b.sum<-summary(alm1.b))
 
-library(ggeffects)
-# library(sjstats)
-# ggpredict(alm1, "year")
 
 p1 <- ggpredict(alm1.r, terms = c("year", "season", "treatment" )) %>% 
   rename(year = x, season = group, treatment = facet)%>% 
