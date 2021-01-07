@@ -59,6 +59,16 @@ sgsd<-sgsd0%>%
     ratio = delta/msd
   )
 
+# confirm no season effect
+tsdseason<-glmmTMB(T.SD~season+yr+(1|plot), data=sgsd, family = nbinom1) 
+(tsdseason<-glmmTMB:::Anova.glmmTMB(tsdseason, type = "III"))
+# (tsdseason2<-summary(tsdseason))
+
+shsdseason<-glmmTMB(SH.SD~season+yr+(1|plot),data=sgsd, family = nbinom1)
+(shsdseason<-glmmTMB:::Anova.glmmTMB(shsdseason, type = "III"))
+# (shsdseason2<-summary(shsdseason))
+
+
 #Thalassia shoot density analysis
 tsdlmr<-glmmTMB(T.SD ~ 
                   treatment*samp2*dist1 +
