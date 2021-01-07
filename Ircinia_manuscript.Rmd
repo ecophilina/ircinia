@@ -5,10 +5,11 @@ editor_options:
   chunk_output_type: console
 bibliography: Ircinia_paper.bib
 ---
-Stephanie K. Archer^1^*, Philina English^2^, Finella Campanino^1^, Craig A. Layman   
+Stephanie K. Archer^1^*, Philina English^2^, Finella Campanino^1^, Craig A. Layman^3^   
   
 1. Louisiana Universities Marine Consortium, Chauvin, Louisiana USA
 2. Pacific Biological Station, Fisheries and Oceans Canada, Nanaimo, British Columbia Canada  
+3. Center for Energy, Environment, and Sustainability, Department of Biology, Wake Forest University, Winston-Salem, NC, United States
   
 *corresponding author: sarcher@lumcon.edu
 
@@ -45,23 +46,21 @@ Where individuals were difficult to distinguish (e.g. *Laurencia* spp.) clumps o
 If identification was not possible *in situ*, a representative sample was photographed and subsequently collected. 
 Three species of seagrass were observed in the experimental plots: *Thalassia testudinum*, *Syringodium filliforme*, and *Halodule wrightii*. 
 Shoots densities of these species were counted within four 20 cm x 20 cm "sub-quadrats" that were placed haphazardly within each of the quadrats described above. 
-*S. filliforme* and *H. wrightii* were initially rare and patchily distributed (combined density (mean ± sd) of 149.2 ± 172 shoots m^-2^, compared to *T. testudinum*'s initial density of 788.1 ± 386.2 shoots m^-2^).
+*S. filliforme* and *H. wrightii* were initially rare and patchily distributed (combined density (mean ± sd) of 149.2 ± 172 shoots m^-2^, compared to *T. testudinum*'s initial density of 788.1 ± 386.2 shoots m^-2^). 
 Therefore our counts of *S. filliforme* and *H. wrightii* were pooled, and growth and nutrient content were only measured in *T. testudinum*. 
-
 Growth rates of *T. testudinum* shoots were measured at four distances from the center of each plot: the center of the plot or immediately next to the sponge, or polypropylene model of the sponge (designated as 0 m) and in permanently marked points (using stakes) at 0.5 m, 1.0 m, and 2.0 m away from the center of the plot. 
 Growth rates were calculated using the standard blade hole punching technique [@zieman1974] on five short *T. testudinum* shoots per distance. 
 Approximately two weeks after the blades were marked growth was measured *in situ* in order to minimize disturbance to the plots. 
-
 Nutrient content (%C, %N, and %P) was assessed for 10 shoots growing near the center of each plot, prior to the beginning of the experiment and again after 1 year. 
 The second youngest blade from each shoot was collected, combined with other blades from the same plot and sampling period, and dried at 60ºC for 48-72 hours. 
 For %C and %N analysis seagrass tissue was then weighed into tin capsules, and sent to the University of Georgia Stable Isotope Ecology Laboratory for analysis. 
 Percent phosphorus (%P) was determined by dry oxidation acid hydrolysis extraction followed by colorimetric analysis [@fourqurean1992].  
-
+  
 ### Statistical analysis  
-
+  
 Two sampling events occurred in the summer (1 and 12 months into the experiment) and two in the winter (5 and 17 months into the experiment); therefore, all response variables were visually examined for a seasonal effect. 
 If responses differed noticeably between summer and winter, separate factors for season and year of the experiment (1st or 2nd year) were included as explanatory variables in those analyses, otherwise a continuous effect of months into experiment was the only temporal variable. 
-In either case, the effects of temporal variables were allowed to interact with experimental treatment (control, structure control, or sponge), but season and year were only allowed to interact with each other when included as random slopes (for algal abundance only). 
+In either case, the effects of temporal variables were allowed to interact with experimental treatment (control, structure control, or sponge), but season and year were only allowed to interact with each other when included as random slopes (for algal abundance only).  
 
 Macroalgal abundances were fit with a negative binomial distribution and a log link.
 Overall abundance did fluctuate seasonally, so we included fixed effects of treatment, year, and season, and random slopes for the effect of season and year for each taxa. 
@@ -69,19 +68,19 @@ This provides an estimate of the overall treatment effect between years and seas
 
 Shoot densities (counts of shoots m^-2^) were fit with a quasi-poisson distribution and a log link. 
 Seagrass shoots did not fluctuate between seasons, so we included fixed effects of months into experiment in a three-way interaction with treatment and distance (a linear covariate representing the center of contiguous 1 m^2^ sampling quadrats). 
-Because species-specific shoot counts were not collected for *S. filliforme* or *H. wrightii*, shoot density was modelled for *T. testudinum* alone as the dominant species and for *S. filliforme* and *H. wrightii* combined.
+Because species-specific shoot counts were not collected for *S. filliforme* or *H. wrightii*, shoot density was modelled for *T. testudinum* alone as the dominant species and for *S. filliforme* and *H. wrightii* combined.  
 
-*T. testudinum* growth rate (mm^2^ day^-1^) was analyzed in response to treatment interacting separately with fixed effects of distance, season, and year, as well as stake ID as an additional random factor.  
+*T. testudinum* growth rate (mm^2^ day^-1^) was analyzed in response to treatment interacting separately with fixed effects of distance, season, and year, as well as stake ID as an additional random factor. 
 We tested for a treatment effect at each distance sampled (0, 0.5, 1, and 2 m) to identify a potential threshold of response. 
-Because an effect was detected at 0 and 0.5 m and not at the 1 m or 2 m sampling points, distance was included in this model as a factor with 0 and 0.5 m assigned as "near" and 1 and 2 m assigned as "far". 
+Because an effect was detected at 0 and 0.5 m and not at the 1 m or 2 m sampling points, distance was included in this model as a factor with 0 and 0.5 m assigned as "near" and 1 and 2 m assigned as "far".  
 
 Finally, we tested for a treatment effect on nutrient concentrations (% of nitrogen, carbon, and phosphorus) in *T. testudinum* shoots one year into the experiment, as compared to samples collected prior to the experiment. 
-
+  
 All models described above included plot as a random factor, along with any additional random effects as described above. 
 For all response variables except nutrient concentrations, an offset of the mean values measured prior to the initiation of the experiment was included (when a log link was used, this value had 1 added to it and was log transformed). 
 Macroalgal abundance and seagrass shoot densities were assessed using generalized mixed effect models implemented using the glmmTMB package [@brooks2017]; distribution and link described above. 
 All other variables were modeled linear mixed effects models using the lme4 package [@bates2015]. 
-All analyses were completed in R version 4.0.2 [@rcoreteam2020]. **could add statement about how differences between treatments are reported**  
+All analyses were completed in R version 4.0.2 [@rcoreteam2020]. **could add statement about how differences between treatments are reported**   
 
 # Results  
 ```{r results function,include=FALSE}
@@ -156,67 +155,65 @@ tmb.res<-function(rtable,row){
 # degrees of freedom??
 
 ```
-
-**Do we need any summary results here or discussion? e.g. Seagrass shoot density and nutrient levels did not show evidence of a seasonal effect, while growth and algal abundance did.** 
+  
+**Do we need any summary results here or discussion? e.g. Seagrass shoot density and nutrient levels did not show evidence of a seasonal effect, while growth and algal abundance did.**   
 
 ## Macroalgal abundance  
 ```{r algae, include=FALSE}
 source("scripts/04_algae_analysis.R")
 ```  
-
-Macroalgal abundances decreased in the winter, regardless of treatment (control: $\beta$ = `r efsize.tmb(alm1b.sum,5)`, z `r tmb.res(alm1b.sum,5)`; structure control: $\beta$ = `r efsize.tmb(alm1f.sum,5)`, z `r tmb.res(alm1f.sum,5)`; sponge: $\beta$ = `r efsize.tmb(alm1r.sum,5)`, z `r tmb.res(alm1r.sum,5)`).
-Macroalgal abundances did not change significantly between the first and second year of the experiment in control ($\beta$ = `r efsize.tmb(alm1b.sum,4)`, z `r tmb.res(alm1b.sum,4)`) or structure control plots ($\beta$ = `r efsize.tmb(alm1f.sum,4)`, z `r tmb.res(alm1f.sum,4)`, \@ref(fig:algaep)). **note if we keep this figure, we should add panel labels to it**
+  
+Macroalgal abundances decreased in the winter, regardless of treatment (control: $\beta$ = `r efsize.tmb(alm1b.sum,5)`, z `r tmb.res(alm1b.sum,5)`; structure control: $\beta$ = `r efsize.tmb(alm1f.sum,5)`, z `r tmb.res(alm1f.sum,5)`; sponge: $\beta$ = `r efsize.tmb(alm1r.sum,5)`, z `r tmb.res(alm1r.sum,5)`). 
+Macroalgal abundances did not change significantly between the first and second year of the experiment in control ($\beta$ = `r efsize.tmb(alm1b.sum,4)`, z `r tmb.res(alm1b.sum,4)`) or structure control plots ($\beta$ = `r efsize.tmb(alm1f.sum,4)`, z `r tmb.res(alm1f.sum,4)`, \@ref(fig:algaep)). **note if we keep this figure, we should add panel labels to it** 
 However, macroalgal abundances increased in sponge treatments in year two of the experiment ($\beta$ = `r efsize.tmb(alm1r.sum,4)`, z `r tmb.res(alm1r.sum,4)`, \@ref(fig:algaep)). 
 This increase is significantly different than the response in control (z `r tmb.res(alm1r.sum,6)`) and structure control (z `r tmb.res(alm1r.sum,7)`) plots. 
-The change in macroalgal abundances was not significantly different between control and structure control plots (z `r tmb.res(alm1b.sum,6)`). 
-
+The change in macroalgal abundances was not significantly different between control and structure control plots (z `r tmb.res(alm1b.sum,6)`).   
+  
 ## Shoot densities
 ```{r shoot.density, include=FALSE}
 source("scripts/07_shoots_analysis.R")
 ```  
-
+  
 *Thalassia testudinum* shoot densities decreased similarly in all treatments over time (control: $\beta$ = `r efsize.tmb(tsdb.sum,4)`, z `r tmb.res(tsdb.sum,4)`; structure control: $\beta$ = `r efsize.tmb(tsdf.sum,4)`, z `r tmb.res(tsdf.sum,4)`; sponge: $\beta$ = `r efsize.tmb(tsdr.sum,4)`, z `r tmb.res(tsdr.sum,4)`), but this decrease was not significant in sponge plots. 
 There was no significant effect of distance for any treatment  initially (control: $\beta$ = `r efsize.tmb(tsdb.sum,5)`, z `r tmb.res(tsdb.sum,5)`; structure control: $\beta$ = `r efsize.tmb(tsdf.sum,5)`, z `r tmb.res(tsdf.sum,5)`; sponge: $\beta$ = `r efsize.tmb(tsdr.sum,5)`, z `r tmb.res(tsdr.sum,5)`) or over time (control: $\beta$ = `r efsize.tmb(tsdb.sum,10)`, z `r tmb.res(tsdb.sum,10)`; structure control: $\beta$ = `r efsize.tmb(tsdf.sum,10)`, z `r tmb.res(tsdf.sum,10)`; sponge: $\beta$ = `r efsize.tmb(tsdr.sum,10)`, z `r tmb.res(tsdr.sum,10)`). 
 *Syringodium filiforme* and *H. wrightii* shoot densities did not change in control ( $\beta$ = `r efsize.tmb(shsdb.sum,4)`, z `r tmb.res(shsdb.sum,4)`)  or structure control plots ( $\beta$ = `r efsize.tmb(shsdf.sum,4)`, z `r tmb.res(shsdf.sum,4)`) but increased in sponge plots ( $\beta$ = `r efsize.tmb(shsdr.sum,4)`, z `r tmb.res(shsdr.sum,4)`). 
 The increase in sponge plots was significantly different than both control ($\beta$ = `r efsize.tmb(shsdr.sum,6)`, z `r tmb.res(shsdr.sum,6)`) and structure control plots ($\beta$ = `r efsize.tmb(shsdr.sum,7)`, z `r tmb.res(shsdr.sum,7)`). 
 Initially, *S. filiforme* and *H. wrightii* were more abundant at further distances from the center of sponge plots ( $\beta$ = `r efsize.tmb(shsdr.sum,5)`, z `r tmb.res(shsdr.sum,5)`). 
 However, over time *S. filiforme* and *H. wrightii* increased more near the center of sponge plots (time * distance: $\beta$ = `r efsize.tmb(shsdr.sum,10)`, z `r tmb.res(shsdr.sum,10)`). 
-There was no significant effect of distance at any point in control (initially: $\beta$ = `r efsize.tmb(shsdb.sum,5)`, z `r tmb.res(shsdb.sum,5)`; time * distance: $\beta$ = `r efsize.tmb(shsdb.sum,10)`, z `r tmb.res(shsdb.sum,10)`) or structure control plots (initially: $\beta$ = `r efsize.tmb(shsdf.sum,5)`, z `r tmb.res(shsdf.sum,5)`; time * distance: $\beta$ = `r efsize.tmb(shsdf.sum,10)`, z `r tmb.res(shsdf.sum,10)`).
+There was no significant effect of distance at any point in control (initially: $\beta$ = `r efsize.tmb(shsdb.sum,5)`, z `r tmb.res(shsdb.sum,5)`; time * distance: $\beta$ = `r efsize.tmb(shsdb.sum,10)`, z `r tmb.res(shsdb.sum,10)`) or structure control plots (initially: $\beta$ = `r efsize.tmb(shsdf.sum,5)`, z `r tmb.res(shsdf.sum,5)`; time * distance: $\beta$ = `r efsize.tmb(shsdf.sum,10)`, z `r tmb.res(shsdf.sum,10)`).  
 
 ## *Thalassia testudinum* growth  
 ```{r growth, include=FALSE}
 source("scripts/05_growth_analysis.R")
 ```
-
+  
 Seagrass growth was impacted by treatment at 0 (F~`r aov.df2(sg0,1)`~`r aov.res2(sg0,1)`) and 0.5 m (F~`r aov.df2(sg05,1)`~`r aov.res2(sg05,1)`) but this effect had disappeared by 1 m (F~`r aov.df2(sg1,1)`~`r aov.res2(sg1,1)`). 
 As a result, we pooled seagrass growth for the near (0 and 0.5 m) and far (1 and 2 m) distances for further analysis. 
-Seagrass growth was slower in the winter ($\beta$ = `r efsize(sgr,6)`, t~`r aov.df(sgr$coefficients,6)`~ `r aov.res(sgr$coefficients,6)`) and the decrease in growth during the winter was not different between treatments (F~`r aov.df2(sgaov,7)`~`r aov.res2(sgaov,7)`).
+Seagrass growth was slower in the winter ($\beta$ = `r efsize(sgr,6)`, t~`r aov.df(sgr$coefficients,6)`~ `r aov.res(sgr$coefficients,6)`) and the decrease in growth during the winter was not different between treatments (F~`r aov.df2(sgaov,7)`~`r aov.res2(sgaov,7)`). 
 In sponge plots, seagrass grew slower in the further distances from the sponge ($\beta$ = `r efsize(sgr,4)`, t~`r aov.df(sgr$coefficients,4)`~ `r aov.res(sgr$coefficients,4)`, Fig. \@ref(fig:grow)). 
 There was no difference in seagrass growth between distances in the control ($\beta$ = `r efsize(sgb,4)`, t~`r aov.df(sgb$coefficients,4)`~ `r aov.res(sgb$coefficients,4)`) or structure control plots ($\beta$ = `r efsize(sgf,4)`, t~`r aov.df(sgf$coefficients,4)`~ `r aov.res(sgf$coefficients,4)`). 
 In sponge plots, seagrass grew faster in the second year of the experiment ($\beta$ = `r efsize(sgr,5)`, t~`r aov.df(sgr$coefficients,5)`~ `r aov.res(sgr$coefficients,5)`, Fig. \@ref(fig:grow)). 
 However, seagrass growth declined in the control ($\beta$ = `r efsize(sgb,5)`, t~`r aov.df(sgb$coefficients,5)`~ `r aov.res(sgb$coefficients,5)`) and structure control plots ($\beta$ = `r efsize(sgf,5)`, t~`r aov.df(sgf$coefficients,5)`~ `r aov.res(sgf$coefficients,5)`), but this decline was only significant in the control (Fig. \@ref(fig:grow)).  
-
+  
 ## *Thalassia testudinum* nutrient concentrations  
 ```{r nutrients, include=FALSE}
 source("scripts/06_nutrient_explore.R")
 ```
-
-
-Before the the experiment, seagrass in sponge plots had significantly lower nitrogen concentrations than control plots (Fig. \@ref(fig:nuts)A, $\beta$ = `r efsize(nbs,3)`, t~`r aov.df(nbs$coefficients,3)`~ `r aov.res(nbs$coefficients,3)`) but not structure control plots ($\beta$ = `r efsize(nfs,3)`, t~`r aov.df(nfs$coefficients,3)`~ `r aov.res(nfs$coefficients,3)`). Percent nitrogen in seagrass tissues in both control and structure control plots declined similarly over time (Fig. \@ref(fig:nuts)A, $\beta$ = `r efsize(nbs,5)`, t~`r aov.df(nbs$coefficients,5)`~ `r aov.res(nbs$coefficients,5)`), but the decrease was only significant in control plots (control: $\beta$ = `r efsize(nbs,4)`, t~`r aov.df(nbs$coefficients,4)`~ `r aov.res(nbs$coefficients,4)`, structure control: t~`r aov.df(nfs$coefficients,4)`~ `r aov.res(nfs$coefficients,4)`). 
+  
+Before the the experiment, seagrass in sponge plots had significantly lower nitrogen concentrations than control plots (Fig. \@ref(fig:nuts)A, $\beta$ = `r efsize(nbs,3)`, t~`r aov.df(nbs$coefficients,3)`~ `r aov.res(nbs$coefficients,3)`) but not structure control plots ($\beta$ = `r efsize(nfs,3)`, t~`r aov.df(nfs$coefficients,3)`~ `r aov.res(nfs$coefficients,3)`). 
+Percent nitrogen in seagrass tissues in both control and structure control plots declined similarly over time (Fig. \@ref(fig:nuts)A, $\beta$ = `r efsize(nbs,5)`, t~`r aov.df(nbs$coefficients,5)`~ `r aov.res(nbs$coefficients,5)`), but the decrease was only significant in control plots (control: $\beta$ = `r efsize(nbs,4)`, t~`r aov.df(nbs$coefficients,4)`~ `r aov.res(nbs$coefficients,4)`, structure control: t~`r aov.df(nfs$coefficients,4)`~ `r aov.res(nfs$coefficients,4)`). 
 Conversely, seagrass in sponge plots responded differently than both the control ($\beta$ = `r efsize(nrs,5)`, t~`r aov.df(nrs$coefficients,5)`~ `r aov.res(nrs$coefficients,5)`) and structure control ($\beta$ = `r efsize(nrs,6)`, t~`r aov.df(nrs$coefficients,6)`~ `r aov.res(nrs$coefficients,6)`) plots: it had a higher % nitrogen after one year (Fig. \@ref(fig:nuts)A). 
 However, this increase was not significant ($\beta$ = `r efsize(nrs,4)`, t~`r aov.df(nrs$coefficients,4)`~ `r aov.res(nrs$coefficients,4)`).  
-
+  
 The pattern was similar for percent carbon, seagrass in sponge plots was initially lower than control (Fig. \@ref(fig:nuts)B, $\beta$ = `r efsize(cbs,3)`, t~`r aov.df(cbs$coefficients,3)`~ `r aov.res(cbs$coefficients,3)`) and structure control plots ($\beta$ = `r efsize(cfs,3)`, t~`r aov.df(cfs$coefficients,3)`~ `r aov.res(cfs$coefficients,3)`). 
 Again, percent carbon in seagrass tissue decreased in a similar way in both control and structure control plots (Fig. \@ref(fig:nuts)B, $\beta$ = `r efsize(cbs,5)`, t~`r aov.df(cbs$coefficients,5)`~ `r aov.res(cbs$coefficients,5)`). 
 However, this decrease was only significant in structure control plots (control: $\beta$ = `r efsize(cbs,4)`, t~``r aov.df(cbs$coefficients,4)`~ `r aov.res(cbs$coefficients,4)`, structure control: $\beta$ = `r efsize(cfs,4)`, t~`r aov.df(cfs$coefficients,4)`~ `r aov.res(cfs$coefficients,4)`). 
 In sponge plots, % carbon showed a slight increase in seagrass tissues ($\beta$ = `r efsize(crls,4)`, t~`r aov.df(crls$coefficients,4)`~ `r aov.res(crls$coefficients,4)`), resulting in a significantly different response than structure control plots ($\beta$ = `r efsize(crls,6)`, t~`r aov.df(crls$coefficients,6)`~ `r aov.res(crls$coefficients,6)`) but not control plots ($\beta$ = `r efsize(crls,5)`, t~`r aov.df(crls$coefficients,5)`~ `r aov.res(crls$coefficients,5)`).  
-
+  
 Phosphorus concentrations were similar in all plot types at the beginning of the experiment (Fig. \@ref(fig:nuts)C, control:structure control $\beta$ = `r efsize(pbs,2)`, t~`r aov.df(pbs$coefficients,2)`~ `r aov.res(pbs$coefficients,2)`; control:sponge $\beta$ = `r efsize(pbs,3)`, t~`r aov.df(pbs$coefficients,3)`~ `r aov.res(pbs$coefficients,3)`; structure control:sponge $\beta$ = `r efsize(pfs,3)`, t~`r aov.df(pfs$coefficients,3)`~ `r aov.res(pfs$coefficients,3)`). 
 Although % phosphorus in seagrass tissues followed the same patterns as both % nitrogen and % carbon, decreasing in control (Fig. \@ref(fig:nuts)C, $\beta$ = `r efsize(pbs,4)`, t~`r aov.df(pbs$coefficients,4)`~ `r aov.res(pbs$coefficients,4)`) and structure control plots ($\beta$ = `r efsize(pfs,4)`, t~`r aov.df(pfs$coefficients,4)`~ `r aov.res(pfs$coefficients,4)`) while increasing in sponge plots (Fig. \@ref(fig:nuts)C, $\beta$ = `r efsize(prs,4)`, t~`r aov.df(prs$coefficients,4)`~ `r aov.res(prs$coefficients,4)`), none of these changes were significant. 
-However, the pattern of change over time was significantly different between control and sponge plots ($\beta$ = `r efsize(pbs,6)`, t~`r aov.df(pbs$coefficients,6)`~ `r aov.res(pbs$coefficients,6)`), but not between structure control and sponge plots ($\beta$ = `r efsize(prs,6)`, t~`r aov.df(prs$coefficients,6)`~ `r aov.res(prs$coefficients,6)`) or control and structure control plots ($\beta$ = `r efsize(pbs,5)`, t~`r aov.df(pbs$coefficients,5)`~ `r aov.res(pbs$coefficients,5)`).
-
+However, the pattern of change over time was significantly different between control and sponge plots ($\beta$ = `r efsize(pbs,6)`, t~`r aov.df(pbs$coefficients,6)`~ `r aov.res(pbs$coefficients,6)`), but not between structure control and sponge plots ($\beta$ = `r efsize(prs,6)`, t~`r aov.df(prs$coefficients,6)`~ `r aov.res(prs$coefficients,6)`) or control and structure control plots ($\beta$ = `r efsize(pbs,5)`, t~`r aov.df(pbs$coefficients,5)`~ `r aov.res(pbs$coefficients,5)`). 
   
-
   
 # Discussion  
   
