@@ -159,10 +159,12 @@ tmb.res<-function(rtable,row){
 # degrees of freedom??
 
 ```
+
 ## Macroalgal abundance  
 ```{r algae, include=FALSE}
 source("scripts/04_algae_analysis.R")
 ```  
+
 Macroalgal abundances decreased in the winter, regardless of treatment (control: $\beta$ = `r efsize.tmb(alm1b.sum,5)`, z `r tmb.res(alm1b.sum,5)`; structure control: $\beta$ = `r efsize.tmb(alm1f.sum,5)`, z `r tmb.res(alm1f.sum,5)`; sponge: $\beta$ = `r efsize.tmb(alm1r.sum,5)`, z `r tmb.res(alm1r.sum,5)`).
 Macroalgal abundances did not change significantly between the first and second year of the experiment in control ($\beta$ = `r efsize.tmb(alm1b.sum,4)`, z `r tmb.res(alm1b.sum,4)`) or structure control plots ($\beta$ = `r efsize.tmb(alm1f.sum,4)`, z `r tmb.res(alm1f.sum,4)`, \@ref(fig:algaep)). **note if we keep this figure, we should add panel labels to it**
 However, macroalgal abundances increased in sponge treatments in year two of the experiment ($\beta$ = `r efsize.tmb(alm1r.sum,4)`, z `r tmb.res(alm1r.sum,4)`, \@ref(fig:algaep)). 
@@ -173,6 +175,7 @@ The change in macroalgal abundances was not significantly different in control a
 ```{r shoot.density, include=FALSE}
 source("scripts/07_shoots_analysis.R")
 ```  
+
 *Thalassia testudinum* shoot densities decreased similarly in all treatments over time (control: $\beta$ = `r efsize.tmb(tsdb.sum,4)`, z `r tmb.res(tsdb.sum,4)`; structure control: $\beta$ = `r efsize.tmb(tsdf.sum,4)`, z `r tmb.res(tsdf.sum,4)`; sponge: $\beta$ = `r efsize.tmb(tsdr.sum,4)`, z `r tmb.res(tsdr.sum,4)`), but this decrease was not significant in sponge plots. 
 There was no significant effect of distance for any treatment  initially (control: $\beta$ = `r efsize.tmb(tsdb.sum,5)`, z `r tmb.res(tsdb.sum,5)`; structure control: $\beta$ = `r efsize.tmb(tsdf.sum,5)`, z `r tmb.res(tsdf.sum,5)`; sponge: $\beta$ = `r efsize.tmb(tsdr.sum,5)`, z `r tmb.res(tsdr.sum,5)`) or over time (control: $\beta$ = `r efsize.tmb(tsdb.sum,10)`, z `r tmb.res(tsdb.sum,10)`; structure control: $\beta$ = `r efsize.tmb(tsdf.sum,10)`, z `r tmb.res(tsdf.sum,10)`; sponge: $\beta$ = `r efsize.tmb(tsdr.sum,10)`, z `r tmb.res(tsdr.sum,10)`). 
 *Syringodium filiforme* and *H. wrightii* shoot densities did not change in control ( $\beta$ = `r efsize.tmb(shsdb.sum,4)`, z `r tmb.res(shsdb.sum,4)`)  or structure control plots ( $\beta$ = `r efsize.tmb(shsdf.sum,4)`, z `r tmb.res(shsdf.sum,4)`) but increased in sponge plots ( $\beta$ = `r efsize.tmb(shsdr.sum,4)`, z `r tmb.res(shsdr.sum,4)`). 
@@ -183,9 +186,9 @@ There was no significant effect of distance at any point in control (initially: 
 
 ## *Thalassia testudinum* growth  
 ```{r growth, include=FALSE}
-source("scripts/05_sg_grow_explore.R")
-# 
+source("scripts/05_growth_analysis.R")
 ```
+
 Seagrass growth was impacted by treatment at 0 (F~`r aov.df2(sg0,1)`~`r aov.res2(sg0,1)`) and 0.5 m (F~`r aov.df2(sg05,1)`~`r aov.res2(sg05,1)`) but this effect had disappeared by 1 m (F~`r aov.df2(sg1,1)`~`r aov.res2(sg1,1)`). 
 As a result, we pooled seagrass growth for the near (0 and 0.5 m) and far (1 and 2 m) distances for further analysis. 
 Seagrass growth was slower in the winter ($\beta$ = `r efsize(sgr,6)`, t~`r aov.df(sgr$coefficients,6)`~ `r aov.res(sgr$coefficients,6)`) and the decrease in growth during the winter was not different between treatments (F~`r aov.df2(sgaov,7)`~`r aov.res2(sgaov,7)`).
