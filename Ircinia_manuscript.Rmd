@@ -226,6 +226,10 @@ However, the pattern of change over time was significantly different between con
 <div id="refs"></div>  
 
 # Figures
+```{r algaep,echo=FALSE,message=FALSE, fig.cap="The change in macroalgal abundances in control, structure control, and sponge plots between the first and second summer of the experiment. Taxa-specific mean counts and standard errors are presented. The line and shaded area represent the global model fit with 95% confidence intervals."}
+
+knitr::include_graphics("figures/algae_summer_means_viridis.jpg")
+```
 
 ```{r shootd,echo=FALSE,message=FALSE,fig.cap="Seagrass shoot densities"}
 # sdplot<-sgsd%>%
@@ -427,8 +431,4 @@ knitr::include_graphics("figures/sggrow.jpg")
 knitr::include_graphics("figures/nuts.jpg")
 ```
 
-```{r algaep,echo=FALSE,message=FALSE, fig.cap="The change in macroalgal abundances in control, structure control, and sponge plots between the first and second summer of the experiment. Taxa-specific mean counts and standard errors are presented. The line and shaded area represent the global model fit with 95% confidence intervals."}
-
-knitr::include_graphics("figures/algae_summer_means_viridis.jpg")
-```
 
