@@ -161,7 +161,7 @@ tmb.res<-function(rtable,row){
 ```
 ## Macroalgal abundance  
 ```{r algae, include=FALSE}
-source("scripts/04_explore_algae_ska.R")
+source("scripts/04_algae_analysis.R")
 ```  
 Macroalgal abundances decreased in the winter, regardless of treatment (control: $\beta$ = `r efsize.tmb(alm1b.sum,5)`, z `r tmb.res(alm1b.sum,5)`; structure control: $\beta$ = `r efsize.tmb(alm1f.sum,5)`, z `r tmb.res(alm1f.sum,5)`; sponge: $\beta$ = `r efsize.tmb(alm1r.sum,5)`, z `r tmb.res(alm1r.sum,5)`).
 Macroalgal abundances did not change significantly between the first and second year of the experiment in control ($\beta$ = `r efsize.tmb(alm1b.sum,4)`, z `r tmb.res(alm1b.sum,4)`) or structure control plots ($\beta$ = `r efsize.tmb(alm1f.sum,4)`, z `r tmb.res(alm1f.sum,4)`, \@ref(fig:algaep)). **note if we keep this figure, we should add panel labels to it**
