@@ -60,11 +60,6 @@ Percent phosphorus (%P) was determined by dry oxidation acid hydrolysis extracti
 
 ### Statistical analysis  
 
-We assessed all experimental responses using linear (unless a specific distribution and link are stated below) or generalized linear mixed effect models and implemented the lme4 [@bates2015] or glmmTMB [@brooks2017] packages respectively in R version 4.0.2 [@rcoreteam2020]. 
-For all response variables except nutrient concentrations, an offset of the mean values measured prior to the initiation of the experiment was included (when a log link was used, this value had 1 added to it and was log transformed). 
-All models included plot as a random factor, along with any additional random effects as described below.  
-**could add statement about how differences between treatments are reported**
-
 Two sampling events occurred in the summer (1 and 12 months into the experiment) and two in the winter (5 and 17 months into the experiment); therefore, all response variables were visually examined for a seasonal effect. 
 If responses differed noticeably between summer and winter, separate factors for season and year of the experiment (1st or 2nd year) were included as explanatory variables in those analyses, otherwise a continuous effect of months into experiment was the only temporal variable. 
 In either case, the effects of temporal variables were allowed to interact with experimental treatment (control, structure control, or sponge), but season and year were only allowed to interact with each other when included as random slopes (for algal abundance only). 
@@ -85,7 +80,10 @@ Because an effect was detected at 0 and 0.5 m and not at the 1 m or 2 m sampling
 
 Finally, we tested for a treatment effect on nutrient concentrations (% of nitrogen, carbon, and phosphorus) in *T. testudinum* shoots one year into the experiment, as compared to samples collected prior to the experiment. 
 
-
+All models described above included plot as a random factor, along with any additional random effects as described above. 
+For all response variables except nutrient concentrations, an offset of the mean values measured prior to the initiation of the experiment was included (when a log link was used, this value had 1 added to it and was log transformed). 
+Macroalgal abundance and seagrass shoot densities were assessed using generalized mixed effect models implemented using the glmmTMB package [@brooks2017]; distribution and link described above). All other variables were modeled linear mixed effects models using the lme4 package [@bates2015]. All analyses were completed in R version 4.0.2 [@rcoreteam2020].
+**could add statement about how differences between treatments are reported**  
 # Results  
 ```{r results function,include=FALSE}
 decimalplaces <- function(x) {
