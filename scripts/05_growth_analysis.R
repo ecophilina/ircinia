@@ -54,7 +54,7 @@ sgg2<- left_join(sgg1, sv) %>%
     stake_id = paste0(plot, "-", dist)
   )
 
-
+sgg2$treatment<-factor(sgg2$treatment)
 
 ## distance pooling
 # at 0 and 0.5 both real and fake have increased growth
