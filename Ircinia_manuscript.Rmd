@@ -44,7 +44,7 @@ Macroalgae were identified to genus and counts were summed across the three 1 m^
 Where individuals were difficult to distinguish (e.g. *Laurencia* spp.) clumps of algae were recorded as individuals. 
 If identification was not possible *in situ*, a representative sample was photographed and subsequently collected. 
 Three species of seagrass were observed in the experimental plots: *Thalassia testudinum*, *Syringodium filliforme*, and *Halodule wrightii*. 
-Shoots densities of these species were counted within four 20 cm x 20 cm "sub-quadrats" that were placed haphazardly within each of the quadrats described above (Fig. S1 **I'd not reference this here since the sub-quadrats aren't illustrated**). 
+Shoots densities of these species were counted within four 20 cm x 20 cm "sub-quadrats" that were placed haphazardly within each of the quadrats described above. 
 *S. filliforme* and *H. wrightii* were initially rare and patchily distributed (combined density (mean ± sd) of 149.2 ± 172 shoots m^-2^, compared to *T. testudinum*'s initial density of 788.1 ± 386.2 shoots m^-2^).
 Therefore our counts of *S. filliforme* and *H. wrightii* were pooled, and growth and nutrient content were only measured in *T. testudinum*. 
 
@@ -57,21 +57,18 @@ The second youngest blade from each shoot was collected, combined with other bla
 For %C and %N analysis seagrass tissue was then weighed into tin capsules, and sent to the University of Georgia Stable Isotope Ecology Laboratory for analysis. 
 Percent phosphorus (%P) was determined by dry oxidation acid hydrolysis extraction followed by colorimetric analysis [@fourqurean1992].  
 
-
 ### Statistical analysis  
 
 Two sampling events occurred in the summer (1 and 12 months into the experiment) and two in the winter (5 and 17 months into the experiment); therefore, all response variables were visually examined for a seasonal effect. 
 If responses differed noticeably between summer and winter, separate factors for season and year of the experiment (1st or 2nd year) were included as explanatory variables in those analyses, otherwise a continuous effect of months into experiment was the only temporal variable. 
 In either case, the effects of temporal variables were allowed to interact with experimental treatment (control, structure control, or sponge), but season and year were only allowed to interact with each other when included as random slopes (for algal abundance only). 
-**result? Seagrass shoot density and nutrient levels did not show evidence of a seasonal effect, while growth and algal abundance did.** **I think this becomes clear in the discussion of the models we used**
 
-**I've tried to add more definitive statements of what the fixed effects were in each model, which interactions were included, and any random effects other than plot.**
-Macroalgal abundances were fit with a negative binomial distribution **aka nbinom2** and a log link.
+Macroalgal abundances were fit with a negative binomial distribution and a log link.
 Overall abundance did fluctuate seasonally, so we included fixed effects of treatment, year, and season, and random slopes for the effect of season and year for each taxa. 
 This provides an estimate of the overall treatment effect between years and seasons, as well as taxa-specific differences in these effects.  
 
-Shoot densities (counts of shoots m^-2^) were fit with a quasi-poisson distribution **aka nbinom1** and a log link. 
-Seagrass shoots did not fluctuate between seasons, so we included fixed effects of a months into experiment in a three-way interaction with treatment and distance (a linear covariate representing the center of contiguous 1 m^2^ sampling quadrats). **is this wording any less confusing** **kind of?... What is meant by a months?**
+Shoot densities (counts of shoots m^-2^) were fit with a quasi-poisson distribution and a log link. 
+Seagrass shoots did not fluctuate between seasons, so we included fixed effects of months into experiment in a three-way interaction with treatment and distance (a linear covariate representing the center of contiguous 1 m^2^ sampling quadrats). 
 Because species-specific shoot counts were not collected for *S. filliforme* or *H. wrightii*, shoot density was modelled for *T. testudinum* alone as the dominant species and for *S. filliforme* and *H. wrightii* combined.
 
 *T. testudinum* growth rate (mm^2^ day^-1^) was analyzed in response to treatment interacting separately with fixed effects of distance, season, and year, as well as stake ID as an additional random factor.  
@@ -82,8 +79,10 @@ Finally, we tested for a treatment effect on nutrient concentrations (% of nitro
 
 All models described above included plot as a random factor, along with any additional random effects as described above. 
 For all response variables except nutrient concentrations, an offset of the mean values measured prior to the initiation of the experiment was included (when a log link was used, this value had 1 added to it and was log transformed). 
-Macroalgal abundance and seagrass shoot densities were assessed using generalized mixed effect models implemented using the glmmTMB package [@brooks2017]; distribution and link described above). All other variables were modeled linear mixed effects models using the lme4 package [@bates2015]. All analyses were completed in R version 4.0.2 [@rcoreteam2020].
-**could add statement about how differences between treatments are reported**  
+Macroalgal abundance and seagrass shoot densities were assessed using generalized mixed effect models implemented using the glmmTMB package [@brooks2017]; distribution and link described above. 
+All other variables were modeled linear mixed effects models using the lme4 package [@bates2015]. 
+All analyses were completed in R version 4.0.2 [@rcoreteam2020]. **could add statement about how differences between treatments are reported**  
+
 # Results  
 ```{r results function,include=FALSE}
 decimalplaces <- function(x) {
@@ -157,6 +156,8 @@ tmb.res<-function(rtable,row){
 # degrees of freedom??
 
 ```
+
+**Do we need any summary results here or discussion? e.g. Seagrass shoot density and nutrient levels did not show evidence of a seasonal effect, while growth and algal abundance did.** 
 
 ## Macroalgal abundance  
 ```{r algae, include=FALSE}
@@ -254,10 +255,13 @@ knitr::include_graphics("figures/algae_summer_means_viridis.jpg")
 #   geom_jitter(data=sdplot2,aes(x=samp,shoots,color=treatment),width=.5,alpha=.2)+
 #   geom_point(data=sdsum,aes(x=samp,y=msd,color=treatment),size=3)+
 #   geom_errorbar(data=sdsum,aes(x=samp,ymin=msd-sdsd,ymax=msd+sdsd,color=treatment),width=.2)+
-#    scale_color_brewer(type="qual",
-#                       palette="Set2",
-#                       name="",
-#                       labels=c("Control","Structure control","Sponge"))+
+# # scale_color_brewer(type="qual",
+# #                    palette="Set2",
+# #                    name="",
+# #                    labels=c("Control","Structure control","Sponge"))+
+# scale_color_viridis_d(option="D", begin=0, end=0.6,
+#                    name="",
+#                    labels=c("Control","Structure control","Sponge"))+
 #   theme_bw()+
 #   theme(panel.grid = element_blank(),
 #         strip.background = element_blank(),
@@ -265,11 +269,11 @@ knitr::include_graphics("figures/algae_summer_means_viridis.jpg")
 #   ylab(sdlab)+
 #   xlab("Months into experiment")+
 #   facet_wrap(~seagrass,scales="free_y",nrow=2)
-# 
+#
 # if(!require(egg))install.packages("egg")
 # 
 # sdp<-egg::tag_facet(sdp)
-# sdp
+#sdp
 # ggsave(filename="figures/shootdensity.jpg",plot=sdp,width = 6,height=4)
 knitr::include_graphics("figures/shootdensity.jpg")
 
@@ -302,6 +306,9 @@ knitr::include_graphics("figures/shootdensity.jpg")
 #                      palette="Set2",
 #                      name="",
 #                      labels=c("Control","Structure control","Sponge"))+
+#  # scale_color_viridis_d(option="A", begin=0, end=0.6,
+#  #                  name="",
+#  #                  labels=c("Control","Structure control","Sponge"))+
 #   theme_bw()+
 #   theme(panel.grid=element_blank(),
 #         panel.spacing = unit(0, "lines"),
@@ -349,6 +356,9 @@ knitr::include_graphics("figures/sggrow.jpg")
 #                       palette="Set2",
 #                       name="",
 #                       labels=c("Control","Structure control","Sponge"))+
+# # scale_color_viridis_d(option="A", begin=0, end=0.6,
+# #                  name="",
+# #                  labels=c("Control","Structure control","Sponge"))+
 #   scale_x_discrete(labels = c(0,12))+
 #   theme(panel.grid = element_blank(),
 #          legend.position = "none",
@@ -380,6 +390,7 @@ knitr::include_graphics("figures/sggrow.jpg")
 #   ylab("% Phosphorus")+
 #   xlab("Months into the experiment")+
 #   scale_color_brewer(type="qual",palette="Set2")+
+#   # scale_color_viridis_d(option="A", begin=0, end=0.6)+
 #   scale_x_discrete(labels = c(0,12))+
 #   theme(panel.grid = element_blank(),
 #          legend.position = "none")+
@@ -409,6 +420,7 @@ knitr::include_graphics("figures/sggrow.jpg")
 #     position = position_dodge(width = .5))+
 #   ylab("% Carbon")+
 #   scale_color_brewer(type="qual",palette="Set2")+
+#   # scale_color_viridis_d(option="A", begin=0, end=0.6)+
 #   scale_x_discrete(labels = c(0,12))+
 #   theme(panel.grid = element_blank(),
 #          legend.position = "none",
