@@ -77,13 +77,21 @@ sgmd0s<-lmer(gpd~ treatment + yr + season +  (1|plot),
 (sg05<-anova(sgmd0s))
 
 # at >= 1: no differences
-sgmd0s<-lmer(gpd~ treatment + yr + season * previous_gpd + (1|plot), 
+sgmd1s<-lmer(gpd~ treatment + yr + season  + (1|plot), 
+  offset=start_gr,
   data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "real"))
   # data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "fake"))
   %>% filter(dist == 1)
 )
-(sg1<-anova(sgmd0s))
+(sg1<-anova(sgmd1s))
 
+sgmd2s<-lmer(gpd~ treatment + yr + season  + (1|plot), 
+  offset=start_gr,
+  data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "real"))
+  # data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "fake"))
+  %>% filter(dist == 2)
+)
+(sg2<-anova(sgmd2s))
 
 
 #### removing previous growth rate makes sense because seasonal difference explains most of the relationship 
