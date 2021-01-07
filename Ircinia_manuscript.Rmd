@@ -1,5 +1,5 @@
 ---
-title: "The sponge Ircinia felix in seagrass beds"
+title: "The sponge *Ircinia felix* in seagrass beds"
 output: bookdown::word_document2
 editor_options: 
   chunk_output_type: console
@@ -56,7 +56,7 @@ The second youngest blade from each shoot was collected, combined with other bla
 For %C and %N analysis seagrass tissue was then weighed into tin capsules, and sent to the University of Georgia Stable Isotope Ecology Laboratory for analysis. 
 Percent phosphorus (%P) was determined by dry oxidation acid hydrolysis extraction followed by colorimetric analysis [@fourqurean1992].  
   
-### Statistical analysis  
+## Statistical analysis  
   
 Two sampling events occurred in the summer (1 and 12 months into the experiment) and two in the winter (5 and 17 months into the experiment); therefore, all response variables were visually examined for a seasonal effect. 
 If responses differed noticeably between summer and winter, separate factors for season and year of the experiment (1st or 2nd year) were included as explanatory variables in those analyses, otherwise a continuous effect of months into experiment was the only temporal variable. 
