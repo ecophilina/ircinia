@@ -82,8 +82,8 @@ Because species-specific shoot counts were not collected for *S. filliforme* or 
 
 *T. testudinum* growth rate (mm^2^ day^-1^) was analyzed in response to treatment interacting separately with fixed effects of distance, season, and year, as well as stake ID as an additional random factor.  
 We tested for a treatment effect at each distance sampled (0, 0.5, 1, and 2 m) to identify a potential threshold of response. 
-An effect was detected at 0 and 0.5 m but not at the 1 m or 2 m sampling points. 
-Therefore distance was turned into a factor with 0 and 0.5 m assigned as "near" and 1 and 2 m assigned as "far". 
+An effect was detected at 0 and 0.5 m, but not at the 1 m or 2 m sampling points. 
+Therefore distance in this model was a factor with 0 and 0.5 m assigned as "near" and 1 and 2 m assigned as "far". 
 
 Finally, nutrient concentrations (% of nitrogen, carbon, and phosphorus) in *T. testudinum* shoots one year into the experiment were compared with prior values. 
 
