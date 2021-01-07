@@ -171,7 +171,7 @@ The change in macroalgal abundances was not significantly different in control a
 
 ## Shoot densities
 ```{r shoot.density, include=FALSE}
-source("scripts/10_sg_shoots_analysis_USE.R")
+source("scripts/07_sg_shoots_analysis.R")
 ```  
 *Thalassia testudinum* shoot densities decreased similarly in all treatments over time (control: $\beta$ = `r efsize.tmb(tsdb.sum,4)`, z `r tmb.res(tsdb.sum,4)`; structure control: $\beta$ = `r efsize.tmb(tsdf.sum,4)`, z `r tmb.res(tsdf.sum,4)`; sponge: $\beta$ = `r efsize.tmb(tsdr.sum,4)`, z `r tmb.res(tsdr.sum,4)`), but this decrease was not significant in sponge plots. 
 There was no significant effect of distance for any treatment  initially (control: $\beta$ = `r efsize.tmb(tsdb.sum,5)`, z `r tmb.res(tsdb.sum,5)`; structure control: $\beta$ = `r efsize.tmb(tsdf.sum,5)`, z `r tmb.res(tsdf.sum,5)`; sponge: $\beta$ = `r efsize.tmb(tsdr.sum,5)`, z `r tmb.res(tsdr.sum,5)`) or over time (control: $\beta$ = `r efsize.tmb(tsdb.sum,10)`, z `r tmb.res(tsdb.sum,10)`; structure control: $\beta$ = `r efsize.tmb(tsdf.sum,10)`, z `r tmb.res(tsdf.sum,10)`; sponge: $\beta$ = `r efsize.tmb(tsdr.sum,10)`, z `r tmb.res(tsdr.sum,10)`). 
