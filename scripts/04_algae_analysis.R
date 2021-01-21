@@ -164,8 +164,6 @@ plot(p2)
 # BUT we now have a significant increase over time in real treatment that is 
 # significantly different than the other treatments.
 
-# Now talk through whether or not the figure I made is appropriate.
-
 a5<-a5%>%
   mutate(samp2=case_when(
     sampling==2~1,
@@ -173,96 +171,82 @@ a5<-a5%>%
     sampling==4~12,
     sampling==5~17))
 
-# potential figure
-a6<-a3 %>%
-  select(treatment, plot,sampling,total,season)%>%
-  distinct()
-
-a6.1<-a6%>%
-  filter(sampling==1)%>%
-  rename(start.total=total)%>%
-  select(-sampling,-season)
-
-a6<-a6 %>%
-  filter(sampling!=1)%>%
-  left_join(a6.1)%>%
-  mutate(samp2=case_when(
-    sampling==2~1,
-    sampling==3~5,
-    sampling==4~12,
-    sampling==5~17),
-    year=case_when(
-      sampling==2~1,
-      sampling==3~1,
-      sampling==4~2,
-      sampling==5~2))
-
-a6$treatment<-factor(a6$treatment)
-a6$season<-factor(a6$season)
-
-a6<-a6%>%
-  mutate(delta.tot=total-start.total)
-a7<-a6%>%
-  group_by(treatment,samp2)%>%
-  summarize(m.tot=mean(delta.tot),sd.tot=sd(delta.tot))
 ylab<-expression(paste(Delta," macroalgae abundance"))
-
-(afig <- ggplot() +
-    geom_hline(aes(yintercept = 0)) +
-    geom_point(
-      data = a6,
-      aes(x = samp2, y = delta.tot, color = treatment),
-      position = position_dodge(1.8)) +
-    geom_point(data = a7,
-      aes(x = samp2, y = m.tot, color = treatment),
-      size = 8,
-      position = position_dodge(+1.8),
-      alpha = .5) +
-    geom_errorbar(
-      data = a7,
-      aes(x = samp2,ymin = m.tot - sd.tot,ymax = m.tot + sd.tot,color = treatment),
-      width = 1,
-      position = position_dodge(1.8)) +
-    theme_bw() +
-    xlab("Months into experiment") +
-    ylab(ylab) +
-    scale_color_brewer(type = "qual",
-      palette = "Set2",
-      name = "",
-      labels = c("Control", "Structure control", "Sponge")) +
-    theme_bw() +
-    theme(panel.grid = element_blank(),
-      panel.spacing = unit(0, "lines"),
-      strip.background = element_blank(),
-      legend.position = "top",
-      legend.text = element_text(size = 14),
-      axis.title = element_text(size = 14),
-      axis.text = element_text(size = 12),
-      strip.text = element_text(size = 14)))
-ggsave("figures/algal_abundance.jpg")
-
-# making a more appropriate figure
-
-a5<-a5%>%
-  mutate(delta.abund=abundance-start.abund)
 
 a5$treatment<-factor(a5$treatment,levels=c("blank","fake","real"),labels=c("Control","Structure Control","Sponge"))
 my.labels <- paste0(c("S","W","S","W"), "\n", c("Year 1","Year 1","Year 2", "Year 2"))
 
-ggplot(data=a5)+
-  geom_point(aes(x=sampling,y=abundance,color=taxa),position=position_dodge(0.5))+
-  scale_x_continuous(name="",breaks=c(2,3,4,5),label = my.labels)+
-  facet_grid(~treatment)+
-  theme_bw()+
-  theme(panel.grid = element_blank(),
-        legend.title.align = 0.5,
-        strip.background = element_blank(),
-        strip.text = element_text(size=14))+
-  geom_hline(aes(yintercept=0))+
-  ylab("Macroalgal Abundance")+
-  scale_color_brewer(palette = "Set2",name="Taxa",labels=c("Acetabularia",
-                                                           "Halimeda",
-                                                           "Laurencia",
-                                                           "Penicillus",
-                                                           "Udotea"))
+a6<-a5%>%
+  mutate(delta.abund=abundance-start.abund)
 
+
+p3<-ggpredict(alm1.r, terms = c("year", "treatment", "season"))%>% 
+  rename(year = x,treatment = group, season = facet)%>% 
+  mutate(
+    sampling = case_when(
+      year==1&season=="summer"~2,
+      year==1&season=="winter"~3,
+      year==2&season=="summer"~4,
+      year==2&season=="winter"~5
+    )
+  )
+p3$treatment<-factor(p3$treatment,levels=c("blank","fake","real"),labels=c("Control","Structure Control","Sponge"))
+
+# summer only
+a7<-a6%>%
+  filter(season!="winter")
+
+# with means
+a8<-a7 %>%
+  group_by(year,treatment,taxa)%>%
+  summarize(m.abund=mean(delta.abund),se.abund=sd(delta.abund)/sqrt(5),sd.abund=sd(delta.abund))
+
+
+# ggplot(data=a8)+
+#   geom_hline(aes(yintercept=0), linetype = "dashed", colour = "darkgrey")+
+#   scale_x_continuous(name="Year of Experiment",breaks=c(1,2),label = c(1,2))+
+#   # global effects from model
+#   geom_ribbon(data = filter(p3, season=="summer"), aes(year,
+#     ymin = conf.low, ymax = conf.high, 
+#     group = treatment, fill = treatment),
+#     alpha = 0.2
+#   ) + 
+#   geom_line(data = filter(p3, season=="summer"),  
+#     aes(year, predicted, 
+#       colour = treatment,
+#       group = treatment), 
+#     lwd = 2) +
+#   scale_fill_viridis_d(name=" ", option="A", begin=0, end=0.6) + 
+#   scale_colour_viridis_d(name=" ", option="A", begin=0, end=0.6) + 
+#   # species means and variability
+#   ggnewscale::new_scale_color() +
+#   geom_errorbar(aes(x=year,
+#     # ymin=m.abund-sd.abund, ymax=m.abund+sd.abund,
+#     # ymin=m.abund-se.abund, ymax=m.abund+se.abund,
+#     ymin=m.abund-se.abund*1.96, ymax=m.abund+se.abund*1.96, # 95% CI
+#     color=taxa,
+#     group = taxa
+#     ), position=position_dodge(0.5), lwd=0.5, alpha = 0.3)+
+#   geom_point(aes(x=year,y=m.abund,
+#     color=taxa,
+#     # shape=taxa,
+#     group = taxa
+#     ), position=position_dodge(0.5), size=2, alpha = 0.8) +
+#   scale_color_viridis_d(name="Taxa",
+#     end=.9,
+#     labels=c("Acetabularia",
+#       "Halimeda",
+#       "Laurencia",
+#       "Penicillus",
+#       "Udotea")) +
+#   ylab(ylab)+
+#   coord_cartesian(ylim = c(-2, 23)) +
+#   facet_wrap(~treatment)+
+#   theme_bw()+
+#   theme(panel.grid = element_blank(),
+#     legend.title.align = 0.5,
+#     strip.background = element_blank(),
+#     strip.text = element_text(size=14))
+# 
+# ggsave("figures/algae_summer_means_viridis_95CI.jpg")
+## ggsave("figures/algae_summer_means_viridis_95CI_bw.jpg")

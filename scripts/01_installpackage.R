@@ -27,3 +27,6 @@ if(!require(car))install.packages("car");library(car)
 if(!require(ggpubr))install.packages("ggpubr");library(ggpubr)
 if(!require(egg))install.packages("egg")
 if(!require(cowplot))install.packages("cowplot");library(cowplot)
+
+# install.packages("devtools")
+if(!require(ggnewscale))devtools::install_github("eliocamp/ggnewscale")
