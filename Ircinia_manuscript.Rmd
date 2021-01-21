@@ -241,7 +241,7 @@ However, the pattern of change over time was significantly different between con
 #   scale_fill_viridis_d(name=" ", option="A", begin=0, end=0.6, guide =F) +
 #   scale_colour_viridis_d(name=" ", option="A", begin=0, end=0.6, guide =F) +
 #   # species means and variability
-#   ggnewscale::new_scale_color() +
+#   # ggnewscale::new_scale_color() +
 #   geom_errorbar(aes(x=year,
 #     # ymin=m.abund-sd.abund, ymax=m.abund+sd.abund,
 #     # ymin=m.abund-se.abund, ymax=m.abund+se.abund,
@@ -253,15 +253,15 @@ However, the pattern of change over time was significantly different between con
 #     # color=taxa,
 #     shape=taxa,
 #     group = taxa
-#     ), position=position_dodge(0.5), size=2, alpha = 0.8) +
+#   ), position=position_dodge(0.5), size=2, alpha = 0.8) +
 #   scale_shape_discrete(name="Taxa") +
-#   scale_color_viridis_d(name="Taxa",
-#     end=.9,
-#     labels=c("Acetabularia",
-#       "Halimeda",
-#       "Laurencia",
-#       "Penicillus",
-#       "Udotea")) +
+#   # scale_color_viridis_d(name="Taxa",
+#   # end=.9,
+#   # labels=c("Acetabularia",
+#   #   "Halimeda",
+#   #   "Laurencia",
+#   #   "Penicillus",
+#   #   "Udotea")) +
 #   ylab(ylab)+
 #   # coord_cartesian(ylim = c(-2, 23)) +
 #   facet_wrap(~treatment)+
