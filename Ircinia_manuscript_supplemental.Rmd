@@ -1,12 +1,122 @@
 ---
-title: 'The sponge *Ircinia felix* in seagrass beds: Supplemental
-  Material'
-author: "Stephanie K. Archer, Finella Campanino, Philina English"
-output: bookdown::word_document2
+title: 'Individual sponges alter community composition via facilitation in a Bahamas seagrass system: Supplemental Material'
+author: "Stephanie K. Archer, Finella Campanino, Philina English, Craig A. Layman"
+output: pdf_document
+classoption: landscape
 ---
+```{r,echo=FALSE,warning=FALSE,include=FALSE,message=FALSE}
+if(!require(tidyverse))install.packages("tidyverse");library(tidyverse)
+```
 
-```{r expdes, echo=FALSE,fig.align = 'center', out.width = "100%"}
+```{r expdes, echo=FALSE, fig.align='center', out.width="85%", message=FALSE, warning=FALSE}
 knitr::include_graphics("figures/Experimental design.jpg")
+
 ```
   
 Figure S1. Experimental design and sampling scheme  
+
+\newpage
+
+```{r data,echo=FALSE,warning=FALSE,message=FALSE,include=FALSE}
+source("scripts/04_algae_analysis.R")
+source("scripts/05_growth_analysis.R")
+source("scripts/06_nutrient_explore.R")
+source("scripts/07_shoots_analysis.R")
+```  
+
+All results tables have the sponge treatment as the reference level for treatment. 
+
+```{r table.func,echo=FALSE,warning=FALSE,message=FALSE}
+tab.func<-function(type,msum,cap){
+  if(type=="glmmtmb"){
+    tab1<-msum$coefficients[[1]]
+    tab1<-signif(tab1,2)
+    coltab<-c(colnames(tab1),"")
+    tab1<-data.frame(tab1)
+    tab1$sig<-case_when(tab1$Pr...z..<=0.001~"***",
+                        tab1$Pr...z..<=0.01 & tab1$Pr...z..>0.001~"**",
+                       tab1$Pr...z..<=0.05 & tab1$Pr...z..>0.01~"*",
+                       tab1$Pr...z..>0.05~"")
+    colnames(tab1)<-coltab
+  }
+if(type=="lmer"){
+  tab1<-msum$coefficients
+  tab1<-signif(tab1,2)
+  coltab<-c(colnames(tab1),"")
+  tab1<-data.frame(tab1)
+  tab1$sig<-case_when(tab1$Pr...t..<=0.001~"***",
+                        tab1$Pr...t..<=0.01 & tab1$Pr...t..>0.001~"**",
+                       tab1$Pr...t..<=0.05 & tab1$Pr...t..>0.01~"*",
+                       tab1$Pr...t..>0.05~"")
+    colnames(tab1)<-coltab
+}
+if(type=="aov")tab1<-msum
+
+
+rnames<-rownames(tab1)
+rnames<-case_when(rnames == "(Intercept)"~"Intercept",
+                  rnames == "treatmentblank"~"Treatment [control]",
+                  rnames == "treatmentfake"~"Treatment [structure control]",
+                  rnames == "year"~"Year",
+                  rnames == "seasonwinter"~"Season [winter]",
+                  rnames == "treatmentblank:year"~"Treatment [control] x Year 2",
+                  rnames == "treatmentfake:year"~"Treatment [structure control] x Year 2",
+                  rnames == "treatmentblank:seasonwinter"~"Treatment [control] x Season [winter]",
+                  rnames == "treatmentfake:seasonwinter"~"Treatment [structure control] x Season [winter]",
+                  rnames == "samp2"~"Sampling",
+                  rnames == "sampling4"~"Year 2",
+                  rnames == "dist1"~"Distance from center",
+                  rnames == "treatmentblank:samp2"~"Treatment [control] x Sampling",
+                  rnames == "treatmentfake:sampling4"~"Treatment [structure control] x Year 2",
+                  rnames == "treatmentblank:sampling4"~"Treatment [control] x Year 2",
+                  rnames == "treatmentfake:samp2"~"Treatment [structure control] x Sampling",
+                  rnames == "treatmentblank:dist1"~"Treatment [control] x Distance from center",
+                  rnames == "treatmentfake:dist1"~"Treatment [structure control] x Distance from center",
+                  rnames == "treatmentblank:samp2:dist1"~"Treatment [control] x Sampling x Distance from center",
+                  rnames == "treatmentfake:samp2:dist1"~"Treatment [structure control] x Sampling x Distance from center",
+                  rnames == "samp2:dist1"~"Sampling x Distance from center",
+                  rnames == "sampling"~"Sampling",
+                  rnames == "treatmentblank:sampling"~"Treatment [control] x Sampling",
+                  rnames == "treatmentfake:sampling"~"Treatment [structure control] x Sampling",
+                  rnames == "dist_factorfarther"~"Distance [far]",
+                  rnames == "yr"~"Year 2",
+                  rnames == "seasonw"~"Season [winter]",
+                  rnames == "treatmentblank:dist_factorfarther"~"Treatment [control] x Distance [far]",
+                  rnames == "treatmentfake:dist_factorfarther"~"Treatment [structure control] x Distance [far]",
+                  rnames == "treatmentblank:yr"~"Treatment [control] x Year 2",
+                  rnames == "treatmentfake:yr"~"Treatment [structure control] x Year 2",
+                  rnames == "treatmentblank:seasonw"~"Treatment [control] x Season [winter]",
+                  rnames == "treatmentfake:seasonw"~"Treatment [structure control] x Season [winter]")
+rownames(tab1)<-rnames
+return(knitr::kable(tab1,caption=cap))
+}
+```
+
+```{r alg.table,echo=FALSE,warning=FALSE,message=FALSE}
+tab.func(type="glmmtmb",msum=alm1r.sum,cap="Macroalgal abundance model results.")
+```
+  
+  
+```{r tsd.table,echo=FALSE,warning=FALSE,message=FALSE}
+tab.func(type="glmmtmb",msum=tsdr.sum,cap="T. testudinum shoot density model results.")
+```  
+
+```{r shsd.table,echo=FALSE,warning=FALSE,message=FALSE}
+tab.func(type="glmmtmb",msum=shsdr.sum,cap="S. filliforme and H. wrightii shoot density model results.")
+```  
+
+```{r grow.table,echo=FALSE,warning=FALSE,message=FALSE}
+tab.func(type="lmer",msum=sgr,cap="Seagrass growth model results.")
+```  
+
+```{r pn.table,echo=FALSE,warning=FALSE,message=FALSE}
+tab.func(type="lmer",msum=nrs,cap="Percent nitrogen in seagrass tissue model results.")
+```  
+
+```{r pc.table,echo=FALSE,warning=FALSE,message=FALSE}
+tab.func(type="lmer",msum=crls,cap="Percent carbon in seagrass tissue model results.")
+```  
+
+```{r pp.table,echo=FALSE,warning=FALSE,message=FALSE}
+tab.func(type="lmer",msum=prs,cap="Percent phosphorus in seagrass tissue model results.")
+```

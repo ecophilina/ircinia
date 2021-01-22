@@ -1,5 +1,5 @@
 ---
-title: "The sponge *Ircinia felix* in seagrass beds"
+title: "Individual sponges alter community composition via facilitation in a Bahamas seagrass system"
 output: bookdown::word_document2
 editor_options: 
   chunk_output_type: console
