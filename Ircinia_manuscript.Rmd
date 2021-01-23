@@ -17,6 +17,8 @@ Stephanie K. Archer^1^*, Philina English^2^, Finella Campanino^1^, Craig A. Laym
 knitr::opts_chunk$set(echo = TRUE)
 source("scripts/03_reimport.R")#imports all the data sets
 if(!require(cowplot))install.packages("cowplot");library(cowplot)
+if(!require(jpeg))install.packages("jpeg");library(jpeg)
+if(!require(egg))install.packages("egg")
 ```
 
 # Abstract  
@@ -222,8 +224,12 @@ However, the pattern of change over time was significantly different between con
 <div id="refs"></div>  
 
 # Figures
-```{r algaep,echo=FALSE,message=FALSE, fig.cap="The change in macroalgal abundances in control, structure control, and sponge plots between the first and second summer of the experiment. Taxa-specific mean counts and standard errors are presented. The line and shaded area represent the global model fit with 95% confidence intervals."}
+
+
+```{r algaep, out.width="95%", echo=FALSE, message=FALSE, fig.cap="The change in macroalgal abundances in control, structure control, and sponge plots between the first and second summer of the experiment. Taxa-specific mean counts and standard errors are presented. The line and shaded area represent the global model fit with 95 confidence intervals."}
+## % symbol doesn't work in fig.cap 
 # 
+# source("scripts/04_algae_analysis.R")
 # (algaeplot<- ggplot(data=a8)+
 #   geom_hline(aes(yintercept=0), linetype = "dashed", colour = "darkgrey")+
 #   scale_x_continuous(name="Year of Experiment",breaks=c(1,2),label = c(1,2))+
@@ -238,8 +244,12 @@ However, the pattern of change over time was significantly different between con
 #       colour = treatment,
 #       group = treatment),
 #     lwd = 2) +
-#   scale_fill_viridis_d(name=" ", option="A", begin=0, end=0.6, guide =F) +
-#   scale_colour_viridis_d(name=" ", option="A", begin=0, end=0.6, guide =F) +
+#   scale_fill_viridis_d(name=" ", option="A",
+#     begin=0, end=0.6, guide =F
+#     ) +
+#   scale_colour_viridis_d(name=" ", option="A",
+#     begin=0, end=0.6, guide =F
+#     ) +
 #   # species means and variability
 #   # ggnewscale::new_scale_color() +
 #   geom_errorbar(aes(x=year,
@@ -265,26 +275,27 @@ However, the pattern of change over time was significantly different between con
 #   ylab(ylab)+
 #   # coord_cartesian(ylim = c(-2, 23)) +
 #   facet_wrap(~treatment)+
-#   theme_bw()+
+#   theme_bw()+ 
 #   theme(panel.grid = element_blank(),
 #     legend.title.align = 0.5,
 #     strip.background = element_blank(),
 #     strip.text = element_text(size=14)))
-# 
-# # ggsave("figures/algae_summer_means_viridis_SE.jpg", plot = algaeplot, width = 7,height=4)
-# # ggsave("figures/algae_summer_means_viridis_95CI.jpg", plot = algaeplot, width = 7,height=4)
-# ggsave("figures/algae_summer_means_viridis_95CIbw.jpg", plot = algaeplot, width = 7,height=4)
-
-knitr::include_graphics("figures/algae_summer_means_viridis_95CI.jpg")
+# (algaeplot<-egg::tag_facet(algaeplot, hjust = 0, y = Inf, 
+#   tag_pool = c('(a)  Control','(b)  Structure control', "(c)  Sponge"), 
+#   open = " ", close = " ") )
+# # # ggsave("figures/algae_summer_means_viridis_SE.jpg", plot = algaeplot, width = 7,height=4)
+# # # ggsave("figures/algae_summer_means_viridis_95CI.jpg", plot = algaeplot, width = 7,height=4)
+# ggsave("figures/algae_summer_95CIbw.jpg", plot = algaeplot, width = 7,height=3.5)
+knitr::include_graphics("figures/algae_summer_95CIbw.jpg")
 ```
 
-```{r shootd,echo=FALSE,message=FALSE,fig.cap="Shoot densities of (A) *T. testudinum* and (B) *S. filliforme* and *H. wrightii* combind. "}
+
+```{r shootd, out.width="55%", echo=FALSE,message=FALSE, fig.cap="Shoot densities of (A) *T. testudinum* and (B) *S. filliforme* and *H. wrightii* combind."}
+# source("scripts/07_shoots_analysis.R")
 # sdplot<-sgsd%>%
 #   mutate(thalassia=T.SD-mtsd,sh=SH.SD-mshsd)%>%
 #   select(treatment,samp2,thalassia,sh)%>%
 #   pivot_longer(thalassia:sh,names_to="seagrass",values_to="shoots")
-# 
-# 
 # 
 # sdplot2<-sdplot%>%
 #   mutate(samp=case_when(
@@ -295,40 +306,46 @@ knitr::include_graphics("figures/algae_summer_means_viridis_95CI.jpg")
 # 
 # sdsum<-sdplot2%>%
 #   group_by(treatment,samp,seagrass)%>%
-#   summarize(msd=mean(shoots),sdsd=sd(shoots))
+#   summarize(msd=mean(shoots),
+#     sdsd=sd(shoots),
+#     sdse=sd(shoots)/sqrt(12*5)) # could be just 5?
 # 
 # sdlab<-expression(paste(Delta," seagrass shoots per m"^2))
 # 
 # sdp<-ggplot()+
-#   geom_jitter(data=sdplot2,aes(x=samp,shoots,color=treatment),width=.5,alpha=.2)+
-#   geom_point(data=sdsum,aes(x=samp,y=msd,color=treatment),size=3)+
-#   geom_errorbar(data=sdsum,aes(x=samp,ymin=msd-sdsd,ymax=msd+sdsd,color=treatment),width=.2)+
+#   # geom_jitter(data=sdplot2,aes(x=samp,shoots,color=treatment),width=.5,alpha=.2)+
+#   geom_point(data=sdsum,aes(x=samp,y=msd,color=treatment),size=4)+
+#   geom_errorbar(data=sdsum,aes(x=samp,
+#     # ymin=msd-sdsd, ymax=msd+sdsd,
+#     ymin=msd-sdse*1.96, ymax=msd+sdse*1.96, #95% CI
+#     color=treatment),width=.4)+
 # # scale_color_brewer(type="qual",
 # #                    palette="Set2",
 # #                    name="",
 # #                    labels=c("Control","Structure control","Sponge"))+
-# scale_color_viridis_d(option="D", begin=0, end=0.6,
+# scale_color_viridis_d(
+#                    option="A",
+#                    begin=0, end=0.6,
 #                    name="",
 #                    labels=c("Control","Structure control","Sponge"))+
 #   theme_bw()+
 #   theme(panel.grid = element_blank(),
+#             legend.position = "none", #legend.position = "top",
 #         strip.background = element_blank(),
 #         strip.text = element_blank())+
 #   ylab(sdlab)+
 #   xlab("Months into experiment")+
 #   facet_wrap(~seagrass,scales="free_y",nrow=2)
-#
-# if(!require(egg))install.packages("egg")
 # 
 # sdp<-egg::tag_facet(sdp)
-#sdp
-# ggsave(filename="figures/shootdensity.jpg",plot=sdp,width = 6,height=4)
-knitr::include_graphics("figures/shootdensity.jpg")
-
+# sdp
+# ggsave(filename="figures/shootdensity-95CI.jpg", plot=sdp, width = 3.5, height=4.5)
+knitr::include_graphics("figures/shootdensity-95CI.jpg")
 ```
 
 
-```{r grow,echo=FALSE,message=FALSE, fig.cap="Segrass growth"}
+```{r grow, out.width="85%", echo=FALSE,message=FALSE, fig.cap="Segrass growth"}
+# source("scripts/05_growth_analysis.R")
 # sgf<-sgg2%>%
 #   # mutate(dy=case_when(
 #   #   yr==1 & dist_factor=="closer"~"Yr 1 near",
@@ -336,8 +353,11 @@ knitr::include_graphics("figures/shootdensity.jpg")
 #   #   yr==2 & dist_factor=="closer"~"Yr 2 near",
 #   #   yr==2 & dist_factor!="closer"~"Yr 2 far"))%>%
 #   group_by(treatment,dist_factor,season,yr)%>%
-# #  group_by(treatment,dy,season)%>%
-#   summarize(mdsg=mean(delta_gpd_st,na.rm=TRUE),sddsg=sd(delta_gpd_st,na.rm=TRUE))
+#   # group_by(treatment,dy,season)%>%
+#   summarize(mdsg=mean(delta_gpd_st,na.rm=TRUE),
+#     sddsg=sd(delta_gpd_st,na.rm=TRUE), 
+#     sedsg=sddsg/sqrt(5*2*5)
+#     )
 # 
 # sgf$season<-factor(sgf$season,levels=c("s","w"),labels=c("Summer","Winter"))
 # 
@@ -345,41 +365,48 @@ knitr::include_graphics("figures/shootdensity.jpg")
 # 
 # sglab<-expression(paste(Delta," Seagrass growth (mm "^2,"d "^"-1",")"))
 # 
-# ggplot(sgf, aes(x=as.factor(yr),y=mdsg,group=treatment,color=treatment)) +
+# sgplot <- ggplot(sgf, aes(x=as.factor(yr),y=mdsg,group=treatment,color=treatment)) +
 #   geom_point(size=5,position=position_dodge(0.5))+
 #   geom_path(position=position_dodge(0.5))+
-#   geom_errorbar(aes(x=as.factor(yr),ymin=mdsg-sddsg,ymax=mdsg+sddsg),width=.2,position=position_dodge(0.5))+
+#   geom_errorbar(aes(x=as.factor(yr),
+#     # ymin=mdsg-sddsg,ymax=mdsg+sddsg),
+#     ymin=mdsg-sedsg*1.96,ymax=mdsg+sedsg*1.96),
+#     width=.2,position=position_dodge(0.5))+
 #   facet_grid(season~dist_factor,scales = "free")+
-#   scale_color_brewer(type="qual",
-#                      palette="Set2",
-#                      name="",
-#                      labels=c("Control","Structure control","Sponge"))+
-#  # scale_color_viridis_d(option="A", begin=0, end=0.6,
-#  #                  name="",
-#  #                  labels=c("Control","Structure control","Sponge"))+
+#   # scale_color_brewer(type="qual",
+#   #                    palette="Set2",
+#   #                    name="",
+#   #                    labels=c("Control","Structure control","Sponge"))+
+#  scale_color_viridis_d(option="A",
+#                   begin=0, end=0.6,
+#                   name="",
+#                   labels=c("Control","Structure control","Sponge"))+
 #   theme_bw()+
-#   theme(panel.grid=element_blank(),
-#         panel.spacing = unit(0, "lines"),
-#         strip.background = element_blank(),
-#         legend.position = "top",
-#         legend.text = element_text(size=14),
-#         axis.title=element_text(size=14),
-#         axis.text = element_text(size=12),
-#         strip.text = element_text(size=14))+
 #   xlab("Year")+
 #   ylab(sglab)
-#   
-# 
-# ggsave("figures/sggrow.jpg",width=6,height=6.25)
+# sgplot <- egg::tag_facet(sgplot,  
+#   #x = Inf, y = Inf, # hjust = -1.5,
+#   open = "(", close = ")", fontface = 2)+
+#   theme(panel.grid=element_blank(),
+#         panel.spacing = unit(1, "lines"),
+#         strip.background = element_blank(),
+#         legend.position = "none",
+#         # legend.text = element_text(size=14),
+#         axis.title=element_text(size=14),
+#         axis.text = element_text(size=12),
+#         strip.text = element_text(size=14))
+# # ggsave("figures/sggrow.jpg",width=6,height=6.25)
+# ggsave("figures/sggrow-95CI.jpg", plot=sgplot, width=5.5,height=5.5)
 knitr::include_graphics("figures/sggrow.jpg")
-
 ```
 
 
-```{r nuts, echo=FALSE,message=FALSE, fig.cap="Seagrass nutrient concentrations prior to the initiation of the experiment and at one year into the experiment. (A) Percent nitrogen, (B) percent carbon, and (C) percent carbon in Thalassia testudinum tissue."}
+```{r nuts, out.width="65%", echo=FALSE,message=FALSE, fig.cap="Seagrass nutrient concentrations prior to the initiation of the experiment and at one year into the experiment. (A) Percent nitrogen, (B) percent carbon, and (C) percent carbon in Thalassia testudinum tissue."}
+# source("scripts/06_nutrient_explore.R")
 # pn<-ggplot(sgn %>%
 #     group_by(treatment, sampling, nut, dist) %>%
-#     summarize(mn = mean(nvalue), sdn = sd(nvalue)) %>%
+#     summarize(mn = mean(nvalue), sdn = sd(nvalue),
+#       se = sdn/sqrt(5)) %>%
 #     filter(sampling %in% c(1, 4) &
 #              dist == 0 &
 #              nut %in% c("PN"))) +
@@ -391,22 +418,23 @@ knitr::include_graphics("figures/sggrow.jpg")
 #   geom_point(aes( x = as.factor(sampling),
 #       y = mn,
 #       color = treatment),
-#     size = 5,
+#     size = 4,
 #     position = position_dodge(width = .5)) +
 #   geom_errorbar(aes(x = as.factor(sampling),
-#       ymin = mn - sdn,
-#       ymax = mn + sdn,
+#       # ymin = mn - sdn, ymax = mn + sdn,
+#       ymin = mn - se*1.96, ymax = mn + se*1.96,
 #       color = treatment),
 #     width = .1,
 #     position = position_dodge(width = .5))+
 #   ylab("% Nitrogen")+
-#   scale_color_brewer(type="qual",
-#                       palette="Set2",
-#                       name="",
-#                       labels=c("Control","Structure control","Sponge"))+
-# # scale_color_viridis_d(option="A", begin=0, end=0.6,
-# #                  name="",
-# #                  labels=c("Control","Structure control","Sponge"))+
+#   # scale_color_brewer(type="qual",
+#   #                     palette="Set2",
+#   #                     name="",
+#   #                     labels=c("Control","Structure control","Sponge"))+
+# scale_color_viridis_d(option="A",
+#                  begin=0, end=0.6,
+#                  name="",
+#                  labels=c("Control","Structure control","Sponge"))+
 #   scale_x_discrete(labels = c(0,12))+
 #   theme(panel.grid = element_blank(),
 #          legend.position = "none",
@@ -415,7 +443,8 @@ knitr::include_graphics("figures/sggrow.jpg")
 # 
 # pp<-ggplot(sgn %>%
 #     group_by(treatment, sampling, nut, dist) %>%
-#     summarize(mn = mean(nvalue), sdn = sd(nvalue)) %>%
+#     summarize(mn = mean(nvalue), sdn = sd(nvalue),
+#       se = sdn/sqrt(5)) %>%
 #     filter(sampling %in% c(1, 4) &
 #              dist == 0 &
 #              nut %in% c("PP"))) +
@@ -427,18 +456,18 @@ knitr::include_graphics("figures/sggrow.jpg")
 #   geom_point(aes( x = as.factor(sampling),
 #       y = mn,
 #       color = treatment),
-#     size = 5,
+#     size = 4,
 #     position = position_dodge(width = .5)) +
 #   geom_errorbar(aes(x = as.factor(sampling),
-#       ymin = mn - sdn,
-#       ymax = mn + sdn,
+#       # ymin = mn - sdn, ymax = mn + sdn,
+#       ymin = mn - se*1.96, ymax = mn + se*1.96,
 #       color = treatment),
 #     width = .1,
 #     position = position_dodge(width = .5))+
 #   ylab("% Phosphorus")+
 #   xlab("Months into the experiment")+
-#   scale_color_brewer(type="qual",palette="Set2")+
-#   # scale_color_viridis_d(option="A", begin=0, end=0.6)+
+#   # scale_color_brewer(type="qual",palette="Set2")+
+#   scale_color_viridis_d(option="A", begin=0, end=0.6)+
 #   scale_x_discrete(labels = c(0,12))+
 #   theme(panel.grid = element_blank(),
 #          legend.position = "none")+
@@ -446,7 +475,8 @@ knitr::include_graphics("figures/sggrow.jpg")
 # 
 # pc<-ggplot(sgn %>%
 #     group_by(treatment, sampling, nut, dist) %>%
-#     summarize(mn = mean(nvalue), sdn = sd(nvalue)) %>%
+#     summarize(mn = mean(nvalue), sdn = sd(nvalue),
+#       se = sdn/sqrt(5)) %>%
 #     filter(sampling %in% c(1, 4) &
 #              dist == 0 &
 #              nut %in% c("PC"))) +
@@ -458,17 +488,17 @@ knitr::include_graphics("figures/sggrow.jpg")
 #   geom_point(aes( x = as.factor(sampling),
 #       y = mn,
 #       color = treatment),
-#     size = 5,
+#     size = 4,
 #     position = position_dodge(width = .5)) +
 #   geom_errorbar(aes(x = as.factor(sampling),
-#       ymin = mn - sdn,
-#       ymax = mn + sdn,
+#       # ymin = mn - sdn, ymax = mn + sdn,
+#       ymin = mn - se*1.96, ymax = mn + se*1.96,
 #       color = treatment),
 #     width = .1,
 #     position = position_dodge(width = .5))+
 #   ylab("% Carbon")+
-#   scale_color_brewer(type="qual",palette="Set2")+
-#   # scale_color_viridis_d(option="A", begin=0, end=0.6)+
+#   # scale_color_brewer(type="qual",palette="Set2")+
+#   scale_color_viridis_d(option="A", begin=0, end=0.6)+
 #   scale_x_discrete(labels = c(0,12))+
 #   theme(panel.grid = element_blank(),
 #          legend.position = "none",
@@ -477,15 +507,21 @@ knitr::include_graphics("figures/sggrow.jpg")
 # lgnd<-get_legend(pn +
 #     guides(color = guide_legend(nrow = 1)) +
 #     theme(legend.position = "bottom"))
-# pn<-egg::tag_facet(pn)
-# pc<-egg::tag_facet(pc,tag_pool = c("b"))
+# pn<-egg::tag_facet(pn)+
+#   theme(axis.text.x = element_blank(),axis.ticks.x = element_blank())
+# pc<-egg::tag_facet(pc,tag_pool = c("b"))+
+#   theme(axis.text.x = element_blank(),axis.ticks.x = element_blank())
 # pp<-egg::tag_facet(pp,tag_pool = c("c"))
 # #without carbon
 # #n1<-plot_grid(lgnd,pn,pp,labels = c("","A","B"),nrow=3,ncol = 1,rel_heights = c(.1,1,1))
 # #with carbon
-# n2<-plot_grid(lgnd,pn,pc,pp,nrow=4,ncol = 1,rel_heights = c(.1,1,1,1.1))
-#  ggsave(filename = "figures/nuts.pdf",plot=n2,width=3,height = 6)
-#  ggsave(filename = "figures/nuts.jpg",plot=n2,width=3,height = 6)
+# n2<-plot_grid(
+#   # lgnd,pn,pc,pp,nrow=4,ncol = 1,rel_heights = c(.1,1,1,1.1)
+#   pn,pc,pp,nrow=3,ncol = 1,rel_heights = c(1,1,1.1)
+#   )
+# # ggsave(filename = "figures/nuts.pdf",plot=n2,width=3,height = 6)
+# # ggsave(filename = "figures/nuts.jpg",plot=n2,width=3,height = 6)
+# ggsave(filename = "figures/nuts-95CI.jpg",plot=n2,width=3,height=5.5)
 knitr::include_graphics("figures/nuts.jpg")
 ```
 
