@@ -302,7 +302,8 @@ knitr::include_graphics("figures/algae_summer_95CIbw.jpg")
 #     treatment=="blank"~samp2-1,
 #     treatment=="fake"~samp2,
 #     treatment=="real"~samp2+1),
-#     seagrass=factor(seagrass,levels=c("thalassia","sh")))
+#     seagrass=factor(seagrass,levels=c("thalassia","sh"))
+#     )
 # 
 # sdsum<-sdplot2%>%
 #   group_by(treatment,samp,seagrass)%>%
@@ -313,17 +314,15 @@ knitr::include_graphics("figures/algae_summer_95CIbw.jpg")
 # sdlab<-expression(paste(Delta," seagrass shoots per m"^2))
 # 
 # sdp<-ggplot()+
-#   # geom_jitter(data=sdplot2,aes(x=samp,shoots,color=treatment),width=.5,alpha=.2)+
+#   geom_hline(yintercept = 0, linetype = "dashed", colour = "darkgrey") +
+#   ## dot plot versions
+#   # # geom_jitter(data=sdplot2,aes(x=samp,shoots,color=treatment),width=.5,alpha=.2)+
 #   geom_point(data=sdsum,aes(x=samp,y=msd,color=treatment),size=4)+
 #   geom_errorbar(data=sdsum,aes(x=samp,
 #     # ymin=msd-sdsd, ymax=msd+sdsd,
 #     ymin=msd-sdse*1.96, ymax=msd+sdse*1.96, #95% CI
 #     color=treatment),width=.4)+
-# # scale_color_brewer(type="qual",
-# #                    palette="Set2",
-# #                    name="",
-# #                    labels=c("Control","Structure control","Sponge"))+
-# scale_color_viridis_d(
+#   scale_color_viridis_d(
 #                    option="A",
 #                    begin=0, end=0.6,
 #                    name="",
