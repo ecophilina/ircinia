@@ -364,8 +364,112 @@ shsdf.sum
 # Further plots start out with more SH, but show less of an increase through time.
 # Control and structural control shows no change through time and both only differ sig from real.
 
+# POSSIBLE FIGURES
+sdplot<-sgsd%>%
+  mutate(thalassia=T.SD-mtsd,sh=SH.SD-mshsd)%>%
+  select(treatment,samp2,thalassia,sh)%>%
+  pivot_longer(thalassia:sh,names_to="seagrass",values_to="shoots")
+
+sdplot2<-sdplot%>%
+  mutate(samp=case_when(
+    treatment=="blank"~samp2-1,
+    treatment=="fake"~samp2,
+    treatment=="real"~samp2+1),
+    seagrass=factor(seagrass,levels=c("thalassia","sh")),
+    shoots_trim=if_else(seagrass=="thalassia", 
+      if_else(shoots <= quantile(sdplot[sdplot$seagrass=="thalassia", ]$shoots, 0.025),
+        quantile(sdplot[sdplot$seagrass=="thalassia", ]$shoots, 0.025), shoots), 
+      if_else(shoots <= quantile(sdplot[sdplot$seagrass=="sh", ]$shoots, 0.025), quantile(sdplot[sdplot$seagrass=="sh", ]$shoots, 0.025), shoots)),
+    shoots_trim=if_else(seagrass=="thalassia", #shoots_trim,
+      if_else(shoots_trim >=
+          quantile(sdplot[sdplot$seagrass=="thalassia", ]$shoots, 0.9975),
+        quantile(sdplot[sdplot$seagrass=="thalassia", ]$shoots, 0.9975), shoots_trim),
+      if_else(shoots_trim >= 
+          quantile(sdplot[sdplot$seagrass=="sh", ]$shoots, 0.975), 
+        quantile(sdplot[sdplot$seagrass=="sh", ]$shoots, 0.975), shoots_trim))
+  )
+
+sdsum<-sdplot2%>%
+  group_by(treatment,samp,seagrass)%>%
+  summarize(msd=mean(shoots),
+    sdsd=sd(shoots),
+    sdse=sd(shoots)/sqrt(12*5)) # could be just 12 or even just 5?
+
+sdlab<-expression(paste(Delta," seagrass shoots per m"^2))
+
+# box plots with outliers
+sdp1<-ggplot()+
+  geom_hline(yintercept = 0, lwd=0.1) +
+  geom_boxplot(data=sdplot2,aes(x=samp, shoots, group=samp, color=treatment),
+    outlier.alpha = 0.2) +
+  scale_color_viridis_d(
+    option="A",
+    begin=0, end=0.6,
+    name="",
+    labels=c("Control","Structure control","Sponge"))+
+  theme_bw()+
+  theme(panel.grid = element_blank(),
+    legend.position = "none", #legend.position = "top",
+    strip.background = element_blank(),
+    strip.text = element_blank())+
+  ylab(sdlab)+
+  xlab("Months into experiment")+
+  facet_wrap(~seagrass,scales="free_y",nrow=2)
+sdp1<-egg::tag_facet(sdp1)
+sdp1
+# ggsave(filename="figures/shootdensity-boxplot.jpg", plot=sdp1, width = 3.5, height=4.5)
 
 
+# OR box plots without outliers, by collapsing upper and lower 2.5% of data
+sdp2<-ggplot()+
+  geom_hline(yintercept = 0, lwd=0.1) +
+  geom_boxplot(data=sdplot2,aes(x=samp, shoots_trim, group=samp, color=treatment),
+    outlier.shape = NA) + #coord_cartesian(ylim = c(-18,35)) 
+  scale_color_viridis_d(
+    option="A",
+    begin=0, end=0.6,
+    name="",
+    labels=c("Control","Structure control","Sponge"))+
+  theme_bw()+
+  theme(panel.grid = element_blank(),
+    legend.position = "none", #legend.position = "top",
+    strip.background = element_blank(),
+    strip.text = element_blank())+
+  ylab(sdlab)+
+  xlab("Months into experiment")+
+  facet_wrap(~seagrass,scales="free_y",nrow=2)
+sdp2<-egg::tag_facet(sdp2)
+sdp2
+# ggsave(filename="figures/shootdensity-boxplot-no-outliers.jpg", plot=sdp2, width = 3.5, height=3)
 
+# # dot plot versions
+sdp3<-ggplot()+
+  geom_hline(yintercept = 0, lwd=0.1) +
+  # geom_jitter(data=sdplot2,aes(x=samp,shoots,color=treatment),width=.5,alpha=.2)+
+  geom_point(data=sdsum,aes(x=samp,y=msd,color=treatment),size=4)+
+  geom_errorbar(data=sdsum,aes(x=samp,
+    # ymin=msd-sdsd, ymax=msd+sdsd,
+    ymin=msd-sdse*1.96, ymax=msd+sdse*1.96, #95% CI
+    color=treatment),width=.4)+
+  # scale_color_brewer(type="qual",
+  #                    palette="Set2",
+  #                    name="",
+  #                    labels=c("Control","Structure control","Sponge"))+
+scale_color_viridis_d(
+  option="A",
+  begin=0, end=0.6,
+  name="",
+  labels=c("Control","Structure control","Sponge"))+
+  theme_bw()+
+  theme(panel.grid = element_blank(),
+    legend.position = "none", #legend.position = "top",
+    strip.background = element_blank(),
+    strip.text = element_blank())+
+  ylab(sdlab)+
+  xlab("Months into experiment")+
+  facet_wrap(~seagrass,scales="free_y",nrow=2)
 
+sdp3<-egg::tag_facet(sdp3)
+sdp3
 
+# ggsave(filename="figures/shootdensity-95CI.jpg", plot=sdp3, width = 3.5, height=4.5)
