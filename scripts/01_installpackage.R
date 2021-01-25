@@ -30,3 +30,5 @@ if(!require(cowplot))install.packages("cowplot");library(cowplot)
 
 # install.packages("devtools")
 if(!require(ggnewscale))devtools::install_github("eliocamp/ggnewscale")
+
+install.packages("see", dependencies = TRUE)
