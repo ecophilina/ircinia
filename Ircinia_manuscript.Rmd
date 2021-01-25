@@ -264,7 +264,8 @@ However, the pattern of change over time was significantly different between con
 #     shape=taxa,
 #     group = taxa
 #   ), position=position_dodge(0.5), size=2, alpha = 0.8) +
-#   scale_shape_discrete(name="Taxa") +
+#   #scale_shape_discrete(name="Taxa") +
+#     scale_shape_manual(values=c(15,5,17,16,6))+
 #   # scale_color_viridis_d(name="Taxa",
 #   # end=.9,
 #   # labels=c("Acetabularia",
@@ -275,18 +276,19 @@ However, the pattern of change over time was significantly different between con
 #   ylab(ylab)+
 #   # coord_cartesian(ylim = c(-2, 23)) +
 #   facet_wrap(~treatment)+
-#   theme_bw()+ 
+#   theme_bw()+
 #   theme(panel.grid = element_blank(),
 #     legend.title.align = 0.5,
 #     strip.background = element_blank(),
 #     strip.text = element_text(size=14)))
-# (algaeplot<-egg::tag_facet(algaeplot, hjust = 0, y = Inf, 
-#   tag_pool = c('(a)  Control','(b)  Structure control', "(c)  Sponge"), 
+# (algaeplot<-egg::tag_facet(algaeplot, hjust = 0, y = Inf,
+#   tag_pool = c('(a)  Control','(b)  Structure control', "(c)  Sponge"),
 #   open = " ", close = " ") )
 # # # ggsave("figures/algae_summer_means_viridis_SE.jpg", plot = algaeplot, width = 7,height=4)
 # # # ggsave("figures/algae_summer_means_viridis_95CI.jpg", plot = algaeplot, width = 7,height=4)
-# ggsave("figures/algae_summer_95CIbw.jpg", plot = algaeplot, width = 7,height=3.5)
-knitr::include_graphics("figures/algae_summer_95CIbw.jpg")
+# #ggsave("figures/algae_summer_95CIbw.jpg", plot = algaeplot, width = 7,height=3.5)
+# ggsave("figures/algae_summer_95CIbw_shapes.jpg", plot = algaeplot, width = 7,height=3.5)
+knitr::include_graphics("figures/algae_summer_95CIbw_shapes.jpg")
 ```
 
 
@@ -354,7 +356,7 @@ knitr::include_graphics("figures/shootdensity-95CI.jpg")
 #   group_by(treatment,dist_factor,season,yr)%>%
 #   # group_by(treatment,dy,season)%>%
 #   summarize(mdsg=mean(delta_gpd_st,na.rm=TRUE),
-#     sddsg=sd(delta_gpd_st,na.rm=TRUE), 
+#     sddsg=sd(delta_gpd_st,na.rm=TRUE),
 #     sedsg=sddsg/sqrt(5*2*5)
 #     )
 # 
@@ -383,7 +385,7 @@ knitr::include_graphics("figures/shootdensity-95CI.jpg")
 #   theme_bw()+
 #   xlab("Year")+
 #   ylab(sglab)
-# sgplot <- egg::tag_facet(sgplot,  
+# sgplot <- egg::tag_facet(sgplot,
 #   #x = Inf, y = Inf, # hjust = -1.5,
 #   open = "(", close = ")", fontface = 2)+
 #   theme(panel.grid=element_blank(),
@@ -396,7 +398,7 @@ knitr::include_graphics("figures/shootdensity-95CI.jpg")
 #         strip.text = element_text(size=14))
 # # ggsave("figures/sggrow.jpg",width=6,height=6.25)
 # ggsave("figures/sggrow-95CI.jpg", plot=sgplot, width=5.5,height=5.5)
-knitr::include_graphics("figures/sggrow.jpg")
+knitr::include_graphics("figures/sggrow-95CI.jpg")
 ```
 
 
@@ -521,7 +523,7 @@ knitr::include_graphics("figures/sggrow.jpg")
 # # ggsave(filename = "figures/nuts.pdf",plot=n2,width=3,height = 6)
 # # ggsave(filename = "figures/nuts.jpg",plot=n2,width=3,height = 6)
 # ggsave(filename = "figures/nuts-95CI.jpg",plot=n2,width=3,height=5.5)
-knitr::include_graphics("figures/nuts.jpg")
+knitr::include_graphics("figures/nuts-95CI.jpg")
 ```
 
 
