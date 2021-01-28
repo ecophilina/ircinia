@@ -165,11 +165,10 @@ tmb.res<-function(rtable,row){
 source("scripts/04_algae_analysis.R")
 ```  
   
-Macroalgal abundances decreased in the winter in all treatments, however, the decrease was only significant in control ($\beta$ = `r efsize.tmb(alm1b.sum,5)`, z `r tmb.res(alm1b.sum,5)`). 
+Macroalgal abundances decreased in the winter in all treatments, however, the decrease was only significant in control ($\beta$ = `r efsize.tmb(alm1b.sum,5)`). 
 Macroalgal abundances did not change significantly between the first and second year of the experiment in control or structure control plots, \@ref(fig:algaep)). **note if we keep this figure, we should add panel labels to it** 
-However, macroalgal abundances increased in sponge treatments in year two of the experiment ($\beta$ = `r efsize.tmb(alm1r.sum,4)`, z `r tmb.res(alm1r.sum,4)`, \@ref(fig:algaep)). 
-This increase is significantly different than the response in control (z `r tmb.res(alm1r.sum,6)`) and structure control (z `r tmb.res(alm1r.sum,7)`) plots. 
-The change in macroalgal abundances was not significantly different between control and structure control plots (z `r tmb.res(alm1b.sum,6)`).   
+However, macroalgal abundances increased in sponge treatments in year two of the experiment ($\beta$ = `r efsize.tmb(alm1r.sum,4)`, \@ref(fig:algaep)). 
+The control and structure control plots both increased significantly less than the sponge treatments ($\beta$ = `r efsize.tmb(alm1r.sum,6)` and $\beta$ = `r efsize.tmb(alm1r.sum,7)` respectively) and did not differ from each other (Table S1).
   
 ## Shoot densities
 ```{r shoot.density, include=FALSE}
