@@ -166,8 +166,8 @@ source("scripts/04_algae_analysis.R")
 ```  
   
 Macroalgal abundances decreased in the winter in all treatments, however, the decrease was only significant in control ($\beta$ = `r efsize.tmb(alm1b.sum,5)`). 
-Macroalgal abundances did not change significantly between the first and second year of the experiment in control or structure control plots, \@ref(fig:algaep)). **note if we keep this figure, we should add panel labels to it** 
-However, macroalgal abundances increased in sponge treatments in year two of the experiment ($\beta$ = `r efsize.tmb(alm1r.sum,4)`, \@ref(fig:algaep)). 
+Macroalgal abundances did not change significantly between the first and second year of the experiment in control or structure control plots, Fig. \@ref(fig:algaep)). **note if we keep this figure, we should add panel labels to it** 
+However, macroalgal abundances increased in sponge treatments in year two of the experiment ($\beta$ = `r efsize.tmb(alm1r.sum,4)`, Fig. \@ref(fig:algaep)). 
 The control and structure control plots both increased significantly less than the sponge treatments ($\beta$ = `r efsize.tmb(alm1r.sum,6)` and $\beta$ = `r efsize.tmb(alm1r.sum,7)` respectively) and did not differ from each other (Table S1).
   
 ## Shoot densities
