@@ -1,9 +1,13 @@
 ---
 title: "Individual sponges alter community composition via facilitation in a Bahamas seagrass system"
-output: bookdown::word_document2
+output: 
+  bookdown::word_document2:
+    number_sections: false
+    reference_docx: "template.docx"
 editor_options: 
   chunk_output_type: console
 bibliography: Ircinia_paper.bib
+csl: marine-biology.csl
 ---
 Stephanie K. Archer^1^*, Philina English^2^, Finella Campanino^1^, Craig A. Layman^3^   
   
@@ -21,10 +25,22 @@ if(!require(jpeg))install.packages("jpeg");library(jpeg)
 if(!require(egg))install.packages("egg")
 ```
 
-# Abstract  
-  
+# Abstract 150-250 words 
+
+# Declarations  
+*Funding:*  
+*Conflicts of interest:* The authors declare they have no conflicts of interest.  
+*Availability of data and material:*  
+*Code availability:* The code for all analyses and figures can be found here https://github.com/ecophilina/ircinia.git.  
+*Authors contributions:* SKA and CAL conceived of and designed the experiment. SKA conducted data collection. SKA, PE, and FC analyzed the data. All authors were involved in the writing and editing of the manuscript.
+##### break  
 # Introduction  
-	
+Foundation species are spatially dominant structure forming taxa that form the base of entire ecosystems [@bruno2001; @altieri2014].
+Positive interactions, or facilitation between species, are particularly important in shaping ecosystems formed by foundation species [@bruno2003; @bulleri2009; @zhang2019].
+Traditionally, research has focused on the mechanisms and consequences of facilitation  by foundation species e.g.,[@hughes2014; @borst2018; @archer2020a].
+However, foundation species are often facilitated by members of their associated assemblages [@gagnon2020; @peterson2013; @ellison1996] and it is becoming increasingly evident how important these interactions may be for ecosystem stability [@vanderheide2020].\par
+xxx
+
   
 # Methods  
 
@@ -158,7 +174,7 @@ tmb.res<-function(rtable,row){
 
 ```
   
-**Do we need any summary results here or discussion? e.g. Seagrass shoot density and nutrient levels did not show evidence of a seasonal effect, while growth and algal abundance did.**   
+Throughout the results we present effect sizes rather than test statistics and p-values. All test statistics and p-values can be found in the supplemental material.   
 
 ## Macroalgal abundance  
 ```{r algae, include=FALSE}
@@ -225,7 +241,7 @@ However, the pattern of change over time was significantly different between con
 
 
 ```{r algaep, out.width="95%", echo=FALSE, message=FALSE, fig.cap="The change in macroalgal abundances in control, structure control, and sponge plots between the first and second summer of the experiment. Taxa-specific mean counts and standard errors are presented. The line and shaded area represent the global model fit with 95 confidence intervals."}
-## % symbol doesn't work in fig.cap 
+# # % symbol doesn't work in fig.cap
 # 
 # source("scripts/04_algae_analysis.R")
 # (algaeplot<- ggplot(data=a8)+

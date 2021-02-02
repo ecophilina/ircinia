@@ -23,11 +23,12 @@ source("scripts/05_growth_analysis.R")
 source("scripts/06_nutrient_explore.R")
 source("scripts/07_shoots_analysis.R")
 ```  
-
-All results tables have the sponge treatment as the reference level for treatment. 
+\begin{Large}
+All results tables have the sponge treatment as the reference level for treatment.
+\end{Large}
 
 ```{r table.func,echo=FALSE,warning=FALSE,message=FALSE}
-tab.func<-function(type,msum,cap){
+tab.func<-function(type,msum){
   if(type=="glmmtmb"){
     tab1<-msum$coefficients[[1]]
     tab1<-signif(tab1,2)
@@ -88,35 +89,42 @@ rnames<-case_when(rnames == "(Intercept)"~"Intercept",
                   rnames == "treatmentblank:seasonw"~"Treatment [control] x Season [winter]",
                   rnames == "treatmentfake:seasonw"~"Treatment [structure control] x Season [winter]")
 rownames(tab1)<-rnames
-return(knitr::kable(tab1,caption=cap))
+return(knitr::kable(tab1,
+  longtable = FALSE))
 }
-```
+```  
 
+**Table S1.** Macroalgal abundance model results. 
 ```{r alg.table,echo=FALSE,warning=FALSE,message=FALSE}
-tab.func(type="glmmtmb",msum=alm1r.sum,cap="Macroalgal abundance model results.")
-```
+tab.func(type="glmmtmb",msum=alm1r.sum)
+```  
   
-  
+**Table S2.** *Thalassia testudinum* shoot density model results.  
 ```{r tsd.table,echo=FALSE,warning=FALSE,message=FALSE}
-tab.func(type="glmmtmb",msum=tsdr.sum,cap="T. testudinum shoot density model results.")
+tab.func(type="glmmtmb",msum=tsdr.sum)
 ```  
-
+\newpage
+**Table S3.** *Syringodium filliforme* and *Halodule wrightii* shoot density model results.
 ```{r shsd.table,echo=FALSE,warning=FALSE,message=FALSE}
-tab.func(type="glmmtmb",msum=shsdr.sum,cap="S. filliforme and H. wrightii shoot density model results.")
+tab.func(type="glmmtmb",msum=shsdr.sum)
 ```  
-
+  
+**Table S4.** Seagrass growth model results.
 ```{r grow.table,echo=FALSE,warning=FALSE,message=FALSE}
-tab.func(type="lmer",msum=sgr,cap="Seagrass growth model results.")
+tab.func(type="lmer",msum=sgr)
 ```  
-
+\newpage  
+**Table S5.** Percent nitrogen in seagrass tissue model results.
 ```{r pn.table,echo=FALSE,warning=FALSE,message=FALSE}
-tab.func(type="lmer",msum=nrs,cap="Percent nitrogen in seagrass tissue model results.")
+tab.func(type="lmer",msum=nrs)
 ```  
-
+  
+**Table S6.** Percent carbon in seagrass tissue model results.
 ```{r pc.table,echo=FALSE,warning=FALSE,message=FALSE}
-tab.func(type="lmer",msum=crls,cap="Percent carbon in seagrass tissue model results.")
+tab.func(type="lmer",msum=crls)
 ```  
-
+  
+**Table S7.** Percent phosphorus in seagrass tissue model results.
 ```{r pp.table,echo=FALSE,warning=FALSE,message=FALSE}
-tab.func(type="lmer",msum=prs,cap="Percent phosphorus in seagrass tissue model results.")
+tab.func(type="lmer",msum=prs)
 ```
