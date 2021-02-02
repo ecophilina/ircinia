@@ -28,7 +28,7 @@ if(!require(egg))install.packages("egg")
 # Abstract 150-250 words 
 
 # Declarations  
-*Funding:*  
+*Funding:* This work was supported by North Carolina State University, NSF OCE 1405198 to Craig Layman, and donations from Win and Tana Archer. 
 *Conflicts of interest:* The authors declare they have no conflicts of interest.  
 *Availability of data and material:*  
 *Code availability:* The code for all analyses and figures can be found here https://github.com/ecophilina/ircinia.git.  
@@ -39,7 +39,7 @@ Foundation species are spatially dominant structure forming taxa that form the b
 Positive interactions, or facilitation between species, are particularly important in shaping ecosystems formed by foundation species [@bruno2003; @bulleri2009; @zhang2019].
 Traditionally, research has focused on the mechanisms and consequences of facilitation  by foundation species e.g.,[@hughes2014; @borst2018; @archer2020a].
 However, foundation species are often facilitated by members of their associated assemblages [@gagnon2020; @peterson2013; @ellison1996] and it is becoming increasingly evident how important these interactions may be for ecosystem stability [@vanderheide2020].\par
-xxx
+
 
   
 # Methods  
