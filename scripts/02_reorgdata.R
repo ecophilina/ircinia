@@ -26,15 +26,15 @@ algae2<-algae %>% # this tells R that I'd like to work with this data set
   # this renames the Treatment column so it matches the other data sets
 
 fish2<-fish%>%
-  select(c(-treat,-time,-group))%>%
+  select(-treat,-time,-group)%>%
   #this gets rid of the columns with those names. If you want to select columns to keep omit the "-"
-  pivot_longer(c(-treatment,-plot,-sampling),names_to = "taxa",values_to = "abundance")%>%
-  subset(abundance!=0)
+  pivot_longer(c(-treatment,-plot,-sampling),names_to = "taxa",values_to = "abundance")#%>%
+#  subset(abundance!=0)
 
 inverts2<-inverts %>%
-  select(c(-time,-ID,-date))%>%
+  select(-time,-ID,-date)%>%
   pivot_longer(c(-Treatment,-plot,-sampling),names_to = "taxa",values_to = "abundance")%>%
-  subset(abundance!=0)%>%
+#  subset(abundance!=0)%>%
   rename(treatment=Treatment)
 
 sg_grow2<-sg_grow%>%
