@@ -32,18 +32,12 @@ com.dist<-vegdist(i.com,"bray")
 
 i.mds<-metaMDS(com.dist,trymax = 100)
 
+plot(i.mds)
 # rda
 i.com.hel<-decostand(i.com,"hellinger")
 
-i.rda<-rda(i.com.hel~.,data=i.env)
-i.rda2<-rda(i.com.hel~1,i.env)
-summary(i.rda)
-RsquareAdj(i.rda)
-ordistep(i.rda2,scope = formula(i.rda),direction = "forward")
-
-anova(i.rda)
-plot(i.rda)
-i.scores<-data.frame(scores(i.rda,1:3)$sites)%>%
+i.pca<-rda(i.com.hel)
+i.scores<-data.frame(scores(i.pca,1:3)$sites)%>%
   bind_cols(i.env)
 
 ggplot(data=i.scores)+
@@ -52,8 +46,13 @@ ggplot(data=i.scores)+
   scale_color_viridis_d(option="B",end=.8)+
   facet_wrap(~sampling)
 
-
-
+#start examining statistical relationship
+i.rda<-rda(i.com.hel~.,data=i.env)
+i.rda2<-rda(i.com.hel~1,i.env)
+summary(i.rda)
+RsquareAdj(i.rda)
+ordistep(i.rda2,scope = formula(i.rda),direction = "forward")
+anova(i.rda)
 #fish
 f2<-fish%>%
   filter(abundance!=0)%>%
