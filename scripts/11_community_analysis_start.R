@@ -24,8 +24,14 @@ i.env<-i.env%>%
       sampling==1~"summer",
       sampling==5~"winter",
       sampling==12~"summer",
-      sampling==17~"winter"))
-i.env$plot<-as.factor(i.env$plot)
+      sampling==17~"winter"),
+    yr=case_when(
+      sampling==0~0,
+      sampling==1~1,
+      sampling==5~1,
+      sampling==12~2,
+      sampling==17~2))
+#i.env$plot<-as.factor(i.env$plot)
 # NMDS
 i.com$dummy<-1
 com.dist<-vegdist(i.com,"bray")
@@ -47,12 +53,84 @@ ggplot(data=i.scores)+
   facet_wrap(~sampling)
 
 #start examining statistical relationship
-i.rda<-rda(i.com.hel~.,data=i.env)
-i.rda2<-rda(i.com.hel~1,i.env)
-summary(i.rda)
-RsquareAdj(i.rda)
-ordistep(i.rda2,scope = formula(i.rda),direction = "forward")
-anova(i.rda)
+trt<-as.factor(i.env$treatment)
+seas<-i.env$season
+samp<-i.env$sampling
+yr<-as.factor(i.env$yr)
+plts<-i.env$plot
+
+tr.s.samp.mat3<-data.frame(model.matrix(~ trt*seas*samp+plts, 
+             contrasts=list(trt="contr.helmert", seas="contr.helmert")))[,-1]
+tr.s.samp.mat2<-data.frame(model.matrix(~ trt*seas+trt*samp+seas*samp+plts, 
+                                       contrasts=list(trt="contr.helmert", seas="contr.helmert")))[,-1]
+
+tr.s.yr.mat3<-data.frame(model.matrix(~ trt*seas*yr+plts, 
+                            contrasts=list(trt="contr.helmert", seas="contr.helmert", yr="contr.helmert")))[,-1]
+tr.s.yr.mat2<-data.frame(model.matrix(~ trt*seas+trt*yr+yr*seas+plts, 
+                                      contrasts=list(trt="contr.helmert", seas="contr.helmert", yr="contr.helmert")))[,-1]
+tr.s.yr.mat3.nop<-data.frame(model.matrix(~ trt*seas*yr, 
+                                      contrasts=list(trt="contr.helmert", seas="contr.helmert", yr="contr.helmert")))[,-1]
+
+
+i.rda.samp3<-rda(i.com.hel~.,data=tr.s.samp.mat3)
+i.rda.samp2<-rda(i.com.hel~.,data=tr.s.samp.mat2)
+
+i.rda.yr3<-rda(i.com.hel~.,data=tr.s.yr.mat3)#best model at the moment
+i.rda.yr3nop<-rda(i.com.hel~.,data=tr.s.yr.mat3.nop)
+i.rda.yr2<-rda(i.com.hel~.,data=tr.s.yr.mat2)
+
+i.rda2<-rda(i.com.hel~1)
+i.rda.samp
+RsquareAdj(i.rda.samp3)
+RsquareAdj(i.rda.samp2)
+RsquareAdj(i.rda.yr3)
+RsquareAdj(i.rda.yr3nop)
+RsquareAdj(i.rda.yr2)
+
+anova(i.rda.samp3,i.rda.samp2)
+anova(i.rda.yr3,i.rda.yr3nop)
+anova(i.rda.yr3,i.rda2)
+
+plot(i.rda.yr3)
+#bring in productivity data
+sg<-sg_shoot%>%
+  group_by(treatment,plot,sampling)%>%
+  summarize(sg.sd=mean(SD))%>%
+  mutate(sampling=case_when(
+    sampling==1~0,
+    sampling==2~1,
+    sampling==3~5,
+    sampling==4~12,
+    sampling==5~17))
+
+alg<-algae%>%
+  group_by(treatment,plot,sampling)%>%
+  summarize(alg=sum(abundance))%>%
+  mutate(sampling=case_when(
+    sampling==1~0,
+    sampling==2~1,
+    sampling==3~5,
+    sampling==4~12,
+    sampling==5~17))
+i.env2<-left_join(i.env,sg)%>%
+  left_join(alg)
+#check to make sure data is still in the same order
+summary(i.env[,1:4]==i.env2[,1:4])
+
+sg.sd<-sg$sg.sd
+alg.ab<-alg$alg
+tr.s.yr.mat3.prod<-data.frame(model.matrix(~ trt*seas*yr+plts+sg.sd+alg.ab, 
+                                      contrasts=list(trt="contr.helmert", seas="contr.helmert", yr="contr.helmert")))[,-1]
+tr.s.yr.mat3.sg<-data.frame(model.matrix(~ trt*seas*yr+plts+sg.sd, 
+                                           contrasts=list(trt="contr.helmert", seas="contr.helmert", yr="contr.helmert")))[,-1]
+tr.s.yr.mat3.alg<-data.frame(model.matrix(~ trt*seas*yr+plts+alg.ab, 
+                                           contrasts=list(trt="contr.helmert", seas="contr.helmert", yr="contr.helmert")))[,-1]
+i.rda.yr3.sg<-rda(i.com.hel~.,data=tr.s.yr.mat3.sg)
+i.rda.yr3.alg<-rda(i.com.hel~.,data=tr.s.yr.mat3.alg)
+i.rda.yr3.prod<-rda(i.com.hel~.,data=tr.s.yr.mat3.prod)
+anova(i.rda.yr3.prod,i.rda.yr3)
+
+
 #fish
 f2<-fish%>%
   filter(abundance!=0)%>%
