@@ -40,7 +40,8 @@ com.dist<-vegdist(i.com,"bray")
 i.mds<-metaMDS(com.dist,trymax = 100)
 
 plot(i.mds)
-# rda
+
+# use hellinger: square root of method to standardize species data
 i.com.hel<-decostand(i.com,"hellinger")
 
 i.pca<-rda(i.com.hel)
@@ -93,6 +94,9 @@ anova(i.rda.yr3,i.rda.yr3nop)
 anova(i.rda.yr3,i.rda2)
 
 plot(i.rda.yr3)
+
+i.mod <- adonis2(i.com.hel~., data = tr.s.yr.mat3) 
+i.mod
 
 #bring in productivity data
 sg<-sg_shoot%>%
@@ -167,6 +171,9 @@ tr.s.yr.mat3.prod<-data.frame(model.matrix(~ trt*seas*yr+plts+sg.sd+alg.ab,
 i.rda.yr3.prod<-rda(i.com.hel2~.,data=tr.s.yr.mat3.prod)
 anova(i.rda.yr3.prod,i.rda.yr3)
 
+i.mod.prod <- adonis2(i.com.hel2~., data = tr.s.yr.mat3.prod) 
+i.mod.prod
+
 # if above was sig we would check each type of producer separately
 # i.rda.yr3.sg<-rda(i.com.hel~.,data=tr.s.yr.mat3.sg)
 # i.rda.yr3.alg<-rda(i.com.hel~.,data=tr.s.yr.mat3.alg)
@@ -187,70 +194,79 @@ i.rda.prod.full<-rda(i.com.hel2~.,data=tr.s.yr.mat3.prod2)
 anova(i.rda.yr3.sg2,i.rda.yr3)
 anova(i.rda.yr3.alg2,i.rda.yr3)
 anova(i.rda.prod.full,i.rda.yr3)
-# doesn't help
 
-# replace treatment with total of each type of primary producer
-tr.s.yr.prod3<-data.frame(model.matrix(~ seas*yr*sg.sd+seas*yr*alg.ab+plts, 
-  contrasts=list(seas="contr.helmert", yr="contr.helmert")))[,-1]
+i.mod.full <- adonis2(i.com.hel2~., data = tr.s.yr.mat3.prod2) 
+i.mod.full
 
-tr.s.yr.sg3<-data.frame(model.matrix(~ seas*yr*sg.sd+plts, 
-  contrasts=list(seas="contr.helmert", yr="contr.helmert")))[,-1]
-tr.s.yr.alg3<-data.frame(model.matrix(~ seas*yr*alg.ab+plts, 
-  contrasts=list(seas="contr.helmert", yr="contr.helmert")))[,-1]
+# producers don't help
 
-i.rda.prod3<-rda(i.com.hel2~.,data=tr.s.yr.prod3)
-i.rda.sg3<-rda(i.com.hel2~.,data=tr.s.yr.sg3)
-i.rda.alg3<-rda(i.com.hel2~.,data=tr.s.yr.alg3)
-
-anova(i.rda.prod3,i.rda.sg3) 
-anova(i.rda.prod3,i.rda.alg3) # algae is almost identical to full
-
-
-tr.s.yr.prod2<-data.frame(model.matrix(~ seas*yr+sg.sd*seas+alg.ab*seas+plts, 
-  contrasts=list(seas="contr.helmert", yr="contr.helmert")))[,-1]
-i.rda.prod2<-rda(i.com.hel2~.,data=tr.s.yr.prod2)
-anova(i.rda.prod3,i.rda.prod2)
-
-tr.s.yr.alg2<-data.frame(model.matrix(~ seas*yr+alg.ab*seas+plts, 
-  contrasts=list(seas="contr.helmert", yr="contr.helmert")))[,-1]
-i.rda.alg2<-rda(i.com.hel2~.,data=tr.s.yr.alg2)
-anova(i.rda.alg2,i.rda.prod2)
-
-## any chance types interact with eachother? YES
-tr.s.yr.prod2b<-data.frame(model.matrix(~ yr*seas+plts+sg.sd*alg.ab, 
-  contrasts=list(seas="contr.helmert", yr="contr.helmert")))[,-1]
-tr.s.yr.prod1<-data.frame(model.matrix(~ yr*seas+plts+sg.sd+alg.ab, 
-  contrasts=list(seas="contr.helmert", yr="contr.helmert")))[,-1]
-
-i.rda.prod2b<-rda(i.com.hel2~.,data=tr.s.yr.prod2b)
-i.rda.prod1<-rda(i.com.hel2~.,data=tr.s.yr.prod1)
-anova(i.rda.prod1,i.rda.prod2b)
-
-## doesn't improve with season 3-way
-# tr.s.yr.prod3b<-data.frame(model.matrix(~ yr*seas+plts+sg.sd*alg.ab*seas, 
+# # unnecessary deep dive into other possible model structures for producers
+# # replace treatment with total of each type of primary producer
+# tr.s.yr.prod3<-data.frame(model.matrix(~ seas*yr*sg.sd+seas*yr*alg.ab+plts, 
 #   contrasts=list(seas="contr.helmert", yr="contr.helmert")))[,-1]
-# i.rda.prod3b<-rda(i.com.hel2~.,data=tr.s.yr.prod3b)
-# anova(i.rda.prod3b,i.rda.prod2b)
+# 
+# tr.s.yr.sg3<-data.frame(model.matrix(~ seas*yr*sg.sd+plts, 
+#   contrasts=list(seas="contr.helmert", yr="contr.helmert")))[,-1]
+# tr.s.yr.alg3<-data.frame(model.matrix(~ seas*yr*alg.ab+plts, 
+#   contrasts=list(seas="contr.helmert", yr="contr.helmert")))[,-1]
+# 
+# i.rda.prod3<-rda(i.com.hel2~.,data=tr.s.yr.prod3)
+# i.rda.sg3<-rda(i.com.hel2~.,data=tr.s.yr.sg3)
+# i.rda.alg3<-rda(i.com.hel2~.,data=tr.s.yr.alg3)
+# 
+# anova(i.rda.prod3,i.rda.sg3) 
+# anova(i.rda.prod3,i.rda.alg3) # algae is almost identical to full
+# 
+# 
+# tr.s.yr.prod2<-data.frame(model.matrix(~ seas*yr+sg.sd*seas+alg.ab*seas+plts, 
+#   contrasts=list(seas="contr.helmert", yr="contr.helmert")))[,-1]
+# i.rda.prod2<-rda(i.com.hel2~.,data=tr.s.yr.prod2)
+# anova(i.rda.prod3,i.rda.prod2)
+# 
+# tr.s.yr.alg2<-data.frame(model.matrix(~ seas*yr+alg.ab*seas+plts, 
+#   contrasts=list(seas="contr.helmert", yr="contr.helmert")))[,-1]
+# i.rda.alg2<-rda(i.com.hel2~.,data=tr.s.yr.alg2)
+# anova(i.rda.alg2,i.rda.prod2)
+# 
+# ## any chance types interact with eachother? YES
+# tr.s.yr.prod2b<-data.frame(model.matrix(~ yr*seas+plts+sg.sd*alg.ab, 
+#   contrasts=list(seas="contr.helmert", yr="contr.helmert")))[,-1]
+# tr.s.yr.prod1<-data.frame(model.matrix(~ yr*seas+plts+sg.sd+alg.ab, 
+#   contrasts=list(seas="contr.helmert", yr="contr.helmert")))[,-1]
+# 
+# i.rda.prod2b<-rda(i.com.hel2~.,data=tr.s.yr.prod2b)
+# i.rda.prod1<-rda(i.com.hel2~.,data=tr.s.yr.prod1)
+# anova(i.rda.prod1,i.rda.prod2b)
+# 
+# ## doesn't improve with season 3-way
+# # tr.s.yr.prod3b<-data.frame(model.matrix(~ yr*seas+plts+sg.sd*alg.ab*seas, 
+# #   contrasts=list(seas="contr.helmert", yr="contr.helmert")))[,-1]
+# # i.rda.prod3b<-rda(i.com.hel2~.,data=tr.s.yr.prod3b)
+# # anova(i.rda.prod3b,i.rda.prod2b)
+# 
+# 
+# # not nested so can't use anova, but R squared less than for treatment model for each alone
+# RsquareAdj(i.rda.yr3) #treatment model
+# RsquareAdj(i.rda.sg3) #seagrass model
+# RsquareAdj(i.rda.alg3) #algae model
+# RsquareAdj(i.rda.prod2b) #both producers interacting model comes closest but still pretty far off
+# 
 
 
-# not nested so can't use anova, but R squared less than for treatment model for each alone
-RsquareAdj(i.rda.yr3) #treatment model
-RsquareAdj(i.rda.sg3) #seagrass model
-RsquareAdj(i.rda.alg3) #algae model
-RsquareAdj(i.rda.prod2b) #both producers interacting model comes closest but still pretty far off
+#fish 
 
+# with zeros
+f2<-fish%>%
+  pivot_wider(names_from=taxa,values_from=abundance,values_fill=0)%>%
+ mutate(dummy=1)
 
-
-#fish
+#without zeros
 f2<-fish%>%
   filter(abundance!=0)%>%
-  pivot_wider(names_from=taxa,values_from=abundance,values_fill=0)#%>%
-#  mutate(dummy=1)
+  pivot_wider(names_from=taxa,values_from=abundance,values_fill=0)
 
-f.env<-f2[,1:3]
-f.com<-f2[,-1:-3]
 
-f.env<-f.env%>%
+f2<-f2%>%
   mutate(sampling=case_when(
     sampling==1~0,
     sampling==2~1,
@@ -262,10 +278,20 @@ f.env<-f.env%>%
       sampling==1~"summer",
       sampling==5~"winter",
       sampling==12~"summer",
-      sampling==17~"winter"))
-f.env$plot<-as.factor(f.env$plot)
+      sampling==17~"winter"),
+    yr=case_when(
+      sampling==0~0,
+      sampling==1~1,
+      sampling==5~1,
+      sampling==12~2,
+      sampling==17~2))
+# f.env$plot<-as.factor(f.env$plot)
 
 # NMDS
+f.env<-f2 %>% select(treatment, plot, yr, sampling, season)
+f.com<-f2 %>% select(-treatment, -plot, -yr, -sampling, -season)
+
+
 com.pa<-decostand(f.com,"pa")
 com.dist<-vegdist(com.pa,"bray")
 
@@ -275,8 +301,8 @@ f.mds.scores<-data.frame(scores(f.mds))%>%
   bind_cols(f.env)
 
 ggplot(data=f.mds.scores)+
-  geom_point(aes(x=NMDS1,y=NMDS2,
-                 color=treatment),size=2,alpha=.5)+
+  geom_jitter(aes(x=NMDS1,y=NMDS2,
+                 color=treatment),size=2,alpha=.25)+
   scale_color_viridis_d(option="B",end=.8)+
   facet_wrap(~sampling)
 
@@ -296,6 +322,6 @@ f.scores<-data.frame(scores(f.rda,1:3)$sites)%>%
 plot(f.rda)
 ggplot(data=f.scores)+
   geom_point(aes(x=PC1,y=PC2,
-                 color=treatment),size=2)+
-  scale_color_viridis_d(option="B",end=.8)#+
+                 color=treatment),size=2,alpha=.5)+
+  scale_color_viridis_d(option="B",end=.8)+
   facet_wrap(~sampling)
