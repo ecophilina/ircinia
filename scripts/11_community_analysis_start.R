@@ -279,7 +279,7 @@ hist(nozeros$abundance, breaks = 20)
 
 # with zeros
 f2<-fish %>% 
-  mutate(abundance = ifelse(abundance>5, 10, abundance)) %>% 
+  # mutate(abundance = ifelse(abundance>5, 6, abundance)) %>%
   pivot_wider(names_from=taxa,values_from=abundance,values_fill=0)%>%
  mutate(dummy=1)
 
@@ -349,22 +349,29 @@ ggplot(data=f.scores)+
   facet_wrap(~sampling)
 
 
-f.env<-f2 %>% select(plot, sampling, treatment )
-f.rda<-rda(f.com.hel~.,f.env)
+# f.env0<-f2 %>% select(sampling, treatment, plot) %>% mutate(plot=as.factor(plot))
+# insufficient degrees of freedom to retain plot as factor
+f.env0<-f2 %>% select(sampling, treatment)
+
+
+f.rda0<-rda(f.com.hel~.,f.env0)
 # summary(f.rda)
-RsquareAdj(f.rda)
-step.fa <- ordistep(f.rda,scope = formula(f.rda),direction = "backward")
+step.fa0 <- ordistep(f.rda0,scope = formula(f.rda0),direction = "backward")
 # just sampling and treatment retained
+anova(f.rda0)
+plot(f.rda0)
 
-f.env<-f2 %>% select(plot, yr, season, treatment)
-f.rda<-rda(f.com.hel~.,f.env)
+
+f.env1<-f2 %>% select(yr, season, treatment)
+f.rda1<-rda(f.com.hel~.,f.env1)
 # summary(f.rda)
-RsquareAdj(f.rda)
-step.fa <- ordistep(f.rda,scope = formula(f.rda),direction = "backward")
-# just year and treatment retained
+step.fa1 <- ordistep(f.rda1,scope = formula(f.rda1),direction = "backward")
+# all retained
+anova(f.rda1)
+plot(f.rda1)
 
-anova(f.rda)
-plot(f.rda)
+RsquareAdj(f.rda0)
+RsquareAdj(f.rda1)
 
 
 ## redo with presence-absence data
@@ -379,25 +386,29 @@ ggplot(data=f.scores2)+
     color=treatment),size=2,alpha=.5, 
     width = 0.03, height = 0.03)+
   scale_color_viridis_d(option="B",end=.8)+
-  facet_wrap(~sampling)
+  facet_grid(season~yr)
 
 
-f.env<-f2 %>% select(plot, yr, season, treatment)
-f.rda2<-rda(f.com.pa~.,f.env)
+f.env0<-f2 %>% select(plot, sampling, treatment)%>% mutate(plot=as.factor(plot))
+f.rda2<-rda(f.com.pa~.,f.env0)
 # summary(f.rda2)
-RsquareAdj(f.rda2)
-
 step.fp <- ordistep(f.rda2,scope = formula(f.rda2),direction = "backward")
 
 
-f.env<-f2 %>% select(plot, sampling, treatment)
-f.rda2<-rda(f.com.pa~.,f.env)
+f.env1<-f2 %>% select(plot, yr, season, treatment)%>% mutate(plot=as.factor(plot))
+f.rda2<-rda(f.com.pa~.,f.env1)
 # summary(f.rda2)
-RsquareAdj(f.rda2)
-
 step.fp <- ordistep(f.rda2,scope = formula(f.rda2),direction = "backward")
 
-plot(f.rda2)
+f.env0<-f2 %>% select(sampling, treatment)
+f.rda2a<-rda(f.com.pa~.,f.env0)
+f.env1<-f2 %>% select(yr, treatment)
+f.rda2b<-rda(f.com.pa~.,f.env1)
+
+RsquareAdj(f.rda2a)
+RsquareAdj(f.rda2b)
+
+plot(f.rda2a)
 
 
 # add in producers
@@ -416,6 +427,8 @@ f.data<-data.frame(model.matrix(~ sg.sd + alg.ab + samp*trt,
 f.mod <- adonis2(f.com.hel~., data = f.data, method="euclidean", by="terms") 
 f.mod
 # appears to be an effect of sponge beyond that of producers
+# result nearly identical with or without outlier 
+
 
 #try without blank...
 f.env2a <- f.env %>% filter(treatment!="blank")
@@ -440,4 +453,14 @@ f.com.hel2<-decostand(f.com2,"hellinger")
 
 f.mod2 <- adonis2(f.com.hel2~., data = f.data2, method="euclidean", by="terms") 
 f.mod2
+# there is still an effect of sponge beyond that of producers and structure control
+
+
+f.data2<-data.frame(model.matrix(~ sg.sd + alg.ab + samp*trt, 
+  contrasts=list(trt="contr.helmert")))[,-1]
+
+f.com.pa2<-decostand(f.com2,"pa")
+
+f.mod3 <- adonis2(f.com.pa2~., data = f.data2, method="euclidean", by="terms") 
+f.mod3
 # there is still an effect of sponge beyond that of producers and structure control
