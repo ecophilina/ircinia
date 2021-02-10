@@ -416,7 +416,7 @@ RsquareAdj(f.rda2b)
 plot(f.rda2a, scaling = 3, display = c("sp", "cn"))
 
 
-# add in producers
+# add in interactions
 
 f.env<-f2 %>% select(treatment, plot, yr, sampling, season, sg.sd, alg)
 
@@ -426,14 +426,41 @@ plts<-as.factor(f.env$plot)
 sg.sd<-f.env$sg.sd
 alg.ab<-f.env$alg
 
-f.data<-data.frame(model.matrix(~ sg.sd + alg.ab + samp*trt, 
+f.data.trt<-data.frame(model.matrix(~ samp*trt, 
   contrasts=list(trt="contr.helmert")))[,-1]
 
-f.mod <- adonis2(f.com.hel~., data = f.data, method="euclidean", by="terms") 
-f.mod
+f.rda.trt <- rda(f.com.hel~., f.data.trt) 
+RsquareAdj(f.rda.trt)
+plot(f.rda.trt, scaling=3, display=c("sp", "cn"))
 
-f.mod.rda <- rda(f.com.hel~., f.data)
-plot(f.mod.rda, scaling=3, display=c("sp", "cn"))
+f.mod.trt <- adonis2(f.com.hel~., data = f.data.trt, method="euclidean", by="terms") 
+f.mod.trt
+
+# add in producers 
+f.data.prod<-data.frame(model.matrix(~ sg.sd + alg.ab + samp*trt, 
+  contrasts=list(trt="contr.helmert")))[,-1]
+
+f.rda.prod <- rda(f.com.hel~., f.data.prod) 
+RsquareAdj(f.rda.prod)
+plot(f.rda.prod, scaling=3, display=c("sp", "cn"))
+
+f.mod.prod <- adonis2(f.com.hel~., data = f.data.prod, method="euclidean", by="terms") 
+f.mod.prod
+
+#  producers only
+
+f.rda.prod0 <- rda(f.com.hel~ sg.sd + alg.ab + samp, f.env) 
+RsquareAdj(f.rda.prod0)
+plot(f.rda.prod0, scaling=3, display=c("sp", "cn"))
+
+f.mod.prod0 <- adonis2(f.com.hel~sg.sd + alg.ab + samp, data = f.env, method="euclidean", by="terms") 
+f.mod.prod0
+
+
+RsquareAdj(f.rda.prod0) # producers only
+RsquareAdj(f.rda.trt)# treatment only
+RsquareAdj(f.rda.prod) # both 
+
 
 # appears to be an effect of sponge beyond that of producers
 # result nearly identical with or without outlier 
