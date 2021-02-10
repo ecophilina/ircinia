@@ -4,7 +4,31 @@ library(tidyverse)
 if(!require(vegan))install.packages("vegan"); library(vegan)
 
 # bring in data
-source("scripts/03_reimport.R")
+source("scripts/03_reimport.R")  
+
+# prep primary producer data
+sg<-sg_shoot%>%
+  group_by(treatment,plot,sampling)%>%
+  summarize(sg.sd=mean(SD))%>%
+  mutate(sampling=case_when(
+    sampling==1~0,
+    sampling==2~1,
+    sampling==3~5,
+    sampling==4~12,
+    sampling==5~17))
+
+alg<-algae%>%
+  group_by(treatment,plot,sampling)%>%
+  summarize(alg=sum(abundance))%>%
+  mutate(sampling=case_when(
+    sampling==1~0,
+    sampling==2~1,
+    sampling==3~5,
+    sampling==4~12,
+    sampling==5~17))
+
+
+# inverts
 
 i2<-inverts%>%
   pivot_wider(names_from=taxa,values_from=abundance,values_fill=0)
@@ -101,7 +125,7 @@ RsquareAdj(i.rda.samp3)
 RsquareAdj(i.rda.yr3)
 
 #best model at the moment
-plot(i.rda.yr3, display = c("sp", "wa", "cn"))
+plot(i.rda.yr3, scaling = 3, display = c("sp", "cn"))
 
 # without plot to see better
 plot(i.rda.yr3nop, scaling = 3, display = c("sp","wa", "cn")) 
@@ -117,25 +141,6 @@ i.mod.best <- adonis2(i.com.hel~., data=tr.s.yr3, method="euclidean", sqrt.dist 
 i.mod.best
 
 #bring in productivity data
-sg<-sg_shoot%>%
-  group_by(treatment,plot,sampling)%>%
-  summarize(sg.sd=mean(SD))%>%
-  mutate(sampling=case_when(
-    sampling==1~0,
-    sampling==2~1,
-    sampling==3~5,
-    sampling==4~12,
-    sampling==5~17))
-
-alg<-algae%>%
-  group_by(treatment,plot,sampling)%>%
-  summarize(alg=sum(abundance))%>%
-  mutate(sampling=case_when(
-    sampling==1~0,
-    sampling==2~1,
-    sampling==3~5,
-    sampling==4~12,
-    sampling==5~17))
 i.env1<-left_join(i.env,sg)%>%
   left_join(alg)
 
@@ -315,8 +320,8 @@ f2<-left_join(f2,sg)%>%
   left_join(alg)
 
 # NMDS
-f.env<-f2 %>% select(treatment, plot, yr, sampling, season)
-f.com<-f2 %>% select(-treatment, -plot, -yr, -sampling, -season)
+f.env<-f2 %>% select(treatment, plot, yr, sampling, season, sg.sd, alg)
+f.com<-f2 %>% select(-treatment, -plot, -yr, -sampling, -season, -sg.sd, -alg)
 
 
 com.pa<-decostand(f.com,"pa")
@@ -349,9 +354,9 @@ ggplot(data=f.scores)+
   facet_wrap(~sampling)
 
 
-# f.env0<-f2 %>% select(sampling, treatment, plot) %>% mutate(plot=as.factor(plot))
+f.env0<-f2 %>% select(sampling, treatment, plot) %>% mutate(plot=as.factor(plot))
 # insufficient degrees of freedom to retain plot as factor
-f.env0<-f2 %>% select(sampling, treatment)
+# f.env0<-f2 %>% select(sampling, treatment)
 
 
 f.rda0<-rda(f.com.hel~.,f.env0)
@@ -359,7 +364,7 @@ f.rda0<-rda(f.com.hel~.,f.env0)
 step.fa0 <- ordistep(f.rda0,scope = formula(f.rda0),direction = "backward")
 # just sampling and treatment retained
 anova(f.rda0)
-plot(f.rda0)
+plot(f.rda0, scaling = 3, display = c("sp","wa", "cn"))
 
 
 f.env1<-f2 %>% select(yr, season, treatment)
@@ -368,7 +373,7 @@ f.rda1<-rda(f.com.hel~.,f.env1)
 step.fa1 <- ordistep(f.rda1,scope = formula(f.rda1),direction = "backward")
 # all retained
 anova(f.rda1)
-plot(f.rda1)
+plot(f.rda1, scaling = 3, display = c("sp", "cn"))
 
 RsquareAdj(f.rda0)
 RsquareAdj(f.rda1)
@@ -408,7 +413,7 @@ f.rda2b<-rda(f.com.pa~.,f.env1)
 RsquareAdj(f.rda2a)
 RsquareAdj(f.rda2b)
 
-plot(f.rda2a)
+plot(f.rda2a, scaling = 3, display = c("sp", "cn"))
 
 
 # add in producers
@@ -426,11 +431,38 @@ f.data<-data.frame(model.matrix(~ sg.sd + alg.ab + samp*trt,
 
 f.mod <- adonis2(f.com.hel~., data = f.data, method="euclidean", by="terms") 
 f.mod
+
+f.mod.rda <- rda(f.com.hel~., f.data)
+plot(f.mod.rda, scaling=3, display=c("sp", "cn"))
+
 # appears to be an effect of sponge beyond that of producers
 # result nearly identical with or without outlier 
 
+# presence-absence
+f.mod1 <- adonis2(f.com.pa~., data = f.data, method="euclidean", by="terms") 
+f.mod1
 
-#try without blank...
+f.mod1.rda <- rda(f.com.pa~., f.data)
+plot(f.mod1.rda, scaling=3, display=c("sp", "cn"))
+
+
+# experiment with other standardizations
+f.com.m<-decostand(f.com,"rank")
+f.com.m<-decostand(f.com,"frequency")
+f.com.m<-decostand(f.com,"max")
+f.com.m <- f.com.pa
+f.com.m <- f.com.hel
+mod <- rda(f.com.m~., f.data)
+
+plot(mod, type="n", scaling="species")
+points(mod, pch=1, col="grey", cex=1, scaling="species")
+text(mod, dis="cn", scaling="species")
+text(mod, "species", col="blue", cex=0.8, scaling="site")
+# not sure what makes most sense
+
+
+
+##### fish for sponge vs. structural control only ####
 f.env2a <- f.env %>% filter(treatment!="blank")
 
 # bind back the community data for just the retained plots
@@ -455,7 +487,11 @@ f.mod2 <- adonis2(f.com.hel2~., data = f.data2, method="euclidean", by="terms")
 f.mod2
 # there is still an effect of sponge beyond that of producers and structure control
 
+f.mod2.rda <- rda(f.com.hel2~., f.data2)
+plot(f.mod2.rda, scaling=3, display=c("sp", "cn"))
 
+
+# and for presense-absence
 f.data2<-data.frame(model.matrix(~ sg.sd + alg.ab + samp*trt, 
   contrasts=list(trt="contr.helmert")))[,-1]
 
@@ -464,3 +500,7 @@ f.com.pa2<-decostand(f.com2,"pa")
 f.mod3 <- adonis2(f.com.pa2~., data = f.data2, method="euclidean", by="terms") 
 f.mod3
 # there is still an effect of sponge beyond that of producers and structure control
+
+f.mod3.rda <- rda(f.com.pa2~., f.data2)
+plot(f.mod3.rda, scaling=3, display=c("sp", "cn"))
+
