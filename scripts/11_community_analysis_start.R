@@ -45,6 +45,7 @@ plot(i.mds)
 i.com.hel<-decostand(i.com,"hellinger")
 
 i.pca<-rda(i.com.hel)
+
 i.scores<-data.frame(scores(i.pca,1:3)$sites)%>%
   bind_cols(i.env)
 
@@ -55,48 +56,65 @@ ggplot(data=i.scores)+
   facet_wrap(~sampling)
 
 #start examining statistical relationship
+i.rda<-rda(i.com.hel~., i.env)
+step.i <- ordistep(i.rda,scope = formula(i.rda),direction = "backward")
+# all covariates main effects appear important
+
+#add in interactions
 trt<-as.factor(i.env$treatment)
 seas<-i.env$season
 samp<-i.env$sampling
 yr<-as.factor(i.env$yr)
 plts<-as.factor(i.env$plot)
 
-tr.s.samp.mat3<-data.frame(model.matrix(~ trt*seas*samp+plts, 
+tr.s.samp.mat3<-data.frame(model.matrix(~ samp*seas*trt + plts, 
   contrasts=list(trt="contr.helmert", seas="contr.helmert")))[,-1]
-tr.s.samp.mat2<-data.frame(model.matrix(~ trt*seas+trt*samp+seas*samp+plts, 
+tr.s.samp.mat2<-data.frame(model.matrix(~ samp*seas + samp*trt + seas*trt +  plts, 
   contrasts=list(trt="contr.helmert", seas="contr.helmert")))[,-1]
 
-tr.s.yr.mat3<-data.frame(model.matrix(~ trt*seas*yr+plts, 
+tr.s.yr.mat3<-data.frame(model.matrix(~ yr*seas*trt + plts, 
   contrasts=list(trt="contr.helmert", seas="contr.helmert", yr="contr.helmert")))[,-1]
-tr.s.yr.mat2<-data.frame(model.matrix(~ trt*seas+trt*yr+yr*seas+plts, 
+tr.s.yr.mat2<-data.frame(model.matrix(~ yr*seas + yr*trt + seas*trt + plts, 
   contrasts=list(trt="contr.helmert", seas="contr.helmert", yr="contr.helmert")))[,-1]
-tr.s.yr.mat3.nop<-data.frame(model.matrix(~ trt*seas*yr, # without plot
+tr.s.yr.mat3.nop<-data.frame(model.matrix(~ yr*seas*trt, # without plot
   contrasts=list(trt="contr.helmert", seas="contr.helmert", yr="contr.helmert")))[,-1]
+
 
 
 i.rda.samp3<-rda(i.com.hel~.,data=tr.s.samp.mat3)
 i.rda.samp2<-rda(i.com.hel~.,data=tr.s.samp.mat2)
+anova(i.rda.samp3,i.rda.samp2)
 
-i.rda.yr3<-rda(i.com.hel~.,data=tr.s.yr.mat3)#best model at the moment
+i.rda.yr3<-rda(i.com.hel~.,data=tr.s.yr.mat3)
 i.rda.yr3nop<-rda(i.com.hel~.,data=tr.s.yr.mat3.nop) # without plot
 i.rda.yr2<-rda(i.com.hel~.,data=tr.s.yr.mat2)
 
-i.rda2<-rda(i.com.hel~1)
-
-RsquareAdj(i.rda.samp3)
-RsquareAdj(i.rda.samp2)
-RsquareAdj(i.rda.yr3)
-RsquareAdj(i.rda.yr3nop)
-RsquareAdj(i.rda.yr2)
-
-anova(i.rda.samp3,i.rda.samp2)
+anova(i.rda.yr3,i.rda.yr2)
 anova(i.rda.yr3,i.rda.yr3nop)
-anova(i.rda.yr3,i.rda2)
 
-plot(i.rda.yr3)
+# # check against null model
+# i.rda2<-rda(i.com.hel~1)
+# anova(i.rda.yr3,i.rda2)
 
-i.mod <- adonis2(i.com.hel~., data = tr.s.yr.mat3) 
+# compare models with different time variable
+RsquareAdj(i.rda.samp3)
+RsquareAdj(i.rda.yr3)
+
+#best model at the moment
+plot(i.rda.yr3, display = c("sp", "wa", "cn"))
+
+# without plot to see better
+plot(i.rda.yr3nop, scaling = 3, display = c("sp","wa", "cn")) 
+
+# note the order matters for adonis2 with by="terms" and the by="margin" doesn't seem to work
+i.mod <- adonis2(i.com.hel~., data = tr.s.yr.mat3, method="euclidean", by="terms") 
 i.mod
+
+tr.s.yr3<-data.frame(model.matrix(~ yr*seas*trt+plts, 
+  contrasts=list(trt="contr.helmert", seas="contr.helmert", yr="contr.helmert")))[,-1]
+
+i.mod.best <- adonis2(i.com.hel~., data=tr.s.yr3, method="euclidean", sqrt.dist =T) 
+i.mod.best
 
 #bring in productivity data
 sg<-sg_shoot%>%
@@ -152,16 +170,16 @@ trt<-as.factor(as.character(i.env2$treatment))
 seas<-i.env2$season
 samp<-i.env2$sampling
 yr<-as.factor(i.env2$yr)
-plts<-i.env2$plot
+plts<-as.factor(i.env2$plot)
 
 # rerun treatment model to make sure data matches exactly
-tr.s.yr.mat3<-data.frame(model.matrix(~ trt*seas*yr+plts, 
+tr.s.yr.mat3<-data.frame(model.matrix(~ yr*seas*trt+plts, 
   contrasts=list(trt="contr.helmert", seas="contr.helmert", yr="contr.helmert")))[,-1]
 i.rda.yr3<-rda(i.com.hel2~.,data=tr.s.yr.mat3)
 
 # just add linear effect of primary producers
 
-tr.s.yr.mat3.prod<-data.frame(model.matrix(~ trt*seas*yr+plts+sg.sd+alg.ab, 
+tr.s.yr.mat3.prod<-data.frame(model.matrix(~ trt*seas*yr+sg.sd+alg.ab+plts, 
   contrasts=list(trt="contr.helmert", seas="contr.helmert", yr="contr.helmert")))[,-1]
 # tr.s.yr.mat3.sg<-data.frame(model.matrix(~ trt*seas*yr+plts+sg.sd, 
 #   contrasts=list(trt="contr.helmert", seas="contr.helmert", yr="contr.helmert")))[,-1]
@@ -171,7 +189,11 @@ tr.s.yr.mat3.prod<-data.frame(model.matrix(~ trt*seas*yr+plts+sg.sd+alg.ab,
 i.rda.yr3.prod<-rda(i.com.hel2~.,data=tr.s.yr.mat3.prod)
 anova(i.rda.yr3.prod,i.rda.yr3)
 
-i.mod.prod <- adonis2(i.com.hel2~., data = tr.s.yr.mat3.prod) 
+anova(i.rda.yr3.prod)
+adonis2(i.com.hel2~., data = tr.s.yr.mat3.prod, method = "euclidean",by =NULL) 
+
+i.mod.prod <- adonis2(i.com.hel2~., data = tr.s.yr.mat3.prod, method = "euclidean",by =
+    "terms") 
 i.mod.prod
 
 # if above was sig we would check each type of producer separately
@@ -179,26 +201,20 @@ i.mod.prod
 # i.rda.yr3.alg<-rda(i.com.hel~.,data=tr.s.yr.mat3.alg)
 
 # add seasonal interaction with total of each type of primary producer
-tr.s.yr.mat3.sg2<-data.frame(model.matrix(~ trt*seas*yr+plts+sg.sd*seas, 
-  contrasts=list(trt="contr.helmert", seas="contr.helmert", yr="contr.helmert")))[,-1]
-tr.s.yr.mat3.alg2<-data.frame(model.matrix(~ trt*seas*yr+plts+alg.ab*seas, 
-  contrasts=list(trt="contr.helmert", seas="contr.helmert", yr="contr.helmert")))[,-1]
 # or interaction between types
-tr.s.yr.mat3.prod2<-data.frame(model.matrix(~ trt*seas*yr+plts+sg.sd*alg.ab, 
+tr.s.yr.mat3.prod2<-data.frame(model.matrix(~ yr*seas*trt+sg.sd*alg.ab*seas+plts, 
   contrasts=list(trt="contr.helmert", seas="contr.helmert", yr="contr.helmert")))[,-1]
-
-i.rda.yr3.sg2<-rda(i.com.hel2~.,data=tr.s.yr.mat3.sg2)
-i.rda.yr3.alg2<-rda(i.com.hel2~.,data=tr.s.yr.mat3.alg2)
 i.rda.prod.full<-rda(i.com.hel2~.,data=tr.s.yr.mat3.prod2)
-
-anova(i.rda.yr3.sg2,i.rda.yr3)
-anova(i.rda.yr3.alg2,i.rda.yr3)
 anova(i.rda.prod.full,i.rda.yr3)
 
-i.mod.full <- adonis2(i.com.hel2~., data = tr.s.yr.mat3.prod2) 
+# chance order of variables to test effect of treatment with producers in model already
+prod.yr.seas.trt<-data.frame(model.matrix(~ sg.sd*alg.ab*seas + yr*seas*trt + plts, 
+  contrasts=list(trt="contr.helmert", seas="contr.helmert", yr="contr.helmert")))[,-1]
+
+i.mod.full <- adonis2(i.com.hel2~., data=prod.yr.seas.trt, method="euclidean", by="terms") 
 i.mod.full
 
-# producers don't help
+# producers don't eliminate the effect of treatment
 
 # # unnecessary deep dive into other possible model structures for producers
 # # replace treatment with total of each type of primary producer
@@ -255,15 +271,22 @@ i.mod.full
 
 #fish 
 
+hist(fish$abundance, breaks = 100)
+nozeros <- fish%>%filter(abundance!=0) 
+hist(nozeros$abundance, breaks = 20)
+# there appears to be only one sample > 5 and it's 22! 
+# not sure best approach to addressing this outlier, but for now I'm replacing it with 6
+
 # with zeros
-f2<-fish%>%
+f2<-fish %>% 
+  mutate(abundance = ifelse(abundance>5, 10, abundance)) %>% 
   pivot_wider(names_from=taxa,values_from=abundance,values_fill=0)%>%
  mutate(dummy=1)
 
-#without zeros
-f2<-fish%>%
-  filter(abundance!=0)%>%
-  pivot_wider(names_from=taxa,values_from=abundance,values_fill=0)
+# #without zeros
+# f2<-fish%>%
+#   filter(abundance!=0)%>%
+#   pivot_wider(names_from=taxa,values_from=abundance,values_fill=0)
 
 
 f2<-f2%>%
@@ -287,6 +310,10 @@ f2<-f2%>%
       sampling==17~2))
 # f.env$plot<-as.factor(f.env$plot)
 
+
+f2<-left_join(f2,sg)%>%
+  left_join(alg)
+
 # NMDS
 f.env<-f2 %>% select(treatment, plot, yr, sampling, season)
 f.com<-f2 %>% select(-treatment, -plot, -yr, -sampling, -season)
@@ -302,26 +329,115 @@ f.mds.scores<-data.frame(scores(f.mds))%>%
 
 ggplot(data=f.mds.scores)+
   geom_jitter(aes(x=NMDS1,y=NMDS2,
-                 color=treatment),size=2,alpha=.25)+
+                 color=treatment),size=2,alpha=.5, 
+    width = 0.03, height = 0.03)+
   scale_color_viridis_d(option="B",end=.8)+
   facet_wrap(~sampling)
 
 # rda
 f.com.hel<-decostand(f.com,"hellinger")
 
-f.rda<-rda(f.com.hel)
-i.rda2<-rda(i.com.hel~1,i.env)
-summary(i.rda)
-RsquareAdj(i.rda)
-ordistep(i.rda2,scope = formula(i.rda),direction = "forward")
+f.pca<-rda(f.com.hel)
+f.scores<-data.frame(scores(f.pca,1:3)$sites)%>%
+  bind_cols(f.env)
+
+ggplot(data=f.scores)+
+  geom_jitter(aes(x=PC1,y=PC2,
+    color=treatment),size=2,alpha=.5, 
+    width = 0.03, height = 0.03)+
+  scale_color_viridis_d(option="B",end=.8)+
+  facet_wrap(~sampling)
+
+
+f.env<-f2 %>% select(plot, sampling, treatment )
+f.rda<-rda(f.com.hel~.,f.env)
+# summary(f.rda)
+RsquareAdj(f.rda)
+step.fa <- ordistep(f.rda,scope = formula(f.rda),direction = "backward")
+# just sampling and treatment retained
+
+f.env<-f2 %>% select(plot, yr, season, treatment)
+f.rda<-rda(f.com.hel~.,f.env)
+# summary(f.rda)
+RsquareAdj(f.rda)
+step.fa <- ordistep(f.rda,scope = formula(f.rda),direction = "backward")
+# just year and treatment retained
 
 anova(f.rda)
 plot(f.rda)
-f.scores<-data.frame(scores(f.rda,1:3)$sites)%>%
+
+
+## redo with presence-absence data
+f.com.pa<-decostand(f.com,"pa")
+
+f.pca2<-rda(f.com.pa)
+f.scores2<-data.frame(scores(f.pca2,1:3)$sites)%>%
   bind_cols(f.env)
-plot(f.rda)
-ggplot(data=f.scores)+
-  geom_point(aes(x=PC1,y=PC2,
-                 color=treatment),size=2,alpha=.5)+
+
+ggplot(data=f.scores2)+
+  geom_jitter(aes(x=PC1,y=PC2,
+    color=treatment),size=2,alpha=.5, 
+    width = 0.03, height = 0.03)+
   scale_color_viridis_d(option="B",end=.8)+
   facet_wrap(~sampling)
+
+
+f.env<-f2 %>% select(plot, yr, season, treatment)
+f.rda2<-rda(f.com.pa~.,f.env)
+# summary(f.rda2)
+RsquareAdj(f.rda2)
+
+step.fp <- ordistep(f.rda2,scope = formula(f.rda2),direction = "backward")
+
+
+f.env<-f2 %>% select(plot, sampling, treatment)
+f.rda2<-rda(f.com.pa~.,f.env)
+# summary(f.rda2)
+RsquareAdj(f.rda2)
+
+step.fp <- ordistep(f.rda2,scope = formula(f.rda2),direction = "backward")
+
+plot(f.rda2)
+
+
+# add in producers
+
+f.env<-f2 %>% select(treatment, plot, yr, sampling, season, sg.sd, alg)
+
+trt<-as.factor(f.env$treatment)
+samp<-f.env$sampling
+plts<-as.factor(f.env$plot)
+sg.sd<-f.env$sg.sd
+alg.ab<-f.env$alg
+
+f.data<-data.frame(model.matrix(~ sg.sd + alg.ab + samp*trt, 
+  contrasts=list(trt="contr.helmert")))[,-1]
+
+f.mod <- adonis2(f.com.hel~., data = f.data, method="euclidean", by="terms") 
+f.mod
+# appears to be an effect of sponge beyond that of producers
+
+#try without blank...
+f.env2a <- f.env %>% filter(treatment!="blank")
+
+# bind back the community data for just the retained plots
+f3 <- left_join(f.env2a, f2)
+
+# separate env and com again to sure order matches in this new dataset 
+f.env2 <- f3 %>% select(treatment, plot, yr, sampling, season, sg.sd, alg)
+f.com2 <- f3 %>% select(-treatment, -plot, -yr, -sampling, -season, -sg.sd, -alg)
+
+trt<-as.factor(f.env2$treatment)
+samp<-f.env2$sampling
+plts<-as.factor(f.env2$plot)
+sg.sd<-f.env2$sg.sd
+alg.ab<-f.env2$alg
+
+f.data2<-data.frame(model.matrix(~ sg.sd + alg.ab + samp*trt, 
+  contrasts=list(trt="contr.helmert")))[,-1]
+
+f.com.hel2<-decostand(f.com2,"hellinger")
+
+f.mod2 <- adonis2(f.com.hel2~., data = f.data2, method="euclidean", by="terms") 
+f.mod2
+# there is still an effect of sponge beyond that of producers and structure control
