@@ -54,6 +54,9 @@ i2<-i2%>%
       sampling==17~2))
 
 
+i0<-i2%>%filter(yr == 0)
+i2<-i2%>%filter(yr != 0)
+
 # NMDS
 i.env<-i2 %>% select(treatment, plot, yr, sampling, season)
 i.com<-i2 %>% select(-treatment, -plot, -yr, -sampling, -season)
@@ -66,7 +69,9 @@ i.mds<-metaMDS(com.dist,trymax = 100)
 plot(i.mds)
 
 # use hellinger: square root of method to standardize species data
-i.com.hel<-decostand(i.com,"hellinger")
+i.com.pa<-decostand(i.com,"pa")
+
+i.com.hel<-decostand(i.com.pa,"hellinger")
 
 i.pca<-rda(i.com.hel)
 
@@ -74,8 +79,9 @@ i.scores<-data.frame(scores(i.pca,1:3)$sites)%>%
   bind_cols(i.env)
 
 ggplot(data=i.scores)+
-  geom_point(aes(x=PC2,y=PC3,
-                 color=treatment),size=2)+
+  geom_jitter(aes(x=PC2,y=PC3,
+                 color=treatment),size=2,alpha=.65, 
+    width = 0.03, height = 0.03)+
   scale_color_viridis_d(option="B",end=.8)+
   facet_wrap(~sampling)
 
@@ -83,6 +89,7 @@ ggplot(data=i.scores)+
 i.rda<-rda(i.com.hel~., i.env)
 step.i <- ordistep(i.rda,scope = formula(i.rda),direction = "backward")
 # all covariates main effects appear important
+plot(i.rda)
 
 #add in interactions
 trt<-as.factor(i.env$treatment)
@@ -96,9 +103,9 @@ tr.s.samp.mat3<-data.frame(model.matrix(~ samp*seas*trt + plts,
 tr.s.samp.mat2<-data.frame(model.matrix(~ samp*seas + samp*trt + seas*trt +  plts, 
   contrasts=list(trt="contr.helmert", seas="contr.helmert")))[,-1]
 
-tr.s.yr.mat3<-data.frame(model.matrix(~ yr*seas*trt + plts, 
+tr.s.yr.mat3<-data.frame(model.matrix(~ yr*seas*trt+  plts, 
   contrasts=list(trt="contr.helmert", seas="contr.helmert", yr="contr.helmert")))[,-1]
-tr.s.yr.mat2<-data.frame(model.matrix(~ yr*seas + yr*trt + seas*trt + plts, 
+tr.s.yr.mat2<-data.frame(model.matrix(~ yr*seas + yr*trt + seas*trt +  plts, 
   contrasts=list(trt="contr.helmert", seas="contr.helmert", yr="contr.helmert")))[,-1]
 tr.s.yr.mat3.nop<-data.frame(model.matrix(~ yr*seas*trt, # without plot
   contrasts=list(trt="contr.helmert", seas="contr.helmert", yr="contr.helmert")))[,-1]
@@ -116,6 +123,8 @@ i.rda.yr2<-rda(i.com.hel~.,data=tr.s.yr.mat2)
 anova(i.rda.yr3,i.rda.yr2)
 anova(i.rda.yr3,i.rda.yr3nop)
 
+plot(i.rda.yr3nop)
+
 # # check against null model
 # i.rda2<-rda(i.com.hel~1)
 # anova(i.rda.yr3,i.rda2)
@@ -125,13 +134,10 @@ RsquareAdj(i.rda.samp3)
 RsquareAdj(i.rda.yr3)
 
 #best model at the moment
-plot(i.rda.yr3, scaling = 3, display = c("sp", "cn"))
-
-# without plot to see better
-plot(i.rda.yr3nop, scaling = 3, display = c("sp","wa", "cn")) 
+plot(i.rda.yr3nop, scaling = 3, display = c("sp", "cn"))
 
 # note the order matters for adonis2 with by="terms" and the by="margin" doesn't seem to work
-i.mod <- adonis2(i.com.hel~., data = tr.s.yr.mat3, method="euclidean", by="terms") 
+i.mod <- adonis2(i.com.hel~., data = tr.s.yr.mat3.nop, method="euclidean", by="terms") 
 i.mod
 
 tr.s.yr3<-data.frame(model.matrix(~ yr*seas*trt+plts, 
