@@ -27,6 +27,17 @@ alg<-algae%>%
     sampling==4~12,
     sampling==5~17))
 
+sggrow<-sg_grow%>%
+  filter(dist %in% c(0,0.5))%>%
+  group_by(treatment,plot,sampling)%>%
+  summarize(grow=mean(total.growth.mm2/days))%>%
+  mutate(sampling=case_when(
+    sampling==1~0,
+    sampling==2~1,
+    sampling==3~5,
+    sampling==4~12,
+    sampling==5~17))
+
 
 # inverts
 
@@ -57,16 +68,23 @@ i2<-i2%>%
 i0<-i2%>%filter(yr == 0)
 i2<-i2%>%filter(yr != 0)
 
-# NMDS
-i.env<-i2 %>% select(treatment, plot, yr, sampling, season)
+# Organize data
+i.env<-i2 %>% select(treatment, plot, yr, sampling, season)%>%
+  left_join(alg)%>%
+  left_join(sg)%>%
+  left_join((sggrow))
 i.com<-i2 %>% select(-treatment, -plot, -yr, -sampling, -season)
 
 i.com$dummy<-1
-com.dist<-vegdist(i.com,"bray")
 
-i.mds<-metaMDS(com.dist,trymax = 100)
+# pre-experiment data
+i.env0<-i0 %>% select(treatment, plot, yr, sampling, season)%>%
+  left_join(alg)%>%
+  left_join(sg)%>%
+  left_join((sggrow))
+i.com0<-i0 %>% select(-treatment, -plot, -yr, -sampling, -season)
 
-plot(i.mds)
+i.com0$dummy<-1
 
 # use hellinger: square root of method to standardize species data
 i.com.pa<-decostand(i.com,"pa")
@@ -86,11 +104,23 @@ ggplot(data=i.scores)+
   facet_wrap(~sampling)
 
 #start examining statistical relationship
-i.rda<-rda(i.com.hel~., i.env)
-step.i <- ordistep(i.rda,scope = formula(i.rda),direction = "backward")
-# all covariates main effects appear important
-plot(i.rda)
 
+# first look at initial pre-experiment
+i.com.pa.0<-decostand(i.com0,"pa")
+i.com.hel0<-decostand(i.com.pa.0,"hellinger")
+
+i.com.pa<-decostand(i.com,"pa")
+i.com.hel<-decostand(i.com.pa,"hellinger")
+
+# look at just treatment at 0 and later
+i0.rda.null<-rda(i.com.hel0~1)
+i0.rda<-rda(i.com.hel0~treatment,data=i.env0)
+RsquareAdj(i0.rda)
+(invert.initial<-anova(i0.rda.null,i0.rda))
+
+# treatment does not explain a significant amount of variance between plots initially
+
+# now start building more and more complex models for experiment data
 #add in interactions
 trt<-as.factor(i.env$treatment)
 seas<-i.env$season
@@ -98,47 +128,200 @@ samp<-i.env$sampling
 yr<-as.factor(i.env$yr)
 plts<-as.factor(i.env$plot)
 
-tr.s.samp.mat3<-data.frame(model.matrix(~ samp*seas*trt + plts, 
-  contrasts=list(trt="contr.helmert", seas="contr.helmert")))[,-1]
-tr.s.samp.mat2<-data.frame(model.matrix(~ samp*seas + samp*trt + seas*trt +  plts, 
-  contrasts=list(trt="contr.helmert", seas="contr.helmert")))[,-1]
+# start with the simplest model that makes sense - there are two of these - season and year
+# with an interaction with treatment. Look at these with and without plots
 
-tr.s.yr.mat3<-data.frame(model.matrix(~ yr*seas*trt+  plts, 
-  contrasts=list(trt="contr.helmert", seas="contr.helmert", yr="contr.helmert")))[,-1]
+# first question is an interaction between samp* treatment better than intercept only
+# first build intercept only
+i.rda.null<-rda(i.com.hel~1)
+
+# now make samp*treat matrix
+tr.samp.mat<-data.frame(model.matrix(~ samp*trt + plts, 
+                                       contrasts=list(trt="contr.helmert", seas="contr.helmert")))[,-1]
+i.rda.samp.treat.plot<-rda(i.com.hel~.,data=tr.samp.mat)
+
+# now check to see if its better than intercept
+anova(i.rda.null,i.rda.samp.treat.plot)
+
+# it is better than null
+# does including plot help
+tr.samp.mat.np<-data.frame(model.matrix(~ samp*trt, 
+                                     contrasts=list(trt="contr.helmert", seas="contr.helmert")))[,-1]
+i.rda.samp.treat<-rda(i.com.hel~.,data=tr.samp.mat.np)
+
+# check to see if plot should be included here
+anova(i.rda.samp.treat.plot,i.rda.samp.treat)
+# no difference as far as anova - look at rsquare
+RsquareAdj(i.rda.samp.treat.plot)$adj.r.squared
+RsquareAdj(i.rda.samp.treat)$adj.r.squared
+
+# r squared better without plot
+# current best model is just samp*treat
+
+# now look at next simplest "base" model - this is treatment*year*season
+
+tr.s.yr.mat<-data.frame(model.matrix(~ yr*seas*trt + plts, 
+  contrasts=list(trt="contr.helmert", seas="contr.helmert",yr="contr.helmert")))[,-1]
+tr.s.yr.mat.nop<-data.frame(model.matrix(~ yr*seas*trt, 
+  contrasts=list(trt="contr.helmert", seas="contr.helmert",yr="contr.helmert")))[,-1]
+
+# look at whether or not model without plot is better than current best model
+i.rda.yr.s.treat<-rda(i.com.hel~.,tr.s.yr.mat.nop)
+
+# models aren't nested so have to look at adjusted R2
+RsquareAdj(i.rda.yr.s.treat)$adj.r.squared
+RsquareAdj(i.rda.samp.treat)$adj.r.squared
+
+# now yr*seas*treat is best model - see if plots make a difference here
+i.rda.yr.s.treat.plot<-rda(i.com.hel~.,tr.s.yr.mat)
+anova(i.rda.yr.s.treat,i.rda.yr.s.treat.plot)
+
+# plot doesn't improve things here - how about for r2
+RsquareAdj(i.rda.yr.s.treat)$adj.r.squared
+RsquareAdj(i.rda.yr.s.treat.plot)$adj.r.squared
+
+#tiny bit better but could arguably still leave plot out.
+
+# now how about a series of two-way interactions vs the three
+
 tr.s.yr.mat2<-data.frame(model.matrix(~ yr*seas + yr*trt + seas*trt +  plts, 
   contrasts=list(trt="contr.helmert", seas="contr.helmert", yr="contr.helmert")))[,-1]
-tr.s.yr.mat3.nop<-data.frame(model.matrix(~ yr*seas*trt, # without plot
+tr.s.yr.mat2.nop<-data.frame(model.matrix(~ yr*seas + yr*trt + seas*trt, # without plot
   contrasts=list(trt="contr.helmert", seas="contr.helmert", yr="contr.helmert")))[,-1]
 
+# look to see if 3-way interaction improves matters
+i.rda.yr.s.treat2<-rda(i.com.hel~.,tr.s.yr.mat2.nop)
+anova(i.rda.yr.s.treat,i.rda.yr.s.treat2)
 
+# model with the 3-way interaction is better - confirm with r2
+RsquareAdj(i.rda.yr.s.treat)$adj.r.squared
+RsquareAdj(i.rda.yr.s.treat2)$adj.r.squared
 
-i.rda.samp3<-rda(i.com.hel~.,data=tr.s.samp.mat3)
-i.rda.samp2<-rda(i.com.hel~.,data=tr.s.samp.mat2)
-anova(i.rda.samp3,i.rda.samp2)
+# is season important
+tr.yr.mat<-data.frame(model.matrix(~ yr*trt, # without plot
+  contrasts=list(trt="contr.helmert",yr="contr.helmert")))[,-1]
 
-i.rda.yr3<-rda(i.com.hel~.,data=tr.s.yr.mat3)
-i.rda.yr3nop<-rda(i.com.hel~.,data=tr.s.yr.mat3.nop) # without plot
-i.rda.yr2<-rda(i.com.hel~.,data=tr.s.yr.mat2)
+i.rda.yr.treat<-rda(i.com.hel~.,tr.yr.mat)
 
-anova(i.rda.yr3,i.rda.yr2)
-anova(i.rda.yr3,i.rda.yr3nop)
+anova(i.rda.yr.s.treat,i.rda.yr.treat)
 
-plot(i.rda.yr3nop)
+# sampling is important. 
+# now what about year
+tr.seas.mat<-data.frame(model.matrix(~ seas*trt, # without plot
+  contrasts=list(trt="contr.helmert",seas="contr.helmert")))[,-1]
 
-# # check against null model
-# i.rda2<-rda(i.com.hel~1)
-# anova(i.rda.yr3,i.rda2)
+i.rda.seas.treat<-rda(i.com.hel~.,tr.seas.mat)
+anova(i.rda.yr.s.treat,i.rda.seas.treat)
 
-# compare models with different time variable
-RsquareAdj(i.rda.samp3)
-RsquareAdj(i.rda.yr3)
+#yep. Now finally treatmemnt
+yr.seas.mat<-data.frame(model.matrix(~ yr*seas, # without plot
+   contrasts=list(yr="contr.helmert",seas="contr.helmert")))[,-1]
+
+i.rda.seas.yr<-rda(i.com.hel~.,yr.seas.mat)
+
+anova(i.rda.yr.s.treat,i.rda.seas.yr)
+
+#yep treatment is important
+
+# now look into whether or not productivity measures explain community patterns better
+
+i.env.prod<-i.env[,6:8]
+i.rda.prod<-rda(i.com.hel~.,i.env.prod)
+
+# does this model do better than the null
+anova(i.rda.null,i.rda.prod)
+
+# yes it does
+# now does it do better than the treatment model
+RsquareAdj(i.rda.yr.s.treat)$adj.r.squared
+RsquareAdj(i.rda.prod)$adj.r.squared
+
+# not on its own, no. What if we include different measures of productivity in our treatment model
+# from now on I'm referring to the year*season*treatment as i.rda.best
+i.rda.best<-rda(i.com.hel~.,tr.s.yr.mat.nop)
+alg.e<-i.env$alg
+sg<-i.env$sg.sd
+sggrow<-i.env$grow
+
+b.alg.mat<-data.frame(model.matrix(~ yr*seas*trt+alg.e, 
+                                   contrasts=list(trt="contr.helmert", seas="contr.helmert",yr="contr.helmert")))[,-1]
+b.sg.mat<-data.frame(model.matrix(~ yr*seas*trt+sg, 
+                                   contrasts=list(trt="contr.helmert", seas="contr.helmert",yr="contr.helmert")))[,-1]
+b.sgg.mat<-data.frame(model.matrix(~ yr*seas*trt+sggrow, 
+                                   contrasts=list(trt="contr.helmert", seas="contr.helmert",yr="contr.helmert")))[,-1]
+b.alg.sg.mat<-data.frame(model.matrix(~ yr*seas*trt+alg.e+sg, 
+                                   contrasts=list(trt="contr.helmert", seas="contr.helmert",yr="contr.helmert")))[,-1]
+b.alg.sgg.mat<-data.frame(model.matrix(~ yr*seas*trt+alg.e+sggrow, 
+                                   contrasts=list(trt="contr.helmert", seas="contr.helmert",yr="contr.helmert")))[,-1]
+b.sg.sgg.mat<-data.frame(model.matrix(~ yr*seas*trt+sg+sggrow, 
+                                   contrasts=list(trt="contr.helmert", seas="contr.helmert",yr="contr.helmert")))[,-1]
+b.alg.sg.sgg.mat<-data.frame(model.matrix(~ yr*seas*trt+alg.e+sg+sggrow, 
+                                   contrasts=list(trt="contr.helmert", seas="contr.helmert",yr="contr.helmert")))[,-1]
+
+# start with all of them added
+i.rda.bprod<-rda(i.com.hel~.,b.alg.sg.sgg.mat)
+
+anova(i.rda.best,i.rda.bprod)
+
+# no difference between models - look at r2
+RsquareAdj(i.rda.best)$adj.r.squared
+RsquareAdj(i.rda.bprod)$adj.r.squared
+
+# ever so slight increase in adjusted R2
+# look at just sg growth
+
+i.rda.bgrow<-rda(i.com.hel~.,b.sgg.mat)
+
+anova(i.rda.best,i.rda.bgrow)
+
+# no difference between models - look at r2
+RsquareAdj(i.rda.best)$adj.r.squared
+RsquareAdj(i.rda.bgrow)$adj.r.squared
+
+# ever so slight increase in adjusted R2
+# look at sggrow and algae
+i.rda.balggrow<-rda(i.com.hel~.,b.alg.sgg.mat)
+
+anova(i.rda.best,i.rda.balggrow)
+
+# no difference between models - look at r2
+RsquareAdj(i.rda.best)$adj.r.squared
+RsquareAdj(i.rda.balggrow)$adj.r.squared
+
+# ever so slight increase in adjusted R2
+# look at sggrow and sg
+i.rda.bsggrow<-rda(i.com.hel~.,b.sg.sgg.mat)
+
+anova(i.rda.best,i.rda.bsggrow)
+
+# no difference between models - look at r2
+RsquareAdj(i.rda.best)$adj.r.squared
+RsquareAdj(i.rda.bsggrow)$adj.r.squared
+RsquareAdj(i.rda.bprod)$adj.r.squared
+
+# including sg density gets us the best r2 so far - so looking at just sg density
+
+i.rda.bsg<-rda(i.com.hel~.,b.sg.mat)
+
+anova(i.rda.best,i.rda.bsg)
+
+# no difference between models - look at r2
+RsquareAdj(i.rda.best)$adj.r.squared
+RsquareAdj(i.rda.bsg)$adj.r.squared
+
+# best model at the moment: is seas*samp*year + sg + sggrow, but this model is 
+#not significantly better than seas*samp*year
 
 #best model at the moment
-plot(i.rda.yr3nop, scaling = 3, display = c("sp", "cn"))
+plot(i.rda.bsggrow, scaling = 3, display = c("sp", "cn"))
 
 # note the order matters for adonis2 with by="terms" and the by="margin" doesn't seem to work
-i.mod <- adonis2(i.com.hel~., data = tr.s.yr.mat3.nop, method="euclidean", by="terms") 
+i.mod <- adonis2(i.com.hel~., data = b.sg.sgg.mat, method="euclidean", by="terms") 
 i.mod
+
+#this is where I stopped. I think the moral of the story is that the interaction between 
+# treatment, season, and year has an affect on the community
+# now we have to figure out what that is.
 
 tr.s.yr3<-data.frame(model.matrix(~ yr*seas*trt+plts, 
   contrasts=list(trt="contr.helmert", seas="contr.helmert", yr="contr.helmert")))[,-1]
