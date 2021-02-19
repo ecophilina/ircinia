@@ -575,32 +575,100 @@ RsquareAdj(i17fr.rda)
 
 # make figures for this
 
-anova(i0.rda, permutations=how(nperm=999))
+anova(i0.rda.null, permutations=how(nperm=999))
 # Tests of all canonical axes
-anova(i0.rda, by="axis", permutations=how(nperm=999))
-init.scores<-scores(i0.rda.null,scaling=1,1:2)
+anova(i0.rda.null, by="axis", permutations=how(nperm=999))
+init.scores<-scores(rda(i.com.hel0),scaling=1,1:2)
 
-i.env0p<-bind_cols(i.env0,data.frame(init.scores$sites))
+i.env0p<-bind_cols(i.env0,data.frame(init.scores$sites))%>%
+  mutate(treatment=factor(treatment, labels=c("Control","Structure Control","Sponge")))
 
 hull0 <- i.env0p %>%
   group_by(treatment)%>%
   slice(chull(PC1, PC2))
-  # slice(chull(RDA1, RDA2))
+#  slice(chull(RDA1, RDA2))
+circleFun <- function(center = c(0,0),diameter = 1, npoints = 100){
+  r = diameter / 2
+  tt <- seq(0,2*pi,length.out = npoints)
+  xx <- center[1] + r * cos(tt)
+  yy <- center[2] + r * sin(tt)
+  return(data.frame(x = xx, y = yy))
+}
 
-spe.good <- goodness(i0.rda.null,display = "species")
+# the denominator of the diameter is the number of principle components where the 
+# eigenvalue is >0
+circ <- circleFun(center=c(0,0),diameter=sqrt(2/13),npoints = 500)
 
-spr<-init.scores$species[which(spe.good[,1]>=0.6 | spe.good[,2]>=0.6),]
+
+spr0<-data.frame(init.scores$species)
+#sprp0<-data.frame(spr[abs(spr[,1])>=max(circ[,1])|abs(spr[,2])>=max(circ[,2]),])
+sprp0$taxa<-rownames(sprp0)
+sprp0<-sprp0%>%
+  filter(taxa %in% c("Anemone","blue crab","cerith","little white snail","mantis shrimp"))
+taxa<-rownames(sprp0)
+
+# look at how much variation each axis explains to add to axis labels
+summary(i0.rda.null)$cont$importance
 
 (i0<-ggplot()+
+    ylim(-1.2,1.2)+
+    xlim(-1.2,1.2)+
     geom_hline(aes(yintercept=0),linetype="dashed",color="grey")+
     geom_vline(aes(xintercept=0),linetype="dashed",color="grey")+
-    geom_polygon(data = hull0, aes(x=RDA1,y=RDA2,color=treatment,fill=treatment),alpha = 0.1)+
-    geom_point(data=i.env0p,aes(x=RDA1,y=RDA2,color=treatment),size=4)+
+    geom_path(data = circ,aes(x,y), lty = 2, color = "grey", alpha = 0.7)+
+    geom_segment(data=sprp0,aes(x=0,xend=PC1,y=0,yend=PC2),
+                 arrow = arrow(length = unit(0.025, "npc"), type = "open"),
+                 lwd = .5)+
+    geom_text(data = sprp0,
+              aes(x = PC1*1.1, y =  PC2*1.1,
+                  label = taxa),
+              check_overlap = T, size = 3) +
+    stat_ellipse(geom="polygon", 
+                 aes(x=PC1,y=PC2,fill = treatment),
+                 data=i.env0p,
+                 alpha = 0.2, 
+                 show.legend = FALSE,
+                 level = 0.95)+
+#    geom_polygon(data = hull0, aes(x=PC1,y=PC2,color=treatment,fill=treatment),alpha = 0.1)+
+    geom_point(data=i.env0p,aes(x=PC1,y=PC2,color=treatment),size=2)+
     theme_bw()+
-    theme(panel.grid = element_blank())+
+    theme(panel.grid = element_blank(),
+          legend.position = c(.14,0.95),
+          legend.background = element_blank())+
+     coord_fixed()+
+    xlab("PC1 23.74%")+
+    ylab("PC2 16.54%")+
+    scale_color_viridis_d(option="A",begin=0,end=0.6,"")+
+    scale_fill_viridis_d(option="A",begin=0,end=0.6,""))
+
+(i0hull<-ggplot()+
+    ylim(-1,1)+
+    xlim(-1,1)+
+    geom_hline(aes(yintercept=0),linetype="dashed",color="grey")+
+    geom_vline(aes(xintercept=0),linetype="dashed",color="grey")+
+    geom_path(data = circ,aes(x,y), lty = 2, color = "grey", alpha = 0.7)+
+    geom_segment(data=sprp0,aes(x=0,xend=PC1,y=0,yend=PC2),
+                 arrow = arrow(length = unit(0.025, "npc"), type = "open"),
+                 lwd = .5)+
+    geom_text(data = sprp0,
+              aes(x = PC1*1.1, y =  PC2*1.1,
+                  label = taxa),
+              check_overlap = T, size = 3) +
+    # stat_ellipse(geom="polygon", 
+    #              aes(x=PC1,y=PC2,fill = treatment),
+    #              data=i.env0p,
+    #              alpha = 0.2, 
+    #              show.legend = FALSE,
+    #              level = 0.95)+
+       geom_polygon(data = hull0, aes(x=PC1,y=PC2,color=treatment,fill=treatment),alpha = 0.1)+
+    geom_point(data=i.env0p,aes(x=PC1,y=PC2,color=treatment),size=2)+
+    theme_bw()+
+    theme(panel.grid = element_blank(),
+          legend.position = c(.14,0.95),
+          legend.background = element_blank())+
     coord_fixed()+
-    ylim(-0.65,0.65)+
-    xlim(-0.65,0.65)+  
+    xlab("PC1 23.74%")+
+    ylab("PC2 16.54%")+
     scale_color_viridis_d(option="A",begin=0,end=0.6,"")+
     scale_fill_viridis_d(option="A",begin=0,end=0.6,""))
 
@@ -609,48 +677,168 @@ spr<-init.scores$species[which(spe.good[,1]>=0.6 | spe.good[,2]>=0.6),]
 
 
 # make figures for month 5
-m5.scores<-scores(i5.rda.null,scaling=3,1:2)
+m5.scores<-scores(i5.rda.null,scaling=1,1:2)
 
 i.env5p<-bind_cols(i.env5,data.frame(m5.scores$sites))
+
+# look at how much variation each axis explains to add to axis labels
+summary(i5.rda.null)$cont$importance
+
+circ <- circleFun(center=c(0,0),diameter=sqrt(2/12),npoints = 500)
 
 hull5 <- i.env5p %>%
   group_by(treatment)%>%
   slice(chull(PC1, PC2))
 
+spr5<-data.frame(m5.scores$species)
+#sprp5<-data.frame(spr[abs(spr[,1])>=max(circ[,1])|abs(spr[,2])>=max(circ[,2]),])
+sprp5$taxa<-rownames(sprp5)
+sprp5<-sprp5%>%
+  filter(taxa %in% c("Anemone","blue crab","cerith","little white snail","mantis shrimp"))
+taxa<-rownames(sprp5)
+
+
+
 (i5<-ggplot()+
+    ylim(-1.2,1.2)+
+    xlim(-1.2,1.2)+
     geom_hline(aes(yintercept=0),linetype="dashed",color="grey")+
     geom_vline(aes(xintercept=0),linetype="dashed",color="grey")+
-    geom_polygon(data = hull5, aes(x=PC1,y=PC2,color=treatment,fill=treatment),alpha = 0.1)+
-    geom_point(data=i.env5p,aes(x=PC1,y=PC2,color=treatment),size=4)+
+    geom_path(data = circ,aes(x,y), lty = 2, color = "grey", alpha = 0.7)+
+    geom_segment(data=sprp5,aes(x=0,xend=PC1,y=0,yend=PC2),
+                 arrow = arrow(length = unit(0.025, "npc"), type = "open"),
+                 lwd = .5)+
+    geom_text(data = sprp5,
+              aes(x = PC1*1.1, y =  PC2*1.1,
+                  label = taxa),
+              check_overlap = T, size = 3) +
+    stat_ellipse(geom="polygon", 
+                 aes(x=PC1,y=PC2,fill = treatment),
+                 data=i.env5p,
+                 alpha = 0.2, 
+                 show.legend = FALSE,
+                 level = 0.95)+
+    #    geom_polygon(data = hull0, aes(x=PC1,y=PC2,color=treatment,fill=treatment),alpha = 0.1)+
+    geom_point(data=i.env5p,aes(x=PC1,y=PC2,color=treatment),size=2)+
     theme_bw()+
-    theme(panel.grid = element_blank())+
+    theme(panel.grid = element_blank(),
+          legend.position = "none")+
     coord_fixed()+
-    ylim(-0.65,0.65)+
-    xlim(-0.65,0.65)+  
+    xlab("PC1 23.45%")+
+    ylab("PC2 19.19%")+
+    scale_color_viridis_d(option="A",begin=0,end=0.6,"")+
+    scale_fill_viridis_d(option="A",begin=0,end=0.6,""))
+
+(i5hull<-ggplot()+
+    ylim(-1,1)+
+    xlim(-1,1)+
+    geom_hline(aes(yintercept=0),linetype="dashed",color="grey")+
+    geom_vline(aes(xintercept=0),linetype="dashed",color="grey")+
+    geom_path(data = circ,aes(x,y), lty = 2, color = "grey", alpha = 0.7)+
+    geom_segment(data=sprp5,aes(x=0,xend=PC1,y=0,yend=PC2),
+                 arrow = arrow(length = unit(0.025, "npc"), type = "open"),
+                 lwd = .5)+
+    geom_text(data = sprp5,
+              aes(x = PC1*1.1, y =  PC2*1.1,
+                  label = taxa),
+              check_overlap = T, size = 3) +
+    # stat_ellipse(geom="polygon", 
+    #              aes(x=PC1,y=PC2,fill = treatment),
+    #              data=i.env5p,
+    #              alpha = 0.2, 
+    #              show.legend = FALSE,
+    #              level = 0.95)+
+    geom_polygon(data = hull5, aes(x=PC1,y=PC2,color=treatment,fill=treatment),alpha = 0.1)+
+    geom_point(data=i.env5p,aes(x=PC1,y=PC2,color=treatment),size=2)+
+    theme_bw()+
+    theme(panel.grid = element_blank(),
+          legend.position = "none")+
+    coord_fixed()+
+    xlab("PC1 23.45%")+
+    ylab("PC2 19.19%")+
     scale_color_viridis_d(option="A",begin=0,end=0.6,"")+
     scale_fill_viridis_d(option="A",begin=0,end=0.6,""))
 
 # make figures for month 12
-m12.scores<-scores(i12.rda.null,scaling=3,1:2)
+m12.scores<-scores(i12.rda.null,scaling=1,1:2)
 
 i.env12p<-bind_cols(i.env12,data.frame(m12.scores$sites))
+
+# look at how much variation each axis explains to add to axis labels
+summary(i12.rda.null)$cont$importance
+
+circ <- circleFun(center=c(0,0),diameter=sqrt(2/13),npoints = 500)
 
 hull12 <- i.env12p %>%
   group_by(treatment)%>%
   slice(chull(PC1, PC2))
 
+spr12<-data.frame(m12.scores$species)
+sprp12$taxa<-rownames(sprp12)
+sprp12<-sprp12%>%
+  filter(taxa %in% c("Anemone","blue crab","cerith","little white snail","mantis shrimp"))
+taxa<-rownames(sprp12)
+
+
 (i12<-ggplot()+
+    ylim(-1.2,1.2)+
+    xlim(-1.2,1.2)+
     geom_hline(aes(yintercept=0),linetype="dashed",color="grey")+
     geom_vline(aes(xintercept=0),linetype="dashed",color="grey")+
-    geom_polygon(data = hull12, aes(x=PC1,y=PC2,color=treatment,fill=treatment),alpha = 0.1)+
-    geom_point(data=i.env12p,aes(x=PC1,y=PC2,color=treatment),size=4)+
+    geom_path(data = circ,aes(x,y), lty = 2, color = "grey", alpha = 0.7)+
+    geom_segment(data=sprp12,aes(x=0,xend=PC1,y=0,yend=PC2),
+                 arrow = arrow(length = unit(0.025, "npc"), type = "open"),
+                 lwd = .5)+
+    geom_text(data = sprp12,
+              aes(x = PC1*1.1, y =  PC2*1.1,
+                  label = taxa),
+              check_overlap = T, size = 3) +
+    stat_ellipse(geom="polygon", 
+                 aes(x=PC1,y=PC2,fill = treatment),
+                 data=i.env12p,
+                 alpha = 0.2, 
+                 show.legend = FALSE,
+                 level = 0.95)+
+    #    geom_polygon(data = hull0, aes(x=PC1,y=PC2,color=treatment,fill=treatment),alpha = 0.1)+
+    geom_point(data=i.env12p,aes(x=PC1,y=PC2,color=treatment),size=2)+
     theme_bw()+
-    theme(panel.grid = element_blank())+
+    theme(panel.grid = element_blank(),
+          legend.position = "none")+
     coord_fixed()+
-    ylim(-0.6,0.6)+
-    xlim(-0.6,0.6)+  
-    scale_color_viridis_d(option="A",begin=0,end=0.65,"")+
-    scale_fill_viridis_d(option="A",begin=0,end=0.65,""))
+    xlab("PC1 24.11%")+
+    ylab("PC2 18.83%")+
+    scale_color_viridis_d(option="A",begin=0,end=0.6,"")+
+    scale_fill_viridis_d(option="A",begin=0,end=0.6,""))
+
+(i12hull<-ggplot()+
+    ylim(-1,1)+
+    xlim(-1,1)+
+    geom_hline(aes(yintercept=0),linetype="dashed",color="grey")+
+    geom_vline(aes(xintercept=0),linetype="dashed",color="grey")+
+    geom_path(data = circ,aes(x,y), lty = 2, color = "grey", alpha = 0.7)+
+    geom_segment(data=sprp12,aes(x=0,xend=PC1,y=0,yend=PC2),
+                 arrow = arrow(length = unit(0.025, "npc"), type = "open"),
+                 lwd = .5)+
+    geom_text(data = sprp12,
+              aes(x = PC1*1.1, y =  PC2*1.1,
+                  label = taxa),
+              check_overlap = T, size = 3) +
+    # stat_ellipse(geom="polygon", 
+    #              aes(x=PC1,y=PC2,fill = treatment),
+    #              data=i.env12p,
+    #              alpha = 0.2, 
+    #              show.legend = FALSE,
+    #              level = 0.95)+
+       geom_polygon(data = hull12, aes(x=PC1,y=PC2,color=treatment,fill=treatment),alpha = 0.1)+
+    geom_point(data=i.env12p,aes(x=PC1,y=PC2,color=treatment),size=2)+
+    theme_bw()+
+    theme(panel.grid = element_blank(),
+          legend.position = "none")+
+    coord_fixed()+
+    xlab("PC1 24.11%")+
+    ylab("PC2 18.83%")+
+    scale_color_viridis_d(option="A",begin=0,end=0.6,"")+
+    scale_fill_viridis_d(option="A",begin=0,end=0.6,""))
 
 
 # make figures for month 17
@@ -658,23 +846,94 @@ m17.scores<-scores(i17.rda.null,scaling=3,1:2)
 
 i.env17p<-bind_cols(i.env17,data.frame(m17.scores$sites))
 
+# look at how much variation each axis explains to add to axis labels
+summary(i17.rda.null)$cont$importance
+
+circ <- circleFun(center=c(0,0),diameter=sqrt(2/13),npoints = 500)
+
 hull17 <- i.env17p %>%
   group_by(treatment)%>%
   slice(chull(PC1, PC2))
 
+spr17<-data.frame(m17.scores$species)
+sprp17$taxa<-rownames(sprp17)
+sprp17<-sprp17%>%
+  filter(taxa %in% c("Anemone","blue crab","cerith","little white snail","mantis shrimp"))
+taxa<-rownames(sprp17)
+
+
+
 (i17<-ggplot()+
+    ylim(-1.2,1.2)+
+    xlim(-1.2,1.2)+
     geom_hline(aes(yintercept=0),linetype="dashed",color="grey")+
     geom_vline(aes(xintercept=0),linetype="dashed",color="grey")+
-    geom_polygon(data = hull17, aes(x=PC1,y=PC2,color=treatment,fill=treatment),alpha = 0.1)+
-    geom_point(data=i.env17p,aes(x=PC1,y=PC2,color=treatment),size=4)+
+    geom_path(data = circ,aes(x,y), lty = 2, color = "grey", alpha = 0.7)+
+    geom_segment(data=sprp17,aes(x=0,xend=PC1,y=0,yend=PC2),
+                 arrow = arrow(length = unit(0.025, "npc"), type = "open"),
+                 lwd = .5)+
+    geom_text(data = sprp17,
+              aes(x = PC1*1.1, y =  PC2*1.1,
+                  label = taxa),
+              check_overlap = T, size = 3) +
+    stat_ellipse(geom="polygon", 
+                 aes(x=PC1,y=PC2,fill = treatment),
+                 data=i.env17p,
+                 alpha = 0.2, 
+                 show.legend = FALSE,
+                 level = 0.95)+
+    #    geom_polygon(data = hull17, aes(x=PC1,y=PC2,color=treatment,fill=treatment),alpha = 0.1)+
+    geom_point(data=i.env17p,aes(x=PC1,y=PC2,color=treatment),size=2)+
     theme_bw()+
-    theme(panel.grid = element_blank())+
+    theme(panel.grid = element_blank(),
+          legend.position = "none")+
     coord_fixed()+
-    ylim(-0.65,0.65)+
-    xlim(-0.65,0.65)+  
+    xlab("PC1 26.87%")+
+    ylab("PC2 20.53%")+
     scale_color_viridis_d(option="A",begin=0,end=0.6,"")+
     scale_fill_viridis_d(option="A",begin=0,end=0.6,""))
 
+(i17hull<-ggplot()+
+    ylim(-1,1)+
+    xlim(-1,1)+
+    geom_hline(aes(yintercept=0),linetype="dashed",color="grey")+
+    geom_vline(aes(xintercept=0),linetype="dashed",color="grey")+
+    geom_path(data = circ,aes(x,y), lty = 2, color = "grey", alpha = 0.7)+
+    geom_segment(data=sprp17,aes(x=0,xend=PC1,y=0,yend=PC2),
+                 arrow = arrow(length = unit(0.025, "npc"), type = "open"),
+                 lwd = .5)+
+    geom_text(data = sprp17,
+              aes(x = PC1*1.1, y =  PC2*1.1,
+                  label = taxa),
+              check_overlap = T, size = 3) +
+    # stat_ellipse(geom="polygon", 
+    #              aes(x=PC1,y=PC2,fill = treatment),
+    #              data=i.env17p,
+    #              alpha = 0.2, 
+    #              show.legend = FALSE,
+    #              level = 0.95)+
+    geom_polygon(data = hull17, aes(x=PC1,y=PC2,color=treatment,fill=treatment),alpha = 0.1)+
+    geom_point(data=i.env17p,aes(x=PC1,y=PC2,color=treatment),size=2)+
+    theme_bw()+
+    theme(panel.grid = element_blank(),
+          legend.position = "none")+
+    coord_fixed()+
+    xlab("PC1 26.87%")+
+    ylab("PC2 20.53%")+
+    scale_color_viridis_d(option="A",begin=0,end=0.6,"")+
+    scale_fill_viridis_d(option="A",begin=0,end=0.6,""))
+
+# can go back and look at which species are consistently important
+taxa<-bind_rows(sprp5,sprp12,sprp17)%>%
+  group_by(taxa)%>%
+  summarize(n=n())%>%
+  filter(n==3)
+
+devtools::install_github("thomasp85/patchwork")
+library(patchwork)
+i0+i5+i12+i17+plot_layout(widths = 1,heights = 1)
+
+i0hull+i5hull+i12hull+i17hull+plot_layout(widths = 1,heights = 1)
 
 # now look at univariate results
 
