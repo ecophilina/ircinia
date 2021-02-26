@@ -86,6 +86,7 @@ i.com0<-i0 %>% select(-treatment, -plot, -yr, -sampling, -season)
 
 i.com0$dummy<-1
 i.com0<-i.com0[,colSums(i.com0)!=0]
+
 # use hellinger: square root of method to standardize species data
 i.com.pa<-decostand(i.com,"pa")
 
@@ -123,6 +124,10 @@ RsquareAdj(i0.rda)
 
 # treatment does not explain a significant amount of variance between plots initially
 
+# confirming this with an anosim
+(i0.anosim<-anosim(i.com0.pa,i.env0$treatment,permutations = 999,distance="bray"))
+summary(i0.anosim)
+# the anosim results confirm this. 
 
 # now start building more and more complex models for experiment data
 #add in interactions
@@ -246,6 +251,8 @@ anova(i.rda.null,i.rda.prod)
 RsquareAdj(i.rda.yr.s.treat)$adj.r.squared
 RsquareAdj(i.rda.prod)$adj.r.squared
 
+#no
+
 #What about a model that uses sg grow instead of treatment
 sg.s.yr.mat.nop<-data.frame(model.matrix(~ yr*seas*sggrow, 
                                          contrasts=list(seas="contr.helmert",yr="contr.helmert")))[,-1]
@@ -340,83 +347,43 @@ plot(i.rda.best, scaling = 3, display = c("sp", "cn"))
 i.mod <- adonis2(i.com.hel~., data = tr.s.yr.mat.nop, method="euclidean", by="terms") 
 i.mod
 
-#this is where I stopped. I think the moral of the story is that the interaction between 
-# treatment, season, and year has an affect on the community
-# now we have to figure out what that is.
 
-# first going to make sure where there's a difference between treatments
+# first going to make sure where there's a difference between treatments using anosim
 
 # look at 1 month into experiment
-i.com1<-i.com[i.env$sampling==1,]
+i.com1<-i.com.pa[i.env$sampling==1,]
 i.com1<-i.com1[,colSums(i.com1)!=0]
 i.env1<-i.env[i.env$sampling==1,]
 
-i.com1.pa<-decostand(i.com1,"pa")
-i.com1.hel<-decostand(i.com1.pa,"hellinger")
-
-
-i1.rda.null<-rda(i.com1.hel~1)
-trt1<-as.factor(i.env1$treatment)
-trt1.mat<-data.frame(model.matrix(~ trt1, 
-                                  contrasts=list(trt1="contr.helmert")))[,-1]
-i1.rda<-rda(i.com1.hel~.,data=trt1.mat)
-RsquareAdj(i1.rda)
-(invert.s1<-anova(i1.rda.null,i1.rda))
+(i1.anosim<-anosim(i.com1,i.env1$treatment))
+# no difference
 
 # look at 5 months into experiment
-i.com5<-i.com[i.env$sampling==5,]
+i.com5<-i.com.pa[i.env$sampling==5,]
 i.com5<-i.com5[,colSums(i.com5)!=0]
 i.env5<-i.env[i.env$sampling==5,]
 
-i.com5.pa<-decostand(i.com5,"pa")
-i.com5.hel<-decostand(i.com5.pa,"hellinger")
-
-
-i5.rda.null<-rda(i.com5.hel~1)
-trt5<-as.factor(i.env5$treatment)
-trt5.mat<-data.frame(model.matrix(~ trt5, 
-                                  contrasts=list(trt5="contr.helmert")))[,-1]
-i5.rda<-rda(i.com5.hel~.,data=trt5.mat)
-RsquareAdj(i5.rda)
-(invert.s5<-anova(i5.rda.null,i5.rda))
-
-# treatment is significant by 5 months into the experiment. 
-# Does this hold in the next two samplings?
+(i5.anosim<-anosim(i.com5,i.env5$treatment))
+# Now we're getting more robust differences between treatments
 
 # look at 12 months into experiment
-i.com12<-i.com[i.env$sampling==12,]
+i.com12<-i.com.pa[i.env$sampling==12,]
 i.com12<-i.com12[,colSums(i.com12)!=0]
 i.env12<-i.env[i.env$sampling==12,]
 
-i.com12.pa<-decostand(i.com12,"pa")
-i.com12.hel<-decostand(i.com12.pa,"hellinger")
+(i12.anosim<-anosim(i.com12,i.env12$treatment))
 
-
-i12.rda.null<-rda(i.com12.hel~1)
-trt12<-as.factor(i.env12$treatment)
-trt12.mat<-data.frame(model.matrix(~ trt12, 
-                                  contrasts=list(trt12="contr.helmert")))[,-1]
-i12.rda<-rda(i.com12.hel~.,data=trt12.mat)
-RsquareAdj(i12.rda)
-(invert.s12<-anova(i12.rda.null,i12.rda))
-anova(i12.rda,by="axis",permutations = how(n=999))
+# not as different as at month 5 but still significantly different.
 
 # look at 17 months into experiment
-i.com17<-i.com[i.env$sampling==17,]
-i.com5<-i.com5[,colSums(i.com5)!=0]
+i.com17<-i.com.pa[i.env$sampling==17,]
+i.com17<-i.com17[,colSums(i.com17)!=0]
 i.env17<-i.env[i.env$sampling==17,]
 
-i.com17.pa<-decostand(i.com17,"pa")
-i.com17.hel<-decostand(i.com17.pa,"hellinger")
+(i17.anosim<-anosim(i.com17,i.env17$treatment))
+# and again back to being solidly different. 
 
-
-i17.rda.null<-rda(i.com17.hel~1)
-trt17<-as.factor(i.env17$treatment)
-trt17.mat<-data.frame(model.matrix(~ trt17, 
-                                   contrasts=list(trt17="contr.helmert")))[,-1]
-i17.rda<-rda(i.com17.hel~.,data=trt17.mat)
-RsquareAdj(i17.rda)
-(invert.s17<-anova(i17.rda.null,i17.rda))
+#this corresponds with the results of the RDA that treatment and season are important
 
 # treatment stays an important factor from 5 months on. 
 # at 5 months which treatments are different from each other?
@@ -424,48 +391,21 @@ RsquareAdj(i17.rda)
 i.com5.bf<-i.com5[i.env5$treatment!="real",]
 i.env5.bf<-i.env5[i.env5$treatment!="real",]
 
-i.com5bf.pa<-decostand(i.com5.bf,"pa")
-i.com5bf.hel<-decostand(i.com5bf.pa,"hellinger")
-
-i5bf.null<-rda(i.com5bf.hel~1)
-
-trt5bf<-as.factor(i.env5.bf$treatment)
-i5bf.rda<-rda(i.com5bf.hel~treatment,i.env5.bf)
-RsquareAdj(i5bf.rda)
-
-(invert.s5bf<-anova(i5bf.null,i5bf.rda))
+(i5bf.anosim<-anosim(i.com5.bf,i.env5.bf$treatment))
 
 # blank and fake aren't different
 
 i.com5.br<-i.com5[i.env5$treatment!="fake",]
 i.env5.br<-i.env5[i.env5$treatment!="fake",]
 
-i.com5br.pa<-decostand(i.com5.br,"pa")
-i.com5br.hel<-decostand(i.com5br.pa,"hellinger")
-
-i5br.null<-rda(i.com5br.hel~1)
-
-trt5br<-as.factor(i.env5.br$treatment)
-i5br.rda<-rda(i.com5br.hel~treatment,i.env5.br)
-RsquareAdj(i5br.rda)
-
-(invert.s5br<-anova(i5br.null,i5br.rda))
+(i5br.anosim<-anosim(i.com5.br,i.env5.br$treatment))
 
 # close but blank and real are not actually different
 
 i.com5.fr<-i.com5[i.env5$treatment!="blank",]
 i.env5.fr<-i.env5[i.env5$treatment!="blank",]
 
-i.com5fr.pa<-decostand(i.com5.fr,"pa")
-i.com5fr.hel<-decostand(i.com5fr.pa,"hellinger")
-
-i5fr.null<-rda(i.com5fr.hel~1)
-
-trt5fr<-as.factor(i.env5.fr$treatment)
-i5fr.rda<-rda(i.com5fr.hel~treatment,i.env5.fr)
-RsquareAdj(i5fr.rda)
-
-(invert.s5fr<-anova(i5fr.null,i5fr.rda))
+(i5fr.anosim<-anosim(i.com5.fr,i.env5.fr$treatment))
 
 # real and fake are different
 
@@ -475,48 +415,21 @@ RsquareAdj(i5fr.rda)
 i.com12.bf<-i.com12[i.env12$treatment!="real",]
 i.env12.bf<-i.env12[i.env12$treatment!="real",]
 
-i.com12bf.pa<-decostand(i.com12.bf,"pa")
-i.com12bf.hel<-decostand(i.com12bf.pa,"hellinger")
-
-i12bf.null<-rda(i.com12bf.hel~1)
-
-trt12bf<-as.factor(i.env12.bf$treatment)
-i12bf.rda<-rda(i.com12bf.hel~treatment,i.env12.bf)
-RsquareAdj(i12bf.rda)
-
-(invert.s12bf<-anova(i12bf.null,i12bf.rda))
+(i12bf.anosim<-anosim(i.com12.bf,i.env12.bf$treatment))
 
 # blank and fake aren't different
 
 i.com12.br<-i.com12[i.env12$treatment!="fake",]
 i.env12.br<-i.env12[i.env12$treatment!="fake",]
 
-i.com12br.pa<-decostand(i.com12.br,"pa")
-i.com12br.hel<-decostand(i.com12br.pa,"hellinger")
+(i12br.anosim<-anosim(i.com12.br,i.env12.br$treatment))
 
-i12br.null<-rda(i.com12br.hel~1)
-
-trt12br<-as.factor(i.env12.br$treatment)
-i12br.rda<-rda(i.com12br.hel~treatment,i.env12.br)
-RsquareAdj(i12br.rda)
-
-(invert.s12br<-anova(i12br.null,i12br.rda))
-
-# close but blank and real are not actually different
+# blank and real are not different
 
 i.com12.fr<-i.com12[i.env12$treatment!="blank",]
 i.env12.fr<-i.env12[i.env12$treatment!="blank",]
 
-i.com12fr.pa<-decostand(i.com12.fr,"pa")
-i.com12fr.hel<-decostand(i.com12fr.pa,"hellinger")
-
-i12fr.null<-rda(i.com12fr.hel~1)
-
-trt12fr<-as.factor(i.env12.fr$treatment)
-i12fr.rda<-rda(i.com12fr.hel~treatment,i.env12.fr)
-RsquareAdj(i12fr.rda)
-
-(invert.s12fr<-anova(i12fr.null,i12fr.rda))
+(i12fr.anosim<-anosim(i.com12.fr,i.env12.fr$treatment))
 
 # real and fake are different
 
@@ -525,53 +438,62 @@ RsquareAdj(i12fr.rda)
 i.com17.bf<-i.com17[i.env17$treatment!="real",]
 i.env17.bf<-i.env17[i.env17$treatment!="real",]
 
-i.com17bf.pa<-decostand(i.com17.bf,"pa")
-i.com17bf.hel<-decostand(i.com17bf.pa,"hellinger")
+(i17bf.anosim<-anosim(i.com17.bf,i.env17.bf$treatment))
 
-i17bf.null<-rda(i.com17bf.hel~1)
-
-trt17bf<-as.factor(i.env17.bf$treatment)
-i17bf.rda<-rda(i.com17bf.hel~treatment,i.env17.bf)
-RsquareAdj(i17bf.rda)
-
-(invert.s17bf<-anova(i17bf.null,i17bf.rda))
-
-# blank and fake ARE different
+# blank and fake are different
 
 i.com17.br<-i.com17[i.env17$treatment!="fake",]
 i.env17.br<-i.env17[i.env17$treatment!="fake",]
 
-i.com17br.pa<-decostand(i.com17.br,"pa")
-i.com17br.hel<-decostand(i.com17br.pa,"hellinger")
-
-i17br.null<-rda(i.com17br.hel~1)
-
-trt17br<-as.factor(i.env17.br$treatment)
-i17br.rda<-rda(i.com17br.hel~treatment,i.env17.br)
-RsquareAdj(i17br.rda)
-
-(invert.s17br<-anova(i17br.null,i17br.rda))
+(i17br.anosim<-anosim(i.com17.br,i.env17.br$treatment))
 
 # blank and real ARE different
 
 i.com17.fr<-i.com17[i.env17$treatment!="blank",]
 i.env17.fr<-i.env17[i.env17$treatment!="blank",]
 
-i.com17fr.pa<-decostand(i.com17.fr,"pa")
-i.com17fr.hel<-decostand(i.com17fr.pa,"hellinger")
-
-i17fr.null<-rda(i.com17fr.hel~1)
-
-trt17fr<-as.factor(i.env17.fr$treatment)
-i17fr.rda<-rda(i.com17fr.hel~treatment,i.env17.fr)
-RsquareAdj(i17fr.rda)
-
-(invert.s17fr<-anova(i17fr.null,i17fr.rda))
+(i17fr.anosim<-anosim(i.com17.fr,i.env17.fr$treatment))
 
 # real and fake are different
 
 # so sponge and structure control diverge from each other early on but neither is different
-# from the control until 17 months until all three plot types have a different community
+# from the control until 17 months until all treatments have a different community
+
+
+# which species are driving this difference?
+(i17.simper<-simper(i.com17,i.env17$treatment,permutations = 999))
+summary(i17.simper)
+
+# looks like ceriths, oysters, sea cucumbers, anemones, and blue crabs are both significant
+# and consistently contribute to differences between the groups here
+
+icom17diff<-bind_cols(i.com17[,colnames(i.com17) %in% c("blue crab",
+                                              "Anemone",
+                                              "cerith",
+                                              "sea cucumber",
+                                              "oyster")],
+                      i.env17)%>%
+  pivot_longer(1:5,names_to="taxa",values_to="presence")%>%
+  group_by(treatment,taxa,sampling)%>%
+  summarize(n.plots = sum(presence))%>%
+  mutate(treatment=factor(treatment,levels=c("blank","fake","real"),labels = c("Control","Structure Control","Sponge")))
+
+ggplot(data=icom17diff)+
+  geom_col(aes(x=taxa,y=n.plots,fill=treatment),width=.5,
+             position=position_dodge(.5))+
+  scale_fill_viridis_d(option="A",begin=0,end=0.6,"")+
+  # geom_point(aes(x=taxa, y=n.plots,color=treatment),
+  #            position=position_dodge(.5),size=5)+
+  scale_color_viridis_d(option="A",begin=0,end=0.6,"")+
+  theme_bw()+
+  theme(panel.grid = element_blank(),
+        axis.title = element_text(size=14),
+        axis.text = element_text(size=12),
+        legend.position = "top")+
+  ylab("Number of plots where taxa is present")
+  
+
+
 
 # make figures for this
 
