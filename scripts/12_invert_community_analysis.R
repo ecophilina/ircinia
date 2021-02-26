@@ -523,7 +523,7 @@ circ <- circleFun(center=c(0,0),diameter=sqrt(2/13),npoints = 500)
 
 
 spr0<-data.frame(init.scores$species)
-#sprp0<-data.frame(spr[abs(spr[,1])>=max(circ[,1])|abs(spr[,2])>=max(circ[,2]),])
+sprp0<-data.frame(spr0[abs(spr0[,1])>=max(circ[,1])|abs(spr0[,2])>=max(circ[,2]),])
 sprp0$taxa<-rownames(sprp0)
 sprp0<-sprp0%>%
   filter(taxa %in% c("Anemone","blue crab","cerith","little white snail","mantis shrimp"))
@@ -599,6 +599,8 @@ summary(i0.rda.null)$cont$importance
 
 
 # make figures for month 5
+i.com5.hel<-decostand(i.com5,"hellinger")
+i5.rda.null<-rda(i.com5.hel~1)
 m5.scores<-scores(i5.rda.null,scaling=1,1:2)
 
 i.env5p<-bind_cols(i.env5,data.frame(m5.scores$sites))
@@ -613,7 +615,7 @@ hull5 <- i.env5p %>%
   slice(chull(PC1, PC2))
 
 spr5<-data.frame(m5.scores$species)
-#sprp5<-data.frame(spr[abs(spr[,1])>=max(circ[,1])|abs(spr[,2])>=max(circ[,2]),])
+sprp5<-data.frame(spr5[abs(spr5[,1])>=max(circ[,1])|abs(spr5[,2])>=max(circ[,2]),])
 sprp5$taxa<-rownames(sprp5)
 sprp5<-sprp5%>%
   filter(taxa %in% c("Anemone","blue crab","cerith","little white snail","mantis shrimp"))
@@ -682,6 +684,9 @@ taxa<-rownames(sprp5)
     scale_fill_viridis_d(option="A",begin=0,end=0.6,""))
 
 # make figures for month 12
+i.com12.hel<-decostand(i.com12,"hellinger")
+i12.rda.null<-rda(i.com12.hel~1)
+
 m12.scores<-scores(i12.rda.null,scaling=1,1:2)
 
 i.env12p<-bind_cols(i.env12,data.frame(m12.scores$sites))
@@ -695,7 +700,7 @@ hull12 <- i.env12p %>%
   group_by(treatment)%>%
   slice(chull(PC1, PC2))
 
-spr12<-data.frame(m12.scores$species)
+sprp12<-data.frame(m12.scores$species)
 sprp12$taxa<-rownames(sprp12)
 sprp12<-sprp12%>%
   filter(taxa %in% c("Anemone","blue crab","cerith","little white snail","mantis shrimp"))
@@ -764,6 +769,9 @@ taxa<-rownames(sprp12)
 
 
 # make figures for month 17
+
+i.com17.hel<-decostand(i.com17,"hellinger")
+i17.rda.null<-rda(i.com17.hel~1)
 m17.scores<-scores(i17.rda.null,scaling=3,1:2)
 
 i.env17p<-bind_cols(i.env17,data.frame(m17.scores$sites))
@@ -777,7 +785,7 @@ hull17 <- i.env17p %>%
   group_by(treatment)%>%
   slice(chull(PC1, PC2))
 
-spr17<-data.frame(m17.scores$species)
+sprp17<-data.frame(m17.scores$species)
 sprp17$taxa<-rownames(sprp17)
 sprp17<-sprp17%>%
   filter(taxa %in% c("Anemone","blue crab","cerith","little white snail","mantis shrimp"))
