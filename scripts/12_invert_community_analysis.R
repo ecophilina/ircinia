@@ -2,6 +2,8 @@
 
 library(tidyverse)
 if(!require(vegan))install.packages("vegan"); library(vegan)
+# if(!require(ggpointdensity))devtools::install_github("LKremer/ggpointdensity"); library(ggpointdensity)
+if(!require(ggrepel))install.packages("ggrepel"); library(ggrepel)
 
 # bring in data
 source("scripts/03_reimport.R")  
@@ -98,11 +100,21 @@ i.scores<-data.frame(scores(i.pca,1:3)$sites)%>%
   bind_cols(i.env)
 
 ggplot(data=i.scores)+
+  geom_jitter(aes(x=PC1,y=PC2,
+    color=treatment),size=2,alpha=.5, 
+    width = 0.02, height = 0.02)+
+  scale_color_viridis_d(option="B",end=.8)+
+  facet_wrap(~sampling) + 
+  ggsidekick::theme_sleek()
+
+# PC2 and PC3 
+ggplot(data=i.scores)+
   geom_jitter(aes(x=PC2,y=PC3,
                  color=treatment),size=2,alpha=.65, 
-    width = 0.03, height = 0.03)+
+    width = 0.02, height = 0.02)+
   scale_color_viridis_d(option="B",end=.8)+
-  facet_wrap(~sampling)
+  facet_wrap(~sampling)+ 
+  ggsidekick::theme_sleek()
 
 #start examining statistical relationship
 
@@ -125,7 +137,7 @@ RsquareAdj(i0.rda)
 # treatment does not explain a significant amount of variance between plots initially
 
 # confirming this with an anosim
-(i0.anosim<-anosim(i.com0.pa,i.env0$treatment,permutations = 999,distance="bray"))
+(i0.anosim<-anosim(i.com.pa.0,i.env0$treatment,permutations = 999,distance="bray"))
 summary(i0.anosim)
 # the anosim results confirm this. 
 
@@ -155,7 +167,7 @@ anova(i.rda.null,i.rda.samp.treat.plot)
 # it is better than null
 # does including plot help
 tr.samp.mat.np<-data.frame(model.matrix(~ samp*trt, 
-                                     contrasts=list(trt="contr.helmert", seas="contr.helmert")))[,-1]
+               contrasts=list(trt="contr.helmert", seas="contr.helmert")))[,-1]
 i.rda.samp.treat<-rda(i.com.hel~.,data=tr.samp.mat.np)
 
 # check to see if plot should be included here
@@ -545,12 +557,25 @@ summary(i0.rda.null)$cont$importance
               aes(x = PC1*1.1, y =  PC2*1.1,
                   label = taxa),
               check_overlap = T, size = 3) +
+    
     stat_ellipse(geom="polygon", 
                  aes(x=PC1,y=PC2,fill = treatment),
                  data=i.env0p,
-                 alpha = 0.2, 
+                 alpha = 0.1, 
                  show.legend = FALSE,
                  level = 0.95)+
+    stat_ellipse(geom="polygon", aes(x=PC1,y=PC2,fill = treatment),
+      data=i.env0p, alpha = 0.2, show.legend = FALSE,
+      level = 0.75)+
+    stat_ellipse(geom="polygon", aes(x=PC1,y=PC2,fill = treatment),
+      data=i.env0p,alpha = 0.1, show.legend = FALSE,
+      level = 0.8)+
+    stat_ellipse(geom="polygon", aes(x=PC1,y=PC2,fill = treatment), 
+      data=i.env0p,alpha = 0.1, show.legend = FALSE,
+      level = 0.85)+
+    stat_ellipse(geom="polygon", aes(x=PC1,y=PC2,fill = treatment),
+      data=i.env0p, alpha = 0.1, show.legend = FALSE,
+      level = 0.9)+
 #    geom_polygon(data = hull0, aes(x=PC1,y=PC2,color=treatment,fill=treatment),alpha = 0.1)+
     geom_point(data=i.env0p,aes(x=PC1,y=PC2,color=treatment),size=2)+
     theme_bw()+
@@ -582,7 +607,8 @@ summary(i0.rda.null)$cont$importance
     #              alpha = 0.2, 
     #              show.legend = FALSE,
     #              level = 0.95)+
-       geom_polygon(data = hull0, aes(x=PC1,y=PC2,color=treatment,fill=treatment),alpha = 0.1)+
+    geom_polygon(data = hull0, 
+         aes(x=PC1,y=PC2,color=treatment,fill=treatment),alpha = 0.1)+
     geom_point(data=i.env0p,aes(x=PC1,y=PC2,color=treatment),size=2)+
     theme_bw()+
     theme(panel.grid = element_blank(),
@@ -624,26 +650,37 @@ taxa<-rownames(sprp5)
 
 
 (i5<-ggplot()+
-    ylim(-1.2,1.2)+
-    xlim(-1.2,1.2)+
+    ylim(-1,1)+
+    xlim(-1,1)+
     geom_hline(aes(yintercept=0),linetype="dashed",color="grey")+
     geom_vline(aes(xintercept=0),linetype="dashed",color="grey")+
     geom_path(data = circ,aes(x,y), lty = 2, color = "grey", alpha = 0.7)+
     geom_segment(data=sprp5,aes(x=0,xend=PC1,y=0,yend=PC2),
                  arrow = arrow(length = unit(0.025, "npc"), type = "open"),
                  lwd = .5)+
-    geom_text(data = sprp5,
-              aes(x = PC1*1.1, y =  PC2*1.1,
-                  label = taxa),
-              check_overlap = T, size = 3) +
-    stat_ellipse(geom="polygon", 
-                 aes(x=PC1,y=PC2,fill = treatment),
-                 data=i.env5p,
-                 alpha = 0.2, 
-                 show.legend = FALSE,
-                 level = 0.95)+
+    # geom_text(check_overlap = T, 
+  geom_text_repel(min.segment.length = 5, #point.padding = 0.2, direction = "both",
+      nudge_x = 0.17, nudge_y = 0.07,
+      aes(x = PC1, y =  PC2, label = taxa),
+      size = 3, data=sprp5) +
+    stat_ellipse(geom="polygon", aes(x=PC1,y=PC2,fill = treatment),
+      data=i.env5p, alpha = 0.2, show.legend = FALSE,
+      level = 0.75)+
+    stat_ellipse(geom="polygon", aes(x=PC1,y=PC2,fill = treatment),
+      data=i.env5p,alpha = 0.1, show.legend = FALSE,
+      level = 0.8)+
+    stat_ellipse(geom="polygon", aes(x=PC1,y=PC2,fill = treatment), 
+      data=i.env5p,alpha = 0.1, show.legend = FALSE,
+      level = 0.85)+
+    stat_ellipse(geom="polygon", aes(x=PC1,y=PC2,fill = treatment),
+      data=i.env5p, alpha = 0.1, show.legend = FALSE,
+      level = 0.9)+
+    # stat_ellipse(geom="polygon", aes(x=PC1,y=PC2,fill = treatment),
+    #   data=i.env5p, alpha = 0.1, show.legend = FALSE,
+    #   level = 0.95)+
     #    geom_polygon(data = hull0, aes(x=PC1,y=PC2,color=treatment,fill=treatment),alpha = 0.1)+
-    geom_point(data=i.env5p,aes(x=PC1,y=PC2,color=treatment),size=2)+
+    geom_jitter(data=i.env5p,aes(x=PC1,y=PC2,color=treatment),
+      size=2, alpha = 0.75, height = 0.03, width = 0.03)+
     theme_bw()+
     theme(panel.grid = element_blank(),
           legend.position = "none")+
@@ -659,21 +696,33 @@ taxa<-rownames(sprp5)
     geom_hline(aes(yintercept=0),linetype="dashed",color="grey")+
     geom_vline(aes(xintercept=0),linetype="dashed",color="grey")+
     geom_path(data = circ,aes(x,y), lty = 2, color = "grey", alpha = 0.7)+
+    # geom_polygon(data = hull12, aes(x=PC1,y=PC2,color=treatment,fill=treatment),
+    #   alpha = 0.3, lwd=0.1)+
+    stat_density2d(geom="polygon", method="ndensity",
+      aes(x=PC1, y=PC2, fill=treatment), alpha = 0.2, bins = 2,
+      data=filter(i.env5p, treatment == "blank"), show.legend = FALSE) +
+    stat_density2d(geom="polygon", method="ndensity",
+      aes(x=PC1, y=PC2, fill = treatment), alpha = 0.2, bins = 2,
+      data=filter(i.env5p, treatment=="fake"), show.legend = FALSE) +
+    stat_density2d(geom="polygon", method="ndensity",
+      aes(x=PC1, y=PC2, fill = treatment), alpha = 0.2, bins = 2,
+      data=filter(i.env5p, treatment=="real"), show.legend = FALSE) +
+    geom_jitter(data=i.env5p,aes(x=PC1, y=PC2, color=treatment), 
+      width = 0.01, height = 0.01, alpha =0.75, size=2)+
+    geom_segment(data=sprp5,aes(x=0, xend=PC1, y=0, yend=PC2),
+      arrow = arrow(length = unit(0.025, "npc"), type = "open"),
+      lwd = .5)+
+    geom_text_repel(min.segment.length = 5, #point.padding = 0.2, direction = "both",
+      nudge_x = 0.17, nudge_y = 0.07,
+      # geom_text(check_overlap = T, 
+      #   position=position_jitter(width = -0.3, height = 0.1
+      #     # width=ifelse(sprp12$taxa=='little white snail', -0.2, 0),
+      #     # height=ifelse(sprp12$taxa=='little white snail', -0.2, 0)
+      #     ), 
+      aes(x = PC1, y =  PC2, label = taxa), size = 3, data = sprp5) +
     geom_segment(data=sprp5,aes(x=0,xend=PC1,y=0,yend=PC2),
                  arrow = arrow(length = unit(0.025, "npc"), type = "open"),
                  lwd = .5)+
-    geom_text(data = sprp5,
-              aes(x = PC1*1.1, y =  PC2*1.1,
-                  label = taxa),
-              check_overlap = T, size = 3) +
-    # stat_ellipse(geom="polygon", 
-    #              aes(x=PC1,y=PC2,fill = treatment),
-    #              data=i.env5p,
-    #              alpha = 0.2, 
-    #              show.legend = FALSE,
-    #              level = 0.95)+
-    geom_polygon(data = hull5, aes(x=PC1,y=PC2,color=treatment,fill=treatment),alpha = 0.1)+
-    geom_point(data=i.env5p,aes(x=PC1,y=PC2,color=treatment),size=2)+
     theme_bw()+
     theme(panel.grid = element_blank(),
           legend.position = "none")+
@@ -708,24 +757,34 @@ taxa<-rownames(sprp12)
 
 
 (i12<-ggplot()+
-    ylim(-1.2,1.2)+
-    xlim(-1.2,1.2)+
+    ylim(-1,1)+
+    xlim(-1,1)+
     geom_hline(aes(yintercept=0),linetype="dashed",color="grey")+
     geom_vline(aes(xintercept=0),linetype="dashed",color="grey")+
     geom_path(data = circ,aes(x,y), lty = 2, color = "grey", alpha = 0.7)+
     geom_segment(data=sprp12,aes(x=0,xend=PC1,y=0,yend=PC2),
                  arrow = arrow(length = unit(0.025, "npc"), type = "open"),
                  lwd = .5)+
-    geom_text(data = sprp12,
-              aes(x = PC1*1.1, y =  PC2*1.1,
-                  label = taxa),
-              check_overlap = T, size = 3) +
-    stat_ellipse(geom="polygon", 
-                 aes(x=PC1,y=PC2,fill = treatment),
-                 data=i.env12p,
-                 alpha = 0.2, 
-                 show.legend = FALSE,
-                 level = 0.95)+
+    # geom_text(check_overlap = T, 
+      geom_text_repel(min.segment.length = 5, #point.padding = 0.2, direction = "both",
+        nudge_x = -0.17, nudge_y = -0.07,
+              aes(x = PC1, y =  PC2, label = taxa),
+              size = 3, data=sprp12) +
+    stat_ellipse(geom="polygon", aes(x=PC1,y=PC2,fill = treatment),
+      data=i.env12p, alpha = 0.2, show.legend = FALSE,
+      level = 0.75)+
+    stat_ellipse(geom="polygon", aes(x=PC1,y=PC2,fill = treatment),
+      data=i.env12p,alpha = 0.1, show.legend = FALSE,
+      level = 0.8)+
+    stat_ellipse(geom="polygon", aes(x=PC1,y=PC2,fill = treatment), 
+      data=i.env12p,alpha = 0.1, show.legend = FALSE,
+      level = 0.85)+
+    stat_ellipse(geom="polygon", aes(x=PC1,y=PC2,fill = treatment),
+      data=i.env12p, alpha = 0.1, show.legend = FALSE,
+      level = 0.9)+
+    # stat_ellipse(geom="polygon", aes(x=PC1,y=PC2,fill = treatment),
+      # data=i.env12p, alpha = 0.2, show.legend = FALSE,
+      # level = 0.95)+
     #    geom_polygon(data = hull0, aes(x=PC1,y=PC2,color=treatment,fill=treatment),alpha = 0.1)+
     geom_point(data=i.env12p,aes(x=PC1,y=PC2,color=treatment),size=2)+
     theme_bw()+
@@ -743,21 +802,30 @@ taxa<-rownames(sprp12)
     geom_hline(aes(yintercept=0),linetype="dashed",color="grey")+
     geom_vline(aes(xintercept=0),linetype="dashed",color="grey")+
     geom_path(data = circ,aes(x,y), lty = 2, color = "grey", alpha = 0.7)+
-    geom_segment(data=sprp12,aes(x=0,xend=PC1,y=0,yend=PC2),
+    # geom_polygon(data = hull12, aes(x=PC1,y=PC2,color=treatment,fill=treatment),
+    #   alpha = 0.3, lwd=0.1)+
+    stat_density2d(geom="polygon", method="ndensity",
+      aes(x=PC1, y=PC2, fill=treatment), alpha = 0.2, bins = 2,
+      data=filter(i.env12p, treatment == "blank"), show.legend = FALSE) +
+    stat_density2d(geom="polygon", method="ndensity",
+      aes(x=PC1, y=PC2, fill = treatment), alpha = 0.2, bins = 2,
+      data=filter(i.env12p, treatment=="fake"), show.legend = FALSE) +
+    stat_density2d(geom="polygon", method="ndensity",
+      aes(x=PC1, y=PC2, fill = treatment), alpha = 0.2, bins = 2,
+      data=filter(i.env12p, treatment=="real"), show.legend = FALSE) +
+    geom_jitter(data=i.env12p,aes(x=PC1, y=PC2, color=treatment), 
+      width = 0.01, height = 0.01, alpha =0.75, size=2)+
+    geom_segment(data=sprp12,aes(x=0, xend=PC1, y=0, yend=PC2),
                  arrow = arrow(length = unit(0.025, "npc"), type = "open"),
                  lwd = .5)+
-    geom_text(data = sprp12,
-              aes(x = PC1*1.1, y =  PC2*1.1,
-                  label = taxa),
-              check_overlap = T, size = 3) +
-    # stat_ellipse(geom="polygon", 
-    #              aes(x=PC1,y=PC2,fill = treatment),
-    #              data=i.env12p,
-    #              alpha = 0.2, 
-    #              show.legend = FALSE,
-    #              level = 0.95)+
-       geom_polygon(data = hull12, aes(x=PC1,y=PC2,color=treatment,fill=treatment),alpha = 0.1)+
-    geom_point(data=i.env12p,aes(x=PC1,y=PC2,color=treatment),size=2)+
+    geom_text_repel(min.segment.length = 5, #point.padding = 0.2, direction = "both",
+      nudge_x = -0.17, nudge_y = -0.07,
+    # geom_text(check_overlap = T, 
+    #   position=position_jitter(width = -0.3, height = 0.1
+    #     # width=ifelse(sprp12$taxa=='little white snail', -0.2, 0),
+    #     # height=ifelse(sprp12$taxa=='little white snail', -0.2, 0)
+    #     ), 
+      aes(x = PC1, y =  PC2, label = taxa), size = 3, data = sprp12) +
     theme_bw()+
     theme(panel.grid = element_blank(),
           legend.position = "none")+
@@ -791,29 +859,83 @@ sprp17<-sprp17%>%
   filter(taxa %in% c("Anemone","blue crab","cerith","little white snail","mantis shrimp"))
 taxa<-rownames(sprp17)
 
+(i17<-ggplot()+
+    ylim(-1,1)+
+    xlim(-1,1.15)+
+    geom_hline(aes(yintercept=0),linetype="dashed",color="grey")+
+    geom_vline(aes(xintercept=0),linetype="dashed",color="grey")+
+    geom_path(data = circ,aes(x,y), lty = 2, color = "grey", alpha = 0.7)+
+  stat_ellipse(geom="polygon", aes(x=PC1,y=PC2,fill = treatment),
+    data=i.env17p, alpha = 0.2, show.legend = FALSE,
+    level = 0.75)+
+  stat_ellipse(geom="polygon", aes(x=PC1,y=PC2,fill = treatment),
+    data=i.env17p,alpha = 0.1, show.legend = FALSE,
+    level = 0.8)+
+  stat_ellipse(geom="polygon", aes(x=PC1,y=PC2,fill = treatment),
+    data=i.env17p,alpha = 0.1, show.legend = FALSE,
+    level = 0.85)+
+  stat_ellipse(geom="polygon", aes(x=PC1,y=PC2,fill = treatment),
+    data=i.env17p, alpha = 0.1, show.legend = FALSE,
+    level = 0.9)+
+  # stat_ellipse(geom="polygon", aes(x=PC1,y=PC2,fill = treatment),
+  #   data=i.env17p, alpha = 0.2, show.legend = FALSE,
+  #   level = 0.95)+
+  # geom_polygon(data = hull17, aes(x=PC1,y=PC2,color=treatment,fill=treatment),
+  #   alpha = 0.1)+
+  geom_jitter(data=i.env17p, aes(x=PC1, y=PC2, color=treatment), 
+    width = 0.01, height = 0.01, alpha =0.75, size=2)+
+  geom_segment(data=sprp17,aes(x=0,xend=PC1,y=0,yend=PC2),
+    arrow = arrow(length = unit(0.025, "npc"), type = "open"),
+    lwd = .5)+
+  geom_text_repel(min.segment.length = 5, #point.padding = 0.2, direction = "both",
+    nudge_x = -0.15, nudge_y = 0.09,
+    aes(x = PC1, y =  PC2, label = taxa),
+  # geom_text(check_overlap = T, aes(x = PC1, y =  PC2, label = taxa),
+  #   position=position_jitter(width = -0.3, height = 0.1
+  #     # width=ifelse(sprp12$taxa=='little white snail', -0.2, 0),
+  #     # height=ifelse(sprp12$taxa=='little white snail', -0.2, 0)
+  #     ), 
+      size = 3, data = sprp17) +
+    theme_bw()+
+    theme(panel.grid = element_blank(),
+      legend.position = "none")+
+    coord_fixed()+
+    xlab("PC1 26.87%")+
+    ylab("PC2 20.53%")+
+    scale_color_viridis_d(option="A",begin=0,end=0.6,"")+
+    scale_fill_viridis_d(option="A",begin=0,end=0.6,""))
 
 
 (i17<-ggplot()+
-    ylim(-1.2,1.2)+
-    xlim(-1.2,1.2)+
+    ylim(-1,1)+
+    xlim(-1,1.15)+
     geom_hline(aes(yintercept=0),linetype="dashed",color="grey")+
     geom_vline(aes(xintercept=0),linetype="dashed",color="grey")+
     geom_path(data = circ,aes(x,y), lty = 2, color = "grey", alpha = 0.7)+
-    geom_segment(data=sprp17,aes(x=0,xend=PC1,y=0,yend=PC2),
-                 arrow = arrow(length = unit(0.025, "npc"), type = "open"),
-                 lwd = .5)+
-    geom_text(data = sprp17,
-              aes(x = PC1*1.1, y =  PC2*1.1,
-                  label = taxa),
-              check_overlap = T, size = 3) +
-    stat_ellipse(geom="polygon", 
-                 aes(x=PC1,y=PC2,fill = treatment),
-                 data=i.env17p,
-                 alpha = 0.2, 
-                 show.legend = FALSE,
-                 level = 0.95)+
+    stat_density2d(geom="polygon", method="ndensity",
+      aes(x=PC1, y=PC2, fill=treatment), alpha = 0.2, bins = 2,
+      data=filter(i.env17p, treatment=="blank"), show.legend = FALSE) +
+    stat_density2d(geom="polygon", method="ndensity",
+      aes(x=PC1, y=PC2, fill=treatment), alpha = 0.2, bins = 2,
+      data=filter(i.env17p, treatment=="fake"), show.legend = FALSE) +
+    stat_density2d(geom="polygon", method="ndensity",
+      aes(x=PC1, y=PC2, fill=treatment), alpha = 0.2, bins = 2,
+      data=filter(i.env17p, treatment=="real"), show.legend = FALSE) +
+    geom_jitter(data=i.env17p, aes(x=PC1, y=PC2, color=treatment), 
+      width = 0.01, height = 0.01, alpha =0.75, size=2)+
     #    geom_polygon(data = hull17, aes(x=PC1,y=PC2,color=treatment,fill=treatment),alpha = 0.1)+
-    geom_point(data=i.env17p,aes(x=PC1,y=PC2,color=treatment),size=2)+
+    geom_segment(data=sprp17,aes(x=0,xend=PC1,y=0,yend=PC2),
+      arrow = arrow(length = unit(0.025, "npc"), type = "open"),
+      lwd = .5)+
+    geom_text_repel(min.segment.length = 5, #point.padding = 0.2, direction = "both",
+      nudge_x = -0.15, nudge_y = 0.09,
+      aes(x = PC1, y =  PC2, label = taxa),
+      # geom_text(check_overlap = T, aes(x = PC1, y =  PC2, label = taxa),
+      #   position=position_jitter(width = -0.3, height = 0.1
+      #     # width=ifelse(sprp12$taxa=='little white snail', -0.2, 0),
+      #     # height=ifelse(sprp12$taxa=='little white snail', -0.2, 0)
+      #     ), 
+      size = 3, data = sprp17) +
     theme_bw()+
     theme(panel.grid = element_blank(),
           legend.position = "none")+
@@ -823,35 +945,6 @@ taxa<-rownames(sprp17)
     scale_color_viridis_d(option="A",begin=0,end=0.6,"")+
     scale_fill_viridis_d(option="A",begin=0,end=0.6,""))
 
-(i17hull<-ggplot()+
-    ylim(-1,1)+
-    xlim(-1,1)+
-    geom_hline(aes(yintercept=0),linetype="dashed",color="grey")+
-    geom_vline(aes(xintercept=0),linetype="dashed",color="grey")+
-    geom_path(data = circ,aes(x,y), lty = 2, color = "grey", alpha = 0.7)+
-    geom_segment(data=sprp17,aes(x=0,xend=PC1,y=0,yend=PC2),
-                 arrow = arrow(length = unit(0.025, "npc"), type = "open"),
-                 lwd = .5)+
-    geom_text(data = sprp17,
-              aes(x = PC1*1.1, y =  PC2*1.1,
-                  label = taxa),
-              check_overlap = T, size = 3) +
-    # stat_ellipse(geom="polygon", 
-    #              aes(x=PC1,y=PC2,fill = treatment),
-    #              data=i.env17p,
-    #              alpha = 0.2, 
-    #              show.legend = FALSE,
-    #              level = 0.95)+
-    geom_polygon(data = hull17, aes(x=PC1,y=PC2,color=treatment,fill=treatment),alpha = 0.1)+
-    geom_point(data=i.env17p,aes(x=PC1,y=PC2,color=treatment),size=2)+
-    theme_bw()+
-    theme(panel.grid = element_blank(),
-          legend.position = "none")+
-    coord_fixed()+
-    xlab("PC1 26.87%")+
-    ylab("PC2 20.53%")+
-    scale_color_viridis_d(option="A",begin=0,end=0.6,"")+
-    scale_fill_viridis_d(option="A",begin=0,end=0.6,""))
 
 # can go back and look at which species are consistently important
 taxa<-bind_rows(sprp5,sprp12,sprp17)%>%
