@@ -545,25 +545,28 @@ taxa<-rownames(sprp0)
 summary(i0.rda.null)$cont$importance
 
 (i0<-ggplot()+
-    ylim(-1.2,1.2)+
-    xlim(-1.2,1.2)+
+    ylim(-1,1)+
+    xlim(-1,1)+
     geom_hline(aes(yintercept=0),linetype="dashed",color="grey")+
     geom_vline(aes(xintercept=0),linetype="dashed",color="grey")+
     geom_path(data = circ,aes(x,y), lty = 2, color = "grey", alpha = 0.7)+
     geom_segment(data=sprp0,aes(x=0,xend=PC1,y=0,yend=PC2),
                  arrow = arrow(length = unit(0.025, "npc"), type = "open"),
                  lwd = .5)+
-    geom_text(data = sprp0,
-              aes(x = PC1*1.1, y =  PC2*1.1,
-                  label = taxa),
-              check_overlap = T, size = 3) +
-    
-    stat_ellipse(geom="polygon", 
-                 aes(x=PC1,y=PC2,fill = treatment),
-                 data=i.env0p,
-                 alpha = 0.1, 
-                 show.legend = FALSE,
-                 level = 0.95)+
+      geom_text_repel(min.segment.length = 5, #point.padding = 0.2, direction = "both",
+        nudge_x = 0, nudge_y = -0.07,  
+      # geom_text(check_overlap = T, 
+      #   position=position_jitter(width = -0.3, height = 0.1
+      #     # width=ifelse(sprp12$taxa=='little white snail', -0.2, 0),
+      #     # height=ifelse(sprp12$taxa=='little white snail', -0.2, 0)
+      #     ), 
+      aes(x = PC1, y =  PC2, label = taxa), size = 3, data = sprp0) +
+    # stat_ellipse(geom="polygon", 
+    #              aes(x=PC1,y=PC2,fill = treatment),
+    #              data=i.env0p,
+    #              alpha = 0.1, 
+    #              show.legend = FALSE,
+    #              level = 0.95)+
     stat_ellipse(geom="polygon", aes(x=PC1,y=PC2,fill = treatment),
       data=i.env0p, alpha = 0.2, show.legend = FALSE,
       level = 0.75)+
@@ -597,19 +600,30 @@ summary(i0.rda.null)$cont$importance
     geom_segment(data=sprp0,aes(x=0,xend=PC1,y=0,yend=PC2),
                  arrow = arrow(length = unit(0.025, "npc"), type = "open"),
                  lwd = .5)+
-    geom_text(data = sprp0,
-              aes(x = PC1*1.1, y =  PC2*1.1,
-                  label = taxa),
-              check_overlap = T, size = 3) +
-    # stat_ellipse(geom="polygon", 
-    #              aes(x=PC1,y=PC2,fill = treatment),
-    #              data=i.env0p,
-    #              alpha = 0.2, 
-    #              show.legend = FALSE,
-    #              level = 0.95)+
-    geom_polygon(data = hull0, 
-         aes(x=PC1,y=PC2,color=treatment,fill=treatment),alpha = 0.1)+
-    geom_point(data=i.env0p,aes(x=PC1,y=PC2,color=treatment),size=2)+
+    # geom_polygon(data = hull12, aes(x=PC1,y=PC2,color=treatment,fill=treatment),
+    #   alpha = 0.3, lwd=0.1)+
+    stat_density2d(geom="polygon", method="ndensity",
+      aes(x=PC1, y=PC2, fill=treatment), alpha = 0.2, bins = 2,
+      data=filter(i.env0p, treatment == "Control"), show.legend = FALSE) +
+    stat_density2d(geom="polygon", method="ndensity",
+      aes(x=PC1, y=PC2, fill = treatment), alpha = 0.2, bins = 2,
+      data=filter(i.env0p, treatment=="Structure Control"), show.legend = FALSE) +
+    stat_density2d(geom="polygon", method="ndensity",
+      aes(x=PC1, y=PC2, fill = treatment), alpha = 0.2, bins = 2,
+      data=filter(i.env0p, treatment=="Sponge"), show.legend = FALSE) +
+    geom_jitter(data=i.env0p,aes(x=PC1, y=PC2, color=treatment), 
+      width = 0.01, height = 0.01, alpha =0.75, size=2)+
+    geom_segment(data=sprp0,aes(x=0, xend=PC1, y=0, yend=PC2),
+      arrow = arrow(length = unit(0.025, "npc"), type = "open"),
+      lwd = .5)+
+    geom_text_repel(min.segment.length = 5, #point.padding = 0.2, direction = "both",
+      nudge_x = 0, nudge_y = -0.07,
+      # geom_text(check_overlap = T, 
+      #   position=position_jitter(width = -0.3, height = 0.1
+      #     # width=ifelse(sprp12$taxa=='little white snail', -0.2, 0),
+      #     # height=ifelse(sprp12$taxa=='little white snail', -0.2, 0)
+      #     ), 
+      aes(x = PC1, y =  PC2, label = taxa), size = 3, data = sprp0) +
     theme_bw()+
     theme(panel.grid = element_blank(),
           legend.position = c(.14,0.95),
@@ -619,9 +633,6 @@ summary(i0.rda.null)$cont$importance
     ylab("PC2 16.54%")+
     scale_color_viridis_d(option="A",begin=0,end=0.6,"")+
     scale_fill_viridis_d(option="A",begin=0,end=0.6,""))
-
-
-
 
 
 # make figures for month 5
