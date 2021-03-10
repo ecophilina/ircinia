@@ -107,7 +107,7 @@ f.scores<-data.frame(scores(f.pca,1:3)$sites)%>%
   bind_cols(f.env)
 
 ggplot(data=f.scores)+
-  geom_jitter(aes(x=PC2,y=PC3,
+  geom_jitter(aes(x=PC1,y=PC2,
                   color=treatment),size=2,alpha=.65, 
               width = 0.03, height = 0.03)+
   scale_color_viridis_d(option="B",end=.8)+

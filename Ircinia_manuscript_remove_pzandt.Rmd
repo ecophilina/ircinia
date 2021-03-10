@@ -43,6 +43,25 @@ Positive interactions, or facilitation between species, are particularly importa
 Traditionally, research has focused on the mechanisms and consequences of facilitation  by foundation species e.g.,[@hughes2014; @borst2018; @archer2020a].
 However, foundation species are often facilitated by members of their associated assemblages [@gagnon2020; @peterson2013; @ellison1996] and it is becoming increasingly evident how important these interactions may be for ecosystem stability [@vanderheide2020].\par
 
+Recent theoretical work by van der Heide et al. (2020) showed that facultative facilitation of foundations species has the potential to create non-linear ecosystem dynamics in response to stressors. 
+Further, these interactions can increase the range of environmental conditions over which ecosystem degradation will continue once it has begun.
+Consequently, it is important to understand which species facilitate foundation species, particularly in vulnerable coastal ecosystems.\par
+
+Seagrass beds are an important coastal ecosystem worldwide. 
+They help to attenuate wave energy [@fonseca1992] and stabilize sediments [@folmer2012], store large amounts of carbon [@fourqurean2012], and are important sites for nutrient cycling [@hemminga1991]. 
+Seagrass beds also act as hot spots of productivity with diverse and abundance communities of macroalgae, invertebrates, and fish [@duffy2006]. 
+The communities associated with seagrass beds maintain important links with other coastal ecosystems, such as coral reefs, by acting as a nursery habitat [@heck2003; @adams2006] and as feeding grounds [@meyer1983; @yeager2012]. 
+Unfortunately, seagrass habitats are under threat from myriad anthropogenic impacts that have driven significant worldwide declines [@orth2006; @waycott2009].\par
+
+Seagrasses are often facilitated by filter feeders, such as bivalves [@gagnon2020].
+Bivalves can facilitate seagrasses through a variety of mechanisms including decreasing turbidity [e.g., @wall2008] and increasing nutrient availability [e.g., @reusch1994].
+Sponges, another common taxa group in tropical and sub-tropical seagrass meadows [@archer2015], are also efficient filter feeders [@reiswig1971; @reiswig1974] with the potential to strongly impact nutrient availability [@southwell2008a; @degoeij2013; @archer2017].
+Yet, how sponges influence seagrasses and other seagrass bed primary producers is generally not well-understood. 
+Despite the paucity of studies, there is some evidence that sponges can influence the growth and abundance of seagrass in a context-dependent manner [@archer2015; @archer2018c].
+
+**I got stuck here. Need a brain break or some help bringing the intro home. ** 
+
+
   
 # Methods  
 
@@ -64,7 +83,7 @@ The 1 m distance quadrat was placed immediately adjacent to the 0 distance quadr
 Macroalgae were identified to genus and counts were summed across the three 1 m^2^ quadrats. 
 Where individuals were difficult to distinguish (e.g. *Laurencia* spp.) clumps of algae were recorded as individuals. 
 If identification was not possible *in situ*, a representative sample was photographed and subsequently collected. 
-Three species of seagrass were observed in the experimental plots: *Thalassia testudinum*, *Syringodium filliforme*, and *Halodule wrightii*. 
+Three species of seagrass were observed in the experimental plots: *T. testudinum*, *Syringodium filliforme*, and *Halodule wrightii*. 
 Shoots densities of these species were counted within four 20 cm x 20 cm "sub-quadrats" that were placed haphazardly within each of the quadrats described above. 
 *S. filliforme* and *H. wrightii* were initially rare and patchily distributed (combined density (mean ± sd) of 149.2 ± 172 shoots m^-2^, compared to *T. testudinum*'s initial density of 788.1 ± 386.2 shoots m^-2^). 
 Therefore our counts of *S. filliforme* and *H. wrightii* were pooled, and growth and nutrient content were only measured in *T. testudinum*. 
