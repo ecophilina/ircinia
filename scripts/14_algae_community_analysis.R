@@ -322,107 +322,108 @@ a.env17<-a.env[a.env$sampling==17,]
 
 (a17.anosim<-anosim(a.com17,a.env17$treatment))
 
-# Significantly ifferent but R isn't quite as large.
+# Significantly different but R isn't quite as large.
 
 #I think this corresponds with the results of the RDA that year season and treatment are important
 
 # treatment stays an important factor from 5 months on. 
 # at 5 months which treatments are different from each other?
+#This first anosim compares blank and fake treatment at 5 months
+a.com5.bf<-a.com5[a.env5$treatment!="real",]
+a.env5.bf<-a.env5[a.env5$treatment!="real",]
 
-f.com5.bf<-f.com5[f.env5$treatment!="real",]
-f.env5.bf<-f.env5[f.env5$treatment!="real",]
-
-(f5bf.anosim<-anosim(f.com5.bf,f.env5.bf$treatment))
+(a5bf.anosim<-anosim(a.com5.bf,a.env5.bf$treatment))
 
 # blank and fake aren't different
 
-f.com5.br<-f.com5[f.env5$treatment!="fake",]
-f.env5.br<-f.env5[f.env5$treatment!="fake",]
+a.com5.br<-a.com5[a.env5$treatment!="fake",]
+a.env5.br<-a.env5[a.env5$treatment!="fake",]
 
-(f5br.anosim<-anosim(f.com5.br,f.env5.br$treatment))
+(a5br.anosim<-anosim(a.com5.br,a.env5.br$treatment))
 
-# blank and real are VERY different
+# blank and real aren't different
 
-f.com5.fr<-f.com5[f.env5$treatment!="blank",]
-f.env5.fr<-f.env5[f.env5$treatment!="blank",]
+a.com5.fr<-a.com5[a.env5$treatment!="blank",]
+a.env5.fr<-a.env5[a.env5$treatment!="blank",]
 
-(f5fr.anosim<-anosim(f.com5.fr,f.env5.fr$treatment))
+(a5fr.anosim<-anosim(a.com5.fr,a.env5.fr$treatment))
 
-# real and fake are different
+# real and fake aren't different
 
 
 # at 12 months which treatments are different from each other?
 
-f.com12.bf<-f.com12[f.env12$treatment!="real",]
-f.env12.bf<-f.env12[f.env12$treatment!="real",]
+a.com12.bf<-a.com12[a.env12$treatment!="real",]
+a.env12.bf<-a.env12[a.env12$treatment!="real",]
 
-(f12bf.anosim<-anosim(f.com12.bf,f.env12.bf$treatment))
+(a12bf.anosim<-anosim(a.com12.bf,a.env12.bf$treatment))
 
-# blank and fake aren't different
+# blank and fake are significantly different
 
-f.com12.br<-f.com12[f.env12$treatment!="fake",]
-f.env12.br<-f.env12[f.env12$treatment!="fake",]
+a.com12.br<-a.com12[a.env12$treatment!="fake",]
+a.env12.br<-a.env12[a.env12$treatment!="fake",]
 
-(f12br.anosim<-anosim(f.com12.br,f.env12.br$treatment))
+(a12br.anosim<-anosim(a.com12.br,a.env12.br$treatment))
 
 # blank and real are VERY different
 
-f.com12.fr<-f.com12[f.env12$treatment!="blank",]
-f.env12.fr<-f.env12[f.env12$treatment!="blank",]
+a.com12.fr<-a.com12[a.env12$treatment!="blank",]
+a.env12.fr<-a.env12[a.env12$treatment!="blank",]
 
-(f12fr.anosim<-anosim(f.com12.fr,f.env12.fr$treatment))
+(a12fr.anosim<-anosim(a.com12.fr,a.env12.fr$treatment))
 
 # real and fake are VERY different
 
 # at 17 months which treatments are different from each other?
 
-f.com17.bf<-f.com17[f.env17$treatment!="real",]
-f.env17.bf<-f.env17[f.env17$treatment!="real",]
+a.com17.bf<-a.com17[a.env17$treatment!="real",]
+a.env17.bf<-a.env17[a.env17$treatment!="real",]
 
-(f17bf.anosim<-anosim(f.com17.bf,f.env17.bf$treatment))
+(a17bf.anosim<-anosim(a.com17.bf,a.env17.bf$treatment))
 
 # blank and fake are not different
 
-f.com17.br<-f.com17[f.env17$treatment!="fake",]
-f.env17.br<-f.env17[f.env17$treatment!="fake",]
+a.com17.br<-a.com17[a.env17$treatment!="fake",]
+a.env17.br<-a.env17[a.env17$treatment!="fake",]
 
-(f17br.anosim<-anosim(f.com17.br,f.env17.br$treatment))
+(a17br.anosim<-anosim(a.com17.br,a.env17.br$treatment))
 
 # blank and real ARE different
 
-f.com17.fr<-f.com17[f.env17$treatment!="blank",]
-f.env17.fr<-f.env17[f.env17$treatment!="blank",]
+a.com17.fr<-a.com17[a.env17$treatment!="blank",]
+a.env17.fr<-a.env17[a.env17$treatment!="blank",]
 
-(f17fr.anosim<-anosim(f.com17.fr,f.env17.fr$treatment))
+(a17fr.anosim<-anosim(a.com17.fr,a.env17.fr$treatment))
 
-# real and fake are different
+# real and fake ARE different
 
-# so fish communities in sponge plots diverge from control and structure control early.
-# control and structure control never diverge
+# so algal communities in sponge plots diverge from control about a year later 
+# control and structure control diverge at 12 months but then don't at 17 months?
 
 
 # which species are driving this difference?
-(f17.simper<-simper(f.com17,f.env17$treatment,permutations = 999))
-summary(f17.simper)
+(a17.simper<-simper(a.com17,a.env17$treatment,permutations = 999))
+summary(a17.simper)
 
-# looks like ceriths, oysters, sea cucumbers, anemones, and blue crabs are both significant
+#looks like cladocephalus and penicillus are significant
 # and consistently contribute to differences between the groups here
 
-fcom17diff<-bind_cols(f.com.pa[,colnames(f.com.pa) %in% c("damselfish","grunt")],
-                      f.env)%>%
+acom17diff<-bind_cols(a.com.pa[,colnames(a.com.pa) %in% c(
+    "cladocephalus","penicillus")],
+                      a.env)%>%
   pivot_longer(1:2,names_to="taxa",values_to="presence")%>%
-  group_by(treatment,taxa,sampling)%>%
+  group_by(treatment,taxa,yr)%>%
   summarize(n.plots = sum(presence))%>%
   mutate(treatment=factor(treatment,levels=c("blank","fake","real"),labels = c("Control","Structure Control","Sponge")))
 
-ggplot(data=fcom17diff)+
+ggplot(data=acom17diff)+
   geom_col(aes(x=taxa,y=n.plots,fill=treatment),width=.5,
            position=position_dodge(.5))+
   scale_fill_viridis_d(option="A",begin=0,end=0.6,"")+
   # geom_point(aes(x=taxa, y=n.plots,color=treatment),
   #            position=position_dodge(.5),size=5)+
   scale_color_viridis_d(option="A",begin=0,end=0.6,"")+
-  facet_wrap(~sampling)+
+  facet_wrap(~yr)+
   theme_bw()+
   theme(panel.grid = element_blank(),
         axis.title = element_text(size=14),
@@ -435,12 +436,12 @@ ggplot(data=fcom17diff)+
 
 # make figures for this
 
-init.scores<-scores(rda(f.com.hel0),scaling=1,1:2)
+init.scores<-scores(rda(a.com.hel0),scaling=1,1:2)
 
-f.env0p<-bind_cols(f.env0,data.frame(init.scores$sites))%>%
+a.env0p<-bind_cols(a.env0,data.frame(init.scores$sites))%>%
   mutate(treatment=factor(treatment, labels=c("Control","Structure Control","Sponge")))
 
-hull0 <- f.env0p %>%
+hull0 <- a.env0p %>%
   group_by(treatment)%>%
   slice(chull(PC1, PC2))
 #  slice(chull(RDA1, RDA2))
@@ -461,13 +462,13 @@ spr0<-data.frame(init.scores$species)
 sprp0<-data.frame(spr0[abs(spr0[,1])>=max(circ[,1])|abs(spr0[,2])>=max(circ[,2]),])
 sprp0$taxa<-rownames(sprp0)
 sprp0<-sprp0%>%
-  filter(taxa %in% c("damselfish","grunt"))
+  filter(taxa %in% c("cladocephalus","penicillus"))
 taxa<-rownames(sprp0)
 
 # look at how much variation each axis explains to add to axis labels
-summary(f0.rda.null)$cont$importance
+summary(a0.rda.null)$cont$importance
 
-(f0<-ggplot()+
+(a0<-ggplot()+
     ylim(-1.2,1.2)+
     xlim(-1.2,1.2)+
     geom_hline(aes(yintercept=0),linetype="dashed",color="grey")+
@@ -482,23 +483,23 @@ summary(f0.rda.null)$cont$importance
     #           check_overlap = T, size = 3) +
     stat_ellipse(geom="polygon", 
                  aes(x=PC1,y=PC2,fill = treatment),
-                 data=f.env0p,
+                 data=a.env0p,
                  alpha = 0.2, 
                  show.legend = FALSE,
                  level = 0.95)+
     #    geom_polygon(data = hull0, aes(x=PC1,y=PC2,color=treatment,fill=treatment),alpha = 0.1)+
-    geom_point(data=f.env0p,aes(x=PC1,y=PC2,color=treatment),size=2)+
+    geom_point(data=a.env0p,aes(x=PC1,y=PC2,color=treatment),size=2)+
     theme_bw()+
     theme(panel.grid = element_blank(),
           legend.position = c(.14,0.95),
           legend.background = element_blank())+
     coord_fixed()+
-    xlab("PC1 70.22%")+
-    ylab("PC2 29.73%")+
+    xlab("PC1 40.09")+
+    ylab("PC2 32.57%")+
     scale_color_viridis_d(option="A",begin=0,end=0.6,"")+
     scale_fill_viridis_d(option="A",begin=0,end=0.6,""))
 
-(f0hull<-ggplot()+
+(a0hull<-ggplot()+
     ylim(-1,1)+
     xlim(-1,1)+
     geom_hline(aes(yintercept=0),linetype="dashed",color="grey")+
@@ -518,7 +519,7 @@ summary(f0.rda.null)$cont$importance
   #              show.legend = FALSE,
   #              level = 0.95)+
   geom_polygon(data = hull0, aes(x=PC1,y=PC2,color=treatment,fill=treatment),alpha = 0.1)+
-    geom_point(data=f.env0p,aes(x=PC1,y=PC2,color=treatment),size=2)+
+    geom_point(data=a.env0p,aes(x=PC1,y=PC2,color=treatment),size=2)+
     theme_bw()+
     theme(panel.grid = element_blank(),
           legend.position = c(.14,0.95),
@@ -529,23 +530,22 @@ summary(f0.rda.null)$cont$importance
     scale_color_viridis_d(option="A",begin=0,end=0.6,"")+
     scale_fill_viridis_d(option="A",begin=0,end=0.6,""))
 
-# these figures are not informative 
-
+# these figures are kind of informative. You can see the big divergence of the control 
 
 
 # make figures for month 5
-f.com5.hel<-decostand(f.com5,"hellinger")
-f5.rda.null<-rda(f.com5.hel~1)
-m5.scores<-scores(f5.rda.null,scaling=1,1:2)
+a.com5.hel<-decostand(a.com5,"hellinger")
+a5.rda.null<-rda(a.com5.hel~1)
+m5.scores<-scores(a5.rda.null,scaling=1,1:2)
 
-f.env5p<-bind_cols(f.env5,data.frame(m5.scores$sites))
+a.env5p<-bind_cols(a.env5,data.frame(m5.scores$sites))
 
 # look at how much variation each axis explains to add to axis labels
-summary(f5.rda.null)$cont$importance
+summary(a5.rda.null)$cont$importance
 
 circ <- circleFun(center=c(0,0),diameter=sqrt(2/12),npoints = 500)
 
-hull5 <- f.env5p %>%
+hull5 <- a.env5p %>%
   group_by(treatment)%>%
   slice(chull(PC1, PC2))
 
@@ -553,12 +553,12 @@ spr5<-data.frame(m5.scores$species)
 sprp5<-data.frame(spr5[abs(spr5[,1])>=max(circ[,1])|abs(spr5[,2])>=max(circ[,2]),])
 sprp5$taxa<-rownames(sprp5)
 sprp5<-sprp5%>%
-  filter(taxa %in% c("damselfish","grunt"))
+  filter(taxa %in% c("cladocephalus","penicillus"))
 taxa<-rownames(sprp5)
 
 
 
-(f5<-ggplot()+
+(a5<-ggplot()+
     ylim(-1.2,1.2)+
     xlim(-1.2,1.2)+
     geom_hline(aes(yintercept=0),linetype="dashed",color="grey")+
@@ -573,12 +573,12 @@ taxa<-rownames(sprp5)
               check_overlap = T, size = 3) +
     stat_ellipse(geom="polygon", 
                  aes(x=PC1,y=PC2,fill = treatment),
-                 data=f.env5p,
+                 data=a.env5p,
                  alpha = 0.2, 
                  show.legend = FALSE,
                  level = 0.95)+
     #    geom_polygon(data = hull0, aes(x=PC1,y=PC2,color=treatment,fill=treatment),alpha = 0.1)+
-    geom_point(data=f.env5p,aes(x=PC1,y=PC2,color=treatment),size=2)+
+    geom_point(data=a.env5p,aes(x=PC1,y=PC2,color=treatment),size=2)+
     theme_bw()+
     theme(panel.grid = element_blank(),
           legend.position = "none")+
@@ -588,7 +588,7 @@ taxa<-rownames(sprp5)
     scale_color_viridis_d(option="A",begin=0,end=0.6,"")+
     scale_fill_viridis_d(option="A",begin=0,end=0.6,""))
 
-(f5hull<-ggplot()+
+(a5hull<-ggplot()+
     ylim(-1,1)+
     xlim(-1,1)+
     geom_hline(aes(yintercept=0),linetype="dashed",color="grey")+
@@ -608,7 +608,7 @@ taxa<-rownames(sprp5)
     #              show.legend = FALSE,
     #              level = 0.95)+
     geom_polygon(data = hull5, aes(x=PC1,y=PC2,color=treatment,fill=treatment),alpha = 0.1)+
-    geom_point(data=f.env5p,aes(x=PC1,y=PC2,color=treatment),size=2)+
+    geom_point(data=a.env5p,aes(x=PC1,y=PC2,color=treatment),size=2)+
     theme_bw()+
     theme(panel.grid = element_blank(),
           legend.position = "none")+
@@ -621,30 +621,30 @@ taxa<-rownames(sprp5)
 # still not hugely informative
 
 # make figures for month 12
-f.com12.hel<-decostand(f.com12,"hellinger")
-f12.rda.null<-rda(f.com12.hel~1)
+a.com12.hel<-decostand(a.com12,"hellinger")
+a12.rda.null<-rda(a.com12.hel~1)
 
-m12.scores<-scores(f12.rda.null,scaling=1,1:2)
+m12.scores<-scores(a12.rda.null,scaling=1,1:2)
 
-f.env12p<-bind_cols(f.env12,data.frame(m12.scores$sites))
+a.env12p<-bind_cols(a.env12,data.frame(m12.scores$sites))
 
 # look at how much variation each axis explains to add to axis labels
-summary(f12.rda.null)$cont$importance
+summary(a12.rda.null)$cont$importance
 
 circ <- circleFun(center=c(0,0),diameter=sqrt(2/13),npoints = 500)
 
-hull12 <- f.env12p %>%
+hull12 <- a.env12p %>%
   group_by(treatment)%>%
   slice(chull(PC1, PC2))
 
 sprp12<-data.frame(m12.scores$species)
 sprp12$taxa<-rownames(sprp12)
 sprp12<-sprp12%>%
-  filter(taxa %in% c("damselfish","grunt"))
+  filter(taxa %in% c("cladocephalus","penicillus"))
 taxa<-rownames(sprp12)
 
 
-(f12<-ggplot()+
+(a12<-ggplot()+
     ylim(-1.2,1.2)+
     xlim(-1.2,1.2)+
     geom_hline(aes(yintercept=0),linetype="dashed",color="grey")+
@@ -659,12 +659,12 @@ taxa<-rownames(sprp12)
               check_overlap = T, size = 3) +
     stat_ellipse(geom="polygon", 
                  aes(x=PC1,y=PC2,fill = treatment),
-                 data=f.env12p,
+                 data=a.env12p,
                  alpha = 0.2, 
                  show.legend = FALSE,
                  level = 0.95)+
     #    geom_polygon(data = hull0, aes(x=PC1,y=PC2,color=treatment,fill=treatment),alpha = 0.1)+
-    geom_point(data=f.env12p,aes(x=PC1,y=PC2,color=treatment),size=2)+
+    geom_point(data=a.env12p,aes(x=PC1,y=PC2,color=treatment),size=2)+
     theme_bw()+
     theme(panel.grid = element_blank(),
           legend.position = "none")+
@@ -674,7 +674,7 @@ taxa<-rownames(sprp12)
     scale_color_viridis_d(option="A",begin=0,end=0.6,"")+
     scale_fill_viridis_d(option="A",begin=0,end=0.6,""))
 
-(f12hull<-ggplot()+
+(a12hull<-ggplot()+
     ylim(-1,1)+
     xlim(-1,1)+
     geom_hline(aes(yintercept=0),linetype="dashed",color="grey")+
@@ -694,7 +694,7 @@ taxa<-rownames(sprp12)
     #              show.legend = FALSE,
     #              level = 0.95)+
     geom_polygon(data = hull12, aes(x=PC1,y=PC2,color=treatment,fill=treatment),alpha = 0.1)+
-    geom_point(data=f.env12p,aes(x=PC1,y=PC2,color=treatment),size=2)+
+    geom_point(data=a.env12p,aes(x=PC1,y=PC2,color=treatment),size=2)+
     theme_bw()+
     theme(panel.grid = element_blank(),
           legend.position = "none")+
@@ -707,30 +707,30 @@ taxa<-rownames(sprp12)
 
 # make figures for month 17
 
-f.com17.hel<-decostand(f.com17,"hellinger")
-f17.rda.null<-rda(f.com17.hel~1)
-m17.scores<-scores(f17.rda.null,scaling=3,1:2)
+a.com17.hel<-decostand(a.com17,"hellinger")
+a17.rda.null<-rda(a.com17.hel~1)
+m17.scores<-scores(a17.rda.null,scaling=3,1:2)
 
-f.env17p<-bind_cols(f.env17,data.frame(m17.scores$sites))
+a.env17p<-bind_cols(a.env17,data.frame(m17.scores$sites))
 
 # look at how much variation each axis explains to add to axis labels
-summary(f17.rda.null)$cont$importance
+summary(a17.rda.null)$cont$importance
 
 circ <- circleFun(center=c(0,0),diameter=sqrt(2/15),npoints = 500)
 
-hull17 <- f.env17p %>%
+hull17 <- a.env17p %>%
   group_by(treatment)%>%
   slice(chull(PC1, PC2))
 
 sprp17<-data.frame(m17.scores$species)
 sprp17$taxa<-rownames(sprp17)
 sprp17<-sprp17%>%
-  filter(taxa %in% c("damselfish","grunt"))
+  filter(taxa %in% c("cladocephalus","penicillus"))
 taxa<-rownames(sprp17)
 
 
 
-(f17<-ggplot()+
+(a17<-ggplot()+
     ylim(-1.2,1.2)+
     xlim(-1.2,1.2)+
     geom_hline(aes(yintercept=0),linetype="dashed",color="grey")+
@@ -745,12 +745,12 @@ taxa<-rownames(sprp17)
               check_overlap = T, size = 3) +
     stat_ellipse(geom="polygon", 
                  aes(x=PC1,y=PC2,fill = treatment),
-                 data=f.env17p,
+                 data=a.env17p,
                  alpha = 0.2, 
                  show.legend = FALSE,
                  level = 0.95)+
     #    geom_polygon(data = hull17, aes(x=PC1,y=PC2,color=treatment,fill=treatment),alpha = 0.1)+
-    geom_point(data=f.env17p,aes(x=PC1,y=PC2,color=treatment),size=2)+
+    geom_point(data=a.env17p,aes(x=PC1,y=PC2,color=treatment),size=2)+
     theme_bw()+
     theme(panel.grid = element_blank(),
           legend.position = "none")+
@@ -760,7 +760,7 @@ taxa<-rownames(sprp17)
     scale_color_viridis_d(option="A",begin=0,end=0.6,"")+
     scale_fill_viridis_d(option="A",begin=0,end=0.6,""))
 
-(f17hull<-ggplot()+
+(a17hull<-ggplot()+
     ylim(-1,1)+
     xlim(-1,1)+
     geom_hline(aes(yintercept=0),linetype="dashed",color="grey")+
@@ -780,7 +780,7 @@ taxa<-rownames(sprp17)
     #              show.legend = FALSE,
     #              level = 0.95)+
     geom_polygon(data = hull17, aes(x=PC1,y=PC2,color=treatment,fill=treatment),alpha = 0.1)+
-    geom_point(data=f.env17p,aes(x=PC1,y=PC2,color=treatment),size=2)+
+    geom_point(data=a.env17p,aes(x=PC1,y=PC2,color=treatment),size=2)+
     theme_bw()+
     theme(panel.grid = element_blank(),
           legend.position = "none")+
@@ -794,52 +794,52 @@ taxa<-rownames(sprp17)
 
 #devtools::install_github("thomasp85/patchwork")
 library(patchwork)
-f0+f5+f12+f17+plot_layout(widths = 1,heights = 1)
+a0+a5+a12+a17+plot_layout(widths = 1,heights = 1)
 
-f0hull+f5hull+f12hull+f17hull+plot_layout(widths = 1,heights = 1)
+a0hull+a5hull+a12hull+a17hull+plot_layout(widths = 1,heights = 1)
 
 # now look at univariate results
 
-f.env$spr<-specnumber(f.com)
-f.env$div<-diversity(f.com)
-f.env$plot<-as.factor(f.env$plot)
-f.env$treatment<-as.factor(f.env$treatment)
-f.env$season<-as.factor(f.env$season)
+a.env$spr<-specnumber(a.com)
+a.env$div<-diversity(a.com)
+a.env$plot<-as.factor(a.env$plot)
+a.env$treatment<-as.factor(a.env$treatment)
+a.env$season<-as.factor(a.env$season)
 
 library(lmerTest)
 
-f.env0uni<-f.env0%>%
-  mutate(strt.spr=specnumber(f.com0),
-         strt.div=diversity(f.com0),
+a.env0uni<-a.env0%>%
+  mutate(strt.spr=specnumber(a.com0),
+         strt.div=diversity(a.com0),
          plot=factor(plot))%>%
   select(treatment,plot,strt.spr,strt.div)
 
-f.env.uni<-f.env%>%
+a.env.uni<-a.env%>%
   filter(sampling!=0)%>%
-  left_join(f.env0uni)
+  left_join(a.env0uni)
 
-f.env.uni$treatment<-as.factor(f.env.uni$treatment)
+a.env.uni$treatment<-as.factor(a.env.uni$treatment)
 
 spr.lmer<-lmer(spr~treatment*sampling + sg.sd+grow+(1|plot)+
                  offset(strt.spr),
-               data = f.env.uni%>%
+               data = a.env.uni%>%
                  mutate(treatment=relevel(treatment, ref = "real")))
 summary(spr.lmer)
 anova(spr.lmer)
 
-# looks like species richness is just always higher than controls in sponge plots
+# looks like species richness isn't significantly different between treatment....
 
 
-f.sum<-f.env.uni%>%
+a.sum<-a.env.uni%>%
   group_by(treatment,sampling)%>%
   summarize(spr.m=mean(spr),div.m=mean(div),spr.sd=sd(spr),div.sd=sd(div))
 
-f.sum$treatment<-factor(f.sum$treatment,labels=c("Control","Structure Control","Sponge"))
+a.sum$treatment<-factor(a.sum$treatment,labels=c("Control","Structure Control","Sponge"))
 
 ggplot()+
-  geom_line(data=f.sum,aes(x=sampling,y=spr.m,group=treatment,color=treatment),position=position_dodge(0.5))+
-  geom_errorbar(data=f.sum,aes(x=sampling,ymin=spr.m-spr.sd,ymax=spr.m+spr.sd,color=treatment),width=.5,position=position_dodge(0.5))+
-  geom_point(data=f.sum,aes(x=sampling,y=spr.m,color=treatment),size=5,position=position_dodge(0.5))+
+  geom_line(data=a.sum,aes(x=sampling,y=spr.m,group=treatment,color=treatment),position=position_dodge(0.5))+
+  geom_errorbar(data=a.sum,aes(x=sampling,ymin=spr.m-spr.sd,ymax=spr.m+spr.sd,color=treatment),width=.5,position=position_dodge(0.5))+
+  geom_point(data=a.sum,aes(x=sampling,y=spr.m,color=treatment),size=5,position=position_dodge(0.5))+
   theme_bw()+
   theme(panel.grid = element_blank(),
         axis.text = element_text(size=12),
@@ -849,21 +849,21 @@ ggplot()+
   ylab("Species Richness")+
   xlab("Months into Experiment")
 
-ggsave("figures/fish_sp_richness.jpg")
+ggsave("figures/algae_sp_richness.jpg")
 
 # now look at diversity
 
 div.lmer<-lmer(div~treatment*as.factor(sampling) + sg.sd+grow+(1|plot)+
                  offset(strt.div),
-               data = f.env.uni%>%
+               data = a.env.uni%>%
                  mutate(treatment=relevel(treatment, ref = "real")))
 summary(div.lmer)
 anova(div.lmer)
 
 ggplot()+
-  geom_line(data=f.sum,aes(x=sampling,y=div.m,group=treatment,color=treatment),position=position_dodge(0.5))+
-  geom_errorbar(data=f.sum,aes(x=sampling,ymin=div.m-div.sd,ymax=div.m+div.sd,color=treatment),width=.5,position=position_dodge(0.5))+
-  geom_point(data=f.sum,aes(x=sampling,y=div.m,color=treatment),size=5,position=position_dodge(0.5))+
+  geom_line(data=a.sum,aes(x=sampling,y=div.m,group=treatment,color=treatment),position=position_dodge(0.5))+
+  geom_errorbar(data=a.sum,aes(x=sampling,ymin=div.m-div.sd,ymax=div.m+div.sd,color=treatment),width=.5,position=position_dodge(0.5))+
+  geom_point(data=a.sum,aes(x=sampling,y=div.m,color=treatment),size=5,position=position_dodge(0.5))+
   theme_bw()+
   theme(panel.grid = element_blank(),
         axis.text = element_text(size=12),
@@ -873,8 +873,8 @@ ggplot()+
   ylab("Diversity")+
   xlab("Months into Experiment")
 
-ggsave("figures/fish_sp_diversity.jpg")
+ggsave("figures/algal_sp_diversity.jpg")
 
-# the diversity story isn't as clear cut but generally the same as richness
+# I dont really think i did this right :?
 
 
