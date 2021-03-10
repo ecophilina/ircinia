@@ -178,182 +178,153 @@ a.rda.yr.s.treat<-rda(a.com.hel~.,tr.s.yr.mat.nop)
 RsquareAdj(a.rda.yr.s.treat)$adj.r.squared
 RsquareAdj(a.rda.samp.treat)$adj.r.squared
 
-# unlike for inverts samp*treat+plot is still the best model - see if plots make a difference here
-f.rda.yr.s.treat.plot<-rda(f.com.hel~.,tr.s.yr.mat)
-anova(f.rda.yr.s.treat,f.rda.yr.s.treat.plot)
+# So it seems like year*season*treatment is the best model - see if plots make a difference here
+a.rda.yr.s.treat.plot<-rda(a.com.hel~.,tr.s.yr.mat)
+anova(a.rda.yr.s.treat,a.rda.yr.s.treat.plot)
 
 # plot doesn't improve things here - how about for r2
-RsquareAdj(f.rda.yr.s.treat)$adj.r.squared
-RsquareAdj(f.rda.yr.s.treat.plot)$adj.r.squared
-RsquareAdj(f.rda.samp.treat.plot)$adj.r.squared # this is the best model at the moment
+RsquareAdj(a.rda.yr.s.treat)$adj.r.squared
+RsquareAdj(a.rda.yr.s.treat.plot)$adj.r.squared # this is the best model at the moment
+RsquareAdj(a.rda.samp.treat.plot)$adj.r.squared 
 
 
 # is the interaction between sampling and treatment important?
 tr.samp.mat1<-data.frame(model.matrix(~ samp+trt+plts, 
                                       contrasts=list(trt="contr.helmert")))[,-1]
-f.rda.samp.treat.noint<-rda(f.com.hel~.,data=tr.samp.mat1)
+a.rda.samp.treat.noint<-rda(a.com.hel~.,data=tr.samp.mat1)
 
-anova(f.rda.samp.treat.plot,f.rda.samp.treat.noint)
+anova(a.rda.samp.treat.plot,a.rda.samp.treat.noint)
 
-# the interaction doesn't actually significantly improve the model. Look at r2
-RsquareAdj(f.rda.samp.treat.noint)$adj.r.squared
-RsquareAdj(f.rda.samp.treat.plot)$adj.r.squared# this is still the best model
-
+# there is a significant difference between the models but let's look at r2 just to be safe.
+RsquareAdj(a.rda.samp.treat.noint)$adj.r.squared
+RsquareAdj(a.rda.samp.treat.plot)$adj.r.squared
+RsquareAdj(a.rda.yr.s.treat.plot)$adj.r.squared #This is still the best model
 
 # now look into whether or not productivity measures explain community patterns better
 
-f.env.prod<-f.env[,6:8]
-alg.e<-f.env$alg
-sg<-f.env$sg.sd
-sggrow<-f.env$grow
+a.env.prod<-a.env[,6:7]
+sg<-a.env$sg.sd
+sggrow<-a.env$grow
 
 
-f.rda.prod<-rda(f.com.hel~.,f.env.prod)
+a.rda.prod<-rda(a.com.hel~.,a.env.prod)
 
 # does this model do better than the null
-anova(f.rda.null,f.rda.prod)
+anova(a.rda.null,a.rda.prod)
 
 # yes it does
-# now does it do better than the treatment model
-RsquareAdj(f.rda.samp.treat.plot)$adj.r.squared
-RsquareAdj(f.rda.prod)$adj.r.squared
+# now does it do better than the best model so far
+RsquareAdj(a.rda.yr.s.treat.plot)$adj.r.squared
+RsquareAdj(a.rda.prod)$adj.r.squared
 
 #no
 
 #What about a model that uses sg grow instead of treatment
 sg.s.yr.mat.nop<-data.frame(model.matrix(~ samp*sggrow + plts))[,-1]
-f.rda.sgsyr<-rda(f.com.hel~.,sg.s.yr.mat.nop)
+a.rda.sgsyr<-rda(a.com.hel~.,sg.s.yr.mat.nop)
 
 # does it do better than the null
-anova(f.rda.null,f.rda.sgsyr)
+anova(a.rda.null,a.rda.sgsyr)
 
 # yes it does - how about compared to model with treatment
-RsquareAdj(f.rda.samp.treat.plot)$adj.r.squared
-RsquareAdj(f.rda.sgsyr)$adj.r.squared
-
-# on its own productivity doesn't do a better job than just treatment - but its close
+RsquareAdj(a.rda.yr.s.treat.plot)$adj.r.squared
+RsquareAdj(a.rda.sgsyr)$adj.r.squared
 
 # not on its own, no. What if we include different measures of productivity in our treatment model
-# from now on I'm referring to the year*season*treatment as f.rda.best
-f.rda.best<-f.rda.samp.treat.plot
+# from now on I'm referring to the year*season*treatment+plot as a.rda.best
+a.rda.best<-rda(a.com.hel~.,tr.s.yr.mat)
 
-b.alg.mat<-data.frame(model.matrix(~ samp*trt+plts+alg.e, 
-                                   contrasts=list(trt="contr.helmert")))[,-1]
-b.sg.mat<-data.frame(model.matrix(~ samp*trt+plts+sg, 
-                                  contrasts=list(trt="contr.helmert")))[,-1]
-b.sgg.mat<-data.frame(model.matrix(~ samp*trt+plts+sggrow, 
-                                   contrasts=list(trt="contr.helmert")))[,-1]
-b.alg.sg.mat<-data.frame(model.matrix(~ samp*trt+plts+alg.e+sg, 
-                                      contrasts=list(trt="contr.helmert")))[,-1]
-b.alg.sgg.mat<-data.frame(model.matrix(~ samp*trt+plts+alg.e+sggrow, 
-                                       contrasts=list(trt="contr.helmert")))[,-1]
-b.sg.sgg.mat<-data.frame(model.matrix(~ samp*trt+plts+sg+sggrow, 
-                                      contrasts=list(trt="contr.helmert")))[,-1]
-b.alg.sg.sgg.mat<-data.frame(model.matrix(~ samp*trt+plts+alg.e+sg+sggrow, 
-                                          contrasts=list(trt="contr.helmert")))[,-1]
+b.sg.mat<-data.frame(model.matrix(~ yr*seas*trt + plts +sg, 
+                                  contrasts=list(trt="contr.helmert", seas="contr.helmert", yr="contr.helmert" )))[,-1]
+b.sgg.mat<-data.frame(model.matrix(~ yr*seas*trt + plts +sggrow, 
+                                   contrasts=list(trt="contr.helmert", seas="contr.helmert", yr="contr.helmert")))[,-1]
+b.sg.sgg.mat<-data.frame(model.matrix(~ yr*seas*trt+ plts +sg +sggrow, 
+                                      contrasts=list(trt="contr.helmert", seas="contr.helmert", yr="contr.helmert")))[,-1]
 
 # start with all of them added
-f.rda.bprod<-rda(f.com.hel~.,b.alg.sg.sgg.mat)
+a.rda.bprod<-rda(a.com.hel~.,b.sg.sgg.mat)
 
-anova(f.rda.best,f.rda.bprod)
+anova(a.rda.best,a.rda.bprod)
 
-# no difference between models - look at r2
-RsquareAdj(f.rda.best)$adj.r.squared
-RsquareAdj(f.rda.bprod)$adj.r.squared
+# anova didn't show significant difference, but I will still look at r2
+RsquareAdj(a.rda.best)$adj.r.squared
+RsquareAdj(a.rda.bprod)$adj.r.squared
 
-# best model still highest r2
+# best model still highest r2... only by 0.01 though
 
 # look at just sg growth
 
-f.rda.bgrow<-rda(f.com.hel~.,b.sgg.mat)
+a.rda.bgrow<-rda(a.com.hel~.,b.sgg.mat)
 
-anova(f.rda.best,f.rda.bgrow)
+anova(a.rda.best,a.rda.bgrow)
 
-# no difference between models - look at r2
-RsquareAdj(f.rda.best)$adj.r.squared
-RsquareAdj(f.rda.bgrow)$adj.r.squared
+# no sig difference between models - look at r2
+RsquareAdj(a.rda.best)$adj.r.squared
+RsquareAdj(a.rda.bgrow)$adj.r.squared
 
-# best model still highest r2
+# model with just seagrass growth is now slightly higher by 0.002 r2
 
-# look at sggrow and algae
-f.rda.balggrow<-rda(f.com.hel~.,b.alg.sgg.mat)
+# look at just sg
+a.rda.bsg<-rda(a.com.hel~.,b.sg.mat)
 
-anova(f.rda.best,f.rda.balggrow)
-
-# no difference between models - look at r2
-RsquareAdj(f.rda.best)$adj.r.squared
-RsquareAdj(f.rda.balggrow)$adj.r.squared
-
-# best model still highest r2
-
-# look at sggrow and sg
-f.rda.bsggrow<-rda(f.com.hel~.,b.sg.sgg.mat)
-
-anova(f.rda.best,f.rda.bsggrow)
+anova(a.rda.best,a.rda.bsg)
 
 # no difference between models - look at r2
-RsquareAdj(f.rda.best)$adj.r.squared
-RsquareAdj(f.rda.bsggrow)$adj.r.squared
-RsquareAdj(f.rda.bprod)$adj.r.squared
+RsquareAdj(a.rda.best)$adj.r.squared
+RsquareAdj(a.rda.bsg)$adj.r.squared
+RsquareAdj(a.rda.bprod)$adj.r.squared
+RsquareAdj(a.rda.bgrow)$adj.r.squared
 
-# best model still highest r2
+# Conclusion: adding any of the productivity variables didn't change the amount of variance enough to be significantly different than the best model. So we will keep using the best model yr*season*treatment +plot.
 
-f.rda.bsg<-rda(f.com.hel~.,b.sg.mat)
-
-anova(f.rda.best,f.rda.bsg)
-
-# no difference between models - look at r2
-RsquareAdj(f.rda.best)$adj.r.squared
-RsquareAdj(f.rda.bsg)$adj.r.squared
-
-# best model at the moment: is samp*treatment + plot
+# best model at the moment: year*season*treatment + plot
 
 #best model at the moment
-plot(f.rda.best, scaling = 3, display = c("sp", "cn"))
+plot(a.rda.best, scaling = 3, display = c("sp", "cn"))
 
 # note the order matters for adonis2 with by="terms" and the by="margin" doesn't seem to work
-f.mod <- adonis2(f.com.hel~., data = tr.samp.mat, method="euclidean", by="terms") 
-f.mod
+a.mod <- adonis2(a.com.hel~., data = tr.s.yr.mat, method="euclidean", by="terms") 
+a.mod
 
 
 # first going to make sure where there's a difference between treatments using anosim
 
 # look at 1 month into experiment
-f.com1<-f.com.pa[f.env$sampling==1,]
-f.com1<-f.com1[,colSums(f.com1)!=0]
-f.env1<-f.env[f.env$sampling==1,]
+a.com1<-a.com.pa[a.env$sampling==1,]
+a.com1<-a.com1[,colSums(a.com1)!=0]
+a.env1<-a.env[a.env$sampling==1,]
 
-(f1.anosim<-anosim(f.com1,f.env1$treatment))
+(a1.anosim<-anosim(a.com1,a.env1$treatment))
 # no difference
 
 # look at 5 months into experiment
-f.com5<-f.com.pa[f.env$sampling==5,]
-f.com5<-f.com5[,colSums(f.com5)!=0]
-f.env5<-f.env[f.env$sampling==5,]
+a.com5<-a.com.pa[a.env$sampling==5,]
+a.com5<-a.com5[,colSums(a.com5)!=0]
+a.env5<-a.env[a.env$sampling==5,]
 
-(f5.anosim<-anosim(f.com5,f.env5$treatment))
+(a5.anosim<-anosim(a.com5,a.env5$treatment))
 
-# Now we're getting more robust differences between treatments
+# Still no significant difference
 
 # look at 12 months into experiment
-f.com12<-f.com.pa[f.env$sampling==12,]
-f.com12<-f.com12[,colSums(f.com12)!=0]
-f.env12<-f.env[f.env$sampling==12,]
+a.com12<-a.com.pa[a.env$sampling==12,]
+a.com12<-a.com12[,colSums(a.com12)!=0]
+a.env12<-a.env[a.env$sampling==12,]
 
-(f12.anosim<-anosim(f.com12,f.env12$treatment))
+(a12.anosim<-anosim(a.com12,a.env12$treatment))
 
-# significantly different. R is larger
+# significantly different. R is larger (closer to 1) and sigificance is less than 0.05
 
 # look at 17 months into experiment
-f.com17<-f.com.pa[f.env$sampling==17,]
-f.com17<-f.com17[,colSums(f.com17)!=0]
-f.env17<-f.env[f.env$sampling==17,]
+a.com17<-a.com.pa[a.env$sampling==17,]
+a.com17<-a.com17[,colSums(a.com17)!=0]
+a.env17<-a.env[a.env$sampling==17,]
 
-(f17.anosim<-anosim(f.com17,f.env17$treatment))
+(a17.anosim<-anosim(a.com17,a.env17$treatment))
 
-# different but R isn't quite as large
+# Significantly ifferent but R isn't quite as large.
 
-#this corresponds with the results of the RDA that sampling and treatment are important
+#I think this corresponds with the results of the RDA that year season and treatment are important
 
 # treatment stays an important factor from 5 months on. 
 # at 5 months which treatments are different from each other?
