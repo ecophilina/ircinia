@@ -98,7 +98,7 @@ ggplot(data=a.scores)+
               width = 0.03, height = 0.03)+
   scale_color_viridis_d(option="B",end=.8)+
   facet_wrap(~sampling)
-#So it looks like over time treatments are becomings really differnt. A couple points in month 17 blank that may be of concern
+#So it looks like over time treatments are becomings really differnt.
 #start examining statistical relationship
 
 # first look at initial pre-experiment
@@ -220,7 +220,8 @@ RsquareAdj(a.rda.prod)$adj.r.squared
 #no
 
 #What about a model that uses sg grow instead of treatment
-sg.s.yr.mat.nop<-data.frame(model.matrix(~ yr*seas*sggrow + plts,                                       contrasts=list(yr="contr.helmert", seas="contr.helmert")))[,-1]
+sg.s.yr.mat.nop<-data.frame(model.matrix(~ yr*seas*sggrow + plts,                                       
+          contrasts=list(yr="contr.helmert", seas="contr.helmert")))[,-1]
 a.rda.sgsyr<-rda(a.com.hel~.,sg.s.yr.mat.nop)
 
 # does it do better than the null
@@ -388,13 +389,16 @@ summary(a12.simper)
 (a17.simper<-simper(a.com17,a.env17$treatment,permutations = 999))
 summary(a17.simper)
 
-#looks like cladocephalus and penicillus are significant
+#looks like cladocephalus, laurencia, acetabularia, and penicillus are influential
 # and consistently contribute to differences between the groups here
 
 acom17diff<-bind_cols(a.com.pa[,colnames(a.com.pa) %in% c(
-    "cladocephalus","penicillus")],
+    "acetabularia",
+    "cladocephalus",
+    "laurencia",
+    "penicillus")],
                       a.env)%>%
-  pivot_longer(1:2,names_to="taxa",values_to="presence")%>%
+  pivot_longer(1:4,names_to="taxa",values_to="presence")%>%
   group_by(treatment,taxa,yr)%>%
   summarize(n.plots = sum(presence))%>%
   mutate(treatment=factor(treatment,levels=c("blank","fake","real"),labels = c("Control","Structure Control","Sponge")))
@@ -438,14 +442,17 @@ circleFun <- function(center = c(0,0),diameter = 1, npoints = 100){
 
 # the denominator of the diameter is the number of principle components where the 
 # eigenvalue is >0
-circ <- circleFun(center=c(0,0),diameter=sqrt(2/13),npoints = 500)
+circ <- circleFun(center=c(0,0),diameter=sqrt(2/7),npoints = 500)
 
 
 spr0<-data.frame(init.scores$species)
 sprp0<-data.frame(spr0[abs(spr0[,1])>=max(circ[,1])|abs(spr0[,2])>=max(circ[,2]),])
 sprp0$taxa<-rownames(sprp0)
 sprp0<-sprp0%>%
-  filter(taxa %in% c("cladocephalus","penicillus"))
+  filter(taxa %in% c("acetabularia",
+                     "cladocephalus",
+                     "laurencia",
+                     "penicillus"))
 taxa<-rownames(sprp0)
 
 # look at how much variation each axis explains to add to axis labels
@@ -474,7 +481,7 @@ summary(a0.rda.null)$cont$importance
     geom_point(data=a.env0p,aes(x=PC1,y=PC2,color=treatment),size=2)+
     theme_bw()+
     theme(panel.grid = element_blank(),
-          legend.position = c(.14,0.95),
+          legend.position = c(.2,0.93),
           legend.background = element_blank())+
     coord_fixed()+
     xlab("PC1 40.09")+
@@ -505,15 +512,15 @@ summary(a0.rda.null)$cont$importance
     geom_point(data=a.env0p,aes(x=PC1,y=PC2,color=treatment),size=2)+
     theme_bw()+
     theme(panel.grid = element_blank(),
-          legend.position = c(.14,0.95),
+          legend.position = c(.2,0.93),
           legend.background = element_blank())+
     coord_fixed()+
-    xlab("PC1 23.74%")+
-    ylab("PC2 16.54%")+
+    xlab("PC1 40.09%")+
+    ylab("PC2 32.57%")+
     scale_color_viridis_d(option="A",begin=0,end=0.6,"")+
     scale_fill_viridis_d(option="A",begin=0,end=0.6,""))
 
-# these figures are kind of informative. You can see the big divergence of the control 
+# these figures are kind of informative. You can see a big divergence of the control 
 
 
 # make figures for month 5
@@ -526,7 +533,7 @@ a.env5p<-bind_cols(a.env5,data.frame(m5.scores$sites))
 # look at how much variation each axis explains to add to axis labels
 summary(a5.rda.null)$cont$importance
 
-circ <- circleFun(center=c(0,0),diameter=sqrt(2/12),npoints = 500)
+circ <- circleFun(center=c(0,0),diameter=sqrt(2/4),npoints = 500)
 
 hull5 <- a.env5p %>%
   group_by(treatment)%>%
@@ -536,14 +543,17 @@ spr5<-data.frame(m5.scores$species)
 sprp5<-data.frame(spr5[abs(spr5[,1])>=max(circ[,1])|abs(spr5[,2])>=max(circ[,2]),])
 sprp5$taxa<-rownames(sprp5)
 sprp5<-sprp5%>%
-  filter(taxa %in% c("cladocephalus","penicillus"))
+  filter(taxa %in% c("acetabularia",
+                     "cladocephalus",
+                     "laurencia",
+                     "penicillus"))
 taxa<-rownames(sprp5)
 
 
 
 (a5<-ggplot()+
-    ylim(-1.2,1.2)+
-    xlim(-1.2,1.2)+
+#    ylim(-1.2,1.2)+
+#    xlim(-1.2,1.2)+
     geom_hline(aes(yintercept=0),linetype="dashed",color="grey")+
     geom_vline(aes(xintercept=0),linetype="dashed",color="grey")+
     geom_path(data = circ,aes(x,y), lty = 2, color = "grey", alpha = 0.7)+
@@ -566,8 +576,8 @@ taxa<-rownames(sprp5)
     theme(panel.grid = element_blank(),
           legend.position = "none")+
     coord_fixed()+
-    xlab("PC1 47.03%")+
-    ylab("PC2 28.73%")+
+    xlab("PC1 47.00%")+
+    ylab("PC2 27.23%")+
     scale_color_viridis_d(option="A",begin=0,end=0.6,"")+
     scale_fill_viridis_d(option="A",begin=0,end=0.6,""))
 
@@ -596,8 +606,8 @@ taxa<-rownames(sprp5)
     theme(panel.grid = element_blank(),
           legend.position = "none")+
     coord_fixed()+
-    xlab("PC1 23.45%")+
-    ylab("PC2 19.19%")+
+    xlab("PC1 47.00%")+
+    ylab("PC2 27.23%")+
     scale_color_viridis_d(option="A",begin=0,end=0.6,"")+
     scale_fill_viridis_d(option="A",begin=0,end=0.6,""))
 
@@ -614,7 +624,7 @@ a.env12p<-bind_cols(a.env12,data.frame(m12.scores$sites))
 # look at how much variation each axis explains to add to axis labels
 summary(a12.rda.null)$cont$importance
 
-circ <- circleFun(center=c(0,0),diameter=sqrt(2/13),npoints = 500)
+circ <- circleFun(center=c(0,0),diameter=sqrt(2/5),npoints = 500)
 
 hull12 <- a.env12p %>%
   group_by(treatment)%>%
@@ -623,7 +633,10 @@ hull12 <- a.env12p %>%
 sprp12<-data.frame(m12.scores$species)
 sprp12$taxa<-rownames(sprp12)
 sprp12<-sprp12%>%
-  filter(taxa %in% c("cladocephalus","penicillus"))
+  filter(taxa %in% c("acetabularia",
+                     "cladocephalus",
+                     "laurencia",
+                     "penicillus"))
 taxa<-rownames(sprp12)
 
 
@@ -652,8 +665,8 @@ taxa<-rownames(sprp12)
     theme(panel.grid = element_blank(),
           legend.position = "none")+
     coord_fixed()+
-    xlab("PC1 54.10%")+
-    ylab("PC2 16.34%")+
+    xlab("PC1 48.99%")+
+    ylab("PC2 21.87%")+
     scale_color_viridis_d(option="A",begin=0,end=0.6,"")+
     scale_fill_viridis_d(option="A",begin=0,end=0.6,""))
 
@@ -682,8 +695,8 @@ taxa<-rownames(sprp12)
     theme(panel.grid = element_blank(),
           legend.position = "none")+
     coord_fixed()+
-    xlab("PC1 24.11%")+
-    ylab("PC2 18.83%")+
+    xlab("PC1 48.99%")+
+    ylab("PC2 21.87%")+
     scale_color_viridis_d(option="A",begin=0,end=0.6,"")+
     scale_fill_viridis_d(option="A",begin=0,end=0.6,""))
 
@@ -699,7 +712,7 @@ a.env17p<-bind_cols(a.env17,data.frame(m17.scores$sites))
 # look at how much variation each axis explains to add to axis labels
 summary(a17.rda.null)$cont$importance
 
-circ <- circleFun(center=c(0,0),diameter=sqrt(2/15),npoints = 500)
+circ <- circleFun(center=c(0,0),diameter=sqrt(2/6),npoints = 500)
 
 hull17 <- a.env17p %>%
   group_by(treatment)%>%
@@ -708,7 +721,10 @@ hull17 <- a.env17p %>%
 sprp17<-data.frame(m17.scores$species)
 sprp17$taxa<-rownames(sprp17)
 sprp17<-sprp17%>%
-  filter(taxa %in% c("cladocephalus","penicillus"))
+  filter(taxa %in% c("acetabularia",
+                     "cladocephalus",
+                     "laurencia",
+                     "penicillus"))
 taxa<-rownames(sprp17)
 
 
@@ -738,8 +754,8 @@ taxa<-rownames(sprp17)
     theme(panel.grid = element_blank(),
           legend.position = "none")+
     coord_fixed()+
-    xlab("PC1 26.87%")+
-    ylab("PC2 20.53%")+
+    xlab("PC1 56.99%")+
+    ylab("PC2 20.89%")+
     scale_color_viridis_d(option="A",begin=0,end=0.6,"")+
     scale_fill_viridis_d(option="A",begin=0,end=0.6,""))
 
@@ -768,8 +784,8 @@ taxa<-rownames(sprp17)
     theme(panel.grid = element_blank(),
           legend.position = "none")+
     coord_fixed()+
-    xlab("PC1 26.87%")+
-    ylab("PC2 20.53%")+
+    xlab("PC1 56.99%")+
+    ylab("PC2 20.89%")+
     scale_color_viridis_d(option="A",begin=0,end=0.6,"")+
     scale_fill_viridis_d(option="A",begin=0,end=0.6,""))
 
@@ -810,7 +826,7 @@ spr.lmer<-lmer(spr~treatment*sampling + sg.sd+grow+(1|plot)+
 summary(spr.lmer)
 anova(spr.lmer)
 
-# looks like species richness isn't significantly different between treatment....
+# looks like species richness is significantly different between treatments
 
 
 a.sum<-a.env.uni%>%
@@ -842,6 +858,7 @@ div.lmer<-lmer(div~treatment*as.factor(sampling) + sg.sd+grow+(1|plot)+
                  mutate(treatment=relevel(treatment, ref = "real")))
 summary(div.lmer)
 anova(div.lmer)
+#diversity is significantly different among treatments
 
 ggplot()+
   geom_line(data=a.sum,aes(x=sampling,y=div.m,group=treatment,color=treatment),position=position_dodge(0.5))+
@@ -857,7 +874,3 @@ ggplot()+
   xlab("Months into Experiment")
 
 ggsave("figures/algal_sp_diversity.jpg")
-
-# I dont really think i did this right :?
-
-
