@@ -40,7 +40,7 @@ if(!require(egg))install.packages("egg")
 
 Foundation species are spatially dominant structure forming taxa that form the base of entire ecosystems [@bruno2001; @altieri2014].
 Positive interactions, or facilitation between species, are particularly important in shaping ecosystems formed by foundation species [@bruno2003; @bulleri2009; @zhang2019].
-Traditionally, research has focused on the mechanisms and consequences of facilitation  by foundation species e.g.,[@hughes2014; @borst2018; @archer2020a].
+Traditionally, research has focused on the mechanisms and consequences *what do you mean consequences?* of facilitation by foundation species e.g.,[@hughes2014; @borst2018; @archer2020a].
 However, foundation species are often facilitated by members of their associated assemblages [@gagnon2020; @peterson2013; @ellison1996] and it is becoming increasingly evident how important these interactions may be for ecosystem stability [@vanderheide2020].\par
 
 Recent theoretical work by van der Heide et al. (2020) showed that facultative facilitation of foundations species has the potential to create non-linear ecosystem dynamics in response to stressors. 
@@ -49,7 +49,7 @@ Consequently, it is important to understand which species facilitate foundation 
 
 Seagrass beds are an important coastal ecosystem worldwide. 
 They help to attenuate wave energy [@fonseca1992] and stabilize sediments [@folmer2012], store large amounts of carbon [@fourqurean2012], and are important sites for nutrient cycling [@hemminga1991]. 
-Seagrass beds also act as hot spots of productivity with diverse and abundance communities of macroalgae, invertebrates, and fish [@duffy2006]. 
+Seagrass beds also act as hot spots of productivity with diverse and abundant communities of macroalgae, invertebrates, and fish [@duffy2006]. 
 The communities associated with seagrass beds maintain important links with other coastal ecosystems, such as coral reefs, by acting as a nursery habitat [@heck2003; @adams2006] and as feeding grounds [@meyer1983; @yeager2012]. 
 Unfortunately, seagrass habitats are under threat from myriad anthropogenic impacts that have driven significant worldwide declines [@orth2006; @waycott2009].\par
 
@@ -58,6 +58,8 @@ Bivalves can facilitate seagrasses through a variety of mechanisms including dec
 Sponges, another common taxa group in tropical and sub-tropical seagrass meadows [@archer2015], are also efficient filter feeders [@reiswig1971; @reiswig1974] with the potential to strongly impact nutrient availability [@southwell2008a; @degoeij2013; @archer2017].
 Yet, how sponges influence seagrasses and other seagrass bed primary producers is generally not well-understood. 
 Despite the paucity of studies, there is some evidence that sponges can influence the growth and abundance of seagrass in a context-dependent manner [@archer2015; @archer2018c].
+
+*Finella: SO I think the last paragraph is important but just not in the right place. It seems like theres a lot of facts about seagrasses that we might not need when the sponge is the star of the show here. In my opinion, I would keep Par 1+2 and change the rest to a structure like this "Seagrass beds are an important coastal ecosystem worldwide. They help to attenuate wave energy (Fonseca and Cahalan 1992) and stabilize sediments (Folmer et al. 2012), store large amounts of carbon (Fourqurean et al. 2012), and are important sites for nutrient cycling (Hemminga et al. 1991). As foundation species, seagrasses are often facilitated by filter feeders, such as bivalves (Gagnon et al. 2020). Bivalves can facilitate seagrasses through a variety of mechanisms including decreasing turbidity (e.g., Wall et al. 2008) and increasing nutrient availability (e.g., Reusch et al. 1994).(New Paragraph) Sponges, another common taxa group in tropical and sub-tropical seagrass meadows (Archer et al. 2015), are also efficient filter feeders (Reiswig 1971, 1974) with the potential to strongly impact nutrient availability (Southwell et al. 2008; de Goeij et al. 2013; Archer et al. 2017). Yet, how sponges influence seagrasses and other seagrass bed primary producers is generally not well-understood. Despite the paucity of studies, there is some evidence that sponges can influence the growth and abundance of seagrass in a context-dependent manner (Archer et al. 2015, 2018)" Then, I would finish up with a "In this study..." paragraph. BUT that's just me. Feel free to disregard!*
 
 **I got stuck here. Need a brain break or some help bringing the intro home. ** 
 
