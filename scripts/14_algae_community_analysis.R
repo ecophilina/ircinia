@@ -220,7 +220,7 @@ RsquareAdj(a.rda.prod)$adj.r.squared
 #no
 
 #What about a model that uses sg grow instead of treatment
-sg.s.yr.mat.nop<-data.frame(model.matrix(~ samp*sggrow + plts))[,-1]
+sg.s.yr.mat.nop<-data.frame(model.matrix(~ yr*seas*sggrow + plts,                                       contrasts=list(yr="contr.helmert", seas="contr.helmert")))[,-1]
 a.rda.sgsyr<-rda(a.com.hel~.,sg.s.yr.mat.nop)
 
 # does it do better than the null
@@ -326,30 +326,9 @@ a.env17<-a.env[a.env$sampling==17,]
 
 #I think this corresponds with the results of the RDA that year season and treatment are important
 
-# treatment stays an important factor from 5 months on. 
-# at 5 months which treatments are different from each other?
-#This first anosim compares blank and fake treatment at 5 months
-a.com5.bf<-a.com5[a.env5$treatment!="real",]
-a.env5.bf<-a.env5[a.env5$treatment!="real",]
-
-(a5bf.anosim<-anosim(a.com5.bf,a.env5.bf$treatment))
-
-# blank and fake aren't different
-
-a.com5.br<-a.com5[a.env5$treatment!="fake",]
-a.env5.br<-a.env5[a.env5$treatment!="fake",]
-
-(a5br.anosim<-anosim(a.com5.br,a.env5.br$treatment))
-
-# blank and real aren't different
-
-a.com5.fr<-a.com5[a.env5$treatment!="blank",]
-a.env5.fr<-a.env5[a.env5$treatment!="blank",]
-
-(a5fr.anosim<-anosim(a.com5.fr,a.env5.fr$treatment))
-
-# real and fake aren't different
-
+# treatment stays an important factor from 12 months on. 
+# at 12 months which treatments are different from each other?
+#This first anosim compares blank and fake treatment at 12 months
 
 # at 12 months which treatments are different from each other?
 
@@ -391,6 +370,7 @@ a.env17.br<-a.env17[a.env17$treatment!="fake",]
 # blank and real ARE different
 
 a.com17.fr<-a.com17[a.env17$treatment!="blank",]
+
 a.env17.fr<-a.env17[a.env17$treatment!="blank",]
 
 (a17fr.anosim<-anosim(a.com17.fr,a.env17.fr$treatment))
@@ -402,6 +382,9 @@ a.env17.fr<-a.env17[a.env17$treatment!="blank",]
 
 
 # which species are driving this difference?
+(a12.simper<-simper(a.com12,a.env12$treatment,permutations = 999))
+summary(a12.simper)
+
 (a17.simper<-simper(a.com17,a.env17$treatment,permutations = 999))
 summary(a17.simper)
 
