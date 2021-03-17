@@ -113,6 +113,13 @@ ggplot(data=f.scores)+
   scale_color_viridis_d(option="B",end=.8)+
   facet_wrap(~sampling)
 
+ggplot(data=f.scores)+
+  geom_jitter(aes(x=PC2,y=PC3,
+    color=treatment),size=2,alpha=.65, 
+    width = 0.03, height = 0.03)+
+  scale_color_viridis_d(option="B",end=.8)+
+  facet_wrap(~sampling)
+
 #start examining statistical relationship
 
 # first look at initial pre-experiment
@@ -510,8 +517,8 @@ taxa<-rownames(sprp0)
 summary(f0.rda.null)$cont$importance
 
 (f0<-ggplot()+
-    ylim(-1.2,1.2)+
-    xlim(-1.2,1.2)+
+    # ylim(-1.2,1.2)+
+    # xlim(-1.2,1.2)+
     geom_hline(aes(yintercept=0),linetype="dashed",color="grey")+
     geom_vline(aes(xintercept=0),linetype="dashed",color="grey")+
     geom_path(data = circ,aes(x,y), lty = 2, color = "grey", alpha = 0.7)+
@@ -529,7 +536,7 @@ summary(f0.rda.null)$cont$importance
                  show.legend = FALSE,
                  level = 0.95)+
     #    geom_polygon(data = hull0, aes(x=PC1,y=PC2,color=treatment,fill=treatment),alpha = 0.1)+
-    geom_point(data=f.env0p,aes(x=PC1,y=PC2,color=treatment),size=2)+
+    geom_jitter(data=f.env0p,aes(x=PC1,y=PC2,color=treatment),size=2)+
     theme_bw()+
     theme(panel.grid = element_blank(),
           legend.position = c(.14,0.95),
@@ -541,8 +548,8 @@ summary(f0.rda.null)$cont$importance
     scale_fill_viridis_d(option="A",begin=0,end=0.6,""))
 
 (f0hull<-ggplot()+
-    ylim(-1,1)+
-    xlim(-1,1)+
+    # ylim(-1,1)+
+    # xlim(-1,1)+
     geom_hline(aes(yintercept=0),linetype="dashed",color="grey")+
     geom_vline(aes(xintercept=0),linetype="dashed",color="grey")+
     geom_path(data = circ,aes(x,y), lty = 2, color = "grey", alpha = 0.7)+
@@ -601,8 +608,8 @@ taxa<-rownames(sprp5)
 
 
 (f5<-ggplot()+
-    ylim(-1.2,1.2)+
-    xlim(-1.2,1.2)+
+    # ylim(-1.2,1.2)+
+    # xlim(-1.2,1.2)+
     geom_hline(aes(yintercept=0),linetype="dashed",color="grey")+
     geom_vline(aes(xintercept=0),linetype="dashed",color="grey")+
     geom_path(data = circ,aes(x,y), lty = 2, color = "grey", alpha = 0.7)+
