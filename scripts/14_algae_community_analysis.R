@@ -88,16 +88,25 @@ a.com.pa<-decostand(a.com,"pa")
 a.com.hel<-decostand(a.com.pa,"hellinger")
 
 a.pca<-rda(a.com.hel)
+a.pca
 
 a.scores<-data.frame(scores(a.pca,1:3)$sites)%>%
   bind_cols(a.env)
 
 ggplot(data=a.scores)+
-  geom_jitter(aes(x=PC2,y=PC3,
-                  color=treatment),size=2,alpha=.65, 
-              width = 0.03, height = 0.03)+
+  geom_jitter(aes(x=PC1,y=PC2,
+    color=treatment),size=2,alpha=.65, 
+    width = 0.03, height = 0.03)+
   scale_color_viridis_d(option="B",end=.8)+
   facet_wrap(~sampling)
+
+ggplot(data=a.scores)+
+  geom_jitter(aes(x=PC2,y=PC3,
+    color=treatment),size=2,alpha=.65, 
+    width = 0.03, height = 0.03)+
+  scale_color_viridis_d(option="B",end=.8)+
+  facet_wrap(~sampling)
+
 #So it looks like over time treatments are becomings really differnt.
 #start examining statistical relationship
 
@@ -313,7 +322,7 @@ a.com12<-a.com12[,colSums(a.com12)!=0]
 a.env12<-a.env[a.env$sampling==12,]
 
 (a12.anosim<-anosim(a.com12,a.env12$treatment))
-
+# summary(a12.anosim)
 # significantly different. R is larger (closer to 1) and sigificance is less than 0.05
 
 # look at 17 months into experiment
@@ -322,7 +331,7 @@ a.com17<-a.com17[,colSums(a.com17)!=0]
 a.env17<-a.env[a.env$sampling==17,]
 
 (a17.anosim<-anosim(a.com17,a.env17$treatment))
-
+summary(a17.anosim)
 # Significantly different but R isn't quite as large.
 
 #I think this corresponds with the results of the RDA that year season and treatment are important
@@ -340,12 +349,12 @@ a.env12.bf<-a.env12[a.env12$treatment!="real",]
 
 # blank and fake are significantly different
 
-a.com12.br<-a.com12[a.env12$treatment!="fake",]
-a.env12.br<-a.env12[a.env12$treatment!="fake",]
-
-(a12br.anosim<-anosim(a.com12.br,a.env12.br$treatment))
-
-# blank and real are VERY different
+# a.com12.br<-a.com12[a.env12$treatment!="fake",]
+# a.env12.br<-a.env12[a.env12$treatment!="fake",]
+# 
+# (a12br.anosim<-anosim(a.com12.br,a.env12.br$treatment))
+# 
+# # blank and real are VERY different
 
 a.com12.fr<-a.com12[a.env12$treatment!="blank",]
 a.env12.fr<-a.env12[a.env12$treatment!="blank",]
@@ -363,12 +372,12 @@ a.env17.bf<-a.env17[a.env17$treatment!="real",]
 
 # blank and fake are not different
 
-a.com17.br<-a.com17[a.env17$treatment!="fake",]
-a.env17.br<-a.env17[a.env17$treatment!="fake",]
-
-(a17br.anosim<-anosim(a.com17.br,a.env17.br$treatment))
-
-# blank and real ARE different
+# a.com17.br<-a.com17[a.env17$treatment!="fake",]
+# a.env17.br<-a.env17[a.env17$treatment!="fake",]
+# 
+# (a17br.anosim<-anosim(a.com17.br,a.env17.br$treatment))
+# 
+# # blank and real ARE different
 
 a.com17.fr<-a.com17[a.env17$treatment!="blank",]
 
@@ -418,7 +427,7 @@ ggplot(data=acom17diff)+
         legend.position = "top")+
   ylab("Number of plots where taxa is present")
 
-
+#TODO: add time = 0 to this plot?
 
 
 # make figures for this
@@ -522,6 +531,100 @@ summary(a0.rda.null)$cont$importance
 
 # these figures are kind of informative. You can see a big divergence of the control 
 
+# make figures for month 1
+a.com1.hel<-decostand(a.com1,"hellinger")
+a1.rda.null<-rda(a.com1.hel~1)
+m1.scores<-scores(a1.rda.null,scaling=1,1:2)
+
+a.env1p<-bind_cols(a.env1,data.frame(m1.scores$sites))
+
+# look at how much variation each axis explains to add to axis labels
+summary(a1.rda.null)$cont$importance
+
+(summary(a1.rda.null)$cont$importance)
+
+# how many eigenvalues to use in circ 
+N_eigens <- ncol(summary(a1.rda.null)$cont$importance)
+
+circ <- circleFun(center=c(0,0),diameter=sqrt(2/N_eigens),npoints = 500)
+
+hull1 <- a.env1p %>%
+  group_by(treatment)%>%
+  slice(chull(PC1, PC2))
+
+spr1<-data.frame(m1.scores$species)
+sprp1<-data.frame(spr1[abs(spr1[,1])>=max(circ[,1])|abs(spr1[,2])>=max(circ[,2]),])
+sprp1$taxa<-rownames(sprp1)
+sprp1<-sprp1%>%
+  filter(taxa %in% c("acetabularia",
+    "cladocephalus",
+    "laurencia",
+    "penicillus"))
+taxa<-rownames(sprp1)
+
+
+
+(a1<-ggplot()+
+    #    ylim(-1.2,1.2)+
+    #    xlim(-1.2,1.2)+
+    geom_hline(aes(yintercept=0),linetype="dashed",color="grey")+
+    geom_vline(aes(xintercept=0),linetype="dashed",color="grey")+
+    geom_path(data = circ,aes(x,y), lty = 2, color = "grey", alpha = 0.7)+
+    geom_segment(data=sprp1,aes(x=0,xend=PC1,y=0,yend=PC2),
+      arrow = arrow(length = unit(0.025, "npc"), type = "open"),
+      lwd = .5)+
+    geom_text(data = sprp1,
+      aes(x = PC1*1.1, y =  PC2*1.1,
+        label = taxa),
+      check_overlap = T, size = 3) +
+    stat_ellipse(geom="polygon", 
+      aes(x=PC1,y=PC2,fill = treatment),
+      data=a.env1p,
+      alpha = 0.2, 
+      show.legend = FALSE,
+      level = 0.95)+
+    #    geom_polygon(data = hull0, aes(x=PC1,y=PC2,color=treatment,fill=treatment),alpha = 0.1)+
+    geom_point(data=a.env1p,aes(x=PC1,y=PC2,color=treatment),size=2)+
+    theme_bw()+
+    theme(panel.grid = element_blank(),
+      legend.position = "none")+
+    coord_fixed()+
+    xlab("PC1 47.00%")+
+    ylab("PC2 27.23%")+
+    scale_color_viridis_d(option="A",begin=0,end=0.6,"")+
+    scale_fill_viridis_d(option="A",begin=0,end=0.6,""))
+
+(a1hull<-ggplot()+
+    ylim(-1,1)+
+    xlim(-1,1)+
+    geom_hline(aes(yintercept=0),linetype="dashed",color="grey")+
+    geom_vline(aes(xintercept=0),linetype="dashed",color="grey")+
+    geom_path(data = circ,aes(x,y), lty = 2, color = "grey", alpha = 0.7)+
+    geom_segment(data=sprp1,aes(x=0,xend=PC1,y=0,yend=PC2),
+      arrow = arrow(length = unit(0.025, "npc"), type = "open"),
+      lwd = .5)+
+    geom_text(data = sprp1,
+      aes(x = PC1*1.1, y =  PC2*1.1,
+        label = taxa),
+      check_overlap = T, size = 3) +
+    # stat_ellipse(geom="polygon", 
+    #              aes(x=PC1,y=PC2,fill = treatment),
+    #              data=f.env5p,
+    #              alpha = 0.2, 
+    #              show.legend = FALSE,
+    #              level = 0.95)+
+    geom_polygon(data = hull1, aes(x=PC1,y=PC2,color=treatment,fill=treatment),alpha = 0.1)+
+    geom_point(data=a.env1p,aes(x=PC1,y=PC2,color=treatment),size=2)+
+    theme_bw()+
+    theme(panel.grid = element_blank(),
+      legend.position = "none")+
+    coord_fixed()+
+    xlab("PC1 47.00%")+
+    ylab("PC2 27.23%")+
+    scale_color_viridis_d(option="A",begin=0,end=0.6,"")+
+    scale_fill_viridis_d(option="A",begin=0,end=0.6,""))
+
+
 
 # make figures for month 5
 a.com5.hel<-decostand(a.com5,"hellinger")
@@ -533,7 +636,10 @@ a.env5p<-bind_cols(a.env5,data.frame(m5.scores$sites))
 # look at how much variation each axis explains to add to axis labels
 summary(a5.rda.null)$cont$importance
 
-circ <- circleFun(center=c(0,0),diameter=sqrt(2/4),npoints = 500)
+# how many eigenvalues to use in circ 
+N_eigens <- ncol(summary(a5.rda.null)$cont$importance)
+
+circ <- circleFun(center=c(0,0),diameter=sqrt(2/N_eigens),npoints = 500)
 
 hull5 <- a.env5p %>%
   group_by(treatment)%>%
@@ -571,7 +677,9 @@ taxa<-rownames(sprp5)
                  show.legend = FALSE,
                  level = 0.95)+
     #    geom_polygon(data = hull0, aes(x=PC1,y=PC2,color=treatment,fill=treatment),alpha = 0.1)+
-    geom_point(data=a.env5p,aes(x=PC1,y=PC2,color=treatment),size=2)+
+    geom_jitter(data=a.env5p,aes(x=PC1,y=PC2,color=treatment),
+      width = 0.1, height = 0.1,
+      size=2)+
     theme_bw()+
     theme(panel.grid = element_blank(),
           legend.position = "none")+
@@ -601,8 +709,10 @@ taxa<-rownames(sprp5)
     #              show.legend = FALSE,
     #              level = 0.95)+
     geom_polygon(data = hull5, aes(x=PC1,y=PC2,color=treatment,fill=treatment),alpha = 0.1)+
-    geom_point(data=a.env5p,aes(x=PC1,y=PC2,color=treatment),size=2)+
-    theme_bw()+
+    geom_jitter(data=a.env5p,aes(x=PC1,y=PC2,color=treatment),
+      # width = 0.1, 
+      height = 0.1,
+      size=2)+theme_bw()+
     theme(panel.grid = element_blank(),
           legend.position = "none")+
     coord_fixed()+
@@ -660,7 +770,9 @@ taxa<-rownames(sprp12)
                  show.legend = FALSE,
                  level = 0.95)+
     #    geom_polygon(data = hull0, aes(x=PC1,y=PC2,color=treatment,fill=treatment),alpha = 0.1)+
-    geom_point(data=a.env12p,aes(x=PC1,y=PC2,color=treatment),size=2)+
+    geom_jitter(data=a.env12p,aes(x=PC1,y=PC2,color=treatment),
+      width = 0.05, height = 0.05,
+      size=2)+
     theme_bw()+
     theme(panel.grid = element_blank(),
           legend.position = "none")+
@@ -690,7 +802,9 @@ taxa<-rownames(sprp12)
     #              show.legend = FALSE,
     #              level = 0.95)+
     geom_polygon(data = hull12, aes(x=PC1,y=PC2,color=treatment,fill=treatment),alpha = 0.1)+
-    geom_point(data=a.env12p,aes(x=PC1,y=PC2,color=treatment),size=2)+
+    geom_jitter(data=a.env12p,aes(x=PC1,y=PC2,color=treatment),
+      width = 0.05, height = 0.05,
+      size=2)+
     theme_bw()+
     theme(panel.grid = element_blank(),
           legend.position = "none")+
@@ -819,12 +933,15 @@ a.env.uni<-a.env%>%
 
 a.env.uni$treatment<-as.factor(a.env.uni$treatment)
 
-spr.lmer<-lmer(spr~treatment*sampling + sg.sd+grow+(1|plot)+
-                 offset(strt.spr),
+library(glmmTMB)
+spr.lmer<-glmmTMB(spr~treatment*sampling + sg.sd+grow+(1|plot)+
+              offset(log(strt.spr+1)),
+              # family = poisson,
+              family = nbinom2(link = "log"),
                data = a.env.uni%>%
                  mutate(treatment=relevel(treatment, ref = "real")))
 summary(spr.lmer)
-anova(spr.lmer)
+# anova(spr.lmer)
 
 # looks like species richness is significantly different between treatments
 
