@@ -1,0 +1,27 @@
+---
+title: "Template"
+output: word_document
+bibliography: Ircinia_paper.bib
+csl: marine-biology.csl
+---
+*corresponding author: sarcher@lumcon.edu  
+
+# Section headers  
+This is the first paragraph\par
+This is the second paragraph  
+
+## Subsection headers  
+1. This is a list  
+2. This is the second item in a list    
+
+```{r fig.example,fig.cap="This is a figure caption",echo=FALSE}
+knitr::include_graphics("figures/algae_summer_95CIbw_shapes.jpg")
+```
+
+This is some text with a citation [@archer2020a].
+
+This is a link https://github.com/ecophilina/ircinia.git  
+
+<div id="refs"></div>  
+
+##### this is a page break
