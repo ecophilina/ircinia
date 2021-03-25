@@ -8,20 +8,26 @@ source("scripts/03_reimport.R")
 
 # prep primary producer data
 sg<-sg_shoot%>%
-  group_by(treatment,plot,sampling)%>%
+  mutate(sg.sd.global=mean(SD))%>%
+  group_by(treatment,plot,sampling,sg.sd.global)%>%
   summarize(sg.sd=mean(SD))%>%
-  mutate(sampling=case_when(
+  mutate(
+    sg.sd=sg.sd-sg.sd.global, # comment this line out if not centering
+    sampling=case_when(
     sampling==1~0,
     sampling==2~1,
     sampling==3~5,
     sampling==4~12,
-    sampling==5~17))
+    sampling==5~17)) 
 
 sggrow<-sg_grow%>%
   filter(dist %in% c(0,0.5))%>%
-  group_by(treatment,plot,sampling)%>%
+  mutate(grow.global=mean(total.growth.mm2/days))%>%
+  group_by(treatment,plot,sampling,grow.global)%>%
   summarize(grow=mean(total.growth.mm2/days))%>%
-  mutate(sampling=case_when(
+  mutate(
+    grow=grow-grow.global,
+    sampling=case_when(
     sampling==1~0,
     sampling==2~1,
     sampling==3~5,
@@ -37,10 +43,10 @@ table(alg$treatment,alg$taxa)
 table(alg$treatment,alg$sampling)
 
 
-a2<-algae%>%
+algae<-algae%>%
   pivot_wider(names_from=taxa,values_from=abundance,values_fill=0)
 
-a2<-a2%>%
+algae<-algae%>%
   mutate(sampling=case_when(
     sampling==1~0,
     sampling==2~1,
@@ -62,8 +68,8 @@ a2<-a2%>%
 
 
 
-a0<-a2%>%filter(yr == 0)
-a2<-a2%>%filter(yr != 0)
+a0<-algae%>%filter(yr == 0)
+a2<-algae%>%filter(yr != 0)
 
 # Organize data
 
@@ -913,13 +919,22 @@ a0hull+a5hull+a12hull+a17hull+plot_layout(widths = 1,heights = 1)
 
 # now look at univariate results
 
+a.env<-algae %>% select(treatment, plot, yr, sampling, season)%>%
+  left_join(sg)%>%
+  left_join((sggrow))
+
+a.com<-algae %>% select(-treatment, -plot, -yr, -sampling, -season)
+
+
+
+
+
 a.env$spr<-specnumber(a.com)
 a.env$div<-diversity(a.com)
 a.env$plot<-as.factor(a.env$plot)
 a.env$treatment<-as.factor(a.env$treatment)
 a.env$season<-as.factor(a.env$season)
 
-library(lmerTest)
 
 a.env0uni<-a.env0%>%
   mutate(strt.spr=specnumber(a.com0),
@@ -928,22 +943,47 @@ a.env0uni<-a.env0%>%
   select(treatment,plot,strt.spr,strt.div)
 
 a.env.uni<-a.env%>%
-  filter(sampling!=0)%>%
-  left_join(a.env0uni)
+  # filter(sampling!=0)%>%
+  left_join(a.env0uni) %>%
+  mutate(spr.change = spr - strt.spr)
 
 a.env.uni$treatment<-as.factor(a.env.uni$treatment)
 
 library(glmmTMB)
-spr.lmer<-glmmTMB(spr~treatment*sampling + sg.sd+grow+(1|plot)+
+
+hist(a.env.uni$spr)
+
+hist(a.env.uni$spr.change)
+ggplot(a.env.uni, aes(spr.change)) + geom_histogram() + facet_wrap(~treatment)
+
+
+spr.lmer<-lmer(spr.change~treatment*yr + season + #sg.sd + grow + 
+    (1|plot),
+  data = a.env.uni%>%
+    mutate(treatment=relevel(treatment, ref = "real")))
+summary(spr.lmer)
+
+
+spr.glmm<-glmmTMB(spr~treatment*yr + season + #sg.sd + grow + 
+              (1|plot)+
               offset(log(strt.spr+1)),
               # family = poisson,
               family = nbinom2(link = "log"),
                data = a.env.uni%>%
                  mutate(treatment=relevel(treatment, ref = "real")))
-summary(spr.lmer)
-# anova(spr.lmer)
 
-# looks like species richness is significantly different between treatments
+summary(spr.glmm)
+
+if(!require(DHARMa))install.packages("DHARMa");library(DHARMa)
+
+# look at residuals
+spr.glmm_simres <- simulateResiduals(spr.glmm)
+testDispersion(spr.glmm_simres)
+plot(spr.glmm_simres)
+
+
+
+# looks like species richness is NOT significantly different between treatments
 
 
 a.sum<-a.env.uni%>%
