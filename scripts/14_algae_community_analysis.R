@@ -926,9 +926,6 @@ a.env<-algae %>% select(treatment, plot, yr, sampling, season)%>%
 a.com<-algae %>% select(-treatment, -plot, -yr, -sampling, -season)
 
 
-
-
-
 a.env$spr<-specnumber(a.com)
 a.env$div<-diversity(a.com)
 a.env$plot<-as.factor(a.env$plot)
@@ -950,14 +947,14 @@ a.env.uni<-a.env%>%
 a.env.uni$treatment<-as.factor(a.env.uni$treatment)
 
 library(glmmTMB)
+library(lmerTest)
 
 hist(a.env.uni$spr)
 
 hist(a.env.uni$spr.change)
 ggplot(a.env.uni, aes(spr.change)) + geom_histogram() + facet_wrap(~treatment)
 
-
-spr.lmer<-lmer(spr.change~treatment*yr + season + #sg.sd + grow + 
+spr.lmer<-lmer(spr.change~treatment*yr*season +#sg.sd + grow + 
     (1|plot),
   data = a.env.uni%>%
     mutate(treatment=relevel(treatment, ref = "real")))
@@ -1002,7 +999,7 @@ ggplot()+
         axis.title = element_text(size=14),
         legend.text = element_text(size=10))+
   scale_color_viridis_d(option="A", begin=0, end=0.6,"")+
-  ylab("Species Richness")+
+  ylab("Taxa Richness")+
   xlab("Months into Experiment")
 
 ggsave("figures/algae_sp_richness.jpg")
