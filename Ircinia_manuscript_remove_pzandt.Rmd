@@ -261,10 +261,18 @@ However, the pattern of change over time was significantly different between con
 # Discussion  
 
 **Finella's notes for discussion**
-*1.Sponges enhancing primary producers 
-2.how sponges facilitate primary production in seagrass beds. Hook: concept that interstions that facilitate fs can help lead to non linear dynamics in systems.
-3.Dampening cycle version? Source and sink.
-
+*1.Sponges enhance primary producers. Context dependent sponge facilitation in seagrass beds.*  
+*2.How sponges facilitate primary production in seagrass beds? Hook: concept that interactions that facilitate foundation species can help lead to non linear dynamics in systems.*
+*3.Dampening cycle version? Source and sink depending on changes in microbiom in sponge. % Nitrogen increases or decreases based on sponge.Helps regulate nutrient concentrations.*
+*4.Might want to mention how the cage could have affected the result. Cage has a structural component that could influence community and is metal (iron is a limiting factor in system).*
+*5. Offset explanation?*
+*6. The reason for significant difference found in shoot densities at further distance is because Steph had trouble finding seagrass beds big enough. So, some of the far distances were on the edge of the seagrass beds and was already less dense to start.*
+*7. Talk about shoot density differences between species?*
+*8. Should we mention Ircinia being a coral reef sponge typically.*
+*9. Mention of sponges growing on the seagrass*
+*10. Add in a map of study site?*
+*11. A single organism that changes an entire ecosystem. Ecosystem engineer?*
+*12. Comparrison of sponge/seagrass and clam/seagrass interaction and that sponge/seagrass is more stable.*
 
   
   
