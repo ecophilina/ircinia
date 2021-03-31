@@ -241,7 +241,7 @@ In contrast, seagrass growth declined in the control and structure control plots
   
 ## *Thalassia testudinum* nutrient concentrations  
 ```{r nutrients, include=FALSE}
-source("scripts/06_nutrient_explore.R")
+source("scripts/06_nutrient_analysis.R")
 ```
   
 Before the the experiment, seagrass in sponge plots had significantly lower nitrogen concentrations than control plots (Fig. \@ref(fig:nuts)A, $\beta$ = `r efsize(nbs,3)`) but not structure control plots. 
@@ -459,7 +459,7 @@ knitr::include_graphics("figures/sggrow-95CI.jpg")
 
 
 ```{r nuts, out.width="65%", echo=FALSE,message=FALSE, fig.cap="Seagrass nutrient concentrations prior to the initiation of the experiment and at one year into the experiment. (A) Percent nitrogen, (B) percent carbon, and (C) percent carbon in Thalassia testudinum tissue."}
-# source("scripts/06_nutrient_explore.R")
+# source("scripts/06_nutrient_analysis.R")
 # pn<-ggplot(sgn %>%
 #     group_by(treatment, sampling, nut, dist) %>%
 #     summarize(mn = mean(nvalue), sdn = sd(nvalue),
