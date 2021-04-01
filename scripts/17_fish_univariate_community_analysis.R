@@ -1,4 +1,4 @@
-# algae univariate analysis
+# fish univariate analysis
 
 library(tidyverse)
 library(vegan)
@@ -8,57 +8,57 @@ library(glmmTMB)
 source("scripts/11_community_analysis_start.R") 
 
 # visualize data
-ggplot(alg.uni)+
+ggplot(fish.uni)+
   geom_jitter(aes(x=sampling,y=spr,color=treatment,group=treatment))
 
-ggplot(alg.uni)+
+ggplot(fish.uni)+
   geom_jitter(aes(x=sampling,y=j,color=treatment,group=treatment))
 
-ggplot(alg.uni)+
+ggplot(fish.uni)+
   geom_jitter(aes(x=sampling,y=div,color=treatment,group=treatment))
 
 # organize data to use offset
 
-alg.uni.0<-alg.uni%>%
+fish.uni.0<-fish.uni%>%
   filter(sampling==0)%>%
   select(treatment,plot,start.spr=spr,start.div=div,start.j=j)
 
-alg.uni2<-alg.uni%>%
+fish.uni2<-fish.uni%>%
   filter(sampling!=0)%>%
-  left_join(alg.uni.0)%>%
+  left_join(fish.uni.0)%>%
   mutate(change.spr=spr-start.spr,
          change.div=div-start.div,
          change.j=j-start.j)
 
-alg.uni2$treatment<-factor(alg.uni2$treatment)
+fish.uni2$treatment<-factor(fish.uni2$treatment)
 
 
-aspr.lmer<-lmer(change.spr~treatment*sampling + grow + 
-                 (1|plot),
-               data = alg.uni2%>%
-                 mutate(treatment=relevel(treatment, ref = "real")))
+fspr.lmer<-lmer(change.spr~treatment*sampling + grow + 
+                  (1|plot),
+                data = fish.uni2%>%
+                  mutate(treatment=relevel(treatment, ref = "real")))
 
-summary(aspr.lmer)
-plot(aspr.lmer)
+summary(fspr.lmer)
+plot(fspr.lmer)
 
-aj.lmer<-lmer(change.j~treatment*sampling +  
-                 (1|plot),
-               data = alg.uni2%>%
-                 mutate(treatment=relevel(treatment, ref = "real")))
+fj.lmer<-lmer(change.j~treatment*sampling +  grow +  
+                (1|plot),
+              data = fish.uni2%>%
+                mutate(treatment=relevel(treatment, ref = "real")))
 
-summary(aj.lmer)
-plot(aj.lmer)
+summary(fj.lmer)
+plot(fj.lmer)
 
-adiv.lmer<-lmer(change.div~treatment*sampling + grow + 
-               (1|plot),
-             data = alg.uni2%>%
-               mutate(treatment=relevel(treatment, ref = "real")))
+fdiv.lmer<-lmer(change.div~treatment*sampling + grow + 
+                  (1|plot),
+                data = fish.uni2%>%
+                  mutate(treatment=relevel(treatment, ref = "real")))
 
-summary(adiv.lmer)
-plot(adiv.lmer)
+summary(fdiv.lmer)
+plot(fdiv.lmer)
 
 # make dataset for plots
-alg.pr<-ggeffects::ggpredict(aspr.lmer,terms=c("treatment","sampling"))%>%
+fish.pr<-ggeffects::ggpredict(fspr.lmer,terms=c("treatment","sampling"))%>%
   rename(treatment=x,sampling=group)%>%
   mutate(sampling=as.numeric(sampling),
          sampling=case_when(
@@ -67,9 +67,9 @@ alg.pr<-ggeffects::ggpredict(aspr.lmer,terms=c("treatment","sampling"))%>%
            sampling==3~12,
            sampling==4~17))
 
-alg.pr$treatment<-factor(alg.pr$treatment,levels=c("blank","fake","real"),labels=c("Control","Structure Control","Sponge"))
+fish.pr$treatment<-factor(fish.pr$treatment,levels=c("blank","fake","real"),labels=c("Control","Structure Control","Sponge"))
 
-alg.plot<-alg.uni2%>%
+fish.plot<-fish.uni2%>%
   group_by(sampling,treatment)%>%
   summarize(mcspr=mean(change.spr),
             sdspr=sd(change.spr),
@@ -84,15 +84,15 @@ alg.plot<-alg.uni2%>%
             sej=sdj/sqrt(5),
             j95=sej*1.96)
 
-alg.plot$treatment<-factor(alg.plot$treatment,levels=c("blank","fake","real"),labels=c("Control","Structure Control","Sponge"))
+fish.plot$treatment<-factor(fish.plot$treatment,levels=c("blank","fake","real"),labels=c("Control","Structure Control","Sponge"))
 
 
-ggplot(alg.plot)+
+ggplot(fish.plot)+
   geom_hline(yintercept=0,linetype="dashed",alpha=.5)+
   geom_point(aes(x=sampling,y=mcspr,color=treatment),size=5,position=position_dodge(0.5))+
   geom_errorbar(aes(x=sampling,ymax=mcspr+spr95,ymin=mcspr-spr95,color=treatment),width=.4,position=position_dodge(0.5))+
-  geom_line(data=alg.pr,aes(x=sampling,y=predicted,group=treatment,color=treatment))+
-  geom_ribbon(data = alg.pr, 
+  geom_line(data=fish.pr,aes(x=sampling,y=predicted,group=treatment,color=treatment))+
+  geom_ribbon(data = fish.pr, 
               aes(sampling,ymin = conf.low, ymax = conf.high,
                   group = treatment, fill = treatment), alpha = 0.2)+
   scale_color_viridis_d(name="", option="A",end=0.6)+
@@ -104,10 +104,10 @@ ggplot(alg.plot)+
         axis.text = element_text(size=10),
         axis.title = element_text(size=14))
 
-ggsave("figures/algae_species_richness.jpg",dpi=300)   
+ggsave("figures/fish_species_richness.jpg",dpi=300)   
 
 
-alg.j<-ggeffects::ggpredict(aj.lmer,terms=c("treatment","sampling"))%>%
+fish.j<-ggeffects::ggpredict(fj.lmer,terms=c("treatment","sampling"))%>%
   rename(treatment=x,sampling=group)%>%
   mutate(sampling=as.numeric(sampling),
          sampling=case_when(
@@ -116,14 +116,14 @@ alg.j<-ggeffects::ggpredict(aj.lmer,terms=c("treatment","sampling"))%>%
            sampling==3~12,
            sampling==4~17))
 
-alg.j$treatment<-factor(alg.j$treatment,levels=c("blank","fake","real"),labels=c("Control","Structure Control","Sponge"))
+fish.j$treatment<-factor(fish.j$treatment,levels=c("blank","fake","real"),labels=c("Control","Structure Control","Sponge"))
 
-ggplot(alg.plot)+
+ggplot(fish.plot)+
   geom_hline(yintercept=0,linetype="dashed",alpha=.5)+
   geom_point(aes(x=sampling,y=mcj,color=treatment),size=5,position=position_dodge(0.5))+
   geom_errorbar(aes(x=sampling,ymax=mcj +j95,ymin=mcj-j95,color=treatment),width=.4,position=position_dodge(0.5))+
-  geom_line(data=alg.j,aes(x=sampling,y=predicted,group=treatment,color=treatment))+
-  geom_ribbon(data = alg.j, 
+  geom_line(data=fish.j,aes(x=sampling,y=predicted,group=treatment,color=treatment))+
+  geom_ribbon(data = fish.j, 
               aes(sampling,ymin = conf.low, ymax = conf.high,
                   group = treatment, fill = treatment), alpha = 0.2)+
   scale_color_viridis_d(name="", option="A",end=0.6)+
@@ -135,9 +135,9 @@ ggplot(alg.plot)+
         axis.text = element_text(size=10),
         axis.title = element_text(size=14))
 
-ggsave("figures/algae_species_evenness.jpg",dpi=300)
+ggsave("figures/fish_species_evenness.jpg",dpi=300)
 
-alg.div<-ggeffects::ggpredict(adiv.lmer,terms=c("treatment","sampling"))%>%
+fish.div<-ggeffects::ggpredict(fdiv.lmer,terms=c("treatment","sampling"))%>%
   rename(treatment=x,sampling=group)%>%
   mutate(sampling=as.numeric(sampling),
          sampling=case_when(
@@ -146,14 +146,14 @@ alg.div<-ggeffects::ggpredict(adiv.lmer,terms=c("treatment","sampling"))%>%
            sampling==3~12,
            sampling==4~17))
 
-alg.div$treatment<-factor(alg.div$treatment,levels=c("blank","fake","real"),labels=c("Control","Structure Control","Sponge"))
+fish.div$treatment<-factor(fish.div$treatment,levels=c("blank","fake","real"),labels=c("Control","Structure Control","Sponge"))
 
-ggplot(alg.plot)+
+ggplot(fish.plot)+
   geom_hline(yintercept=0,linetype="dashed",alpha=.5)+
   geom_point(aes(x=sampling,y=mcdiv,color=treatment),size=5,position=position_dodge(0.5))+
   geom_errorbar(aes(x=sampling,ymax=mcdiv +div95,ymin=mcdiv-div95,color=treatment),width=.4,position=position_dodge(0.5))+
-  geom_line(data=alg.div,aes(x=sampling,y=predicted,group=treatment,color=treatment))+
-  geom_ribbon(data = alg.div, 
+  geom_line(data=fish.div,aes(x=sampling,y=predicted,group=treatment,color=treatment))+
+  geom_ribbon(data = fish.div, 
               aes(sampling,ymin = conf.low, ymax = conf.high,
                   group = treatment, fill = treatment), alpha = 0.2)+
   scale_color_viridis_d(name="", option="A",end=0.6)+
@@ -165,4 +165,4 @@ ggplot(alg.plot)+
         axis.text = element_text(size=10),
         axis.title = element_text(size=14))
 
-ggsave("figures/algae_diversity.jpg",dpi=300)
+ggsave("figures/fish_diversity.jpg",dpi=300)
