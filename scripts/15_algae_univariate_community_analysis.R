@@ -4,6 +4,8 @@ library(tidyverse)
 library(vegan)
 library(lmerTest)
 library(glmmTMB)
+library(DHARMa)
+library(performance)
 
 source("scripts/11_community_analysis_start.R") 
 
@@ -33,29 +35,92 @@ alg.uni2<-alg.uni%>%
 alg.uni2$treatment<-factor(alg.uni2$treatment)
 
 
-aspr.lmer<-lmer(change.spr~treatment*sampling + grow + 
-                 (1|plot),
-               data = alg.uni2%>%
-                 mutate(treatment=relevel(treatment, ref = "real")))
+# aspr.lmm<-lmer(spr~treatment*as.factor(sampling) + 
+#     (1|plot),
+#   data = alg.uni%>%
+#     filter(season=="summer")%>%
+#     mutate(treatment=relevel(treatment, ref = "real")))
+# 
+# summary(aspr.lmm)
+# 
+# # look at residuals
+# spr.lmm_simres <- simulateResiduals(aspr.lmm)
+# testDispersion(spr.lmm_simres)
+# plot(spr.lmm_simres)
 
-summary(aspr.lmer)
-plot(aspr.lmer)
 
-aj.lmer<-lmer(change.j~treatment*sampling +  
-                 (1|plot),
-               data = alg.uni2%>%
-                 mutate(treatment=relevel(treatment, ref = "real")))
+aspr.glmm<-glmmTMB::glmmTMB(spr~treatment*as.factor(sampling) + 
+    (1|plot),
+  # family= tweedie,
+  data = alg.uni%>%
+    filter(season=="summer")%>%
+    mutate(treatment=relevel(treatment, ref = "real")))
 
-summary(aj.lmer)
-plot(aj.lmer)
+summary(aspr.glmm)
 
-adiv.lmer<-lmer(change.div~treatment*sampling + grow + 
-               (1|plot),
-             data = alg.uni2%>%
-               mutate(treatment=relevel(treatment, ref = "real")))
+performance::r2(aspr.glmm)
+# look at residuals
+spr.glmm_simres <- simulateResiduals(aspr.glmm)
+testDispersion(spr.glmm_simres)
+plot(spr.glmm_simres)
 
-summary(adiv.lmer)
-plot(adiv.lmer)
+
+# aspr.glmm2<-glmmTMB::glmmTMB(spr~as.factor(sampling) * grow + 
+#     as.factor(sampling) * sg.sd + 
+#     sg.sd * grow + 
+#     as.factor(sampling) * grow * sg.sd + 
+#     (1|plot),
+#   # family= tweedie,
+#   data = alg.uni%>%
+#     filter(season=="summer")%>%
+#     mutate(treatment=relevel(treatment, ref = "real")))
+# 
+# summary(aspr.glmm2)
+# performance::r2(aspr.glmm2)
+# 
+# # look at residuals
+# spr.glmm_simres2 <- simulateResiduals(aspr.glmm2)
+# testDispersion(spr.glmm_simres2)
+# plot(spr.glmm_simres2)
+
+
+
+alg.uni12 <- alg.uni %>% filter(sampling==12)
+hist(alg.uni12$spr)
+
+alg.uni0 <- alg.uni %>% filter(sampling==0)
+hist(alg.uni0$spr)
+
+
+aj.glmm<-glmmTMB::glmmTMB(j~treatment*as.factor(sampling) + 
+    (1|plot),
+  data = alg.uni%>%
+    filter(season=="summer")%>%
+    mutate(treatment=relevel(treatment, ref = "real")))
+
+summary(aj.glmm)
+
+performance::r2(aj.glmm)
+# look at residuals
+j.glmm_simres <- simulateResiduals(aj.glmm)
+testDispersion(j.glmm_simres)
+plot(j.glmm_simres)
+
+
+adiv.glmm<-glmmTMB::glmmTMB(div~treatment*as.factor(sampling) + 
+    (1|plot),
+  data = alg.uni%>%
+    filter(season=="summer")%>%
+    mutate(treatment=relevel(treatment, ref = "real")))
+
+summary(adiv.glmm)
+
+performance::r2(adiv.glmm)
+# look at residuals
+div.glmm_simres <- simulateResiduals(adiv.glmm)
+testDispersion(div.glmm_simres)
+plot(div.glmm_simres)
+
 
 # make dataset for plots
 alg.pr<-ggeffects::ggpredict(aspr.lmer,terms=c("treatment","sampling"))%>%
