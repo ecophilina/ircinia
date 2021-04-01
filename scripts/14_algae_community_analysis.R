@@ -1028,3 +1028,43 @@ ggplot()+
   xlab("Months into Experiment")
 
 ggsave("figures/algal_sp_diversity.jpg")
+
+
+
+# we probably made this before but it's usefull here for thinking about the above patterns
+alg2<-readxl::read_xlsx(here("Original_data","ForFinella_Transplant_data.xlsx"),sheet="Algae")
+
+a.taxa.abun<-alg2 %>% # this tells R that I'd like to work with this data set
+  pivot_longer(c(-Treatment,-plot,-sampling),names_to = "taxa",values_to = "abundance")%>% 
+  rename(treatment=Treatment)%>%
+  mutate(sampling=case_when(
+    sampling==1~0,
+    sampling==2~1,
+    sampling==3~5,
+    sampling==4~12,
+    sampling==5~17))%>%
+  group_by(treatment,sampling,taxa)%>%
+  summarize(abun.m=mean(abundance),abun.sd=sd(abundance))
+
+ggplot()+
+  geom_line(data=a.taxa.abun,
+    aes(x=sampling,y=abun.m,group=treatment,color=treatment),position=position_dodge(0.5))+
+  geom_errorbar(data=a.taxa.abun,aes(x=sampling,ymin=abun.m-abun.sd,ymax=abun.m+abun.sd,color=treatment),width=.5,position=position_dodge(0.5))+
+  geom_point(data=a.taxa.abun,aes(x=sampling,y=abun.m,color=treatment),size=5,position=position_dodge(0.5))+
+  facet_wrap(~taxa, ncol=1, scales = "free_y") +
+  theme_bw()+
+  theme(panel.grid = element_blank(),
+    axis.text = element_text(size=12),
+    axis.title = element_text(size=14),
+    legend.text = element_text(size=10))+
+  scale_color_viridis_d(option="A", begin=0, end=0.6,"")+
+  ylab("Adundance")+
+  xlab("Months into Experiment")
+
+ggsave("figures/algal_sp_abundance.jpg")
+
+# seems like there was a shift away from cyanobacteria towards halimeda across the board 
+# (but doing best in sponge plots)
+# meanwhile several other algae species also took off only in sponge plots
+
+
