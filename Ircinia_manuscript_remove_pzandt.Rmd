@@ -256,6 +256,35 @@ However, the pattern of change over time was significantly different between con
   
   
 # Discussion  
+Facilitation plays an important role in structuring seagrass ecosystems. 
+Research has largely focused on how seagrasses facilitate other organisms. 
+However, knowing which taxa facilitate seagrasses is equally important for understanding long-term seagrass bed dynamics in the face of a changing ocean.    
+Here, we show that the sponge, *Ircinia felix*, facilitates seagrass bed primary producers.
+Specifically, sponge presents results in increased seagrass nutrient content and growth and increased abundance of both macroalgae and seagrasses.\par  
+
+1. discuss increased primary producer abundance.
+Things to cover - how does this relate to studies of other filter feeders in seagrass beds?
+
+2. increase in seagrass growth close to sponges
+
+3. likely driven by increasing nutrient availability
+  - discuss increase in n and P in sponge plots. 
+  - cover findings that this sponge can be a source of both N and P
+  
+4. How nutrients supplied by filter feeders can sometimes be a context-dependent benefit to seagrasses and why that might not be the case here
+  - example of thalassia and h. melanadocia
+  - example of bivalves
+  - results of my 2017 paper showing that i felix can be a source or a sink for both N and P, becoming a sink when ambient N and/or P are high
+  - need future work to determine if this means that this sponge, and others that process nutrients in similar ways, may be a stabilizing factor in seagrass beds?
+  
+Seagrasses are often facilitated by filter feeders, such as bivalves, increasing nutrient availability [@gagnon2020]. 
+
+Seagrass growth is co-limited by nitrogen and phosphorus in shallow waters of The Bahamas [@allgeier2010]. 
+The sponge used in this experiment, *I. felix*, is capable of complex nutrient transformations (Southwell et al., 2008). 
+The nutrients supplied by the sponge is the most likely driver of the increase in both seagrass growth and shoot densities. 
+We saw a shift in the seagrass community towards an increase in S. filliforme and H. wrightii. 
+This result is consistent with increased nutrient supply in similar systems, as both Powell et al. (1989) and  Fourqurean et al. (1995) found that the addition of nutrients in the form of bird guano shifted the dominant seagrass species in a Florida Bay seagrass bed from T. testudinum to H. wrightii. 
+
 
 **Finella's notes for discussion**
 *1.Sponges enhance primary producers. Context dependent sponge facilitation in seagrass beds.*  
@@ -265,7 +294,7 @@ However, the pattern of change over time was significantly different between con
 *5. Offset explanation?*
 *6. The reason for significant difference found in shoot densities at further distance is because Steph had trouble finding seagrass beds big enough. So, some of the far distances were on the edge of the seagrass beds and was already less dense to start.*
 *7. Talk about shoot density differences between species?*
-*8. Should we mention Ircinia being a coral reef sponge typically.*
+*8. Should we mention Ircinia being a coral reef sponge typically.* - for community paper
 *9. Mention of sponges growing on the seagrass*
 *10. Add in a map of study site?*
 *11. A single organism that changes an entire ecosystem. Ecosystem engineer?*
