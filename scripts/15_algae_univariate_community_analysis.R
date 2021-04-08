@@ -49,10 +49,11 @@ alg.uni2$treatment<-factor(alg.uni2$treatment)
 # plot(spr.lmm_simres)
 
 
-aspr.glmm<-glmmTMB::glmmTMB(spr~treatment*as.factor(sampling) + 
+aspr.glmm<-glmmTMB::glmmTMB(change.spr~treatment*as.factor(sampling) + 
     (1|plot),
+#   offset = start.spr,
   # family= tweedie,
-  data = alg.uni%>%
+  data = alg.uni2%>%
     filter(season=="summer")%>%
     mutate(treatment=relevel(treatment, ref = "real")))
 
@@ -92,24 +93,27 @@ alg.uni0 <- alg.uni %>% filter(sampling==0)
 hist(alg.uni0$spr)
 
 
-aj.glmm<-glmmTMB::glmmTMB(j~treatment*as.factor(sampling) + 
+aj.glmm<-glmmTMB::glmmTMB(change.j~treatment*as.factor(sampling) + 
     (1|plot),
-  data = alg.uni%>%
+ #   offset = start.j,
+  data = alg.uni2%>%
     filter(season=="summer")%>%
     mutate(treatment=relevel(treatment, ref = "real")))
 
 summary(aj.glmm)
 
 performance::r2(aj.glmm)
+
 # look at residuals
 j.glmm_simres <- simulateResiduals(aj.glmm)
 testDispersion(j.glmm_simres)
 plot(j.glmm_simres)
 
 
-adiv.glmm<-glmmTMB::glmmTMB(div~treatment*as.factor(sampling) + 
+adiv.glmm<-glmmTMB::glmmTMB(change.div~treatment*as.factor(sampling) + 
     (1|plot),
-  data = alg.uni%>%
+ #   offset = start.div,
+  data = alg.uni2%>%
     filter(season=="summer")%>%
     mutate(treatment=relevel(treatment, ref = "real")))
 
