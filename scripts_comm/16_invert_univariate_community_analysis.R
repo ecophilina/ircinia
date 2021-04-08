@@ -5,7 +5,7 @@ library(vegan)
 library(lmerTest)
 library(glmmTMB)
 
-source("scripts/11_community_analysis_start.R") 
+source("scripts_comm/02_community_data_org.R") 
 
 # visualize data
 ggplot(inv.uni)+
