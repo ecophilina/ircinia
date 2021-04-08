@@ -15,12 +15,12 @@ if(!require(usethis))install.packages('usethis')
 #usethis::use_git_config(user.name = "username", user.email = "email")
 if(!require(bookdown))install.packages('bookdown')
 
-
-if(!require(lmerTest))install.packages("lmerTest")
+if(!require(glmmTMB))install.packages("glmmTMB")
+# if(!require(lmerTest))install.packages("lmerTest")
 if(!require(DHARMa))install.packages("DHARMa")
 if(!require(vegan))install.packages('performance')
 
-if(!require(glmmTMB))install.packages("glmmTMB")
+
 if(!require(ggeffects))install.packages("ggeffects")
 if(!require(car))install.packages("car")
 if(!require(ggpubr))install.packages("ggpubr")
