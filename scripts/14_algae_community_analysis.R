@@ -1042,7 +1042,8 @@ a.taxa.abun<-alg2 %>% # this tells R that I'd like to work with this data set
     sampling==2~1,
     sampling==3~5,
     sampling==4~12,
-    sampling==5~17))%>%
+    sampling==5~17),
+    taxa=ifelse(taxa=="cladocephalus","udotea",taxa))%>%
   group_by(treatment,sampling,taxa)%>%
   summarize(abun.m=mean(abundance),abun.sd=sd(abundance))
 
