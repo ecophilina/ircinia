@@ -75,7 +75,8 @@ alg.com.full<-algae%>%
       sampling==1~1,
       sampling==5~1,
       sampling==12~2,
-      sampling==17~2))%>%
+      sampling==17~2),
+    taxa=ifelse(taxa=="cladocephalus","udotea",taxa))%>%
   left_join(productivity)%>%
   pivot_wider(names_from=taxa,values_from=abundance,values_fill=0)
 
