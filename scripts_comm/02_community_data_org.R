@@ -1,7 +1,7 @@
 # organize data for community analysis
 library(tidyverse)
 
-# bring in data
+# bring in data that has been prepared in orginal script series
 source("scripts/03_reimport.R")  
 
 # prep primary producer data
