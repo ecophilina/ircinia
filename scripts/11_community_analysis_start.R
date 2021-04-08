@@ -52,7 +52,8 @@ alg<-algae%>%
       sampling==5~17))
 
 productivity<-left_join(sg,sggrow)%>%
-  left_join(alg)
+  left_join(alg)%>%
+  mutate(sd.grow=grow*sg.sd)
 
 # create community datasets
 
@@ -126,11 +127,11 @@ fish.com.full<-fish%>%
 
 alg.env<-alg.com.full %>%
   select(treatment,plot,sampling,season,yr,sg.sd.global,
-         sg.sd,grow.global,grow,abund,abund.global)
+         sg.sd,grow.global,grow,abund,abund.global,sd.grow)
 
 alg.com<-alg.com.full %>%
   select(-treatment,-plot,-sampling,-season,-yr,-sg.sd.global,
-         -sg.sd,-grow.global,-grow,-abund,-abund.global)
+         -sg.sd,-grow.global,-grow,-abund,-abund.global,-sd.grow)
 
 alg.uni<-alg.env%>%
   mutate(spr=vegan::specnumber(alg.com),
@@ -140,11 +141,11 @@ alg.uni<-alg.env%>%
 
 inv.env<-inv.com.full %>%
   select(treatment,plot,sampling,season,yr,sg.sd.global,
-         sg.sd,grow.global,grow,abund,abund.global)
+         sg.sd,grow.global,grow,abund,abund.global,sd.grow)
 
 inv.com<-inv.com.full %>%
   select(-treatment,-plot,-sampling,-season,-yr,-sg.sd.global,
-         -sg.sd,-grow.global,-grow,-abund,-abund.global)
+         -sg.sd,-grow.global,-grow,-abund,-abund.global,-sd.grow)
 
 inv.uni<-inv.env%>%
   mutate(spr=vegan::specnumber(inv.com),
@@ -154,11 +155,11 @@ inv.uni<-inv.env%>%
 
 fish.env<-fish.com.full %>%
   select(treatment,plot,sampling,season,yr,sg.sd.global,
-         sg.sd,grow.global,grow,abund,abund.global)
+         sg.sd,grow.global,grow,abund,abund.global,sd.grow)
 
 fish.com<-fish.com.full %>%
   select(-treatment,-plot,-sampling,-season,-yr,-sg.sd.global,
-         -sg.sd,-grow.global,-grow,-abund,-abund.global)
+         -sg.sd,-grow.global,-grow,-abund,-abund.global,-sd.grow)
 
 fish.uni<-fish.env%>%
   mutate(spr=vegan::specnumber(fish.com),

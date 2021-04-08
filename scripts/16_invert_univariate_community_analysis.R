@@ -31,31 +31,143 @@ inv.uni2<-inv.uni%>%
          change.j=j-start.j)
 
 inv.uni2$treatment<-factor(inv.uni2$treatment)
+inv.uni$treatment<-factor(inv.uni$treatment)
+
+hist(inv.uni2$change.spr)
+
+summary(aov(spr~treatment,data=inv.uni%>%
+      filter(sampling==0)))
+
+ggplot(inv.uni%>%
+  filter(sampling==0))+
+  geom_point(aes(x=treatment,y=spr))
+
+#models with treatment as the explanatory variable
+#species richness
+
+ispr.glmm<-glmmTMB::glmmTMB(change.spr~treatment*as.factor(sampling) + 
+                              (1|plot),
+                            #family= poisson,
+                            data = inv.uni2%>%
+                              filter(season=="summer")%>%
+                              mutate(treatment=relevel(treatment, ref = "real")))
+
+summary(ispr.glmm)
+
+performance::r2(ispr.glmm)
+# look at residuals
+ispr.glmm_simres <- simulateResiduals(ispr.glmm)
+testDispersion(ispr.glmm_simres)
+plot(ispr.glmm_simres)
+
+# evenness
+ij.glmm<-glmmTMB::glmmTMB(change.j~treatment*as.factor(sampling) + 
+                              (1|plot),
+                            #family= poisson,
+                            data = inv.uni2%>%
+                              filter(season=="summer")%>%
+                              mutate(treatment=relevel(treatment, ref = "real")))
+
+summary(ij.glmm)
+
+performance::r2(ij.glmm)
+# look at residuals
+ij.glmm_simres <- simulateResiduals(ij.glmm)
+testDispersion(ij.glmm_simres)
+plot(ij.glmm_simres)
+
+# diversity
+idiv.glmm<-glmmTMB::glmmTMB(change.div~treatment*as.factor(sampling) + 
+                            (1|plot),
+                          #family= poisson,
+                          data = inv.uni2%>%
+                            filter(season=="summer")%>%
+                            mutate(treatment=relevel(treatment, ref = "real")))
+
+summary(idiv.glmm)
+
+performance::r2(idiv.glmm)
+# look at residuals
+idiv.glmm_simres <- simulateResiduals(idiv.glmm)
+testDispersion(idiv.glmm_simres)
+plot(idiv.glmm_simres)
 
 
-ispr.lmer<-lmer(change.spr~treatment*sampling + grow + 
-                 (1|plot),
-               data = inv.uni2%>%
-                 mutate(treatment=relevel(treatment, ref = "real")))
+# models with productivity as the explanatory variable
+#species richness
 
-summary(ispr.lmer)
-plot(ispr.lmer)
+ispr.glmm.grow<-glmmTMB::glmmTMB(change.spr~grow*as.factor(sampling) + sg.sd*as.factor(sampling) + 
+                              (1|plot),
+                            #family= poisson,
+                            data = inv.uni2%>%
+                              filter(season=="summer")%>%
+                              mutate(treatment=relevel(treatment, ref = "real")))
 
-ij.lmer<-lmer(change.j~treatment*sampling +  grow +  
-               (1|plot),
-             data = inv.uni2%>%
-               mutate(treatment=relevel(treatment, ref = "real")))
+summary(ispr.glmm.grow)
 
-summary(ij.lmer)
-plot(ij.lmer)
+performance::r2(ispr.glmm)
+performance::r2(ispr.glmm.grow)
 
-idiv.lmer<-lmer(change.div~treatment*sampling + grow + 
-                 (1|plot),
-               data = inv.uni2%>%
-                 mutate(treatment=relevel(treatment, ref = "real")))
+# look at residuals
+ispr.glmm_simres.grow <- simulateResiduals(ispr.glmm.grow)
+testDispersion(ispr.glmm_simres.grow)
+plot(ispr.glmm_simres.grow)
 
-summary(idiv.lmer)
-plot(idiv.lmer)
+# evenness
+ij.glmm<-glmmTMB::glmmTMB(change.j~treatment*as.factor(sampling) + 
+                            (1|plot),
+                          #family= poisson,
+                          data = inv.uni2%>%
+                            filter(season=="summer")%>%
+                            mutate(treatment=relevel(treatment, ref = "real")))
+
+summary(ij.glmm)
+
+performance::r2(ij.glmm)
+# look at residuals
+ij.glmm_simres <- simulateResiduals(ij.glmm)
+testDispersion(ij.glmm_simres)
+plot(ij.glmm_simres)
+
+# diversity
+idiv.glmm<-glmmTMB::glmmTMB(change.div~treatment*as.factor(sampling) + 
+                              (1|plot),
+                            #family= poisson,
+                            data = inv.uni2%>%
+                              filter(season=="summer")%>%
+                              mutate(treatment=relevel(treatment, ref = "real")))
+
+summary(idiv.glmm)
+
+performance::r2(idiv.glmm)
+# look at residuals
+idiv.glmm_simres <- simulateResiduals(idiv.glmm)
+testDispersion(idiv.glmm_simres)
+plot(idiv.glmm_simres)
+
+# ispr.lmer<-lmer(change.spr~treatment*sampling + grow + 
+#                  (1|plot),
+#                data = inv.uni2%>%
+#                  mutate(treatment=relevel(treatment, ref = "real")))
+# 
+# summary(ispr.lmer)
+# plot(ispr.lmer)
+# 
+# ij.lmer<-lmer(change.j~treatment*sampling +  grow +  
+#                (1|plot),
+#              data = inv.uni2%>%
+#                mutate(treatment=relevel(treatment, ref = "real")))
+# 
+# summary(ij.lmer)
+# plot(ij.lmer)
+# 
+# idiv.lmer<-lmer(change.div~treatment*sampling + grow + 
+#                  (1|plot),
+#                data = inv.uni2%>%
+#                  mutate(treatment=relevel(treatment, ref = "real")))
+# 
+# summary(idiv.lmer)
+# plot(idiv.lmer)
 
 # make dataset for plots
 inv.pr<-ggeffects::ggpredict(ispr.lmer,terms=c("treatment","sampling"))%>%

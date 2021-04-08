@@ -262,6 +262,11 @@ However, knowing which taxa facilitate seagrasses is equally important for under
 Here, we show that the sponge, *Ircinia felix*, facilitates seagrass bed primary producers.
 Specifically, sponge presents results in increased seagrass nutrient content and growth and increased abundance of both macroalgae and seagrasses.\par  
 
+Start with nutrient result
+transition into how we see what we would expect to see in the rest of the community (increased abundance and growth)
+talk about how other facilitation relationships based on nutrient supply can prove unstable under increased nutrient loads, then why this interaction may be different.
+Finish with need to study this interaction under different nutrient-loading scenarios.
+
 1. discuss increased primary producer abundance.
 Things to cover - how does this relate to studies of other filter feeders in seagrass beds?
 

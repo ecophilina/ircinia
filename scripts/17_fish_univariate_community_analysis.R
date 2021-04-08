@@ -31,31 +31,90 @@ fish.uni2<-fish.uni%>%
          change.j=j-start.j)
 
 fish.uni2$treatment<-factor(fish.uni2$treatment)
+hist(fish.uni2$change.spr)
 
+summary(aov(spr~treatment,data=fish.uni%>%
+              filter(sampling==0)))
 
-fspr.lmer<-lmer(change.spr~treatment*sampling + grow + 
-                  (1|plot),
-                data = fish.uni2%>%
-                  mutate(treatment=relevel(treatment, ref = "real")))
+ggplot(fish.uni%>%
+         filter(sampling==0))+
+  geom_jitter(aes(x=treatment,y=spr))
 
-summary(fspr.lmer)
-plot(fspr.lmer)
+#species richness
 
-fj.lmer<-lmer(change.j~treatment*sampling +  grow +  
-                (1|plot),
-              data = fish.uni2%>%
-                mutate(treatment=relevel(treatment, ref = "real")))
+fspr.glmm<-glmmTMB::glmmTMB(change.spr~treatment*as.factor(sampling) + 
+                              (1|plot),
+                            #family= poisson,
+                            data = fish.uni2%>%
+                              filter(season=="summer")%>%
+                              mutate(treatment=relevel(treatment, ref = "real")))
 
-summary(fj.lmer)
-plot(fj.lmer)
+summary(fspr.glmm)
 
-fdiv.lmer<-lmer(change.div~treatment*sampling + grow + 
-                  (1|plot),
-                data = fish.uni2%>%
-                  mutate(treatment=relevel(treatment, ref = "real")))
+performance::r2(fspr.glmm)
 
-summary(fdiv.lmer)
-plot(fdiv.lmer)
+# look at residuals
+fspr.glmm_simres <- simulateResiduals(fspr.glmm)
+testDispersion(fspr.glmm_simres)
+plot(fspr.glmm_simres)
+
+# evenness
+fj.glmm<-glmmTMB::glmmTMB(change.j~treatment*as.factor(sampling) + 
+                            (1|plot),
+                          #family= poisson,
+                          data = fish.uni2%>%
+                            filter(season=="summer")%>%
+                            mutate(treatment=relevel(treatment, ref = "real")))
+
+summary(fj.glmm)
+
+performance::r2(fj.glmm)
+
+# look at residuals
+fj.glmm_simres <- simulateResiduals(fj.glmm)
+testDispersion(fj.glmm_simres)
+plot(fj.glmm_simres)
+
+# diversity
+fdiv.glmm<-glmmTMB::glmmTMB(change.div~treatment*as.factor(sampling) + 
+                              (1|plot),
+                            #family= poisson,
+                            data = fish.uni2%>%
+                              filter(season=="summer")%>%
+                              mutate(treatment=relevel(treatment, ref = "real")))
+
+summary(fdiv.glmm)
+
+performance::r2(fdiv.glmm)
+
+# look at residuals
+fdiv.glmm_simres <- simulateResiduals(fdiv.glmm)
+testDispersion(fdiv.glmm_simres)
+plot(fdiv.glmm_simres)
+
+# fspr.lmer<-lmer(change.spr~treatment*sampling + grow + 
+#                   (1|plot),
+#                 data = fish.uni2%>%
+#                   mutate(treatment=relevel(treatment, ref = "real")))
+# 
+# summary(fspr.lmer)
+# plot(fspr.lmer)
+# 
+# fj.lmer<-lmer(change.j~treatment*sampling +  grow +  
+#                 (1|plot),
+#               data = fish.uni2%>%
+#                 mutate(treatment=relevel(treatment, ref = "real")))
+# 
+# summary(fj.lmer)
+# plot(fj.lmer)
+# 
+# fdiv.lmer<-lmer(change.div~treatment*sampling + grow + 
+#                   (1|plot),
+#                 data = fish.uni2%>%
+#                   mutate(treatment=relevel(treatment, ref = "real")))
+# 
+# summary(fdiv.lmer)
+# plot(fdiv.lmer)
 
 # make dataset for plots
 fish.pr<-ggeffects::ggpredict(fspr.lmer,terms=c("treatment","sampling"))%>%
