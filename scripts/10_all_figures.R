@@ -100,7 +100,8 @@ sdp<-ggplot()+
                    labels=c("Control","Structure control","Sponge"))+
   theme_bw()+
   theme(panel.grid = element_blank(),
-            legend.position = "none", #legend.position = "top",
+        #    legend.position = "none", 
+        legend.position = "top",
         strip.background = element_blank(),
         strip.text = element_blank())+
   ylab(sdlab)+
@@ -157,8 +158,9 @@ sgplot <- egg::tag_facet(sgplot,
   theme(panel.grid=element_blank(),
         panel.spacing = unit(1, "lines"),
         strip.background = element_blank(),
-        legend.position = "none",
-        # legend.text = element_text(size=14),
+        #legend.position = "none",
+        legend.position = "bottom",
+        legend.text = element_text(size=12),
         axis.title=element_text(size=14),
         axis.text = element_text(size=12),
         strip.text = element_text(size=14))
@@ -281,8 +283,8 @@ pp<-egg::tag_facet(pp,tag_pool = c("c"))
 #n1<-plot_grid(lgnd,pn,pp,labels = c("","A","B"),nrow=3,ncol = 1,rel_heights = c(.1,1,1))
 #with carbon
 n2<-plot_grid(
-  # lgnd,pn,pc,pp,nrow=4,ncol = 1,rel_heights = c(.1,1,1,1.1)
-  pn,pc,pp,nrow=3,ncol = 1,rel_heights = c(1,1,1.1)
+  lgnd,pn,pc,pp,nrow=4,ncol = 1,rel_heights = c(.1,1,1,1.1)
+  #pn,pc,pp,nrow=3,ncol = 1,rel_heights = c(1,1,1.1)
   )
 # ggsave(filename = "figures/nuts.pdf",plot=n2,width=3,height = 6)
 # ggsave(filename = "figures/nuts.jpg",plot=n2,width=3,height = 6)
