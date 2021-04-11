@@ -1,5 +1,5 @@
 ---
-title: "Individual sponges alter community composition via facilitation in a Bahamas seagrass system"
+title: "Sponges facilitate primary producers in a Bahamas seagrass system"
 output: 
   bookdown::word_document2:
     number_sections: false
@@ -26,6 +26,19 @@ if(!require(egg))install.packages("egg")
 ```
 
 # Abstract 150-250 words  
+Seagrass beds are important coastal ecosystems worldwide and are shaped by facilitative interactions.
+Recent theoretical work has highlighted the potential for facilitative interactions involving foundation species to be destabilizing in the face of anthropogenic change.
+Consequently it is becoming more important to understand which taxa facilitate seagrasses.
+Sponges are a common component of seagrass bed communities. 
+In other ecosystems sponges contribute to the maintenance of more diverse and productive systems through their facilitation of foundation species (e.g., mangroves) and the retention and recycling of energy and nutrients within the system. 
+However, we know little about how sponge presence impacts *Thalassia testudinum* dominated seagrass beds.
+Here we examine the impact of the sponge *Ircinia felix* on saeagrass bed primary producers in The Bahamas using a long-term field experiment. 
+We transplanted live sponges into the center of 5 m x 5 m plots and monitored the response of seagrasses and macroalgae. 
+Sponge presence resulted in an increase in seagrass nutrient content and growth, and increased abundance of macroalgae and non-dominant seagrass species (*Syringodium filiforme* and *Halodule wrightii*). 
+These changes were not seen in our control (unmanipulated) or structure control (where we placed a polypropylene sponge replica) plots. 
+We conclude that *I. felix* facilitates seagrass bed primary producers in oligotrophic systems, likely due to nutrients supplied by the sponge. 
+Our study shows that sponges can have a positive influence on seagrass bed foundation species in unimpacted systems. 
+Further work is needed to understand how this facilitation impacts the stability of seagrass beds in areas where human activities have increased ambient nutrient levels.
 
 # Declarations  
 *Funding:* This work was supported by North Carolina State University, NSF OCE 1405198 to Craig Layman, and donations from Win and Tana Archer. 
@@ -263,58 +276,73 @@ Here, we show that the sponge *Ircinia felix* facilitates seagrass bed primary p
 Specifically, sponge presents results in increased seagrass nutrient content and growth and increased abundance of both macroalgae and seagrasses.\par  
 
 Many sponge holobionts, including *I. felix*, are capable of complex nutrient transformations and often release bioavailable forms of nitrogen and phosphorus into the environment [@southwell2008a; @archer2017].
-We hypothesized that this would result in sponge presence facilitating seagrass bed primary producers. 
+Because primary producers are typically limited by both nitrogen and phosphorus in our study system [@allgeier2010], we hypothesized that the sponges we transplanted would supply these nutrients resulting in the facilitation of seagrass bed primary producers. 
 Consistent with our hypothesis, we saw an increase in seagrass nutrient content in our plots with live sponges.
 Ours is not the first study to find that sponge-released nutrients can facilitate primary producers.
 For example, sponges growing on mangrove roots supply nutrients to the mangrove [@ellison1996] and sponges can supply nitrogen to macroalgae on coral reefs [@easson2014]. 
-Further, Archer et al. (2015) showed that a different sponge (*Halichondria melanadocia*) can provide nutrients to seagrasses. However, this study, to the best of our knowledge, is the first to show that a single massive form sponge can increase nutrient content in seagrasses within a 0.25 m radius. \par
+Further, Archer et al. (2015) showed that a different sponge (*Halichondria melanadocia*) that grows around the base and leaves of seagrass shoots likely provide nutrients to those shoots. 
+However, this study, to the best of our knowledge, is the first to show that a single massive form sponge can increase nutrient content in seagrasses within a 0.25 m radius. \par
 
 The other changes we documented in the primary producers in our sponge plots are consistent with an increase in nutrient supply in an oligotrophic system. 
 For example, we recorded an increase in *S. filliforme* and *H. wrightii* in sponge plots.
 Such an increase has been associated with the addition of a novel source of nutrients in similar systems; the addition of nutrients in the form of bird guano shifted the dominant seagrass species in a Florida Bay seagrass bed from *T. testudinum* to *H. wrightii* [@powell1989; @fourqurean1995].
 Concomitantly, we saw an increase in seagrass growth near the transplanted sponges and a general increase in macroalgal abundance in sponge plots.
-It is possible that simply the addition of structure to our plots altered water flow and influenced the primary producers. 
+It is possible that the addition of structure to our plots altered water flow and influenced the primary producers. 
 However, similar structures (a sponge replica and holding cage) were added to our structure control plots and the response of the primary producers in control and structure control plots did not differ significantly while we saw a significant response in our sponge plots for most responses. 
-This suggests that it is the sponges, rather than the presence of structure, that lead to increased seagrass nutrient content and growth, and increased abundance of both seagrasses (*S. filliforme* and *H. wrightii*) and macroalgae.\par
+This suggests that it is a function of the live sponges, rather than the presence of structure, that lead to increased seagrass nutrient content and growth, and increased abundance of both seagrasses (*S. filliforme* and *H. wrightii*) and macroalgae.\par
 
-While our study is the first to show facilitation of primary producers in seagrass beds by sponges; seagrasses are often facilitated by other filter feeders, such as bivalves, increasing nutrient availability [@gagnon2020]. 
+While our study is the first to show facilitation of primary producers in seagrass beds by sponges; seagrasses are often facilitated by other filter feeders increasing nutrient availability [@gagnon2020].
+For example, Reusch and coauthors [-@reusch1994] found that the blue mussel (*Mytilus edulis*) facilitates seagrass growth via fertilization of sediments through the deposition of biodeposits (feces and pseudofeces).
+However, this effect appears to be context-dependent.
+Specifically, in eutrophic conditions the presence of mussels leads to reduced seagrass density due to high sulfide concentrations in the sediments resulting from the combined effects of water column nutrient enrichment and mussel biodeposits.
+The effect of the epiphytic sponge *H. melanadocia* was also found to be partially determined by the sponge's supply of limiting nutrients [@archer 2015; @archer2018c].
+Under oligotrophic conditions this sponge-seagrass interaction is commensal, with the seagrass providing an attachment point for the sponge and the seagrass displaying no net effect of sponge presence.
+The net neutral effect of the sponge on the seagrass is, however, a balance of a negative effect of the sponge shading the seagrass with the sponge releasing bioavailable forms of limiting nutrients (N and P) [@archer2015].
+This interaction is also context dependent, with small increases in ambient nutrient levels resulting in a shift from commensalism to parasitism and a reduction of seagrass growth and biomass [@archer2018c].\par
 
-talk about how other facilitation relationships based on nutrient supply can prove unstable under increased nutrient loads, then why this interaction may be different.
-Finish with need to study this interaction under different nutrient-loading scenarios.
+The context-dependent nature of many facilitative interactions between filter feeders and seagrasses can lead to seemingly unpredictable instability in seagrass ecosystems [@vanderheide2020]. 
+For example, these interactions can lower the threshold of nutrient pollution that leads to decline in seagrass ecosystems, driving seagrass loss at lower nutrient levels than would be predicted by studying seagrasses in isolation.
+On first glance, it may appear that the facilitation of primary producers by *I. felix* would be no different, as this facilitation appears to be based on nutrients supplied by the sponge. 
+However, nutrient processing by the *I. felix* holobiont is also context-dependent. 
+While there is little spatial or temporal variability in *I. felix*'s symbiotic microbiome [@erwin2012]; the active portion of the microbiome appears to be dependent on ambient nutrient concentrations [@archer2017].
+As a result the *I. felix* holobiont acts as a source of bioavailable forms of N and P when ambient concentrations of those nutrient species are low, and as a sink when they are high [@archer2017].
+This context-dependent nutrient processing has been documented in other sponges as well [@pawlik2020].
+While the ecosystem-level effects of this context-dependent nutrient processing have not been studied, it is reasonable to predict that it should have a stabilizing effect on ambient nutrient levels when sponges are present in sufficient densities.
+This study showed facilitation of primary production in a seagrass bed by *I. felix* under oligotrophic conditions, likely due to nutrients supplied by the sponge. 
+Future work should focus on the impact of *I. felix* presence on seagrass bed primary producers under a range of ambient nutrient levels to better understand if context-dependent nutrient processing by sponges can act as a stabilizing force in seagrass beds.\par  
 
-4. How nutrients supplied by filter feeders can sometimes be a context-dependent benefit to seagrasses and why that might not be the case here
-  - example of thalassia and h. melanadocia
-  - example of bivalves
-  - results of my 2017 paper showing that i felix can be a source or a sink for both N and P, becoming a sink when ambient N and/or P are high
-  - need future work to determine if this means that this sponge, and others that process nutrients in similar ways, may be a stabilizing factor in seagrass beds?
-  
-
-
+Overall, our study shows that sponges can facilitate seagrass bed primary producers and that this facilitation is likely based on nutrients supplied by the sponge.
+It is important to understand which taxa facilitate foundation spcies, like seagrass, because this can have cascading consequences on local diversity, ecosystem function, and the delivery of ecosystem services.
+Theoretical and empirical work shows that interactions involving nutrient-transfer are often context-dependent and that such interactions involving foundation species can lead to non-linear ecosystem dynamics when human activities significantly alter ambient nutrient levels. 
+We studied the effect of *I. felix* in unimpacted seagrass beds.
+Therefore, this study represents a first step in understanding how sponges influence seagrass ecosystems and our results suggest that further work is necessary to determine if this facilitation breaks down in impacted systems.
 
   
 # References  
 <div id="refs"></div>  
 
+##### break  
+
 # Figures
 
 
-```{r algaep, out.width="95%", echo=FALSE, message=FALSE, fig.cap="The change in macroalgal abundances in control, structure control, and sponge plots between the first and second summer of the experiment. Taxa-specific mean counts and standard errors are presented. The line and shaded area represent the global model fit with 95 confidence intervals."}
-# # % symbol doesn't work in fig.cap
+```{r algaep, out.width="95%", echo=FALSE, message=FALSE, fig.cap="The change in macroalgal abundances in control, structure control, and sponge plots between the first and second summer of the experiment. Taxa-specific mean counts and 95% confidence intervals are presented. The line and shaded area represent the global model fit with 95% confidence intervals."}
+
 knitr::include_graphics("figures/algae_summer_95CIbw_shapes.jpg")
 ```
 
 
-```{r shootd, out.width="55%", echo=FALSE,message=FALSE, fig.cap="Shoot densities of (A) *T. testudinum* and (B) *S. filliforme* and *H. wrightii* combind."}
+```{r shootd, out.width="55%", echo=FALSE,message=FALSE, fig.cap="Shoot densities of (a) *T. testudinum* and (b) *S. filliforme* and *H. wrightii* combined over the course of the experiment."}
 knitr::include_graphics("figures/shootdensity-95CI.jpg")
 ```
 
 
-```{r grow, out.width="85%", echo=FALSE,message=FALSE, fig.cap="Segrass growth"}
+```{r grow, out.width="85%", echo=FALSE,message=FALSE, fig.cap="Segrass growth in the summer (a) and winter (b) over the course of the experiment. Summer sampling happened in months 1 and 12 (years 1 and 2 respectively) while winter sampling occurred in months 5 and 17."}
 knitr::include_graphics("figures/sggrow-95CI.jpg")
 ```
 
 
-```{r nuts, out.width="65%", echo=FALSE,message=FALSE, fig.cap="Seagrass nutrient concentrations prior to the initiation of the experiment and at one year into the experiment. (A) Percent nitrogen, (B) percent carbon, and (C) percent phosphorus in Thalassia testudinum tissue."}
+```{r nuts, out.width="65%", echo=FALSE,message=FALSE, fig.cap="Seagrass nutrient concentrations prior to the initiation of the experiment and at one year (12 months) into the experiment. (a) Percent nitrogen, (b) percent carbon, and (c) percent phosphorus in *Thalassia testudinum* tissue."}
 knitr::include_graphics("figures/nuts-95CI.jpg")
 ```
 
