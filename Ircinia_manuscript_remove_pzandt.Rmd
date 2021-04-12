@@ -273,7 +273,7 @@ Facilitation plays an important role in structuring seagrass ecosystems.
 Research has largely focused on how seagrasses facilitate other organisms. 
 However, knowing which taxa facilitate seagrasses is equally important for understanding long-term seagrass bed dynamics in the face of a changing ocean. 
 Here, we show that the sponge *Ircinia felix* facilitates seagrass bed primary producers.
-Specifically, sponge presents results in increased seagrass nutrient content and growth and increased abundance of both macroalgae and seagrasses.\par  
+Specifically, sponge presence results in increased seagrass nutrient content and growth and increased abundance of both macroalgae and seagrasses.\par  
 
 Many sponge holobionts, including *I. felix*, are capable of complex nutrient transformations and often release bioavailable forms of nitrogen and phosphorus into the environment [@southwell2008a; @archer2017].
 Because primary producers are typically limited by both nitrogen and phosphorus in our study system [@allgeier2010], we hypothesized that the sponges we transplanted would supply these nutrients resulting in the facilitation of seagrass bed primary producers. 
@@ -291,7 +291,7 @@ It is possible that the addition of structure to our plots altered water flow an
 However, similar structures (a sponge replica and holding cage) were added to our structure control plots and the response of the primary producers in control and structure control plots did not differ significantly while we saw a significant response in our sponge plots for most responses. 
 This suggests that it is a function of the live sponges, rather than the presence of structure, that lead to increased seagrass nutrient content and growth, and increased abundance of both seagrasses (*S. filliforme* and *H. wrightii*) and macroalgae.\par
 
-While our study is the first to show facilitation of primary producers in seagrass beds by sponges; seagrasses are often facilitated by other filter feeders increasing nutrient availability [@gagnon2020].
+While **Although instead of while?** our study is the first to show facilitation of primary producers in seagrass beds by sponges, seagrasses are often facilitated by other filter feeders increasing nutrient availability [@gagnon2020].
 For example, Reusch and coauthors [-@reusch1994] found that the blue mussel (*Mytilus edulis*) facilitates seagrass growth via fertilization of sediments through the deposition of biodeposits (feces and pseudofeces).
 However, this effect appears to be context-dependent.
 Specifically, in eutrophic conditions the presence of mussels leads to reduced seagrass density due to high sulfide concentrations in the sediments resulting from the combined effects of water column nutrient enrichment and mussel biodeposits.
