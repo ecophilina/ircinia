@@ -281,7 +281,6 @@ For example, sponges growing on mangrove roots supply nutrients to the mangrove 
 Further, @archer2015 showed that a different sponge (*Halichondria melanadocia*) that grows around the base and leaves of seagrass shoots likely provide nutrients to those shoots. 
 However, to the best of our knowledge, this study is the first to show that a single massive form sponge can increase nutrient content in seagrasses within a 0.25 m radius. \par
 
-
 The other changes we documented in the primary producers in our sponge plots are consistent with an increase in nutrient supply in an oligotrophic system. 
 For example, we recorded an increase in *S. filliforme* and *H. wrightii* in sponge plots.
 Such an increase has been associated with the addition of a novel source of nutrients in similar systems; the addition of nutrients in the form of bird guano shifted the dominant seagrass species in a Florida Bay seagrass bed from *T. testudinum* to *H. wrightii* [@powell1989; @fourqurean1995].
@@ -307,14 +306,15 @@ While there is little spatial or temporal variability in *I. felix*'s symbiotic 
 As a result the *I. felix* holobiont acts as a source of bioavailable forms of N and P when ambient concentrations of those nutrient species are low, and as a sink when they are high [@archer2017].
 This context-dependent nutrient processing has been documented in other sponges as well [@pawlik2020].
 While the ecosystem-level effects of this context-dependent nutrient processing have not been studied, it is reasonable to predict that it should have a stabilizing effect on ambient nutrient levels when sponges are present in sufficient densities.
-This study showed facilitation of primary production in a seagrass bed by *I. felix* under oligotrophic conditions, likely due to nutrients supplied by the sponge. 
+This study showed facilitation of primary production in a seagrass bed by *I. felix* under oligotrophic conditions. **removed "likely based on nutrients supplied by the sponge" because it is repeated at start of next para**
 Future work should focus on the impact of *I. felix* presence on seagrass bed primary producers under a range of ambient nutrient levels to better understand if context-dependent nutrient processing by sponges can act as a stabilizing force in seagrass beds.\par  
 
-Overall, our study shows that sponges can facilitate seagrass bed primary producers and that this facilitation is likely based on nutrients supplied by the sponge.
-It is important to understand which taxa facilitate foundation spcies, like seagrass, because this can have cascading consequences on local diversity, ecosystem function, and the delivery of ecosystem services.
-Theoretical and empirical work shows that interactions involving nutrient-transfer are often context-dependent and that such interactions involving foundation species can lead to non-linear ecosystem dynamics when human activities significantly alter ambient nutrient levels. 
-We studied the effect of *I. felix* in unimpacted seagrass beds.
-Therefore, this study represents a first step in understanding how sponges influence seagrass ecosystems and our results suggest that further work is necessary to determine if this facilitation breaks down in impacted systems.
+**I've experimented with rearranging the order of the sentences in this para to improve flow**
+It is important to understand facilitatation of foundation spcies, like seagrass, because this can have cascading consequences on local diversity, ecosystem function, and the delivery of ecosystem services.
+We studied the effect of *I. felix* in unimpacted seagrass beds and found that sponges can facilitate seagrass bed primary producers, likely through nutrients supplied by the sponge.
+However, theoretical and empirical work show that interactions involving nutrient-transfer are often context-dependent and that such interactions involving foundation species can lead to non-linear ecosystem dynamics when human activities significantly alter ambient nutrient levels. 
+Therefore, this study represents only the first step in understanding how sponges influence seagrass ecosystems.  
+Further work will be necessary to determine the if there are impacts on the wider ecosystem and whether  the facilitation relationship between sponges and primary producers breaks down in impacted systems.
 
   
 # References  
