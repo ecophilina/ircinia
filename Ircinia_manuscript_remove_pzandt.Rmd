@@ -268,18 +268,17 @@ However, the pattern of change over time was significantly different between con
   
   
 # Discussion  
-Facilitation plays an important role in structuring seagrass ecosystems. 
-Research has largely focused on how seagrasses facilitate other organisms. 
+Facilitation plays an important role in structuring seagrass ecosystems, but research has largely focused on how seagrasses facilitate other organisms. 
 However, knowing which taxa facilitate seagrasses is equally important for understanding long-term seagrass bed dynamics in the face of a changing ocean. 
 Here, we show that the sponge *Ircinia felix* facilitates seagrass bed primary producers.
-Specifically, sponge presents results in increased seagrass nutrient content and growth and increased abundance of both macroalgae and seagrasses.\par  
+Specifically, the presence of a sponge resulted in increased seagrass nutrient content and growth, and in an increased abundance of both macroalgae and seagrasses.\par  
 
 Many sponge holobionts, including *I. felix*, are capable of complex nutrient transformations and often release bioavailable forms of nitrogen and phosphorus into the environment [@southwell2008a; @archer2017].
 Because primary producers are typically limited by both nitrogen and phosphorus in our study system [@allgeier2010], we hypothesized that the sponges we transplanted would supply these nutrients resulting in the facilitation of seagrass bed primary producers. 
 Consistent with our hypothesis, we saw an increase in seagrass nutrient content in our plots with live sponges.
 Ours is not the first study to find that sponge-released nutrients can facilitate primary producers.
 For example, sponges growing on mangrove roots supply nutrients to the mangrove [@ellison1996] and sponges can supply nitrogen to macroalgae on coral reefs [@easson2014]. 
-Further, Archer et al. (2015) showed that a different sponge (*Halichondria melanadocia*) that grows around the base and leaves of seagrass shoots likely provide nutrients to those shoots. 
+Further, @archer2015 showed that a different sponge (*Halichondria melanadocia*) that grows around the base and leaves of seagrass shoots likely provide nutrients to those shoots. 
 However, this study, to the best of our knowledge, is the first to show that a single massive form sponge can increase nutrient content in seagrasses within a 0.25 m radius. \par
 
 The other changes we documented in the primary producers in our sponge plots are consistent with an increase in nutrient supply in an oligotrophic system. 
