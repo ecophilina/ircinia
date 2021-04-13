@@ -27,18 +27,17 @@ if(!require(egg))install.packages("egg")
 
 # Abstract 150-250 words  
 Seagrass beds are important coastal ecosystems worldwide that are shaped by facilitative interactions.
-Recent theoretical work has highlighted the potential for **highlighted the potential for- sounds positive when I think the destabilization is negative or maybe I have it reversed. I would use "has emphasized the potenial for" or "has suggested** facilitative interactions involving foundation species to be destabilizing in the face of anthropogenic change.
+Recent theoretical work **has highlighted the potential for- sounds positive when I think the destabilization is negative. I would use "has emphasized the potenial for" or "has suggested** suggests that facilitative interactions involving foundation species have potential to be destabilizing in the face of anthropogenic change.
 Consequently, it is becoming more important to understand which taxa facilitate seagrasses.
-Sponges are a common component of seagrass bed communities. **Remove this sentence. I think the paragraph flows just fine without it**
 In other ecosystems, sponges contribute to the maintenance of more diverse and productive systems through their facilitation of foundation species (e.g., mangroves) and the retention and recycling of energy and nutrients within the system. 
-However, we know little about how sponge presence impacts *Thalassia testudinum* dominated seagrass beds.
-Here we examine the impact of the sponge *Ircinia felix* on saeagrass bed primary producers in The Bahamas using a long-term field experiment. 
+While sponges are also common in seagrass beds, we know little about how their presence impacts these communities. **is this true for all seagrass communities, not just T. testudinum ones?**
+Here, we examine the impact of the sponge *Ircinia felix* on primary producers in a *Thalassia testudinum* dominated seagrass bed using a long-term field experiment in The Bahamas. 
 We transplanted live sponges into the center of 5 m x 5 m plots and monitored the response of seagrasses and macroalgae. 
 Sponge presence resulted in an increase in seagrass nutrient content and growth, and increased abundance of macroalgae and non-dominant seagrass species (*Syringodium filiforme* and *Halodule wrightii*). 
 These changes were not seen in our control (unmanipulated) or structure control (where we placed a polypropylene sponge replica) plots. 
 We conclude that *I. felix* facilitates seagrass bed primary producers in oligotrophic systems, likely due to nutrients supplied by the sponge. 
 Our study shows that sponges can have a positive influence on seagrass bed foundation species in unimpacted systems.
-Further work is needed to understand how this facilitation impacts the stability of seagrass beds in areas where human activities have increased ambient nutrient levels.
+Further work is needed to understand how this facilitation impacts the stability of seagrass beds in areas where human activities have increased ambient nutrient levels. **Is it worth highlighting that there is evidence that sponges act differently at high nutrient levels, and that this contrasts with patterns in other community members? Without some hint to that effect, the second sentence feels a bit unaddressed...**
 
 # Declarations  
 *Funding:* This work was supported by North Carolina State University, NSF OCE 1405198 to Craig Layman, and donations from Win and Tana Archer. 
