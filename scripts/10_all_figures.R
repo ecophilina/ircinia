@@ -152,7 +152,7 @@ sgplot <- ggplot(sgf, aes(x=as.factor(yr),y=mdsg,group=treatment,color=treatment
   theme_bw()+
   xlab("Year")+
   ylab(sglab)
-sgplot <- egg::tag_facet(sgplot,
+(sgplot <- egg::tag_facet(sgplot,
   #x = Inf, y = Inf, # hjust = -1.5,
   open = "(", close = ")", fontface = 2)+
   theme(panel.grid=element_blank(),
@@ -163,7 +163,7 @@ sgplot <- egg::tag_facet(sgplot,
         legend.text = element_text(size=12),
         axis.title=element_text(size=14),
         axis.text = element_text(size=12),
-        strip.text = element_text(size=14))
+        strip.text = element_text(size=14)))
 # ggsave("figures/sggrow.jpg",width=6,height=6.25)
 ggsave("figures/sggrow-95CI.jpg", plot=sgplot, width=5.5,height=5.5)
 
@@ -282,10 +282,10 @@ pp<-egg::tag_facet(pp,tag_pool = c("c"))
 #without carbon
 #n1<-plot_grid(lgnd,pn,pp,labels = c("","A","B"),nrow=3,ncol = 1,rel_heights = c(.1,1,1))
 #with carbon
-n2<-plot_grid(
+(n2<-plot_grid(
   lgnd,pn,pc,pp,nrow=4,ncol = 1,rel_heights = c(.1,1,1,1.1)
   #pn,pc,pp,nrow=3,ncol = 1,rel_heights = c(1,1,1.1)
-  )
+  ))
 # ggsave(filename = "figures/nuts.pdf",plot=n2,width=3,height = 6)
 # ggsave(filename = "figures/nuts.jpg",plot=n2,width=3,height = 6)
 ggsave(filename = "figures/nuts-95CI.jpg",plot=n2,width=3,height=5.5)
@@ -317,11 +317,11 @@ a.taxa.abun<-alg2 %>%
   group_by(treatment,sampling,taxa)%>%
   summarize(abun.m=mean(abundance),abun.sd=sd(abundance))
 
-ggplot()+
+(a1 <- ggplot()+
   geom_line(data=a.taxa.abun,
     aes(x=sampling,y=abun.m,group=treatment,color=treatment),position=position_dodge(0.5))+
   geom_errorbar(data=a.taxa.abun,aes(x=sampling,ymin=abun.m-abun.sd,ymax=abun.m+abun.sd,color=treatment),width=.5,position=position_dodge(0.5))+
-  geom_point(data=a.taxa.abun,aes(x=sampling,y=abun.m,color=treatment),size=5,position=position_dodge(0.5))+
+  geom_point(data=a.taxa.abun,aes(x=sampling,y=abun.m,color=treatment),size=3,position=position_dodge(0.5))+
   facet_wrap(~taxa, ncol=1, scales = "free_y") +
   theme_bw()+
   theme(panel.grid = element_blank(),
@@ -330,9 +330,9 @@ ggplot()+
     legend.text = element_text(size=10))+
   scale_color_viridis_d(option="A", begin=0, end=0.6,"")+
   ylab("Adundance")+
-  xlab("Months into Experiment")
+  xlab("Months into Experiment"))
 
-ggsave("figures/algal_sp_abundance.jpg")
+ggsave("figures/algal_sp_abundance.jpg",plot=a1,width=5,height=7.5)
 
 # several algae species also took off only in sponge plots
 
