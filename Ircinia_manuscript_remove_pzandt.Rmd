@@ -29,10 +29,11 @@ if(!require(egg))install.packages("egg")
 Seagrass beds are important coastal ecosystems worldwide that are shaped by facilitative interactions.
 Recent theoretical work has emphasized the potential for facilitative interactions involving foundation species to be destabilized in the face of anthropogenic change.
 Consequently, it is important to identify which taxa facilitate seagrasses.
-In other ecosystems, sponges contribute to the maintenance of diverse and productive systems through their facilitation of foundation species (e.g., mangroves) and the retention and recycling Sponges are common in tropical and subtropical seagrass beds, yet we know little about how their presence impacts these communities.
+In other ecosystems, sponges contribute to the maintenance of diverse and productive systems through their facilitation of foundation species (e.g., mangroves) and the retention and recycling **SOMETHING MISSING HERE**
+Sponges are common in tropical and subtropical seagrass beds, yet we know little about how their presence impacts these communities.
 Here, we examine the impact of the sponge *Ircinia felix* on primary producers in a *Thalassia testudinum* dominated seagrass bed using a long-term field experiment in The Bahamas. 
 We transplanted live sponges into the center of 5 m x 5 m plots and monitored the response of seagrasses and macroalgae. 
-Sponge presence increased seagrass nutrient content and growth, as well as increased abundance of macroalgae and non-dominant seagrass species (*Syringodium filiforme* and *Halodule wrightii*). 
+Sponge presence increased seagrass nutrient content and growth, as well as the abundance of macroalgae and non-dominant seagrass species (*Syringodium filiforme* and *Halodule wrightii*). 
 These changes were not seen in the control (unmanipulated) or structure-control (where we placed a polypropylene sponge replica) plots. 
 We conclude that *I. felix* facilitates seagrass bed primary producers in oligotrophic systems, likely due to nutrients supplied by the sponge. 
 Our study shows that sponges can have a positive influence on seagrass bed foundation species.
@@ -51,13 +52,13 @@ Further work is needed to understand how this facilitation impacts the stability
 
 Foundation species are spatially-dominant, structure-forming taxa that form the base of entire ecosystems [@bruno2001; @altieri2014].
 Positive interactions, or facilitation between species, are particularly important in shaping ecosystems formed by foundation species [@bruno2003; @bulleri2009; @zhang2019].
-Traditionally, research has focused on the mechanisms of facilitation by foundation species and the consequences for community-level diversity and abundance [e.g., @hughes2014; @borst2018; @archer2020a].
-However, foundation species are often facilitated by members of their associated assemblages [@gagnon2020; @peterson2013; @ellison1996].
+Traditionally, research has focused on the mechanisms by which foundation species facilitate other species and the consequences for community-level diversity and ecosystem services [e.g., @hughes2014; @borst2018; @archer2020a].
+However, a foundation species can also be the beneficiary of facilitation by members of their assemblages [@gagnon2020; @peterson2013; @ellison1996].
 Recent theoretical work by van der Heide et al. (2020) showed that the facultative facilitation of foundation species has the potential to create non-linear ecosystem dynamics in response to stressors. 
 Such interactions can increase the range of environmental conditions over which ecosystem degradation will continue once it has begun.
 Consequently, it is important to understand which species facilitate foundation species, particularly in vulnerable coastal ecosystems.\par
 
-Seagrass beds are important coastal ecosystem worldwide. 
+Seagrass beds are important coastal ecosystems worldwide. 
 They help to attenuate wave energy [@fonseca1992] and stabilize sediments [@folmer2012], store large amounts of carbon [@fourqurean2012], and are important sites for nutrient cycling [@hemminga1991]. 
 Seagrass beds also act as hot spots of productivity with diverse and abundant communities of macroalgae, invertebrates, and fish [@duffy2006]. 
 The communities associated with seagrass beds also maintain important links with other coastal ecosystems, such as coral reefs, by acting as a nursery habitat [@heck2003; @adams2006] and feeding grounds [@meyer1983; @yeager2012]. 
@@ -71,7 +72,7 @@ Despite the paucity of studies, there is some evidence that sponges can influenc
 
 In the present study, we investigated the impact of a large sponge, *Ircinia felix*, on seagrass bed primary producers. 
 Using a 1.5 yr field-based experiment, we examined how sponge presence influenced macroalgal abundance and the abundance, growth, and nutrient content of seagrasses. 
-*Ircinia felix* is a high microbial abundance sponge, indicating it hosts a dense and diverse microbiome [@weisz2008]. 
+*Ircinia felix* is a high microbial abundance sponge, indicating that it hosts a dense and diverse microbiome [@weisz2008]. 
 As a result, the *I. felix* holobiont (sponge and its associated microbiome) is capable of complex nitrogen (N) and phosphorus (P) transformations [@southwell2008a; @archer2017]. 
 In our study system in The Bahamas, primary production is often co-limited by nitrogen and phosphorus [@allgeier2010]. 
 Therefore, we hypothesize that the presence of the sponge *I. felix* will facilitate both macroalgae and seagrasses resulting in more abundant and faster-growing primary producer communities.\par
