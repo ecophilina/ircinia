@@ -230,9 +230,9 @@ source("scripts/07_shoots_analysis.R")
   
 *Thalassia testudinum* shoot densities decreased similarly in all treatments over time, but this decrease was not significant in sponge plots (control: $\beta$ = `r efsize.tmb(tsdb.sum,4)`; structure: $\beta$ = `r efsize.tmb(tsdf.sum,4)`; sponge: $\beta$ = `r efsize.tmb(tsdr.sum,4)`, Fig. \@ref(fig:shootd)). 
 There was no significant effect of distance for any treatment initially or over time (Table S2). 
-*Syringodium filiforme* and *H. wrightii* shoot densities did not change in control or structure plots but increased in sponge plots ( $\beta$ = `r efsize.tmb(shsdr.sum,4)`, Fig. \@ref(fig:shootd)). 
+*Syringodium filiforme* and *H. wrightii* shoot densities did not change in control or structure plots but increased in sponge plots ($\beta$ = `r efsize.tmb(shsdr.sum,4)`, Fig. \@ref(fig:shootd)). 
 The increase in sponge plots was significantly different than both control ($\beta$ = `r efsize.tmb(shsdr.sum,6)`) and structure plots ($\beta$ = `r efsize.tmb(shsdr.sum,7)`). 
-Initially, *S. filiforme* and *H. wrightii* were more abundant with distance from the center of sponge plots ( $\beta$ = `r efsize.tmb(shsdr.sum,5)`). 
+Initially, *S. filiforme* and *H. wrightii* were more abundant further from the center of sponge plots ($\beta$ = `r efsize.tmb(shsdr.sum,5)`). 
 However, over time *S. filiforme* and *H. wrightii* increased more near the center of sponge plots (time * distance: $\beta$ = `r efsize.tmb(shsdr.sum,10)`). 
 There was no significant effect of distance in control or structure plots (Table S3).  
 
@@ -244,7 +244,7 @@ source("scripts/05_growth_analysis.R")
 Seagrass growth was impacted by treatment at 0 (F~`r aov.df2(sg0,1)`~`r aov.res2(sg0,1)`) and 0.5 m (F~`r aov.df2(sg05,1)`~`r aov.res2(sg05,1)`) but this effect had disappeared by 1 m. 
 As a result, we pooled seagrass growth for the near (0 and 0.5 m) and far (1 and 2 m) distances for further analysis. 
 Seagrass growth was slower in the winter ($\beta$ = `r efsize(sgr,6)`) and the decrease in growth during the winter was not different among treatments (Table S4). 
-In sponge plots, seagrass grew slower with distance from the sponge ($\beta$ = `r efsize(sgr,4)`, Fig. \@ref(fig:grow)). 
+In sponge plots, seagrass grew slower further from the sponge ($\beta$ = `r efsize(sgr,4)`, Fig. \@ref(fig:grow)). 
 There was no difference in seagrass growth between distances in the control or structure plots. 
 In sponge plots, seagrass grew faster in the second year of the experiment ($\beta$ = `r efsize(sgr,5)`, Fig. \@ref(fig:grow)). 
 By contrast, seagrass growth declined in the control and structure plots , but this decline was only significant in the control ($\beta$ = `r efsize(sgb,5)`, Fig. \@ref(fig:grow)).  
@@ -256,12 +256,13 @@ source("scripts/06_nutrient_analysis.R")
   
 Before the experiment, seagrass in sponge plots had significantly lower nitrogen concentrations than control plots (Fig. \@ref(fig:nuts)A, $\beta$ = `r efsize(nbs,3)`) but not structure plots (Table S5). 
 Percent nitrogen in seagrass tissues in both control and structure plots declined similarly over time (Fig. \@ref(fig:nuts)A), but the decrease was only significant in control plots ($\beta$ = `r efsize(nbs,4)`). 
-Conversely, in sponge plots seagrass % N responded differently than both the control ($\beta$ = `r efsize(nrs,5)`) and structure ($\beta$ = `r efsize(nrs,6)`) plots. Sponge plots had a higher % N after one year (Fig. \@ref(fig:nuts)A), however, this increase was not significant.  
+Conversely, seagrass % N responded differently in sponge plots than in both the control ($\beta$ = `r efsize(nrs,5)`) and structure ($\beta$ = `r efsize(nrs,6)`) plots. 
+Sponge plots had a higher % N after one year (Fig. \@ref(fig:nuts)A); however, this increase was not significant.  
   
-The pattern was similar for percent carbon; in sponge plots seagrass % C  was initially lower than control (Fig. \@ref(fig:nuts)B, $\beta$ = `r efsize(cbs,3)`) and structure plots ($\beta$ = `r efsize(cfs,3)`). 
+The pattern was similar for percent carbon; seagrass % C  was initially lower in sponge plots than in control (Fig. \@ref(fig:nuts)B, $\beta$ = `r efsize(cbs,3)`) and structure plots ($\beta$ = `r efsize(cfs,3)`). 
 Again, percent carbon in seagrass tissue decreased similarly in both control and structure plots (Fig. \@ref(fig:nuts)B). 
 However, this decrease was only significant in structure plots ($\beta$ = `r efsize(cfs,4)`). 
-In sponge plots, % carbon showed a slight increase in seagrass tissues, resulting in a significantly different response than structure plots ($\beta$ = `r efsize(crls,6)`) but not control plots (Table S6).  
+In sponge plots, % carbon showed a slight increase in seagrass tissues, resulting in significantly different response for structure plots ($\beta$ = `r efsize(crls,6)`) but not for control plots (Table S6).  
   
 Phosphorus concentrations were similar in all plot types at the beginning of the experiment (Fig. \@ref(fig:nuts)C). 
 Although % phosphorus in seagrass tissues followed the same patterns as both % nitrogen and % carbon, decreasing in control and structure plots while increasing in sponge plots, none of these changes were significant(Fig. \@ref(fig:nuts)C). 
