@@ -276,7 +276,7 @@ We provide the first experimental evidence that the sponge *Ircinia felix* facil
 Specifically, we demonstrate that the presence of a sponge resulted in increased nutrient content and growth of the dominant seagrass taxon, as well as an increased abundance of both macroalgae and non-dominant seagrasses.\par  
 
 Many sponge holobionts, including *I. felix*, are capable of complex nutrient transformations and often release bioavailable forms of nitrogen and phosphorus into the environment [@southwell2008a; @archer2017].
-Because primary producers are typically limited by both nitrogen and phosphorus these Bahamian systems [@allgeier2010], we hypothesized that the sponges we transplanted would supply these nutrients resulting in the facilitation of seagrass bed primary producers. 
+Because primary producers are typically limited by both nitrogen and phosphorus in Bahamian coastal ecosystems [@allgeier2010], we hypothesized that the sponges we transplanted would supply these nutrients resulting in the facilitation of seagrass bed primary producers. 
 Consistent with our hypothesis, we saw an increase in seagrass nutrient content in plots with live sponges.
 This is not the first study to find that sponge-released nutrients can facilitate primary producers.
 For example, sponges growing on mangrove roots supply nutrients to the trees [@ellison1996] and sponges can supply nitrogen to macroalgae on coral reefs [@easson2014]. 
@@ -314,7 +314,7 @@ It is important to understand the facilitation of foundation species, like seagr
 We studied the effect of *I. felix* in unimpacted seagrass beds and found that sponges can facilitate seagrass bed primary producers, likely through nutrients supplied by the sponge.
 However, theoretical and empirical work show that interactions involving nutrient-transfer are often context-dependent and that such interactions involving foundation species can lead to non-linear ecosystem dynamics when human activities alter ambient nutrient levels. 
 Therefore, this study represents a first step in understanding how sponges influence seagrass ecosystems. 
-Further work will be necessary to determine if there are impacts on the wider ecosystem and whether  the facilitative relationship between sponges and primary producers breaks down in impacted systems.
+Further work will be necessary to determine if there are impacts on the wider ecosystem and whether the facilitative relationship between sponges and primary producers breaks down in impacted systems.
 
   
 # References  
