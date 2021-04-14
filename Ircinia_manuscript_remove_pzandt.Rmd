@@ -27,17 +27,17 @@ if(!require(egg))install.packages("egg")
 
 # Abstract 150-250 words  
 Seagrass beds are important coastal ecosystems worldwide that are shaped by facilitative interactions.
-Recent theoretical work **has highlighted the potential for- sounds positive when I think the destabilization is negative. I would use "has emphasized the potenial for" or "has suggested** suggests that facilitative interactions involving foundation species have potential to be destabilizing in the face of anthropogenic change.
+Recent theoretical work has emphasized the potential for facilitative interactions involving foundation species to be destabilizing in the face of anthropogenic change.
 Consequently, it is becoming more important to understand which taxa facilitate seagrasses.
 In other ecosystems, sponges contribute to the maintenance of more diverse and productive systems through their facilitation of foundation species (e.g., mangroves) and the retention and recycling of energy and nutrients within the system. 
-While sponges are also common in seagrass beds, we know little about how their presence impacts these communities. **is this true for all seagrass communities, not just T. testudinum ones?**
+While sponges are also common in tropical and subtropical seagrass beds, we know little about how their presence impacts these communities.
 Here, we examine the impact of the sponge *Ircinia felix* on primary producers in a *Thalassia testudinum* dominated seagrass bed using a long-term field experiment in The Bahamas. 
 We transplanted live sponges into the center of 5 m x 5 m plots and monitored the response of seagrasses and macroalgae. 
 Sponge presence resulted in an increase in seagrass nutrient content and growth, and increased abundance of macroalgae and non-dominant seagrass species (*Syringodium filiforme* and *Halodule wrightii*). 
 These changes were not seen in our control (unmanipulated) or structure control (where we placed a polypropylene sponge replica) plots. 
 We conclude that *I. felix* facilitates seagrass bed primary producers in oligotrophic systems, likely due to nutrients supplied by the sponge. 
 Our study shows that sponges can have a positive influence on seagrass bed foundation species in unimpacted systems.
-Further work is needed to understand how this facilitation impacts the stability of seagrass beds in areas where human activities have increased ambient nutrient levels. **Is it worth highlighting that there is evidence that sponges act differently at high nutrient levels, and that this contrasts with patterns in other community members? Without some hint to that effect, the second sentence feels a bit unaddressed...**
+Further work is needed to understand how this facilitation impacts the stability of seagrass beds in areas where human activities have increased ambient nutrient levels. 
 
 # Declarations  
 *Funding:* This work was supported by North Carolina State University, NSF OCE 1405198 to Craig Layman, and donations from Win and Tana Archer. 
@@ -134,7 +134,7 @@ All models described above included plot as a random factor, along with any addi
 For all response variables except nutrient concentrations, an offset of the mean values measured prior to the initiation of the experiment was included (when a log link was used, this value had 1 added to it and was log transformed). 
 Macroalgal abundance and seagrass shoot densities were assessed using generalized mixed effect models implemented using the glmmTMB package [@brooks2017]; distribution and link described above. 
 All other variables were modeled linear mixed effects models using the lme4 package [@bates2015]. 
-All analyses were completed in R version 4.0.2 [@rcoreteam2020]. **could add statement about how differences between treatments are reported**   
+All analyses were completed in R version 4.0.2 [@rcoreteam2020]. 
 
 # Results  
 ```{r results function,include=FALSE}
@@ -306,11 +306,10 @@ While there is little spatial or temporal variability in *I. felix*'s symbiotic 
 As a result the *I. felix* holobiont acts as a source of bioavailable forms of N and P when ambient concentrations of those nutrient species are low, and as a sink when they are high [@archer2017].
 This context-dependent nutrient processing has been documented in other sponges as well [@pawlik2020].
 While the ecosystem-level effects of this context-dependent nutrient processing have not been studied, it is reasonable to predict that it should have a stabilizing effect on ambient nutrient levels when sponges are present in sufficient densities.
-This study showed facilitation of primary production in a seagrass bed by *I. felix* under oligotrophic conditions. **removed "likely based on nutrients supplied by the sponge" because it is repeated at start of next para**
+This study showed facilitation of primary production in a seagrass bed by *I. felix* under oligotrophic conditions. 
 Future work should focus on the impact of *I. felix* presence on seagrass bed primary producers under a range of ambient nutrient levels to better understand if context-dependent nutrient processing by sponges can act as a stabilizing force in seagrass beds.\par  
 
-**I've experimented with rearranging the order of the sentences in this para to improve flow**
-It is important to understand facilitatation of foundation spcies, like seagrass, because this can have cascading consequences on local diversity, ecosystem function, and the delivery of ecosystem services.
+It is important to understand facilitation of foundation species, like seagrass, because this can have cascading consequences on local diversity, ecosystem function, and the delivery of ecosystem services.
 We studied the effect of *I. felix* in unimpacted seagrass beds and found that sponges can facilitate seagrass bed primary producers, likely through nutrients supplied by the sponge.
 However, theoretical and empirical work show that interactions involving nutrient-transfer are often context-dependent and that such interactions involving foundation species can lead to non-linear ecosystem dynamics when human activities significantly alter ambient nutrient levels. 
 Therefore, this study represents only the first step in understanding how sponges influence seagrass ecosystems.  
@@ -331,17 +330,17 @@ knitr::include_graphics("figures/algae_summer_95CIbw_shapes.jpg")
 ```
 
 
-```{r shootd, out.width="55%", echo=FALSE,message=FALSE, fig.cap="Shoot densities of (a) *T. testudinum* and (b) *S. filliforme* and *H. wrightii* combined over the course of the experiment."}
+```{r shootd, out.width="55%", echo=FALSE,message=FALSE, fig.cap="Shoot densities (means and 95% confidence intervals) of (a) *T. testudinum* and (b) *S. filliforme* and *H. wrightii* combined over the course of the experiment."}
 knitr::include_graphics("figures/shootdensity-95CI.jpg")
 ```
 
 
-```{r grow, out.width="85%", echo=FALSE,message=FALSE, fig.cap="Segrass growth in the summer (a) and winter (b) over the course of the experiment. Summer sampling happened in months 1 and 12 (years 1 and 2 respectively) while winter sampling occurred in months 5 and 17."}
+```{r grow, out.width="85%", echo=FALSE,message=FALSE, fig.cap="Segrass growth (means and 95% confidence intervals) in the summer (a) and winter (b) over the course of the experiment. Summer sampling happened in months 1 and 12 (years 1 and 2 respectively) while winter sampling occurred in months 5 and 17."}
 knitr::include_graphics("figures/sggrow-95CI.jpg")
 ```
 
 
-```{r nuts, out.width="65%", echo=FALSE,message=FALSE, fig.cap="Seagrass nutrient concentrations prior to the initiation of the experiment and at one year (12 months) into the experiment. (a) Percent nitrogen, (b) percent carbon, and (c) percent phosphorus in *Thalassia testudinum* tissue."}
+```{r nuts, out.width="65%", echo=FALSE,message=FALSE, fig.cap="Seagrass nutrient concentrations (means and 95% confidence intervals) prior to the initiation of the experiment and at one year (12 months) into the experiment. (a) Percent nitrogen, (b) percent carbon, and (c) percent phosphorus in *Thalassia testudinum* tissue."}
 knitr::include_graphics("figures/nuts-95CI.jpg")
 ```
 
