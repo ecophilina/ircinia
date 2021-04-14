@@ -1,5 +1,5 @@
 ---
-title: 'Individual sponges alter community composition via facilitation in a Bahamas seagrass system: Supplemental Material'
+title: 'Sponges facilitate primary producers in a Bahamas seagrass system'
 author: "Stephanie K. Archer, Finella Campanino, Philina English, Craig A. Layman"
 output: pdf_document
 classoption: landscape
@@ -14,6 +14,13 @@ knitr::include_graphics("figures/Experimental design.jpg")
 ```
   
 Figure S1. Experimental design and sampling scheme  
+
+```{r algspab, echo=FALSE, fig.align='center', out.width="85%", message=FALSE, warning=FALSE}
+knitr::include_graphics("figures/algal_sp_abundance.jpg")
+
+```
+  
+Figure S2. Taxon-specific algal abundance over the course of the experiment.  
 
 \newpage
 

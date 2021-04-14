@@ -2,6 +2,11 @@
 
 # figure 1 - algae abundance
 source("scripts/04_algae_analysis.R")
+a8$taxa<-factor(a8$taxa, labels=c("Acetabularia",
+                                    "Halimeda",
+                                    "Laurencia",
+                                    "Penicillus",
+                                    "Udotea"))
 (algaeplot<- ggplot(data=a8)+
   geom_hline(aes(yintercept=0), linetype = "dashed", colour = "darkgrey")+
   scale_x_continuous(name="Year of Experiment",breaks=c(1,2),label = c(1,2))+
@@ -54,7 +59,7 @@ source("scripts/04_algae_analysis.R")
     strip.background = element_blank(),
     strip.text = element_text(size=14)))
 (algaeplot<-egg::tag_facet(algaeplot, hjust = 0, y = Inf,
-  tag_pool = c('(a)  Control','(b)  Structure control', "(c)  Sponge"),
+  tag_pool = c('(a)  Control','(b)  Structure', "(c)  Sponge"),
   open = " ", close = " ") )
 # # ggsave("figures/algae_summer_means_viridis_SE.jpg", plot = algaeplot, width = 7,height=4)
 # # ggsave("figures/algae_summer_means_viridis_95CI.jpg", plot = algaeplot, width = 7,height=4)
@@ -97,7 +102,7 @@ sdp<-ggplot()+
                    option="A",
                    begin=0, end=0.6,
                    name="",
-                   labels=c("Control","Structure control","Sponge"))+
+                   labels=c("Control","Structure","Sponge"))+
   theme_bw()+
   theme(panel.grid = element_blank(),
         #    legend.position = "none", 
@@ -144,11 +149,11 @@ sgplot <- ggplot(sgf, aes(x=as.factor(yr),y=mdsg,group=treatment,color=treatment
   # scale_color_brewer(type="qual",
   #                    palette="Set2",
   #                    name="",
-  #                    labels=c("Control","Structure control","Sponge"))+
+  #                    labels=c("Control","Structure","Sponge"))+
  scale_color_viridis_d(option="A",
                   begin=0, end=0.6,
                   name="",
-                  labels=c("Control","Structure control","Sponge"))+
+                  labels=c("Control","Structure","Sponge"))+
   theme_bw()+
   xlab("Year")+
   ylab(sglab)
@@ -197,11 +202,11 @@ pn<-ggplot(sgn %>%
   # scale_color_brewer(type="qual",
   #                     palette="Set2",
   #                     name="",
-  #                     labels=c("Control","Structure control","Sponge"))+
+  #                     labels=c("Control","Structure","Sponge"))+
 scale_color_viridis_d(option="A",
                  begin=0, end=0.6,
                  name="",
-                 labels=c("Control","Structure control","Sponge"))+
+                 labels=c("Control","Structure","Sponge"))+
   scale_x_discrete(labels = c(0,12))+
   theme(panel.grid = element_blank(),
          legend.position = "none",
