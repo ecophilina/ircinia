@@ -270,10 +270,10 @@ However, the pattern of change over time was significantly different between con
   
   
 # Discussion  
-Facilitation plays an important role in structuring seagrass ecosystems, but research has largely focused on how seagrasses facilitate other organisms. 
-Knowing which taxa facilitate seagrasses is equally important for understanding long-term seagrass bed dynamics in the face of a changing ocean. 
-Here, we show that the sponge *Ircinia felix* facilitates seagrass bed primary producers.
-The presence of a sponge resulted in increased nutrient content and growth of the dominant seagrass taxon, as well as an increased abundance of both macroalgae and non-dominant seagrasses.\par  
+Facilitation plays an important role in structuring seagrass ecosystems. 
+Although research has largely focused on how seagrasses facilitate other organisms, knowing which taxa facilitate seagrasses will be equally important for understanding long-term seagrass bed dynamics in the face of a changing ocean. 
+We provide the first experimental evidence that the sponge *Ircinia felix* facilitates seagrass bed primary producers.
+Specifically, we demonstrate that the presence of a sponge resulted in increased nutrient content and growth of the dominant seagrass taxon, as well as an increased abundance of both macroalgae and non-dominant seagrasses.\par  
 
 Many sponge holobionts, including *I. felix*, are capable of complex nutrient transformations and often release bioavailable forms of nitrogen and phosphorus into the environment [@southwell2008a; @archer2017].
 Because primary producers are typically limited by both nitrogen and phosphorus these Bahamian systems [@allgeier2010], we hypothesized that the sponges we transplanted would supply these nutrients resulting in the facilitation of seagrass bed primary producers. 
