@@ -87,7 +87,7 @@ All plots were separated >2 m. All variables (see below) were measured once befo
 After preliminary data were collected, each plot was randomly assigned to one of three treatments: control (n=5), structure (n=5), or sponge (n=5; Fig. S1). 
 Control plots were not manipulated.
 A polypropylene model of a sponge was placed inside a cage at the center of each structure plot. 
-A single sponge (*I. felix*, average volume ± standard deviation, 2.5 ± 0.75 L) was placed inside a cage in the center of each sponge plot.
+A single living sponge (*I. felix*, average volume ± standard deviation, 2.5 ± 0.75 L) was placed inside a cage in the center of each sponge plot.
 Live sponges were replaced as needed with a total of 3 individual sponge replacements, all occurring within the first month of the experiment.\par 
 
 ## Response variables  
@@ -103,7 +103,7 @@ Shoot densities of these species were counted within four 20 cm x 20 cm "sub-qua
 *S. filliforme* and *H. wrightii* were initially rare and patchily distributed (combined density [mean ± sd] of 149.2 ± 172 shoots m^-2^, compared to *T. testudinum*'s initial density of 788.1 ± 386.2 shoots m^-2^). 
 Therefore our counts of *S. filliforme* and *H. wrightii* were pooled, and growth and nutrient content were only measured in *T. testudinum*.\par  
 
-Growth rates of *T. testudinum* shoots were measured at four distances from the center of each plot: the center of the plot or immediately next to the sponge/sponge model (designated as 0 m) and in permanently marked points (using stakes) at 0.5, 1.0, and 2.0 m from the center of the plot. 
+Growth rates of *T. testudinum* shoots were measured at four distances from the center of each plot: the center of the plot or immediately next to the sponge/model sponge (designated as 0 m) and in permanently marked points (using stakes) at 0.5, 1.0, and 2.0 m from the center of the plot. 
 Growth rates were calculated using the standard blade hole punching technique [@zieman1974] on five short *T. testudinum* shoots per distance. 
 Approximately two weeks after the blades were marked growth was measured *in situ* to minimize disturbance to the plots.\par  
 
@@ -115,7 +115,7 @@ Percent phosphorus (%P) was determined by dry oxidation acid hydrolysis extracti
 ## Statistical analysis  
   
 Two sampling events occurred in the summer (1 and 12 months into the experiment) and two in the winter (5 and 17 months into the experiment); therefore, all response variables were visually examined for a seasonal effect. 
-If responses differed noticeably between summer and winter, separate factors for season and year of the experiment (1st or 2nd year) were included as explanatory variables in those analyses, otherwise, a continuous effect of months into the experiment was the only temporal variable. 
+If responses differed noticeably between summer and winter, separate factors for season and year of the experiment (1st or 2nd year) were included as explanatory variables in those analyses; otherwise, a continuous effect of months into the experiment was the only temporal variable. 
 In either case, the effects of temporal variables were allowed to interact with experimental treatment (control, structure, or sponge), but season and year were only allowed to interact with each other when included as random slopes (for algal abundance only).\par  
 
 Macroalgal abundances were fit with a negative binomial distribution and a log link.
@@ -123,17 +123,17 @@ Overall abundance did fluctuate seasonally, so we included fixed effects of trea
 This provides an estimate of the overall treatment effect between years and seasons, as well as taxa-specific differences in these effects.\par  
 
 Shoot densities (counts of shoots m^-2^) were fit with a quasi-Poisson distribution and a log link.
-Seagrass shoots did not fluctuate between seasons, so we included fixed effects of months into the experiment in a three-way interaction with treatment and distance (a linear covariate representing the center of contiguous 1 m^2^ sampling quadrats). 
-Because species-specific shoot counts were not collected for *S. filliforme* or *H. wrightii*, shoot density was modeled for *T. testudinum* alone as the dominant species and *S. filliforme* and *H. wrightii* combined.  
+Seagrass shoot counts did not fluctuate between seasons, so we included fixed effects of months into the experiment in a three-way interaction with treatment and distance (a linear covariate representing the center of contiguous 1 m^2^ sampling quadrats). 
+Because species-specific shoot counts were not collected for *S. filliforme* or *H. wrightii*, shoot density was modeled for *T. testudinum* alone, as the dominant species, and for *S. filliforme* and *H. wrightii* combined, as sub-dominant species.  
 
 *T. testudinum* growth rate (mm^2^ day^-1^) was analyzed in response to treatment interacting separately with fixed effects of distance, season, and year, as well as stake ID as an additional random factor. 
 We tested for a treatment effect at each distance sampled (0, 0.5, 1, and 2 m) to identify a potential threshold of response. 
-Because an effect was detected at 0 and 0.5 m and not at the 1 m or 2 m sampling points, the distance was included in this model as a factor with 0 and 0.5 m assigned as "near" and 1 and 2 m assigned as "far."\par  
+Because an effect was detected at 0 and 0.5 m and not at the 1 m or 2 m sampling points, the relative distance was included in this model as a factor, with 0 and 0.5 m assigned as "near" and 1 and 2 m assigned as "far."\par  
 
 Finally, we tested for a treatment effect on nutrient concentrations (% of nitrogen, carbon, and phosphorus) in *T. testudinum* shoots one year into the experiment, as compared to samples collected before the experiment. 
   
 Plot was included as a random factor in all models, along with any additional random effects as described above. 
-For all response variables except nutrient concentrations, an offset of the mean values measured before the initiation of the experiment was included (when a log link was used, this value had 1 added to it and was log-transformed). 
+For all response variables, except nutrient concentrations, an offset of the mean values measured before the initiation of the experiment was included (when a log link was used, this value had 1 added to it and was log-transformed). 
 Macroalgal abundance and seagrass shoot densities were assessed using generalized mixed effect models implemented using the glmmTMB package [@brooks2017]; the distribution and link used in each model are described above. 
 All other variables were modeled linear mixed-effects models using the lme4 package [@bates2015]. 
 All analyses were completed in R version 4.0.2 [@rcoreteam2020]. 
