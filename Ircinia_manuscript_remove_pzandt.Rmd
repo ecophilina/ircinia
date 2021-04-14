@@ -9,7 +9,7 @@ editor_options:
 bibliography: Ircinia_paper.bib
 csl: marine-biology.csl
 ---
-Stephanie K. Archer^1^*, Philina English^2^, Finella Campanino^1^, Craig A. Layman^3^   
+Stephanie K. Archer^1^*, Philina A. English^2^, Finella Campanino^1^, Craig A. Layman^3^   
   
 1. Louisiana Universities Marine Consortium, Chauvin, Louisiana USA
 2. Pacific Biological Station, Fisheries and Oceans Canada, Nanaimo, British Columbia Canada  
@@ -43,7 +43,7 @@ Further work is needed to understand how this facilitation impacts the stability
 *Conflicts of interest:* The authors declare they have no conflicts of interest.  
 *Availability of data and material:* The data can be found here https://github.com/ecophilina/ircinia.    
 *Code availability:* The code for all analyses and figures can be found here https://github.com/ecophilina/ircinia.  
-*Authors contributions:* SKA and CAL conceived of and designed the experiment. SKA conducted data collection. SKA, PE, and FC analyzed the data. All authors were involved in the writing and editing of the manuscript.  
+*Authors contributions:* SKA and CAL conceived of and designed the experiment. SKA conducted data collection. SKA, PAE, and FC analyzed the data. All authors were involved in the writing and editing of the manuscript.  
 
 ##### break  
 
