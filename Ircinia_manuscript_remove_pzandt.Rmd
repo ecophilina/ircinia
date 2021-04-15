@@ -318,6 +318,9 @@ However, theoretical and empirical work show that interactions involving nutrien
 Therefore, this study represents a first step in understanding how sponges influence seagrass ecosystems. 
 Further work will be necessary to determine if there are impacts on the wider ecosystem and whether the facilitative relationship between sponges and primary producers breaks down in impacted systems.
 
+# Acknowledgements  
+We would like to thank Friends of the Environment (NGO, Abaco, The Bahamas), Diane Claridge and Charlotte Dunn for their logistical support, Erik Archer, Elizabeth Whitman, and Ryann Rossi for their assistance in the field, and Katie Lewia and Jillian Tucker for their assistance in the lab. This work was supported by donations from Win and Tana Archer, North Carolina State University, and NSF OCE 1405198.\par
+
   
 # References  
 <div id="refs"></div>  
