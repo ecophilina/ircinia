@@ -325,23 +325,23 @@ Further work will be necessary to determine if there are impacts on the wider ec
 # Figures
 
 
-```{r algaep, out.width="95%", echo=FALSE, message=FALSE, fig.cap="Difference in macroalgal abundances in control, structure, and sponge plots for the first (1 month into the experiment) and second (12 months into the experiment) summers of the experiment relative to counts made immediately before the experiment. Bold lines represents the global fit for change in summer abundance of an average algae species from a mixed model with random slopes for each species. Observed taxa-specific mean count differences and model estimates are both presented with their 95% confidence intervals."}
+```{r algaep, out.width="95%", echo=FALSE, message=FALSE, fig.cap="The change in macroalgal abundances relative to counts made immediately before the experiment in (a) control, (b) structure, and (c) sponge plots between summers of year 1 and 2 (1 and 12 months into the experiment). Bold lines represents the global fit for change in summer abundance of an average algae species from a mixed model with random slopes for each species. Observed taxa-specific mean count differences and model estimates are both presented with their 95% confidence intervals."}
 
 knitr::include_graphics("figures/algae_summer_95CIbw_shapes.jpg")
 ```
 
 
-```{r shootd, out.width="55%", echo=FALSE,message=FALSE, fig.cap="Shoot densities (means and 95% confidence intervals) of (a) *T. testudinum* and (b) *S. filliforme* and *H. wrightii* combined throughout the experiment."}
+```{r shootd, out.width="55%", echo=FALSE,message=FALSE, fig.cap="Change in seagrass shoot densities (means and 95% confidence intervals) relative to before the experiment of (a) *T. testudinum* and (b) *S. filliforme* and *H. wrightii* combined throughout the experiment."}
 knitr::include_graphics("figures/shootdensity-95CI.jpg")
 ```
 
 
-```{r grow, out.width="85%", echo=FALSE,message=FALSE, fig.cap="Segrass growth (means and 95% confidence intervals) in the summer (a & b) and winter (c & d) in the near (a & c) and far (b & d) distances throughout the experiment. Summer sampling happened in months 1 and 12 (years 1 and 2 respectively) whereas winter sampling occurred in months 5 and 17."}
+```{r grow, out.width="85%", echo=FALSE,message=FALSE, fig.cap="Change in seagrass growth rates (means and 95% confidence intervals) relative to summer measurements taken before the experiment for *T. testudinum* shoots growing less than 1m (a & c) or between 1 and 2 m (b & d) from the sponge/centre of the plot. Summer sampling (a & b) happened in months 1 and 12 (years 1 and 2 respectively) whereas winter sampling (c & d) occurred in months 5 and 17."}
 knitr::include_graphics("figures/sggrow-95CI.jpg")
 ```
 
 
-```{r nuts, out.width="65%", echo=FALSE,message=FALSE, fig.cap="Seagrass nutrient concentrations (means and 95% confidence intervals) before the initiation of the experiment and at 1 year (12 months) into the experiment. (a) Percent nitrogen, (b) percent carbon, and (c) percent phosphorus in *Thalassia testudinum* tissue."}
+```{r nuts, out.width="65%", echo=FALSE, message=FALSE, fig.cap="Nutrient concentrations (means and 95% confidence intervals) in *T. testudinum* tissue including (a) percent nitrogen, (b) percent carbon, and (c) percent phosphorus measured before initiation of the experiment and at 1 year (12 months) into the experiment."}
 knitr::include_graphics("figures/nuts-95CI.jpg")
 ```
 
