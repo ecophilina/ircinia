@@ -325,7 +325,7 @@ Further work will be necessary to determine if there are impacts on the wider ec
 # Figures
 
 
-```{r algaep, out.width="95%", echo=FALSE, message=FALSE, fig.cap="The change in macroalgal abundances in control, structure, and sponge plots between the first and second summer of the experiment. Taxa-specific mean counts and 95% confidence intervals are presented. The line and shaded area represent the global model fit with 95% confidence intervals."}
+```{r algaep, out.width="95%", echo=FALSE, message=FALSE, fig.cap="Difference in macroalgal abundances in control, structure, and sponge plots for the first (1 month into the experiment) and second (12 months into the experiment) summers of the experiment relative to counts made immediately before the experiment. Bold lines represents the global fit for change in summer abundance of an average algae species from a mixed model with random slopes for each species. Observed taxa-specific mean count differences and model estimates are both presented with their 95% confidence intervals."}
 
 knitr::include_graphics("figures/algae_summer_95CIbw_shapes.jpg")
 ```
