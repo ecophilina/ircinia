@@ -114,7 +114,7 @@ Percent phosphorus (%P) was determined by dry oxidation acid hydrolysis extracti
   
 ## Statistical analysis  
   
-Two sampling events occurred in the summer (1 and 12 months into the experiment) and two in the winter (5 and 17 months into the experiment); therefore, all response variables were visually examined for a seasonal effect. 
+Two sampling events occurred in the summer (July, 1 and 12 months into the experiment) and two in the winter (November, 5 and 17 months into the experiment); therefore, all response variables were visually examined for a seasonal effect. 
 If responses differed noticeably between summer and winter, separate factors for season and year of the experiment (1st or 2nd year) were included as explanatory variables in those analyses; otherwise, a continuous effect of months into the experiment was the only temporal variable. 
 In either case, the effects of temporal variables were allowed to interact with experimental treatment (control, structure, or sponge), but season and year were only allowed to interact with each other when included as random slopes (for algal abundance only).\par  
 
@@ -319,7 +319,7 @@ Therefore, this study represents a first step in understanding how sponges influ
 Further work will be necessary to determine if there are impacts on the wider ecosystem and whether the facilitative relationship between sponges and primary producers breaks down in impacted systems.
 
 # Acknowledgements  
-We would like to thank Friends of the Environment (NGO, Abaco, The Bahamas), Diane Claridge and Charlotte Dunn for their logistical support, Erik Archer, Elizabeth Whitman, and Ryann Rossi for their assistance in the field, and Katie Lewia and Jillian Tucker for their assistance in the lab. This work was supported by donations from Win and Tana Archer, North Carolina State University, and NSF OCE 1405198.\par
+We would like to thank Friends of the Environment (NGO, Abaco, The Bahamas), Diane Claridge and Charlotte Dunn for their logistical support, Erik Archer, Elizabeth Whitman, and Ryann Rossi for their assistance in the field, and Katie Lewia and Jillian Tucker for their assistance in the lab, and the reviewers for their help improving this manuscript. This work was supported by donations from Win and Tana Archer, North Carolina State University, and NSF OCE 1405198.\par
 
   
 # References  
