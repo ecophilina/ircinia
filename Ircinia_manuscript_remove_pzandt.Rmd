@@ -34,7 +34,7 @@ Sponges are common in tropical and subtropical seagrass beds, yet we know little
 Here, we examine the impact of the sponge *Ircinia felix* on primary producers in a *Thalassia testudinum* dominated seagrass bed using a long-term field experiment in The Bahamas. 
 We transplanted live sponges into the center of 5 m x 5 m plots and monitored the response of seagrasses and macroalgae. 
 Sponge presence increased seagrass nutrient content and growth, as well as the abundance of macroalgae and non-dominant seagrass species (*Syringodium filiforme* and *Halodule wrightii*). 
-These changes were not seen in the control (unmanipulated) or structure-control (where we placed a polypropylene sponge replica) plots. 
+These changes were not seen in the control (unmanipulated) or structure (where we placed a polypropylene sponge replica) plots. 
 We conclude that *I. felix* facilitates seagrass bed primary producers in oligotrophic systems, likely due to nutrients supplied by the sponge. 
 Our study shows that sponges can have a positive influence on seagrass bed foundation species.
 Further work is needed to understand how this facilitation impacts the stability of seagrass beds in areas where human activities have increased ambient nutrient levels. 
@@ -59,7 +59,7 @@ Such interactions can increase the range of environmental conditions over which 
 Consequently, it is important to understand which species facilitate foundation species, particularly in vulnerable coastal ecosystems.\par
 
 Seagrass beds are important coastal ecosystems worldwide. 
-They help to attenuate wave energy [@fonseca1992] and stabilize sediments [@folmer2012], store large amounts of carbon [@fourqurean2012], and are important sites for nutrient cycling [@hemminga1991]. 
+They help to attenuate wave energy [@fonseca1992], stabilize sediments [@folmer2012], store large amounts of carbon [@fourqurean2012], and are important sites for nutrient cycling [@hemminga1991]. 
 Seagrass beds also act as hot spots of productivity with diverse and abundant communities of macroalgae, invertebrates, and fish [@duffy2006]. 
 The communities associated with seagrass beds also maintain important links with other coastal ecosystems, such as coral reefs, by acting as a nursery habitat [@heck2003; @adams2006] and feeding grounds [@meyer1983; @yeager2012]. 
 Unfortunately, numerous anthropogenic stressors have resulted in significant worldwide declines in the extent of seagrass habitats [@orth2006; @waycott2009].\par
