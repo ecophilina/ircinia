@@ -19,7 +19,7 @@ ggplot(alg.uni)+
 ggplot(alg.uni)+
   geom_jitter(aes(x=sampling,y=div,color=treatment,group=treatment))
 
-# organize data to use offset
+# organize data
 
 alg.uni.0<-alg.uni%>%
   filter(sampling==0)%>%
@@ -34,21 +34,8 @@ alg.uni2<-alg.uni%>%
 
 alg.uni2$treatment<-factor(alg.uni2$treatment)
 
-
-# aspr.lmm<-lmer(spr~treatment*as.factor(sampling) + 
-#     (1|plot),
-#   data = alg.uni%>%
-#     filter(season=="summer")%>%
-#     mutate(treatment=relevel(treatment, ref = "real")))
-# 
-# summary(aspr.lmm)
-# 
-# # look at residuals
-# spr.lmm_simres <- simulateResiduals(aspr.lmm)
-# testDispersion(spr.lmm_simres)
-# plot(spr.lmm_simres)
-
-
+#Perform statisical tests
+#Algae taxa richness
 aspr.glmm<-glmmTMB::glmmTMB(change.spr~treatment*as.factor(sampling) + 
     (1|plot),
 #   offset = start.spr,
@@ -65,27 +52,7 @@ spr.glmm_simres <- simulateResiduals(aspr.glmm)
 testDispersion(spr.glmm_simres)
 plot(spr.glmm_simres)
 
-
-# aspr.glmm2<-glmmTMB::glmmTMB(spr~as.factor(sampling) * grow + 
-#     as.factor(sampling) * sg.sd + 
-#     sg.sd * grow + 
-#     as.factor(sampling) * grow * sg.sd + 
-#     (1|plot),
-#   # family= tweedie,
-#   data = alg.uni%>%
-#     filter(season=="summer")%>%
-#     mutate(treatment=relevel(treatment, ref = "real")))
-# 
-# summary(aspr.glmm2)
-# performance::r2(aspr.glmm2)
-# 
-# # look at residuals
-# spr.glmm_simres2 <- simulateResiduals(aspr.glmm2)
-# testDispersion(spr.glmm_simres2)
-# plot(spr.glmm_simres2)
-
-
-
+# now looking at j statistic which is a measure of taxa evenness 
 alg.uni12 <- alg.uni %>% filter(sampling==12)
 hist(alg.uni12$spr)
 
@@ -109,7 +76,7 @@ j.glmm_simres <- simulateResiduals(aj.glmm)
 testDispersion(j.glmm_simres)
 plot(j.glmm_simres)
 
-
+# now looking at algae taxa diversity
 adiv.glmm<-glmmTMB::glmmTMB(change.div~treatment*as.factor(sampling) + 
     (1|plot),
  #   offset = start.div,
@@ -127,7 +94,7 @@ plot(div.glmm_simres)
 
 
 # make dataset for plots
-alg.pr<-ggeffects::ggpredict(aspr.lmer,terms=c("treatment","sampling"))%>%
+alg.pr<-ggeffects::ggpredict(aspr.glmm,terms=c("treatment","sampling"))%>%
   rename(treatment=x,sampling=group)%>%
   mutate(sampling=as.numeric(sampling),
          sampling=case_when(
@@ -167,16 +134,16 @@ ggplot(alg.plot)+
   scale_color_viridis_d(name="", option="A",end=0.6)+
   scale_fill_viridis_d(name="", option="A",end=0.6)+
   theme_bw()+
-  ylab("Change in Species Richness")+
+  ylab("Change in Taxa Richness")+
   xlab("Months into the Experiment")+
   theme(panel.grid=element_blank(),
         axis.text = element_text(size=10),
         axis.title = element_text(size=14))
 
-ggsave("figures/algae_species_richness.jpg",dpi=300)   
+ggsave("figures/algae_taxa_richness.jpg",dpi=300)   
 
 
-alg.j<-ggeffects::ggpredict(aj.lmer,terms=c("treatment","sampling"))%>%
+alg.j<-ggeffects::ggpredict(aj.glmm,terms=c("treatment","sampling"))%>%
   rename(treatment=x,sampling=group)%>%
   mutate(sampling=as.numeric(sampling),
          sampling=case_when(
@@ -204,9 +171,9 @@ ggplot(alg.plot)+
         axis.text = element_text(size=10),
         axis.title = element_text(size=14))
 
-ggsave("figures/algae_species_evenness.jpg",dpi=300)
+ggsave("figures/algae_taxa_evenness.jpg",dpi=300)
 
-alg.div<-ggeffects::ggpredict(adiv.lmer,terms=c("treatment","sampling"))%>%
+alg.div<-ggeffects::ggpredict(adiv.glmm,terms=c("treatment","sampling"))%>%
   rename(treatment=x,sampling=group)%>%
   mutate(sampling=as.numeric(sampling),
          sampling=case_when(
