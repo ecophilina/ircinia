@@ -93,6 +93,9 @@ testDispersion(div.glmm_simres)
 plot(div.glmm_simres)
 
 
+
+
+
 # make dataset for plots
 alg.pr<-ggeffects::ggpredict(aspr.glmm,terms=c("treatment","sampling"))%>%
   rename(treatment=x,sampling=group)%>%
