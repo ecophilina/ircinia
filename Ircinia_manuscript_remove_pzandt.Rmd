@@ -9,11 +9,11 @@ editor_options:
 bibliography: Ircinia_paper.bib
 csl: marine-biology.csl
 ---
-Stephanie K. Archer^1^*, Philina English^2^, Finella Campanino^1^, Craig A. Layman^3^   
+Stephanie K. Archer^1^*, Philina A. English^2^, Finella Campanino^1^, Craig A. Layman^3^   
   
-1. Louisiana Universities Marine Consortium, Chauvin, Louisiana USA
-2. Pacific Biological Station, Fisheries and Oceans Canada, Nanaimo, British Columbia Canada  
-3. Center for Energy, Environment, and Sustainability, Department of Biology, Wake Forest University, Winston-Salem, NC, United States
+1. Louisiana Universities Marine Consortium, Chauvin, Louisiana, USA
+2. Pacific Biological Station, Fisheries and Oceans Canada, Nanaimo, British Columbia, Canada
+3. Center for Energy, Environment, and Sustainability, Department of Biology, Wake Forest University, Winston-Salem, North Carolina, USA
   
 *corresponding author: sarcher@lumcon.edu
 
@@ -27,115 +27,130 @@ if(!require(egg))install.packages("egg")
 
 # Abstract 150-250 words  
 Seagrass beds are important coastal ecosystems worldwide that are shaped by facilitative interactions.
+<<<<<<< HEAD
 Recent theoretical work has highlighted the potential for **highlighted the potential for- sounds positive when I think the destabilization is negative or maybe I have it reversed. I would use "has emphasized the potenial for" or "has suggested** facilitative interactions involving foundation species to be destabilizing in the face of anthropogenic change.
 Consequently, it is becoming more important to understand which taxa facilitate seagrasses.
 Sponges are a common component of seagrass bed communities. **Remove this sentence. I think the paragraph flows just fine without it**
 In other ecosystems, sponges contribute to the maintenance of more diverse and productive systems through their facilitation of foundation species (e.g., mangroves) and the retention and recycling of energy and nutrients within the system. 
 However, we know little about how sponge presence impacts *Thalassia testudinum* dominated seagrass beds.
 Here we examine the impact of the sponge *Ircinia felix* on saeagrass bed primary producers in The Bahamas using a long-term field experiment. 
+=======
+Recent theoretical work has emphasized the potential for facilitative interactions involving foundation species to be destabilized in the face of anthropogenic change.
+Consequently, it is important to identify which taxa facilitate seagrasses.
+In other ecosystems, sponges contribute to the maintenance of diverse and productive systems through their facilitation of foundation species (e.g., mangroves) and the retention and recycling of energy and nutrients.
+Sponges are common in tropical and subtropical seagrass beds, yet we know little about how their presence impacts these communities.
+Here, we examine the impact of the sponge *Ircinia felix* on primary producers in a *Thalassia testudinum* dominated seagrass bed using a long-term field experiment in The Bahamas. 
+>>>>>>> 98d345a85ae1dcd91141613c72c17093035e997a
 We transplanted live sponges into the center of 5 m x 5 m plots and monitored the response of seagrasses and macroalgae. 
-Sponge presence resulted in an increase in seagrass nutrient content and growth, and increased abundance of macroalgae and non-dominant seagrass species (*Syringodium filiforme* and *Halodule wrightii*). 
-These changes were not seen in our control (unmanipulated) or structure control (where we placed a polypropylene sponge replica) plots. 
+Sponge presence increased seagrass nutrient content and growth, as well as the abundance of macroalgae and non-dominant seagrass species (*Syringodium filiforme* and *Halodule wrightii*). 
+These changes were not seen in the control (unmanipulated) or structure (where we placed a polypropylene sponge replica) plots. 
 We conclude that *I. felix* facilitates seagrass bed primary producers in oligotrophic systems, likely due to nutrients supplied by the sponge. 
+<<<<<<< HEAD
 Our study shows that sponges can have a positive influence on seagrass bed foundation species in unimpacted systems.
 Further work is needed to understand how this facilitation impacts the stability of seagrass beds in areas where human activities have increased ambient nutrient levels.
+=======
+Our study shows that sponges can have a positive influence on seagrass bed foundation species.
+Further work is needed to understand how this facilitation impacts the stability of seagrass beds in areas where human activities have increased ambient nutrient levels. 
+>>>>>>> 98d345a85ae1dcd91141613c72c17093035e997a
 
 # Declarations  
-*Funding:* This work was supported by North Carolina State University, NSF OCE 1405198 to Craig Layman, and donations from Win and Tana Archer. 
+*Funding:* This work was supported by North Carolina State University, NSF OCE 1405198 to Craig Layman, and donations from Win and Tana Archer.  
 *Conflicts of interest:* The authors declare they have no conflicts of interest.  
-*Availability of data and material:*  
+*Availability of data and material:* The data can be found here https://github.com/ecophilina/ircinia.    
 *Code availability:* The code for all analyses and figures can be found here https://github.com/ecophilina/ircinia.  
-*Authors contributions:* SKA and CAL conceived of and designed the experiment. SKA conducted data collection. SKA, PE, and FC analyzed the data. All authors were involved in the writing and editing of the manuscript.  
+*Authors contributions:* SKA and CAL conceived of and designed the experiment. SKA conducted data collection. SKA, PAE, and FC analyzed the data. All authors were involved in the writing and editing of the manuscript.  
 
 ##### break  
 
 # Introduction  
 
-Foundation species are spatially-dominant structure-forming taxa that form the base of entire ecosystems [@bruno2001; @altieri2014].
+Foundation species are spatially-dominant, structure-forming taxa that form the base of entire ecosystems [@bruno2001; @altieri2014].
 Positive interactions, or facilitation between species, are particularly important in shaping ecosystems formed by foundation species [@bruno2003; @bulleri2009; @zhang2019].
-Traditionally, research has focused on the mechanisms of facilitation by foundation species and the consequences for community-level diversity and abundance [e.g., @hughes2014; @borst2018; @archer2020a].
-However, foundation species are often facilitated by members of their associated assemblages [@gagnon2020; @peterson2013; @ellison1996] and it is becoming increasingly evident how important these interactions may be for ecosystem stability [@vanderheide2020].\par
-
-Recent theoretical work by van der Heide et al. (2020) showed that facultative facilitation of foundation species has the potential to create non-linear ecosystem dynamics in response to stressors. 
+Traditionally, research has focused on the mechanisms by which foundation species facilitate other species and the consequences for community-level diversity and ecosystem services [e.g., @hughes2014; @borst2018; @archer2020a].
+However, a foundation species can also be the beneficiary of facilitation by members of their assemblages [@gagnon2020; @peterson2013; @ellison1996].
+Recent theoretical work by van der Heide et al. (2020) showed that the facultative facilitation of foundation species has the potential to create non-linear ecosystem dynamics in response to stressors. 
 Such interactions can increase the range of environmental conditions over which ecosystem degradation will continue once it has begun.
 Consequently, it is important to understand which species facilitate foundation species, particularly in vulnerable coastal ecosystems.\par
 
-Seagrass beds are an important coastal ecosystem worldwide. 
-They help to attenuate wave energy [@fonseca1992] and stabilize sediments [@folmer2012], store large amounts of carbon [@fourqurean2012], and are important sites for nutrient cycling [@hemminga1991]. 
+Seagrass beds are important coastal ecosystems worldwide. 
+They help to attenuate wave energy [@fonseca1992], stabilize sediments [@folmer2012], store large amounts of carbon [@fourqurean2012], and are important sites for nutrient cycling [@hemminga1991]. 
 Seagrass beds also act as hot spots of productivity with diverse and abundant communities of macroalgae, invertebrates, and fish [@duffy2006]. 
-The communities associated with seagrass beds also maintain important links with other coastal ecosystems, such as coral reefs, by acting as a nursery habitat [@heck2003; @adams2006] and as feeding grounds [@meyer1983; @yeager2012]. 
-Unfortunately, myriad anthropogenic stressors have resulted in significant worldwide declines in the extent of seagrass habitats [@orth2006; @waycott2009].\par
+The communities associated with seagrass beds also maintain important links with other coastal ecosystems, such as coral reefs, by acting as a nursery habitat [@heck2003; @adams2006] and feeding grounds [@meyer1983; @yeager2012]. 
+Unfortunately, numerous anthropogenic stressors have resulted in significant worldwide declines in the extent of seagrass habitats [@orth2006; @waycott2009].\par
  
 As foundation species, seagrasses are often facilitated by filter feeders, such as bivalves [@gagnon2020]. 
-Bivalves can facilitate seagrasses through a variety of mechanisms including decreasing water turbidity [e.g., @wall2008] and increasing nutrient availability [e.g., @reusch1994]. 
+Bivalves can facilitate seagrasses through a variety of mechanisms, including decreasing water turbidity [e.g., @wall2008] and increasing nutrient availability [e.g., @reusch1994]. 
 Sponges, common in tropical and sub-tropical seagrass meadows [@archer2015], are also efficient filter feeders [@reiswig1971; @reiswig1974]. 
 Although sponges have the potential to strongly impact nutrient availability [@southwell2008a; @degoeij2013; @archer2017], how they influence seagrasses and other associated primary producers is generally not well-understood. 
 Despite the paucity of studies, there is some evidence that sponges can influence the growth and abundance of seagrass in a context-dependent manner [@archer2015; @archer2018c].\par
 
-In the present study we investigate the impact of a large sponge, *Ircinia felix*, on seagrass bed primary producers. 
-Using a 1.5 yr long field-based experiment, we examine how sponge presence influences macroalgal abundance and the abundance, growth, and nutrient content of seagrasses. 
-*Ircinia felix* is a high microbial abundance sponge; meaning it hosts a dense and diverse microbiome [@weisz2008]. 
+In the present study, we investigated the impact of a large sponge, *Ircinia felix*, on seagrass bed primary producers. 
+Using a 1.5 yr field-based experiment, we examined how sponge presence influenced macroalgal abundance and the abundance, growth, and nutrient content of seagrasses. 
+*Ircinia felix* is a high microbial abundance sponge, indicating that it hosts a dense and diverse microbiome [@weisz2008]. 
 As a result, the *I. felix* holobiont (sponge and its associated microbiome) is capable of complex nitrogen (N) and phosphorus (P) transformations [@southwell2008a; @archer2017]. 
 In our study system in The Bahamas, primary production is often co-limited by nitrogen and phosphorus [@allgeier2010]. 
-Therefore, we hypothesize that the presence of the sponge *I. felix* will facilitate both macroalgae and seagrasses resulting in more abundant and faster growing primary producer communities.\par
+Therefore, we hypothesize that the presence of the sponge *I. felix* will facilitate both macroalgae and seagrasses resulting in more abundant and faster-growing primary producer communities.\par
 
 # Methods  
 
 ## Study site and experimental design  
 
-This study was conducted in a shallow (1.1 m low tide depth) seagrass bed located off of Southern Great Abaco Island, The Bahamas (26.02610 N, 77.37408 W). 
+This study was conducted in a shallow (1.1 m low tide depth) subtidal seagrass bed located off of Southern Great Abaco Island, The Bahamas (26.02610 N, 77.37408 W). 
 Fifteen 5 x 5 m plots were delineated in a continuous seagrass bed on June 9, 2013 by placing wooden stakes at the corners and center of each plot. 
-All plots were separated >2 m. All variables (see below) were measured once prior to the establishment of the treatments, and again 1, 5, 12, and 17 months after the treatments were established. 
-After preliminary data were collected, each plot was randomly assigned to one of three treatments: control (n=5), structure control (n=5), or sponge (n=5; Fig. S1). 
-A polypropylene model of a sponge was placed inside a cage at the center of each structure control plot. 
-A single sponge (*I. felix*, average volume ± standard deviation, 2.5 ± 0.75 L) was placed inside a cage in the center of each sponge plot. Control plots were not manipulated. 
-Live sponges were replaced as needed with a total of 3 individual sponge replacements, all occurring within the first month of the experiment. 
+All plots were separated >2 m. All variables (see below) were measured once before the establishment of the treatments, and again at 1, 5, 12, and 17 months after the treatments were established. 
+After preliminary data were collected, each plot was randomly assigned to one of three treatments: control (n=5), structure (n=5), or sponge (n=5; Fig. S1). 
+Control plots were not manipulated.
+A polypropylene model of a sponge was placed inside a cage at the center of each structure plot. 
+A single living sponge (*I. felix*, average volume ± standard deviation, 2.5 ± 0.75 L) was placed inside a cage in the center of each sponge plot.
+Live sponges were replaced as needed with a total of 3 individual sponge replacements, all occurring within the first month of the experiment.\par 
 
-## Primary producer response variables  
+## Response variables  
 
-Primary producers (seagrasses and macroalgae) were quantified within three 1x1 m quadrats at increasing distances from the center of each plot. 
-The 0 distance quadrat was placed around the sponge or sponge model (sponge and structural control plots) or the center (control plots). 
-The 1 m distance quadrat was placed immediately adjacent to the 0 distance quadrat, extending from 0.5-1.5 m away from the center point of the plot and the 2 m distance quadrat covered an area 1.5-2.5 m away from the center point (Fig. S1). 
+Primary producers (seagrasses and macroalgae) were quantified within three 1 x 1 m quadrats at increasing distances from the center of each plot. 
+The 0 distance quadrat was placed around the sponge or sponge model (sponge and structure plots) or the center (control plots). 
+The 1 m distance quadrat was placed immediately adjacent to the 0 distance quadrat, extending from 0.5-1.5 m from the center point of the plot and the 2 m distance quadrat covered an area 1.5-2.5 m from the center point (Fig. S1). 
 Macroalgae were identified to genus and counts were summed across the three 1 m^2^ quadrats. 
 Where individuals were difficult to distinguish (e.g. *Laurencia* spp.) clumps of algae were recorded as individuals. 
 If identification was not possible *in situ*, a representative sample was photographed and subsequently collected. 
 Three species of seagrass were observed in the experimental plots: *T. testudinum*, *Syringodium filliforme*, and *Halodule wrightii*. 
-Shoots densities of these species were counted within four 20 cm x 20 cm "sub-quadrats" that were placed haphazardly within each of the quadrats described above. 
-*S. filliforme* and *H. wrightii* were initially rare and patchily distributed (combined density (mean ± sd) of 149.2 ± 172 shoots m^-2^, compared to *T. testudinum*'s initial density of 788.1 ± 386.2 shoots m^-2^). 
-Therefore our counts of *S. filliforme* and *H. wrightii* were pooled, and growth and nutrient content were only measured in *T. testudinum*. 
-Growth rates of *T. testudinum* shoots were measured at four distances from the center of each plot: the center of the plot or immediately next to the sponge, or polypropylene model of the sponge (designated as 0 m) and in permanently marked points (using stakes) at 0.5 m, 1.0 m, and 2.0 m away from the center of the plot. 
+Shoot densities of these species were counted within four 20 cm x 20 cm "sub-quadrats" that were placed haphazardly within each of the quadrats described above. 
+*S. filliforme* and *H. wrightii* were initially rare and patchily distributed (combined density [mean ± sd] of 149.2 ± 172 shoots m^-2^, compared to *T. testudinum*'s initial density of 788.1 ± 386.2 shoots m^-2^). 
+Therefore our counts of *S. filliforme* and *H. wrightii* were pooled, and growth and nutrient content were only measured in *T. testudinum*.\par  
+
+Growth rates of *T. testudinum* shoots were measured at four distances from the center of each plot: the center of the plot or immediately next to the sponge/model sponge (designated as 0 m) and in permanently marked points (using stakes) at 0.5, 1.0, and 2.0 m from the center of the plot. 
 Growth rates were calculated using the standard blade hole punching technique [@zieman1974] on five short *T. testudinum* shoots per distance. 
-Approximately two weeks after the blades were marked growth was measured *in situ* in order to minimize disturbance to the plots. 
-Nutrient content (%C, %N, and %P) was assessed for 10 shoots growing within 0.25 m of the center of each plot, prior to the beginning of the experiment and again after 1 year. 
+Approximately two weeks after the blades were marked growth was measured *in situ* to minimize disturbance to the plots.\par  
+
+Nutrient content (%C, %N, and %P) was assessed for 10 shoots growing within 0.25 m of the center of each plot, before the beginning of the experiment and again after 1 year. 
 The second youngest blade from each shoot was collected, combined with other blades from the same plot and sampling period, and dried at 60ºC for 48-72 hours. 
-For %C and %N analysis seagrass tissue was then weighed into tin capsules, and sent to the University of Georgia Stable Isotope Ecology Laboratory for analysis. 
+For %C and %N analysis seagrass tissue was then ground, weighed into tin capsules, and sent to the University of Georgia Stable Isotope Ecology Laboratory for analysis. 
 Percent phosphorus (%P) was determined by dry oxidation acid hydrolysis extraction followed by colorimetric analysis [@fourqurean1992].  
   
 ## Statistical analysis  
   
-Two sampling events occurred in the summer (1 and 12 months into the experiment) and two in the winter (5 and 17 months into the experiment); therefore, all response variables were visually examined for a seasonal effect. 
-If responses differed noticeably between summer and winter, separate factors for season and year of the experiment (1st or 2nd year) were included as explanatory variables in those analyses, otherwise a continuous effect of months into experiment was the only temporal variable. 
-In either case, the effects of temporal variables were allowed to interact with experimental treatment (control, structure control, or sponge), but season and year were only allowed to interact with each other when included as random slopes (for algal abundance only).  
+Two sampling events occurred in the summer (July, 1 and 12 months into the experiment) and two in the winter (November, 5 and 17 months into the experiment); therefore, all response variables were visually examined for a seasonal effect. 
+If responses differed noticeably between summer and winter, separate factors for season and year of the experiment (1st or 2nd year) were included as explanatory variables in those analyses; otherwise, a continuous effect of months into the experiment was the only temporal variable. 
+In either case, the effects of temporal variables were allowed to interact with experimental treatment (control, structure, or sponge), but season and year were only allowed to interact with each other when included as random slopes (for algal abundance only).\par  
 
 Macroalgal abundances were fit with a negative binomial distribution and a log link.
-Overall abundance did fluctuate seasonally, so we included fixed effects of treatment, year, and season, and random slopes for the effect of season and year for each taxa. 
-This provides an estimate of the overall treatment effect between years and seasons, as well as taxa-specific differences in these effects.  
+Overall abundance did fluctuate seasonally, so we included fixed effects of treatment, year, and season, and random slopes for the effect of season and year for each taxon. 
+This provides an estimate of the overall treatment effect between years and seasons, as well as taxa-specific differences in these effects.\par  
 
-Shoot densities (counts of shoots m^-2^) were fit with a quasi-poisson distribution and a log link. 
-Seagrass shoots did not fluctuate between seasons, so we included fixed effects of months into experiment in a three-way interaction with treatment and distance (a linear covariate representing the center of contiguous 1 m^2^ sampling quadrats). 
-Because species-specific shoot counts were not collected for *S. filliforme* or *H. wrightii*, shoot density was modelled for *T. testudinum* alone as the dominant species and for *S. filliforme* and *H. wrightii* combined.  
+Shoot densities (counts of shoots m^-2^) were fit with a quasi-Poisson distribution and a log link.
+Seagrass shoot counts did not fluctuate between seasons, so we included fixed effects of months into the experiment in a three-way interaction with treatment and distance (a linear covariate representing the center of contiguous 1 m^2^ sampling quadrats). 
+Because species-specific shoot counts were not collected for *S. filliforme* or *H. wrightii*, shoot density was modeled for *T. testudinum* alone, as the dominant species, and for *S. filliforme* and *H. wrightii* combined, as sub-dominant species.  
 
 *T. testudinum* growth rate (mm^2^ day^-1^) was analyzed in response to treatment interacting separately with fixed effects of distance, season, and year, as well as stake ID as an additional random factor. 
 We tested for a treatment effect at each distance sampled (0, 0.5, 1, and 2 m) to identify a potential threshold of response. 
-Because an effect was detected at 0 and 0.5 m and not at the 1 m or 2 m sampling points, distance was included in this model as a factor with 0 and 0.5 m assigned as "near" and 1 and 2 m assigned as "far".  
+Because an effect was detected at 0 and 0.5 m and not at the 1 m or 2 m sampling points, the relative distance was included in this model as a factor, with 0 and 0.5 m assigned as "near" and 1 and 2 m assigned as "far."\par  
 
-Finally, we tested for a treatment effect on nutrient concentrations (% of nitrogen, carbon, and phosphorus) in *T. testudinum* shoots one year into the experiment, as compared to samples collected prior to the experiment. 
+Finally, we tested for a treatment effect on nutrient concentrations (% of nitrogen, carbon, and phosphorus) in *T. testudinum* shoots one year into the experiment, as compared to samples collected before the experiment. 
   
-All models described above included plot as a random factor, along with any additional random effects as described above. 
-For all response variables except nutrient concentrations, an offset of the mean values measured prior to the initiation of the experiment was included (when a log link was used, this value had 1 added to it and was log transformed). 
-Macroalgal abundance and seagrass shoot densities were assessed using generalized mixed effect models implemented using the glmmTMB package [@brooks2017]; distribution and link described above. 
-All other variables were modeled linear mixed effects models using the lme4 package [@bates2015]. 
-All analyses were completed in R version 4.0.2 [@rcoreteam2020]. **could add statement about how differences between treatments are reported**   
+Plot was included as a random factor in all models, along with any additional random effects as described above. 
+For all response variables, except nutrient concentrations, an offset of the mean values measured before the initiation of the experiment was included (when a log link was used, this value had 1 added to it and was log-transformed). 
+Macroalgal abundance and seagrass shoot densities were assessed using generalized mixed effect models implemented using the glmmTMB package [@brooks2017]; the distribution and link used in each model are described above. 
+All other variables were modeled linear mixed-effects models using the lme4 package [@bates2015]. 
+All analyses were completed in R version 4.0.2 [@rcoreteam2020]. 
 
 # Results  
 ```{r results function,include=FALSE}
@@ -171,7 +186,7 @@ efsize<-function(rtable,row){
   cil<-format(round(cil, digits=decicount), scientific=F)
   cih<-rtable$coefficients[row,1]+1.96*se
   cih<-format(round(cih, digits=decicount), scientific=F)
-  return(paste(betas,",",cil,"to",cih))
+  return(paste0(betas,", ",cil," to ",cih))
 }
 
 efsize.tmb<-function(rtable,row){
@@ -186,7 +201,7 @@ efsize.tmb<-function(rtable,row){
   cil<-format(round(cil, digits=decicount), scientific=F)
   cih<-rtable$coefficients$cond[row,1]+1.96*se
   cih<-format(round(cih, digits=decicount), scientific=F)
-  return(paste(betas,",",cil,"to",cih))
+  return(paste0(betas,", ",cil," to ",cih))
 }
 
 # overall anovas
@@ -211,30 +226,31 @@ tmb.res<-function(rtable,row){
 
 ```
   
-Throughout the results we present effect sizes and 95% confidence intervals rather than test statistics and p-values. All test statistics and p-values can be found in the supplemental material.   
+Throughout the results, we present effect sizes and 95% confidence intervals rather than test statistics and p-values. All test statistics and p-values can be found in the supplemental material (Tables S1-S7).   
 
 ## Macroalgal abundance  
 ```{r algae, include=FALSE}
 source("scripts/04_algae_analysis.R")
 ```  
   
-Macroalgal abundances decreased in the winter in all treatments, however, the decrease was only significant in control ($\beta$ = `r efsize.tmb(alm1b.sum,5)`). 
-Macroalgal abundances did not change significantly between the first and second year of the experiment in control or structure control plots (Fig. \@ref(fig:algaep)).
-However, macroalgal abundances increased in sponge treatments in year two of the experiment ($\beta$ = `r efsize.tmb(alm1r.sum,4)`, Fig. \@ref(fig:algaep)). 
-The control and structure control plots both increased significantly less than the sponge treatments ($\beta$ = `r efsize.tmb(alm1r.sum,6)` and $\beta$ = `r efsize.tmb(alm1r.sum,7)` respectively) and did not differ from each other (Table S1).
+Macroalgal abundances decreased in the winter in all treatments, however, the decrease was only significant in the control ($\beta$ = `r efsize.tmb(alm1b.sum,5)`). 
+In the sponge treatment, macroalgal abundances increased in year two of the experiment ($\beta$ = `r efsize.tmb(alm1r.sum,4)`, Fig. \@ref(fig:algaep)).
+This pattern of increased abundance was consistent across most taxa (Fig. S2).
+Meanwhile, macroalgal abundances in the control and structure plots did not differ from each other (Table S1), but both differed from those in the sponge treatments by year two ($\beta$ = `r efsize.tmb(alm1r.sum,6)` and $\beta$ = `r efsize.tmb(alm1r.sum,7)` respectively). 
+Macroalgal abundances did not change significantly between the first and second years of the experiment in the control and structure plots (Fig. \@ref(fig:algaep)). 
   
 ## Shoot densities
 ```{r shoot.density, include=FALSE}
 source("scripts/07_shoots_analysis.R")
 ```  
   
-*Thalassia testudinum* shoot densities decreased similarly in all treatments over time, but this decrease was not significant in sponge plots (control: $\beta$ = `r efsize.tmb(tsdb.sum,4)`; structure control: $\beta$ = `r efsize.tmb(tsdf.sum,4)`; sponge: $\beta$ = `r efsize.tmb(tsdr.sum,4)`). 
-There was no significant effect of distance for any treatment initially or over time. 
-*Syringodium filiforme* and *H. wrightii* shoot densities did not change in control or structure control plots, but increased in sponge plots ( $\beta$ = `r efsize.tmb(shsdr.sum,4)`). 
-The increase in sponge plots was significantly different than both control ($\beta$ = `r efsize.tmb(shsdr.sum,6)`) and structure control plots ($\beta$ = `r efsize.tmb(shsdr.sum,7)`). 
-Initially, *S. filiforme* and *H. wrightii* were more abundant at further distances from the center of sponge plots ( $\beta$ = `r efsize.tmb(shsdr.sum,5)`). 
+*Thalassia testudinum* shoot densities decreased similarly in all treatments over time, but this decrease was not significant in sponge plots (control: $\beta$ = `r efsize.tmb(tsdb.sum,4)`; structure: $\beta$ = `r efsize.tmb(tsdf.sum,4)`; sponge: $\beta$ = `r efsize.tmb(tsdr.sum,4)`, Fig. \@ref(fig:shootd)). 
+There was no significant effect of distance for any treatment initially or over time (Table S2). 
+*Syringodium filiforme* and *H. wrightii* shoot densities did not change in control or structure plots but increased in sponge plots ($\beta$ = `r efsize.tmb(shsdr.sum,4)`, Fig. \@ref(fig:shootd)). 
+The increase in sponge plots was significantly different than both control ($\beta$ = `r efsize.tmb(shsdr.sum,6)`) and structure plots ($\beta$ = `r efsize.tmb(shsdr.sum,7)`). 
+Initially, *S. filiforme* and *H. wrightii* were more abundant further from the center of sponge plots ($\beta$ = `r efsize.tmb(shsdr.sum,5)`). 
 However, over time *S. filiforme* and *H. wrightii* increased more near the center of sponge plots (time * distance: $\beta$ = `r efsize.tmb(shsdr.sum,10)`). 
-There was no significant effect of distance at any point in control or structure control plots.  
+There was no significant effect of distance in control or structure plots (Table S3).  
 
 ## *Thalassia testudinum* growth  
 ```{r growth, include=FALSE}
@@ -243,51 +259,53 @@ source("scripts/05_growth_analysis.R")
   
 Seagrass growth was impacted by treatment at 0 (F~`r aov.df2(sg0,1)`~`r aov.res2(sg0,1)`) and 0.5 m (F~`r aov.df2(sg05,1)`~`r aov.res2(sg05,1)`) but this effect had disappeared by 1 m. 
 As a result, we pooled seagrass growth for the near (0 and 0.5 m) and far (1 and 2 m) distances for further analysis. 
-Seagrass growth was slower in the winter ($\beta$ = `r efsize(sgr,6)`) and the decrease in growth during the winter was not different between treatments. 
-In sponge plots, seagrass grew slower in the further distances from the sponge ($\beta$ = `r efsize(sgr,4)`, Fig. \@ref(fig:grow)). 
-There was no difference in seagrass growth between distances in the control or structure control plots. 
+Seagrass growth was slower in the winter ($\beta$ = `r efsize(sgr,6)`) and the decrease in growth during the winter was not different among treatments (Table S4). 
+In sponge plots, seagrass grew slower further from the sponge ($\beta$ = `r efsize(sgr,4)`, Fig. \@ref(fig:grow)). 
+There was no difference in seagrass growth between distances in the control or structure plots. 
 In sponge plots, seagrass grew faster in the second year of the experiment ($\beta$ = `r efsize(sgr,5)`, Fig. \@ref(fig:grow)). 
-In contrast, seagrass growth declined in the control and structure control plots , but this decline was only significant in the control ($\beta$ = `r efsize(sgb,5)`, Fig. \@ref(fig:grow)).  
+By contrast, seagrass growth declined in the control and structure plots , but this decline was only significant in the control ($\beta$ = `r efsize(sgb,5)`, Fig. \@ref(fig:grow)).  
   
 ## *Thalassia testudinum* nutrient concentrations  
 ```{r nutrients, include=FALSE}
 source("scripts/06_nutrient_analysis.R")
 ```
   
-Before the the experiment, seagrass in sponge plots had significantly lower nitrogen concentrations than control plots (Fig. \@ref(fig:nuts)A, $\beta$ = `r efsize(nbs,3)`) but not structure control plots. 
-Percent nitrogen in seagrass tissues in both control and structure control plots declined similarly over time (Fig. \@ref(fig:nuts)A), but the decrease was only significant in control plots ($\beta$ = `r efsize(nbs,4)`). 
-Conversely, in sponge plots seagrass % N responded differently than both the control ($\beta$ = `r efsize(nrs,5)`) and structure control ($\beta$ = `r efsize(nrs,6)`) plots. Sponge plots had a higher % N after one year (Fig. \@ref(fig:nuts)A), however, this increase was not significant.  
+Before the experiment, seagrass in sponge plots had significantly lower nitrogen concentrations than control plots (Fig. \@ref(fig:nuts)A, $\beta$ = `r efsize(nbs,3)`) but not structure plots (Table S5). 
+Percent nitrogen in seagrass tissues in both control and structure plots declined similarly over time (Fig. \@ref(fig:nuts)A), but the decrease was only significant in control plots ($\beta$ = `r efsize(nbs,4)`). 
+Conversely, seagrass % N responded differently in sponge plots than in both the control ($\beta$ = `r efsize(nrs,5)`) and structure ($\beta$ = `r efsize(nrs,6)`) plots. 
+Sponge plots had a higher % N after one year (Fig. \@ref(fig:nuts)A); however, this increase was not significant.  
   
-The pattern was similar for percent carbon; in sponge plots seagrass % C  was initially lower than control (Fig. \@ref(fig:nuts)B, $\beta$ = `r efsize(cbs,3)`) and structure control plots ($\beta$ = `r efsize(cfs,3)`). 
-Again, percent carbon in seagrass tissue decreased in a similar way in both control and structure control plots (Fig. \@ref(fig:nuts)B). 
-However, this decrease was only significant in structure control plots ($\beta$ = `r efsize(cfs,4)`). 
-In sponge plots, % carbon showed a slight increase in seagrass tissues, resulting in a significantly different response than structure control plots ($\beta$ = `r efsize(crls,6)`) but not control plots.  
+The pattern was similar for percent carbon; seagrass % C  was initially lower in sponge plots than in control (Fig. \@ref(fig:nuts)B, $\beta$ = `r efsize(cbs,3)`) and structure plots ($\beta$ = `r efsize(cfs,3)`). 
+Again, percent carbon in seagrass tissue decreased similarly in both control and structure plots (Fig. \@ref(fig:nuts)B). 
+However, this decrease was only significant in structure plots ($\beta$ = `r efsize(cfs,4)`). 
+In sponge plots, % carbon showed a slight increase in seagrass tissues, resulting in significantly different response for structure plots ($\beta$ = `r efsize(crls,6)`) but not for control plots (Table S6).  
   
 Phosphorus concentrations were similar in all plot types at the beginning of the experiment (Fig. \@ref(fig:nuts)C). 
-Although % phosphorus in seagrass tissues followed the same patterns as both % nitrogen and % carbon, decreasing in control and structure control plots while increasing in sponge plots, none of these changes were significant(Fig. \@ref(fig:nuts)C). 
-However, the pattern of change over time was significantly different between control and sponge plots ($\beta$ = `r efsize(pbs,6)`), but not between structure control and sponge plots or control and structure control plots. 
+Although % phosphorus in seagrass tissues followed the same patterns as both % nitrogen and % carbon, decreasing in control and structure plots while increasing in sponge plots, none of these changes were significant(Fig. \@ref(fig:nuts)C). 
+However, the pattern of change over time was significantly different between control and sponge plots ($\beta$ = `r efsize(pbs,6)`), but not between structure and sponge plots or control and structure plots (Table S7). 
   
   
 # Discussion  
 Facilitation plays an important role in structuring seagrass ecosystems. 
-Research has largely focused on how seagrasses facilitate other organisms. 
-However, knowing which taxa facilitate seagrasses is equally important for understanding long-term seagrass bed dynamics in the face of a changing ocean. 
-Here, we show that the sponge *Ircinia felix* facilitates seagrass bed primary producers.
-Specifically, sponge presence results in increased seagrass nutrient content and growth and increased abundance of both macroalgae and seagrasses.\par  
+Although research has largely focused on how seagrasses facilitate other organisms, knowing which taxa facilitate seagrasses will be equally important for understanding long-term seagrass bed dynamics in the face of a changing ocean. 
+We provide the first experimental evidence that the sponge *Ircinia felix* facilitates seagrass bed primary producers.
+Specifically, we demonstrate that the presence of a sponge resulted in increased nutrient content and growth of the dominant seagrass taxon, as well as an increased abundance of both macroalgae and non-dominant seagrasses.\par  
 
 Many sponge holobionts, including *I. felix*, are capable of complex nutrient transformations and often release bioavailable forms of nitrogen and phosphorus into the environment [@southwell2008a; @archer2017].
-Because primary producers are typically limited by both nitrogen and phosphorus in our study system [@allgeier2010], we hypothesized that the sponges we transplanted would supply these nutrients resulting in the facilitation of seagrass bed primary producers. 
-Consistent with our hypothesis, we saw an increase in seagrass nutrient content in our plots with live sponges.
-Ours is not the first study to find that sponge-released nutrients can facilitate primary producers.
-For example, sponges growing on mangrove roots supply nutrients to the mangrove [@ellison1996] and sponges can supply nitrogen to macroalgae on coral reefs [@easson2014]. 
-Further, Archer et al. (2015) showed that a different sponge (*Halichondria melanadocia*) that grows around the base and leaves of seagrass shoots likely provide nutrients to those shoots. 
-However, this study, to the best of our knowledge, is the first to show that a single massive form sponge can increase nutrient content in seagrasses within a 0.25 m radius. \par
+Because primary producers are typically limited by both nitrogen and phosphorus in Bahamian coastal ecosystems [@allgeier2010], we hypothesized that the sponges we transplanted would supply these nutrients resulting in the facilitation of seagrass bed primary producers. 
+Consistent with our hypothesis, we saw an increase in seagrass nutrient content in plots with live sponges relative to our other treatments.
+This is not the first study to find that sponge-released nutrients can facilitate primary producers.
+For example, sponges growing on mangrove roots supply nutrients to the trees [@ellison1996] and sponges can supply nitrogen to macroalgae on coral reefs [@easson2014]. 
+Further, @archer2015 showed that a sponge (*Halichondria melanadocia*) that grows around the base and leaves of seagrass shoots likely provide nutrients to those shoots. 
+However, to the best of our knowledge, this study is the first to show that a single massive form sponge can increase nutrient content in seagrasses within a 0.25 m radius. \par
 
-The other changes we documented in the primary producers in our sponge plots are consistent with an increase in nutrient supply in an oligotrophic system. 
+The other changes we documented in the primary producers in our sponge plots are consistent with an increase in nutrient supply in this oligotrophic system. 
+
 For example, we recorded an increase in *S. filliforme* and *H. wrightii* in sponge plots.
 Such an increase has been associated with the addition of a novel source of nutrients in similar systems; the addition of nutrients in the form of bird guano shifted the dominant seagrass species in a Florida Bay seagrass bed from *T. testudinum* to *H. wrightii* [@powell1989; @fourqurean1995].
 Concomitantly, we saw an increase in seagrass growth near the transplanted sponges and a general increase in macroalgal abundance in sponge plots.
 It is possible that the addition of structure to our plots altered water flow and influenced the primary producers. 
+<<<<<<< HEAD
 However, similar structures (a sponge replica and holding cage) were added to our structure control plots and the response of the primary producers in control and structure control plots did not differ significantly while we saw a significant response in our sponge plots for most responses. 
 This suggests that it is a function of the live sponges, rather than the presence of structure, that lead to increased seagrass nutrient content and growth, and increased abundance of both seagrasses (*S. filliforme* and *H. wrightii*) and macroalgae.\par
 
@@ -299,23 +317,38 @@ The effect of the epiphytic sponge *H. melanadocia* was also found to be partial
 Under oligotrophic conditions this sponge-seagrass interaction is commensal, with the seagrass providing an attachment point for the sponge and the seagrass displaying no net effect of sponge presence.
 The net neutral effect of the sponge on the seagrass is, however, a balance of a negative effect of the sponge shading the seagrass with the sponge releasing bioavailable forms of limiting nutrients (N and P) [@archer2015].
 This interaction is also context dependent, with small increases in ambient nutrient levels resulting in a shift from commensalism to parasitism and a reduction of seagrass growth and biomass [@archer2018c].\par
+=======
+However, similar structures (a sponge replica and holding cage) were added to our structure plots, and the response of the primary producers in control and structure plots did not differ significantly for most responses, whereas in most cases, we saw a significant response in our sponge plots. 
+This suggests that living sponges, rather than the presence of structure, are the cause of increases in seagrass nutrient content and growth, and in the abundance of macroalgae and non-dominant seagrass species (*S. filliforme* and *H. wrightii*).\par
+
+Seagrasses are often facilitated by other filter feeders increasing nutrient availability [@gagnon2020].
+For example, @reusch1994 found that the blue mussel (*Mytilus edulis*) facilitates seagrass growth via fertilization of sediments through the deposition of biodeposits (feces and pseudofeces).
+However, this effect appears to be context-dependent.
+Specifically, in eutrophic conditions mussels cause water column nutrient enrichment and biodeposits that combine to result in high sulfide concentrations in sediments, which in turn drives a reduction in seagrass density [@vinther2012].
+The effect of the epiphytic sponge *H. melanadocia* was also found to be partially determined by the sponge's supply of limiting nutrients [@archer2015; @archer2018c].
+Under oligotrophic conditions this sponge-seagrass interaction is commensal, with the seagrass providing an attachment point for the sponge and the seagrass receiving a supply of limiting nutrients.
+The seagrass in this relationship displayed a net neutral effect of sponge presence, where there was a balance between a negative effect of the sponge shading the seagrass and the positive effect of the sponge releasing bioavailable forms of N and P [@archer2015].
+However, this interaction is also context-dependent, with small increases in ambient nutrient levels resulting in a shift from commensalism to parasitism and a reduction of seagrass growth and biomass [@archer2018c].\par
+>>>>>>> 98d345a85ae1dcd91141613c72c17093035e997a
 
 The context-dependent nature of many facilitative interactions between filter feeders and seagrasses can lead to seemingly unpredictable instability in seagrass ecosystems [@vanderheide2020]. 
-For example, these interactions can lower the threshold of nutrient pollution that leads to decline in seagrass ecosystems, driving seagrass loss at lower nutrient levels than would be predicted by studying seagrasses in isolation.
-On first glance, it may appear that the facilitation of primary producers by *I. felix* would be no different, as this facilitation appears to be based on nutrients supplied by the sponge. 
+For example, these interactions can lower the threshold of nutrient pollution that leads to a decline in seagrass ecosystems, i.e., seagrass loss occurs at lower nutrient levels than would be predicted by studying seagrasses in isolation.
+At first glance, it may appear that the facilitation of primary producers by *I. felix* would be no different, as this facilitation appears to be based on nutrients supplied by the sponge. 
 However, nutrient processing by the *I. felix* holobiont is also context-dependent. 
-While there is little spatial or temporal variability in *I. felix*'s symbiotic microbiome [@erwin2012]; the active portion of the microbiome appears to be dependent on ambient nutrient concentrations [@archer2017].
+Whereas there is little spatial or temporal variability in *I. felix*'s symbiotic microbiome [@erwin2012]; the active portion of the microbiome appears to be dependent on ambient nutrient concentrations [@archer2017].
 As a result the *I. felix* holobiont acts as a source of bioavailable forms of N and P when ambient concentrations of those nutrient species are low, and as a sink when they are high [@archer2017].
-This context-dependent nutrient processing has been documented in other sponges as well [@pawlik2020].
-While the ecosystem-level effects of this context-dependent nutrient processing have not been studied, it is reasonable to predict that it should have a stabilizing effect on ambient nutrient levels when sponges are present in sufficient densities.
-This study showed facilitation of primary production in a seagrass bed by *I. felix* under oligotrophic conditions, likely due to nutrients supplied by the sponge. 
+This context-dependent nutrient processing has been documented in other sponges [@pawlik2020].
+The ecosystem-level effects of this context-dependent nutrient processing have not been studied, yet it is reasonable to predict that it should have a stabilizing effect on ambient nutrient levels when sponges are present in sufficient densities.
 Future work should focus on the impact of *I. felix* presence on seagrass bed primary producers under a range of ambient nutrient levels to better understand if context-dependent nutrient processing by sponges can act as a stabilizing force in seagrass beds.\par  
 
-Overall, our study shows that sponges can facilitate seagrass bed primary producers and that this facilitation is likely based on nutrients supplied by the sponge.
-It is important to understand which taxa facilitate foundation spcies, like seagrass, because this can have cascading consequences on local diversity, ecosystem function, and the delivery of ecosystem services.
-Theoretical and empirical work shows that interactions involving nutrient-transfer are often context-dependent and that such interactions involving foundation species can lead to non-linear ecosystem dynamics when human activities significantly alter ambient nutrient levels. 
-We studied the effect of *I. felix* in unimpacted seagrass beds.
-Therefore, this study represents a first step in understanding how sponges influence seagrass ecosystems and our results suggest that further work is necessary to determine if this facilitation breaks down in impacted systems.
+It is important to understand the facilitation of foundation species, like seagrass, because this can have cascading consequences on local diversity, ecosystem function, and the delivery of ecosystem services.
+We studied the effect of *I. felix* in unimpacted seagrass beds and found that sponges can facilitate seagrass bed primary producers, likely through nutrients supplied by the sponge.
+However, theoretical and empirical work show that interactions involving nutrient-transfer are often context-dependent and that such interactions involving foundation species can lead to non-linear ecosystem dynamics when human activities alter ambient nutrient levels. 
+Therefore, this study represents a first step in understanding how sponges influence seagrass ecosystems. 
+Further work will be necessary to determine if there are impacts on the wider ecosystem and whether the facilitative relationship between sponges and primary producers breaks down in impacted systems.
+
+# Acknowledgements  
+We would like to thank Friends of the Environment (NGO, Abaco, The Bahamas), Diane Claridge and Charlotte Dunn for their logistical support, Erik Archer, Elizabeth Whitman, and Ryann Rossi for their assistance in the field, and Katie Lewia and Jillian Tucker for their assistance in the lab, and the reviewers for their help improving this manuscript. This work was supported by donations from Win and Tana Archer, North Carolina State University, and NSF OCE 1405198.\par
 
   
 # References  
@@ -326,23 +359,23 @@ Therefore, this study represents a first step in understanding how sponges influ
 # Figures
 
 
-```{r algaep, out.width="95%", echo=FALSE, message=FALSE, fig.cap="The change in macroalgal abundances in control, structure control, and sponge plots between the first and second summer of the experiment. Taxa-specific mean counts and 95% confidence intervals are presented. The line and shaded area represent the global model fit with 95% confidence intervals."}
+```{r algaep, out.width="95%", echo=FALSE, message=FALSE, fig.cap="The change in macroalgal abundances relative to counts made immediately before the experiment in (a) control, (b) structure, and (c) sponge plots between summers of year 1 and 2 (1 and 12 months into the experiment). Bold lines represents the global fit for change in summer abundance of an average algae species from a mixed model with random slopes for each species. Observed taxa-specific mean count differences and model estimates are both presented with their 95% confidence intervals."}
 
 knitr::include_graphics("figures/algae_summer_95CIbw_shapes.jpg")
 ```
 
 
-```{r shootd, out.width="55%", echo=FALSE,message=FALSE, fig.cap="Shoot densities of (a) *T. testudinum* and (b) *S. filliforme* and *H. wrightii* combined over the course of the experiment."}
+```{r shootd, out.width="55%", echo=FALSE,message=FALSE, fig.cap="Change in seagrass shoot densities (means and 95% confidence intervals) relative to before the experiment of (a) *T. testudinum* and (b) *S. filliforme* and *H. wrightii* combined throughout the experiment."}
 knitr::include_graphics("figures/shootdensity-95CI.jpg")
 ```
 
 
-```{r grow, out.width="85%", echo=FALSE,message=FALSE, fig.cap="Segrass growth in the summer (a) and winter (b) over the course of the experiment. Summer sampling happened in months 1 and 12 (years 1 and 2 respectively) while winter sampling occurred in months 5 and 17."}
+```{r grow, out.width="85%", echo=FALSE,message=FALSE, fig.cap="Change in seagrass growth rates (means and 95% confidence intervals) relative to summer measurements taken before the experiment for *T. testudinum* shoots growing less than 1m (a & c) or between 1 and 2 m (b & d) from the sponge/centre of the plot. Summer sampling (a & b) happened in months 1 and 12 (years 1 and 2 respectively) whereas winter sampling (c & d) occurred in months 5 and 17."}
 knitr::include_graphics("figures/sggrow-95CI.jpg")
 ```
 
 
-```{r nuts, out.width="65%", echo=FALSE,message=FALSE, fig.cap="Seagrass nutrient concentrations prior to the initiation of the experiment and at one year (12 months) into the experiment. (a) Percent nitrogen, (b) percent carbon, and (c) percent phosphorus in *Thalassia testudinum* tissue."}
+```{r nuts, out.width="65%", echo=FALSE, message=FALSE, fig.cap="Nutrient concentrations (means and 95% confidence intervals) in *T. testudinum* tissue including (a) percent nitrogen, (b) percent carbon, and (c) percent phosphorus measured before initiation of the experiment and at 1 year (12 months) into the experiment."}
 knitr::include_graphics("figures/nuts-95CI.jpg")
 ```
 

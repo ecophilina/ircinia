@@ -76,6 +76,11 @@ testDispersion(fj.glmm_simres)
 plot(fj.glmm_simres)
 
 # diversity
+fish.uni2%>%
+       filter(season=="summer")%>%
+  ggplot()+
+  geom_histogram(aes(change.div))
+
 fdiv.glmm<-glmmTMB::glmmTMB(change.div~treatment*as.factor(sampling) + 
                               (1|plot),
                             #family= poisson,
@@ -85,36 +90,85 @@ fdiv.glmm<-glmmTMB::glmmTMB(change.div~treatment*as.factor(sampling) +
 
 summary(fdiv.glmm)
 
-performance::r2(fdiv.glmm)
+(f.sponge.model<-performance::r2(fdiv.glmm))
 
 # look at residuals
 fdiv.glmm_simres <- simulateResiduals(fdiv.glmm)
 testDispersion(fdiv.glmm_simres)
 plot(fdiv.glmm_simres)
 
-# fspr.lmer<-lmer(change.spr~treatment*sampling + grow + 
-#                   (1|plot),
-#                 data = fish.uni2%>%
-#                   mutate(treatment=relevel(treatment, ref = "real")))
+
+# models with productivity as the explanatory variable
+
+# seagrass productivity model
+fdiv.prod.glmm<-glmmTMB::glmmTMB(change.div~sg.prod.c*as.factor(sampling) + 
+                                   (1|plot),
+                                 #family= poisson,
+                                 data = fish.uni2%>%
+                                   filter(season=="summer")%>%
+                                   mutate(treatment=relevel(treatment, ref = "real")))
+
+summary(fdiv.prod.glmm)
+
+(f.prod.model<-performance::r2(fdiv.prod.glmm))
+
+# look at residuals
+fdiv.prod.glmm_simres <- simulateResiduals(fdiv.prod.glmm)
+testDispersion(fdiv.prod.glmm_simres)
+plot(fdiv.prod.glmm_simres)
+
+# primary producer structure model
+# fdiv.struct.glmm<-glmmTMB::glmmTMB(change.div~pp.struct.c*as.factor(sampling) + 
+#                                      (1|plot),
+#                                    #family= poisson,
+#                                    data = fish.uni2%>%
+#                                      filter(season=="summer")%>%
+#                                      mutate(treatment=relevel(treatment, ref = "real")))
 # 
-# summary(fspr.lmer)
-# plot(fspr.lmer)
+# summary(fdiv.struct.glmm)
 # 
-# fj.lmer<-lmer(change.j~treatment*sampling +  grow +  
-#                 (1|plot),
-#               data = fish.uni2%>%
-#                 mutate(treatment=relevel(treatment, ref = "real")))
+# (f.struct.model<-performance::r2(fdiv.struct.glmm))
 # 
-# summary(fj.lmer)
-# plot(fj.lmer)
+# # look at residuals
+# fdiv.struct.glmm_simres <- simulateResiduals(fdiv.struct.glmm)
+# testDispersion(fdiv.struct.glmm_simres)
+# plot(fdiv.struct.glmm_simres)
 # 
-# fdiv.lmer<-lmer(change.div~treatment*sampling + grow + 
-#                   (1|plot),
-#                 data = fish.uni2%>%
-#                   mutate(treatment=relevel(treatment, ref = "real")))
+# # seagrass structure model
+# fdiv.sg.struct.glmm<-glmmTMB::glmmTMB(change.div~sg.sd.c*as.factor(sampling) + 
+#                                      (1|plot),
+#                                    #family= poisson,
+#                                    data = fish.uni2%>%
+#                                      filter(season=="summer")%>%
+#                                      mutate(treatment=relevel(treatment, ref = "real")))
 # 
-# summary(fdiv.lmer)
-# plot(fdiv.lmer)
+# summary(fdiv.sg.struct.glmm)
+# 
+# (f.sg.struct.model<-performance::r2(fdiv.sg.struct.glmm))
+# 
+# # look at residuals
+# fdiv.sg.struct.glmm_simres <- simulateResiduals(fdiv.sg.struct.glmm)
+# testDispersion(fdiv.sg.struct.glmm_simres)
+# plot(fdiv.sg.struct.glmm_simres)
+
+# algae structure model
+fdiv.alg.struct.glmm<-glmmTMB::glmmTMB(change.div~abund.c*as.factor(sampling) + 
+                                        (1|plot),
+                                      #family= poisson,
+                                      data = fish.uni2%>%
+                                        filter(season=="summer")%>%
+                                        mutate(treatment=relevel(treatment, ref = "real")))
+
+summary(fdiv.alg.struct.glmm)
+
+(f.alg.struct.model<-performance::r2(fdiv.alg.struct.glmm))
+
+# look at residuals
+fdiv.alg.struct.glmm_simres <- simulateResiduals(fdiv.alg.struct.glmm)
+testDispersion(fdiv.alg.struct.glmm_simres)
+plot(fdiv.alg.struct.glmm_simres)
+
+
 
 # make dataset for plots
 fish.pr<-ggeffects::ggpredict(fspr.lmer,terms=c("treatment","sampling"))%>%

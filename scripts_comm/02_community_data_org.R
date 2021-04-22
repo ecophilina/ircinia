@@ -10,7 +10,7 @@ sg<-sg_shoot%>%
   group_by(treatment,plot,sampling,sg.sd.global)%>%
   summarize(sg.sd=mean(SD))%>%
   mutate(
-    sg.sd=sg.sd-sg.sd.global, # comment this line out if not centering
+    #sg.sd=sg.sd-sg.sd.global, # comment this line out if not centering
     sampling=case_when(
       sampling==1~0,
       sampling==2~1,
@@ -24,7 +24,7 @@ sggrow<-sg_grow%>%
   group_by(treatment,plot,sampling,grow.global)%>%
   summarize(grow=mean(total.growth.mm2/days))%>%
   mutate(
-    grow=grow-grow.global,
+ #   grow=grow-grow.global,
     sampling=case_when(
       sampling==1~0,
       sampling==2~1,
@@ -38,12 +38,12 @@ alg<-algae%>%
   filter(!taxa %in% c("brown.cyanobacteria","green.cyanobacteria","dictyota"))%>%
   select(-taxa)%>%
   group_by(treatment,plot,sampling)%>%
-  summarize(abund=sum(abundance))%>%
+  summarize(abund=sum(abundance)/3)%>%
   ungroup()%>%
   distinct()%>%
   mutate(abund.global=mean(abund))%>%
   mutate(
-    abund=abund-abund.global,
+#    abund=abund-abund.global,
     sampling=case_when(
       sampling==1~0,
       sampling==2~1,
@@ -53,7 +53,15 @@ alg<-algae%>%
 
 productivity<-left_join(sg,sggrow)%>%
   left_join(alg)%>%
-  mutate(sd.grow=grow*sg.sd)
+  ungroup()%>%
+  mutate(sg.prod=grow*sg.sd,
+         pp.struct = sg.sd + abund,
+         sg.prod.global = mean(sg.prod),
+         pp.struct.global = mean(pp.struct),
+         sg.prod.c = sg.prod - sg.prod.global,
+         pp.struct.c = pp.struct - pp.struct.global,
+         sg.sd.c = sg.sd - sg.sd.global,
+         abund.c = abund - abund.global)
 
 # create community datasets
 
@@ -126,12 +134,12 @@ fish.com.full<-fish%>%
   pivot_wider(names_from=taxa,values_from=abundance,values_fill=0)
 
 alg.env<-alg.com.full %>%
-  select(treatment,plot,sampling,season,yr,sg.sd.global,
-         sg.sd,grow.global,grow,abund,abund.global,sd.grow)
+  select(treatment,plot,sampling,season,yr,sg.sd.global, 
+         sg.sd,grow.global,grow,abund,abund.global,abund.c,sg.prod,sg.prod.c,sg.prod.global,pp.struct,pp.struct.c,pp.struct.global, sg.sd.c)
 
 alg.com<-alg.com.full %>%
   select(-treatment,-plot,-sampling,-season,-yr,-sg.sd.global,
-         -sg.sd,-grow.global,-grow,-abund,-abund.global,-sd.grow)
+         -sg.sd,-grow.global,-grow,-abund,-abund.global,-abund.c,-sg.prod,-sg.prod.c,-sg.prod.global,-pp.struct,-pp.struct.c,-pp.struct.global, -sg.sd.c)
 
 alg.uni<-alg.env%>%
   mutate(spr=vegan::specnumber(alg.com),
@@ -141,11 +149,11 @@ alg.uni<-alg.env%>%
 
 inv.env<-inv.com.full %>%
   select(treatment,plot,sampling,season,yr,sg.sd.global,
-         sg.sd,grow.global,grow,abund,abund.global,sd.grow)
+         sg.sd,grow.global,grow,abund,abund.global,abund.c,sg.prod,sg.prod.c,sg.prod.global,pp.struct,pp.struct.c,pp.struct.global, sg.sd.c)
 
 inv.com<-inv.com.full %>%
   select(-treatment,-plot,-sampling,-season,-yr,-sg.sd.global,
-         -sg.sd,-grow.global,-grow,-abund,-abund.global,-sd.grow)
+         -sg.sd,-grow.global,-grow,-abund,-abund.global,-abund.c,-sg.prod,-sg.prod.c,-sg.prod.global,-pp.struct,-pp.struct.c,-pp.struct.global,- sg.sd.c)
 
 inv.uni<-inv.env%>%
   mutate(spr=vegan::specnumber(inv.com),
@@ -155,11 +163,11 @@ inv.uni<-inv.env%>%
 
 fish.env<-fish.com.full %>%
   select(treatment,plot,sampling,season,yr,sg.sd.global,
-         sg.sd,grow.global,grow,abund,abund.global,sd.grow)
+         sg.sd,grow.global,grow,abund,abund.global,sg.prod,abund.c,sg.prod.c,sg.prod.global,pp.struct,pp.struct.c,pp.struct.global, sg.sd.c)
 
 fish.com<-fish.com.full %>%
   select(-treatment,-plot,-sampling,-season,-yr,-sg.sd.global,
-         -sg.sd,-grow.global,-grow,-abund,-abund.global,-sd.grow)
+         -sg.sd,-grow.global,-grow,-abund,-abund.global,-abund.c,-sg.prod,-sg.prod.c,-sg.prod.global,-pp.struct,-pp.struct.c,-pp.struct.global,- sg.sd.c)
 
 fish.uni<-fish.env%>%
   mutate(spr=vegan::specnumber(fish.com),
