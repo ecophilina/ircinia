@@ -27,31 +27,17 @@ if(!require(egg))install.packages("egg")
 
 # Abstract 150-250 words  
 Seagrass beds are important coastal ecosystems worldwide that are shaped by facilitative interactions.
-<<<<<<< HEAD
-Recent theoretical work has highlighted the potential for **highlighted the potential for- sounds positive when I think the destabilization is negative or maybe I have it reversed. I would use "has emphasized the potenial for" or "has suggested** facilitative interactions involving foundation species to be destabilizing in the face of anthropogenic change.
-Consequently, it is becoming more important to understand which taxa facilitate seagrasses.
-Sponges are a common component of seagrass bed communities. **Remove this sentence. I think the paragraph flows just fine without it**
-In other ecosystems, sponges contribute to the maintenance of more diverse and productive systems through their facilitation of foundation species (e.g., mangroves) and the retention and recycling of energy and nutrients within the system. 
-However, we know little about how sponge presence impacts *Thalassia testudinum* dominated seagrass beds.
-Here we examine the impact of the sponge *Ircinia felix* on saeagrass bed primary producers in The Bahamas using a long-term field experiment. 
-=======
 Recent theoretical work has emphasized the potential for facilitative interactions involving foundation species to be destabilized in the face of anthropogenic change.
 Consequently, it is important to identify which taxa facilitate seagrasses.
 In other ecosystems, sponges contribute to the maintenance of diverse and productive systems through their facilitation of foundation species (e.g., mangroves) and the retention and recycling of energy and nutrients.
 Sponges are common in tropical and subtropical seagrass beds, yet we know little about how their presence impacts these communities.
 Here, we examine the impact of the sponge *Ircinia felix* on primary producers in a *Thalassia testudinum* dominated seagrass bed using a long-term field experiment in The Bahamas. 
->>>>>>> 98d345a85ae1dcd91141613c72c17093035e997a
 We transplanted live sponges into the center of 5 m x 5 m plots and monitored the response of seagrasses and macroalgae. 
 Sponge presence increased seagrass nutrient content and growth, as well as the abundance of macroalgae and non-dominant seagrass species (*Syringodium filiforme* and *Halodule wrightii*). 
 These changes were not seen in the control (unmanipulated) or structure (where we placed a polypropylene sponge replica) plots. 
 We conclude that *I. felix* facilitates seagrass bed primary producers in oligotrophic systems, likely due to nutrients supplied by the sponge. 
-<<<<<<< HEAD
-Our study shows that sponges can have a positive influence on seagrass bed foundation species in unimpacted systems.
-Further work is needed to understand how this facilitation impacts the stability of seagrass beds in areas where human activities have increased ambient nutrient levels.
-=======
 Our study shows that sponges can have a positive influence on seagrass bed foundation species.
 Further work is needed to understand how this facilitation impacts the stability of seagrass beds in areas where human activities have increased ambient nutrient levels. 
->>>>>>> 98d345a85ae1dcd91141613c72c17093035e997a
 
 # Declarations  
 *Funding:* This work was supported by North Carolina State University, NSF OCE 1405198 to Craig Layman, and donations from Win and Tana Archer.  
@@ -305,19 +291,7 @@ For example, we recorded an increase in *S. filliforme* and *H. wrightii* in spo
 Such an increase has been associated with the addition of a novel source of nutrients in similar systems; the addition of nutrients in the form of bird guano shifted the dominant seagrass species in a Florida Bay seagrass bed from *T. testudinum* to *H. wrightii* [@powell1989; @fourqurean1995].
 Concomitantly, we saw an increase in seagrass growth near the transplanted sponges and a general increase in macroalgal abundance in sponge plots.
 It is possible that the addition of structure to our plots altered water flow and influenced the primary producers. 
-<<<<<<< HEAD
-However, similar structures (a sponge replica and holding cage) were added to our structure control plots and the response of the primary producers in control and structure control plots did not differ significantly while we saw a significant response in our sponge plots for most responses. 
-This suggests that it is a function of the live sponges, rather than the presence of structure, that lead to increased seagrass nutrient content and growth, and increased abundance of both seagrasses (*S. filliforme* and *H. wrightii*) and macroalgae.\par
 
-While **Although instead of while?** our study is the first to show facilitation of primary producers in seagrass beds by sponges, seagrasses are often facilitated by other filter feeders increasing nutrient availability [@gagnon2020].
-For example, Reusch and coauthors [-@reusch1994] found that the blue mussel (*Mytilus edulis*) facilitates seagrass growth via fertilization of sediments through the deposition of biodeposits (feces and pseudofeces).
-However, this effect appears to be context-dependent.
-Specifically, in eutrophic conditions the presence of mussels leads to reduced seagrass density due to high sulfide concentrations in the sediments resulting from the combined effects of water column nutrient enrichment and mussel biodeposits.
-The effect of the epiphytic sponge *H. melanadocia* was also found to be partially determined by the sponge's supply of limiting nutrients [@archer 2015; @archer2018c].
-Under oligotrophic conditions this sponge-seagrass interaction is commensal, with the seagrass providing an attachment point for the sponge and the seagrass displaying no net effect of sponge presence.
-The net neutral effect of the sponge on the seagrass is, however, a balance of a negative effect of the sponge shading the seagrass with the sponge releasing bioavailable forms of limiting nutrients (N and P) [@archer2015].
-This interaction is also context dependent, with small increases in ambient nutrient levels resulting in a shift from commensalism to parasitism and a reduction of seagrass growth and biomass [@archer2018c].\par
-=======
 However, similar structures (a sponge replica and holding cage) were added to our structure plots, and the response of the primary producers in control and structure plots did not differ significantly for most responses, whereas in most cases, we saw a significant response in our sponge plots. 
 This suggests that living sponges, rather than the presence of structure, are the cause of increases in seagrass nutrient content and growth, and in the abundance of macroalgae and non-dominant seagrass species (*S. filliforme* and *H. wrightii*).\par
 
@@ -329,7 +303,6 @@ The effect of the epiphytic sponge *H. melanadocia* was also found to be partial
 Under oligotrophic conditions this sponge-seagrass interaction is commensal, with the seagrass providing an attachment point for the sponge and the seagrass receiving a supply of limiting nutrients.
 The seagrass in this relationship displayed a net neutral effect of sponge presence, where there was a balance between a negative effect of the sponge shading the seagrass and the positive effect of the sponge releasing bioavailable forms of N and P [@archer2015].
 However, this interaction is also context-dependent, with small increases in ambient nutrient levels resulting in a shift from commensalism to parasitism and a reduction of seagrass growth and biomass [@archer2018c].\par
->>>>>>> 98d345a85ae1dcd91141613c72c17093035e997a
 
 The context-dependent nature of many facilitative interactions between filter feeders and seagrasses can lead to seemingly unpredictable instability in seagrass ecosystems [@vanderheide2020]. 
 For example, these interactions can lower the threshold of nutrient pollution that leads to a decline in seagrass ecosystems, i.e., seagrass loss occurs at lower nutrient levels than would be predicted by studying seagrasses in isolation.
