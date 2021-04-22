@@ -4,7 +4,9 @@ library(tidyverse)
 library(vegan)
 library(lmerTest)
 library(glmmTMB)
-
+library(DHARMa)
+library(pacman)
+pacman::p_load(s20x, lme4, AICcmodavg, MASS)
 source("scripts_comm/02_community_data_org.R") 
 
 # visualize data
@@ -164,115 +166,48 @@ plot(idiv.sg.struct.glmm_simres)
 # plot(idiv.alg.struct.glmm_simres)
 
 
+# trying an overall model with treatment and seagrass density
 
 
-
-# make dataset for plots
-inv.pr<-ggeffects::ggpredict(ispr.lmer,terms=c("treatment","sampling"))%>%
-  rename(treatment=x,sampling=group)%>%
-  mutate(sampling=as.numeric(sampling),
-         sampling=case_when(
-           sampling==1~1,
-           sampling==2~5,
-           sampling==3~12,
-           sampling==4~17))
-
-inv.pr$treatment<-factor(inv.pr$treatment,levels=c("blank","fake","real"),labels=c("Control","Structure Control","Sponge"))
-
-inv.plot<-inv.uni2%>%
-  group_by(sampling,treatment)%>%
-  summarize(mcspr=mean(change.spr),
-            sdspr=sd(change.spr),
-            sespr=sd(change.spr)/sqrt(5),
-            spr95=sespr*1.96,
-            mcdiv=mean(change.div),
-            sddiv=sd(change.div),
-            sediv=sddiv/sqrt(5),
-            div95=sediv*1.96,
-            mcj=mean(change.j),
-            sdj=sd(change.j),
-            sej=sdj/sqrt(5),
-            j95=sej*1.96)
-
-inv.plot$treatment<-factor(inv.plot$treatment,levels=c("blank","fake","real"),labels=c("Control","Structure Control","Sponge"))
+i.global.model<-glmmTMB::glmmTMB(change.div~treatment*as.factor(sampling)+
+                                 sg.sd.c*as.factor(sampling) + 
+                                 (1|plot),
+                               #family= poisson,
+                               data = inv.uni2%>%
+                                 filter(season=="summer")%>%
+                                 mutate(treatment=relevel(treatment, ref = "real")))
 
 
-ggplot(inv.plot)+
-  geom_hline(yintercept=0,linetype="dashed",alpha=.5)+
-  geom_point(aes(x=sampling,y=mcspr,color=treatment),size=5,position=position_dodge(0.5))+
-  geom_errorbar(aes(x=sampling,ymax=mcspr+spr95,ymin=mcspr-spr95,color=treatment),width=.4,position=position_dodge(0.5))+
-  geom_line(data=inv.pr,aes(x=sampling,y=predicted,group=treatment,color=treatment))+
-  geom_ribbon(data = inv.pr, 
-              aes(sampling,ymin = conf.low, ymax = conf.high,
-                  group = treatment, fill = treatment), alpha = 0.2)+
-  scale_color_viridis_d(name="", option="A",end=0.6)+
-  scale_fill_viridis_d(name="", option="A",end=0.6)+
-  theme_bw()+
-  ylab("Change in Species Richness")+
-  xlab("Months into the Experiment")+
-  theme(panel.grid=element_blank(),
-        axis.text = element_text(size=10),
-        axis.title = element_text(size=14))
+summary(i.global.model)
 
-ggsave("figures/inverts_species_richness.jpg",dpi=300)   
+(i.global.model.r2<-performance::r2(i.global.model))
+
+# look at residuals
+i.global.model_simres <- simulateResiduals(i.global.model)
+testDispersion(i.global.model_simres)
+plot(i.global.model_simres)
+
+# look at all R2
+i.global.model.r2
+i.sponge.model
+i.sg.struct.model
+i.prod.model
+
+# look at aics
+MuMIn::AICc(idiv.sg.struct.glmm)
+MuMIn::AICc(i.global.model)
+MuMIn::AICc(idiv.glmm)
+MuMIn::AICc(idiv.prod.glmm)
 
 
-inv.j<-ggeffects::ggpredict(ij.lmer,terms=c("treatment","sampling"))%>%
-  rename(treatment=x,sampling=group)%>%
-  mutate(sampling=as.numeric(sampling),
-         sampling=case_when(
-           sampling==1~1,
-           sampling==2~5,
-           sampling==3~12,
-           sampling==4~17))
+# Model selection
+cand.mod.names <- c("idiv.sg.struct.glmm","i.global.model","idiv.glmm","idiv.prod.glmm")
+cand.mods <- list( ) 
 
-inv.j$treatment<-factor(inv.j$treatment,levels=c("blank","fake","real"),labels=c("Control","Structure Control","Sponge"))
+# This function fills the list by model names
+for(i in 1:length(cand.mod.names)) {
+  cand.mods[[i]] <- get(cand.mod.names[i]) }
 
-ggplot(inv.plot)+
-  geom_hline(yintercept=0,linetype="dashed",alpha=.5)+
-  geom_point(aes(x=sampling,y=mcj,color=treatment),size=5,position=position_dodge(0.5))+
-  geom_errorbar(aes(x=sampling,ymax=mcj +j95,ymin=mcj-j95,color=treatment),width=.4,position=position_dodge(0.5))+
-  geom_line(data=inv.j,aes(x=sampling,y=predicted,group=treatment,color=treatment))+
-  geom_ribbon(data = inv.j, 
-              aes(sampling,ymin = conf.low, ymax = conf.high,
-                  group = treatment, fill = treatment), alpha = 0.2)+
-  scale_color_viridis_d(name="", option="A",end=0.6)+
-  scale_fill_viridis_d(name="", option="A",end=0.6)+
-  theme_bw()+
-  ylab("Change in Evenness")+
-  xlab("Months into the Experiment")+
-  theme(panel.grid=element_blank(),
-        axis.text = element_text(size=10),
-        axis.title = element_text(size=14))
-
-ggsave("figures/inverts_species_evenness.jpg",dpi=300)
-
-inv.div<-ggeffects::ggpredict(idiv.lmer,terms=c("treatment","sampling"))%>%
-  rename(treatment=x,sampling=group)%>%
-  mutate(sampling=as.numeric(sampling),
-         sampling=case_when(
-           sampling==1~1,
-           sampling==2~5,
-           sampling==3~12,
-           sampling==4~17))
-
-inv.div$treatment<-factor(inv.div$treatment,levels=c("blank","fake","real"),labels=c("Control","Structure Control","Sponge"))
-
-ggplot(inv.plot)+
-  geom_hline(yintercept=0,linetype="dashed",alpha=.5)+
-  geom_point(aes(x=sampling,y=mcdiv,color=treatment),size=5,position=position_dodge(0.5))+
-  geom_errorbar(aes(x=sampling,ymax=mcdiv +div95,ymin=mcdiv-div95,color=treatment),width=.4,position=position_dodge(0.5))+
-  geom_line(data=inv.div,aes(x=sampling,y=predicted,group=treatment,color=treatment))+
-  geom_ribbon(data = inv.div, 
-              aes(sampling,ymin = conf.low, ymax = conf.high,
-                  group = treatment, fill = treatment), alpha = 0.2)+
-  scale_color_viridis_d(name="", option="A",end=0.6)+
-  scale_fill_viridis_d(name="", option="A",end=0.6)+
-  theme_bw()+
-  ylab("Change in Diversity")+
-  xlab("Months into the Experiment")+
-  theme(panel.grid=element_blank(),
-        axis.text = element_text(size=10),
-        axis.title = element_text(size=14))
-
-ggsave("figures/inverts_diversity.jpg",dpi=300)
+# Function aictab does the AICc-based model comparison
+print(aictab(cand.set = cand.mods, 
+             modnames = cand.mod.names))
