@@ -46,7 +46,7 @@ ggplot(nm2,aes(x=nutrient,y=nmiss,fill=treatment))+
 
 f2<-fish %>%
   group_by(treatment,plot,sampling)%>%
-  summarize(abund=sum(abundance))
+  summarize(fish.abund=sum(abundance))
 # join this with nutrient data
 
 sgn<-sg_nuts %>%
@@ -56,7 +56,7 @@ sgn<-sg_nuts %>%
          np=PN/PP)%>%
   pivot_longer(PN:np,names_to = "nut",values_to = "nvalue")%>%
   left_join(f2)%>%
-  mutate(abund=ifelse(is.na(abund),0,abund),)%>%
+  mutate(fish.abund=ifelse(is.na(fish.abund),0,fish.abund),)%>%
   filter(!is.na(nvalue))
 
 # before I plot up I'm going to look at the distributions of the data
@@ -78,21 +78,26 @@ sgn<-sgn %>%
   anti_join(sgn_no)
 # now plot up 
 
-ggplot(data=sgn,aes(x=abund,y=nvalue,color=treatment))+
+ggplot(data=sgn,aes(x=log(fish.abund+1),y=nvalue,color=treatment))+
   geom_point()+
   geom_smooth(method="lm")+
   facet_grid(nut~dist,scales="free")
 
 #there is one plot with a lot more fish than all the others- going to look at 
 # things without that plot
-ggplot(data=sgn%>% filter(abund<20),aes(x=abund,y=nvalue,color=treatment))+
+ggplot(data=sgn%>% filter(fish.abund<20),aes(x=fish.abund,y=nvalue,color=treatment))+
   geom_point()+
   geom_smooth(method="lm")+
   facet_grid(nut~dist,scales="free")
 # doesn't actually look like there's much going on there. 
 
-# going to do the same thing with growth
+#exclude immediate vacinity of sponges and still no convincing patterns
+ggplot(data=sgn%>% filter(fish.abund<20 & !(treatment=="real" & dist==0)),aes(x=fish.abund,y=nvalue))+
+  geom_point()+
+  geom_smooth(method="lm")+
+  facet_wrap(~nut,scales="free")
 
+# going to do the same thing with growth
 sgg<-sg_grow%>%
   mutate(gpd=total.growth.mm2/days)%>%
   group_by(treatment,plot,dist,sampling)%>%
@@ -120,7 +125,23 @@ sv<-filter(sgn, sampling == 1) %>%
   rename(snv = nvalue)%>%select(treatment,plot,dist,snv,nut)
 
 dsgn<-left_join(sgn,sv)%>%
-  mutate(delta=nvalue-snv)%>%filter(sampling!=1)
+  mutate(delta=nvalue-snv,
+    dist2=case_when(
+      dist==0~"close",
+      dist==0.5~"middle dist",
+      dist!=0~"no sponge")
+    )%>%filter(sampling!=1)
+
+# check all distances? Focusing on summer for simplicity
+ggplot(data=dsgn%>%
+    filter(
+      sampling %in% c(2,4) & # summer only
+      nut %in% c("PC","PN","PP")),
+    aes(y=delta,color=treatment,x=as.factor(sampling)))+
+  geom_point(position=position_dodge(width=.3),size=2, alpha = 0.5)+
+  facet_grid(cols=vars(dist2), rows = vars(nut),scales="free")
+
+# data super noisy, so let's focus only on immediate vacinity of sponges (dist == 0)
 
 ggplot(data=dsgn%>%
          filter(dist==0 &nut %in% c("PC","PN","PP"))%>%
