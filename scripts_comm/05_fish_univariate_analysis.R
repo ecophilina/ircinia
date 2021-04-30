@@ -1,9 +1,12 @@
 # fish univariate analysis
 
-library(tidyverse)
 library(vegan)
 library(lmerTest)
 library(glmmTMB)
+library(DHARMa)
+library(pacman)
+pacman::p_load(s20x, lme4, AICcmodavg, MASS)
+library(tidyverse)
 
 source("scripts_comm/02_community_data_org.R") 
 
@@ -21,7 +24,7 @@ ggplot(fish.uni)+
 
 fish.uni.0<-fish.uni%>%
   filter(sampling==0)%>%
-  select(treatment,plot,start.spr=spr,start.div=div,start.j=j)
+  dplyr::select(treatment,plot,start.spr=spr,start.div=div,start.j=j)
 
 fish.uni2<-fish.uni%>%
   filter(sampling!=0)%>%
@@ -57,6 +60,108 @@ performance::r2(fspr.glmm)
 fspr.glmm_simres <- simulateResiduals(fspr.glmm)
 testDispersion(fspr.glmm_simres)
 plot(fspr.glmm_simres)
+
+
+# look at productivity models now 
+
+# seagrass productivity model for richness
+fspr.prod.glmm<-glmmTMB::glmmTMB(change.spr~sg.prod.c*as.factor(sampling) + 
+                                   (1|plot),
+                                 #family= poisson,
+                                 data = fish.uni2%>%
+                                   filter(season=="summer")%>%
+                                   mutate(treatment=relevel(treatment, ref = "real")))
+
+summary(fspr.prod.glmm)
+(fspr.prod.model<-performance::r2(fspr.prod.glmm))
+
+fspr.prod.glmm_simres <- simulateResiduals(fspr.prod.glmm)
+testDispersion(fspr.prod.glmm_simres)
+plot(fspr.prod.glmm_simres)
+
+
+# combine treatment and seagrass productivity model for richness
+fspr.treat.prod.glmm<-glmmTMB::glmmTMB(change.spr~
+                                         treatment*as.factor(sampling) + 
+                                         sg.prod.c*as.factor(sampling) + 
+                                         (1|plot),
+                                       #family= poisson,
+                                       data = fish.uni2%>%
+                                         filter(season=="summer")%>%
+                                         mutate(treatment=relevel(treatment, ref = "real")))
+
+summary(fspr.treat.prod.glmm)
+(fspr.prod.model<-performance::r2(fspr.treat.prod.glmm))
+
+fspr.treat.prod.glmm_simres <- simulateResiduals(fspr.treat.prod.glmm)
+testDispersion(fspr.treat.prod.glmm_simres)
+plot(fspr.treat.prod.glmm_simres)
+
+# seagrass structure model for richness
+fspr.sg.struct.glmm<-glmmTMB::glmmTMB(change.spr~sg.sd.c*as.factor(sampling) + 
+                                        (1|plot),
+                                      #family= poisson,
+                                      data = fish.uni2%>%
+                                        filter(season=="summer")%>%
+                                        mutate(treatment=relevel(treatment, ref = "real")))
+
+summary(fspr.sg.struct.glmm)
+(fspr.sg.struct.model<-performance::r2(fspr.sg.struct.glmm))
+
+fspr.sg.struct.glmm_simres <- simulateResiduals(fspr.sg.struct.glmm)
+testDispersion(fspr.sg.struct.glmm_simres)
+plot(fspr.sg.struct.glmm_simres)
+
+# combine treatment and struct for richness
+fspr.sg.treat.struct.glmm<-glmmTMB::glmmTMB(change.spr~
+                                              treatment*as.factor(sampling) + 
+                                              sg.sd.c*as.factor(sampling) + 
+                                              (1|plot),
+                                            #family= poisson,
+                                            data = fish.uni2%>%
+                                              filter(season=="summer")%>%
+                                              mutate(treatment=relevel(treatment, ref = "real")))
+
+summary(fspr.sg.treat.struct.glmm)
+(fspr.treat.struct.model<-performance::r2(fspr.sg.treat.struct.glmm))
+
+fspr.sg.treat.struct.glmm_simres <- simulateResiduals(fspr.sg.treat.struct.glmm)
+testDispersion(fspr.sg.treat.struct.glmm)
+plot(fspr.sg.treat.struct.glmm_simres)
+
+(i.sponge.model<-performance::r2(fspr.glmm))
+(fspr.prod.model<-performance::r2(fspr.prod.glmm))
+(fspr.treat.prod.model<-performance::r2(fspr.treat.prod.glmm))
+(fspr.sg.struct.model<-performance::r2(fspr.sg.struct.glmm))
+(fspr.treat.struct.model<-performance::r2(fspr.sg.treat.struct.glmm))
+
+
+# AIC(fspr.glmm, fspr.prod.glmm, fspr.treat.prod.glmm, fspr.sg.struct.glmm, fspr.sg.treat.struct.glmm)
+
+MuMIn::AICc(fspr.glmm) 
+MuMIn::AICc(fspr.prod.glmm)
+MuMIn::AICc(fspr.treat.prod.glmm)
+MuMIn::AICc(fspr.sg.struct.glmm)
+MuMIn::AICc(fspr.sg.treat.struct.glmm)
+
+
+# Model selection
+cand.mod.names <- c("fspr.glmm", "fspr.prod.glmm", "fspr.treat.prod.glmm", "fspr.sg.struct.glmm", "fspr.sg.treat.struct.glmm")
+cand.mods <- list( ) 
+
+# This function fills the list by model names
+for(i in 1:length(cand.mod.names)) {
+  cand.mods[[i]] <- get(cand.mod.names[i]) }
+
+# Function aictab does the AICc-based model comparison
+print(aictab(cand.set = cand.mods, 
+             modnames = cand.mod.names))
+
+#treatment on its own best model for fish as well.
+
+# need to go in to community_data_org and add in an invert and fish total
+# abundance variable for the univariate datasets
+
 
 # evenness
 fj.glmm<-glmmTMB::glmmTMB(change.j~treatment*as.factor(sampling) + 

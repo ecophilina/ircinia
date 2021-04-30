@@ -8,7 +8,7 @@ source("scripts/03_reimport.R")
 sg<-sg_shoot%>%
   mutate(sg.sd.global=mean(SD))%>%
   group_by(treatment,plot,sampling,sg.sd.global)%>%
-  summarize(sg.sd=mean(SD))%>%
+  summarize(sg.sd=mean(SD),t.sd=mean(T.SD))%>%
   mutate(
     #sg.sd=sg.sd-sg.sd.global, # comment this line out if not centering
     sampling=case_when(
@@ -36,7 +36,7 @@ sggrow<-sg_grow%>%
 # Algae. No need to filter for has algae vs doesn't have algae because no plots had a 0 count for algae :)
 alg<-algae%>%
   filter(!taxa %in% c("brown.cyanobacteria","green.cyanobacteria","dictyota"))%>%
-  select(-taxa)%>%
+  dplyr::select(-taxa)%>%
   group_by(treatment,plot,sampling)%>%
   summarize(abund=sum(abundance)/3)%>%
   ungroup()%>%
@@ -54,7 +54,7 @@ alg<-algae%>%
 productivity<-left_join(sg,sggrow)%>%
   left_join(alg)%>%
   ungroup()%>%
-  mutate(sg.prod=grow*sg.sd,
+  mutate(sg.prod=grow*t.sd,
          pp.struct = sg.sd + abund,
          sg.prod.global = mean(sg.prod),
          pp.struct.global = mean(pp.struct),
@@ -134,11 +134,11 @@ fish.com.full<-fish%>%
   pivot_wider(names_from=taxa,values_from=abundance,values_fill=0)
 
 alg.env<-alg.com.full %>%
-  select(treatment,plot,sampling,season,yr,sg.sd.global, 
+  dplyr::select(treatment,plot,sampling,season,yr,sg.sd.global, 
          sg.sd,grow.global,grow,abund,abund.global,abund.c,sg.prod,sg.prod.c,sg.prod.global,pp.struct,pp.struct.c,pp.struct.global, sg.sd.c)
 
 alg.com<-alg.com.full %>%
-  select(-treatment,-plot,-sampling,-season,-yr,-sg.sd.global,
+  dplyr::select(-treatment,-plot,-sampling,-season,-yr,-sg.sd.global,
          -sg.sd,-grow.global,-grow,-abund,-abund.global,-abund.c,-sg.prod,-sg.prod.c,-sg.prod.global,-pp.struct,-pp.struct.c,-pp.struct.global, -sg.sd.c)
 
 alg.uni<-alg.env%>%
@@ -148,11 +148,11 @@ alg.uni<-alg.env%>%
          j=ifelse(is.na(j),0,j))
 
 inv.env<-inv.com.full %>%
-  select(treatment,plot,sampling,season,yr,sg.sd.global,
+  dplyr::select(treatment,plot,sampling,season,yr,sg.sd.global,
          sg.sd,grow.global,grow,abund,abund.global,abund.c,sg.prod,sg.prod.c,sg.prod.global,pp.struct,pp.struct.c,pp.struct.global, sg.sd.c)
 
 inv.com<-inv.com.full %>%
-  select(-treatment,-plot,-sampling,-season,-yr,-sg.sd.global,
+  dplyr::select(-treatment,-plot,-sampling,-season,-yr,-sg.sd.global,
          -sg.sd,-grow.global,-grow,-abund,-abund.global,-abund.c,-sg.prod,-sg.prod.c,-sg.prod.global,-pp.struct,-pp.struct.c,-pp.struct.global,- sg.sd.c)
 
 inv.uni<-inv.env%>%
@@ -162,11 +162,11 @@ inv.uni<-inv.env%>%
          j=ifelse(is.na(j),0,j))
 
 fish.env<-fish.com.full %>%
-  select(treatment,plot,sampling,season,yr,sg.sd.global,
+  dplyr::select(treatment,plot,sampling,season,yr,sg.sd.global,
          sg.sd,grow.global,grow,abund,abund.global,sg.prod,abund.c,sg.prod.c,sg.prod.global,pp.struct,pp.struct.c,pp.struct.global, sg.sd.c)
 
 fish.com<-fish.com.full %>%
-  select(-treatment,-plot,-sampling,-season,-yr,-sg.sd.global,
+  dplyr::select(-treatment,-plot,-sampling,-season,-yr,-sg.sd.global,
          -sg.sd,-grow.global,-grow,-abund,-abund.global,-abund.c,-sg.prod,-sg.prod.c,-sg.prod.global,-pp.struct,-pp.struct.c,-pp.struct.global,- sg.sd.c)
 
 fish.uni<-fish.env%>%
