@@ -133,46 +133,51 @@ fish.com.full<-fish%>%
   left_join(productivity)%>%
   pivot_wider(names_from=taxa,values_from=abundance,values_fill=0)
 
+keep.env<-c(colnames(productivity),"season","yr")
+
 alg.env<-alg.com.full %>%
-  dplyr::select(treatment,plot,sampling,season,yr,sg.sd.global, 
-         sg.sd,grow.global,grow,abund,abund.global,abund.c,sg.prod,sg.prod.c,sg.prod.global,pp.struct,pp.struct.c,pp.struct.global, sg.sd.c)
+  dplyr::select(all_of(keep.env))
 
 alg.com<-alg.com.full %>%
-  dplyr::select(-treatment,-plot,-sampling,-season,-yr,-sg.sd.global,
-         -sg.sd,-grow.global,-grow,-abund,-abund.global,-abund.c,-sg.prod,-sg.prod.c,-sg.prod.global,-pp.struct,-pp.struct.c,-pp.struct.global, -sg.sd.c)
+  dplyr::select(!all_of(keep.env))
 
 alg.uni<-alg.env%>%
   mutate(spr=vegan::specnumber(alg.com),
          div=vegan::diversity(alg.com,index = "shannon"),
          j=div/log(spr),
-         j=ifelse(is.na(j),0,j))
+         j=ifelse(is.na(j),0,j),
+         a.abund = rowSums(alg.com))
 
 inv.env<-inv.com.full %>%
-  dplyr::select(treatment,plot,sampling,season,yr,sg.sd.global,
-         sg.sd,grow.global,grow,abund,abund.global,abund.c,sg.prod,sg.prod.c,sg.prod.global,pp.struct,pp.struct.c,pp.struct.global, sg.sd.c)
+  dplyr::select(all_of(keep.env))
 
 inv.com<-inv.com.full %>%
-  dplyr::select(-treatment,-plot,-sampling,-season,-yr,-sg.sd.global,
-         -sg.sd,-grow.global,-grow,-abund,-abund.global,-abund.c,-sg.prod,-sg.prod.c,-sg.prod.global,-pp.struct,-pp.struct.c,-pp.struct.global,- sg.sd.c)
+  dplyr::select(!all_of(keep.env))
 
 inv.uni<-inv.env%>%
   mutate(spr=vegan::specnumber(inv.com),
          div=vegan::diversity(inv.com,index = "shannon"),
          j=div/log(spr),
-         j=ifelse(is.na(j),0,j))
+         j=ifelse(is.na(j),0,j),
+         i.abund=rowSums(inv.com))
 
 fish.env<-fish.com.full %>%
-  dplyr::select(treatment,plot,sampling,season,yr,sg.sd.global,
-         sg.sd,grow.global,grow,abund,abund.global,sg.prod,abund.c,sg.prod.c,sg.prod.global,pp.struct,pp.struct.c,pp.struct.global, sg.sd.c)
+  dplyr::select(all_of(keep.env))
 
 fish.com<-fish.com.full %>%
-  dplyr::select(-treatment,-plot,-sampling,-season,-yr,-sg.sd.global,
-         -sg.sd,-grow.global,-grow,-abund,-abund.global,-abund.c,-sg.prod,-sg.prod.c,-sg.prod.global,-pp.struct,-pp.struct.c,-pp.struct.global,- sg.sd.c)
+  dplyr::select(!all_of(keep.env))
 
 fish.uni<-fish.env%>%
   mutate(spr=vegan::specnumber(fish.com),
          div=vegan::diversity(fish.com,index = "shannon"),
          j=div/log(spr),
-         j=ifelse(is.na(j),0,j))
+         j=ifelse(is.na(j),0,j),
+         f.abund=rowSums(fish.com))
 
+# make a function to look at residuals
+glmm.resids<-function(model){
+ t1 <- simulateResiduals(model)
+  print(testDispersion(t1))
+  plot(t1)
+}
 
