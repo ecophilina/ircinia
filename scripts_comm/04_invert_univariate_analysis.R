@@ -176,7 +176,12 @@ for(i in 1:length(spr.cand.mod.names)) {
 print(aictab(cand.set = spr.cand.mods, 
              modnames = spr.cand.mod.names))
 
-# treatment alone is by far the best model
+# results changed. Now the full model is the best model - 
+# QUESTION TO DISCUSS - does an interaction between productivity and structure and time make sense?
+
+#look at this model
+
+summary(ispr.full)
 
 # now do model selection for abundance
 
@@ -211,20 +216,19 @@ ia.treat.prod <- glmmTMB(change.a ~ treatment * as.factor(sampling) +
                              filter(season == "summer") %>%
                              mutate(treatment = relevel(treatment, ref = "real")))
 
-# combine treatment and struct for richness
+# combine treatment and struct for abundance
 ia.treat.struct <- glmmTMB(change.a ~ treatment * as.factor(sampling) +
                                sg.sd.c * as.factor(sampling) + (1 | plot),
                              data = inv.uni2 %>%
                                filter(season == "summer") %>%
                                mutate(treatment = relevel(treatment, ref = "real")))
 
-# combine productivity and struct for richness
+# combine productivity and struct for abundance
 ia.prod.struct <- glmmTMB(change.a ~ sg.prod.c * as.factor(sampling)  +
                               sg.sd.c * as.factor(sampling) + (1 | plot),
                             data = inv.uni2 %>%
                               filter(season == "summer") %>%
                               mutate(treatment = relevel(treatment, ref = "real")))
-#model doesn't converge
 
 # full model
 ia.full <- glmmTMB(change.a ~ treatment * as.factor(sampling) +
@@ -236,15 +240,15 @@ ia.full <- glmmTMB(change.a ~ treatment * as.factor(sampling) +
 
 # check residuals
 glmm.resids(ia.treat)
-glmm.resids(ia.prod)
+glmm.resids(ia.prod) # residuals ugly
 glmm.resids(ia.struct)
 glmm.resids(ia.treat.prod)
 glmm.resids(ia.treat.struct)
-#glmm.resids(ia.prod.struct)
+glmm.resids(ia.prod.struct) # deviate significantly from normal
 glmm.resids(ia.full)
 
 
-# Residuals are crap, but leaving for now. Now do model selection
+# Residuals are still not perfect but much better. Now do model selection
 
 # Model selection
 abund.cand.mod.names <- c("ia.treat", "ia.prod", "ia.treat.prod", "ia.struct",
@@ -258,3 +262,7 @@ for(i in 1:length(abund.cand.mod.names)) {
 # Function aictab does the AICc-based model comparison
 print(aictab(cand.set = abund.cand.mods, 
              modnames = abund.cand.mod.names))
+
+# treatment * productivity is best model. Then productivity then treatment. 
+
+

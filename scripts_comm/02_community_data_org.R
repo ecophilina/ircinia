@@ -89,7 +89,34 @@ alg.com.full<-algae%>%
   left_join(productivity)%>%
   pivot_wider(names_from=taxa,values_from=abundance,values_fill=0)
 
+col.inverts<-c("white tunicate","white and green tunicate","pinkish brown tunicate",
+               "black and orange tunicate","red and white tunicate","Yellow colonial tunicate",
+               "black and white tunicate","black tunicate")
 inv.com.full<-inverts%>%
+  filter(!taxa %in% col.inverts)%>%
+  mutate(sampling=case_when(
+    sampling==1~0,
+    sampling==2~1,
+    sampling==3~5,
+    sampling==4~12,
+    sampling==5~17),
+    season=case_when(
+      sampling==0~"summer",
+      sampling==1~"summer",
+      sampling==5~"winter",
+      sampling==12~"summer",
+      sampling==17~"winter"),
+    yr=case_when(
+      sampling==0~0,
+      sampling==1~1,
+      sampling==5~1,
+      sampling==12~2,
+      sampling==17~2))%>%
+  left_join(productivity)%>%
+  pivot_wider(names_from=taxa,values_from=abundance,values_fill=0)
+
+col.inv.com.full<-inverts%>%
+  filter(taxa %in% col.inverts)%>%
   mutate(sampling=case_when(
     sampling==1~0,
     sampling==2~1,
@@ -155,6 +182,19 @@ inv.com<-inv.com.full %>%
   dplyr::select(!all_of(keep.env))
 
 inv.uni<-inv.env%>%
+  mutate(spr=vegan::specnumber(inv.com),
+         div=vegan::diversity(inv.com,index = "shannon"),
+         j=div/log(spr),
+         j=ifelse(is.na(j),0,j),
+         i.abund=rowSums(inv.com))
+
+col.inv.env<-inv.com.full %>%
+  dplyr::select(all_of(keep.env))
+
+col.inv.com<-inv.com.full %>%
+  dplyr::select(!all_of(keep.env))
+
+col.inv.uni<-inv.env%>%
   mutate(spr=vegan::specnumber(inv.com),
          div=vegan::diversity(inv.com,index = "shannon"),
          j=div/log(spr),
