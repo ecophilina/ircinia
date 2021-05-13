@@ -188,13 +188,13 @@ inv.uni<-inv.env%>%
          j=ifelse(is.na(j),0,j),
          i.abund=rowSums(inv.com))
 
-col.inv.env<-inv.com.full %>%
+col.inv.env<-col.inv.com.full %>%
   dplyr::select(all_of(keep.env))
 
-col.inv.com<-inv.com.full %>%
+col.inv.com<-col.inv.com.full %>%
   dplyr::select(!all_of(keep.env))
 
-col.inv.uni<-inv.env%>%
+col.inv.uni<-col.inv.env%>%
   mutate(spr=vegan::specnumber(inv.com),
          div=vegan::diversity(inv.com,index = "shannon"),
          j=div/log(spr),
