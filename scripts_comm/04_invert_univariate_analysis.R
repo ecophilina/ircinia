@@ -106,7 +106,7 @@ ispr.treat <- glmmTMB(change.spr ~ treatment * as.factor(sampling) +
 
 # seagrass productivity model for richness
 ispr.prod <- glmmTMB(
-  change.spr ~ sg.prod.c * as.factor(sampling) +
+  change.spr ~ sg.prod.c + as.factor(sampling) +
     (1 | plot),
   #family= poisson,
   data = inv.uni2 %>%
@@ -115,7 +115,7 @@ ispr.prod <- glmmTMB(
 
 # seagrass structure model for richness
 ispr.struct <- glmmTMB(
-  change.spr ~ sg.sd.c * as.factor(sampling) +
+  change.spr ~ sg.sd.c + as.factor(sampling) +
     (1 | plot),
   #family= poisson,
   data = inv.uni2 %>%
@@ -124,29 +124,28 @@ ispr.struct <- glmmTMB(
 
 # combine treatment and seagrass productivity model
 ispr.treat.prod <- glmmTMB(change.spr ~ treatment * as.factor(sampling) +
-    sg.prod.c * as.factor(sampling) + (1 | plot),
+    sg.prod.c +(1 | plot),
   data = inv.uni2 %>%
     filter(season == "summer") %>%
     mutate(treatment = relevel(treatment, ref = "real")))
 
 # combine treatment and struct for richness
 ispr.treat.struct <- glmmTMB(change.spr ~ treatment * as.factor(sampling) +
-    sg.sd.c * as.factor(sampling) + (1 | plot),
+    sg.sd.c +  (1 | plot),
   data = inv.uni2 %>%
     filter(season == "summer") %>%
     mutate(treatment = relevel(treatment, ref = "real")))
 
 # combine productivity and struct for richness
-ispr.prod.struct <- glmmTMB(change.spr ~ sg.prod.c * as.factor(sampling)  +
-                               sg.sd.c * as.factor(sampling) + (1 | plot),
+ispr.prod.struct <- glmmTMB(change.spr ~ sg.prod.c + as.factor(sampling)  +
+                               sg.sd.c + (1 | plot),
                              data = inv.uni2 %>%
                                filter(season == "summer") %>%
                                mutate(treatment = relevel(treatment, ref = "real")))
 
 # full model
 ispr.full <- glmmTMB(change.spr ~ treatment * as.factor(sampling) +
-                              sg.prod.c * as.factor(sampling)  +
-                              sg.sd.c * as.factor(sampling) + (1 | plot),
+                              sg.prod.c + sg.sd.c + as.factor(sampling) + (1 | plot),
                             data = inv.uni2 %>%
                               filter(season == "summer") %>%
                               mutate(treatment = relevel(treatment, ref = "real")))
@@ -177,11 +176,10 @@ print(aictab(cand.set = spr.cand.mods,
              modnames = spr.cand.mod.names))
 
 # results changed. Now the full model is the best model - 
-# QUESTION TO DISCUSS - does an interaction between productivity and structure and time make sense?
 
 #look at this model
 
-summary(ispr.full)
+summary(ispr.treat.prod)
 
 # now do model selection for abundance
 
@@ -193,14 +191,14 @@ ia.treat <- glmmTMB(change.a ~ treatment * as.factor(sampling) +
                         mutate(treatment = relevel(treatment, ref = "real")))
 
 # seagrass productivity model 
-ia.prod <- glmmTMB(change.a ~ sg.prod.c * as.factor(sampling) +
+ia.prod <- glmmTMB(change.a ~ sg.prod.c + as.factor(sampling) +
     (1 | plot),
   data = inv.uni2 %>%
     filter(season == "summer") %>%
     mutate(treatment = relevel(treatment, ref = "real")))
 
 # seagrass structure model 
-ia.struct <- glmmTMB(change.a ~ sg.sd.c * as.factor(sampling) +
+ia.struct <- glmmTMB(change.a ~ sg.sd.c + as.factor(sampling) +
     (1 | plot),
   #family= poisson,
   data = inv.uni2 %>%
@@ -209,40 +207,40 @@ ia.struct <- glmmTMB(change.a ~ sg.sd.c * as.factor(sampling) +
 
 # combine treatment and seagrass productivity model
 ia.treat.prod <- glmmTMB(change.a ~ treatment * as.factor(sampling) +
-                             sg.prod.c * as.factor(sampling) + (1 | plot),
+                             sg.prod.c + (1 | plot),
                            data = inv.uni2 %>%
                              filter(season == "summer") %>%
                              mutate(treatment = relevel(treatment, ref = "real")))
 
 # combine treatment and struct for abundance
 ia.treat.struct <- glmmTMB(change.a ~ treatment * as.factor(sampling) +
-                               sg.sd.c * as.factor(sampling) + (1 | plot),
+                               sg.sd.c+  (1 | plot),
                              data = inv.uni2 %>%
                                filter(season == "summer") %>%
                                mutate(treatment = relevel(treatment, ref = "real")))
 
 # combine productivity and struct for abundance
-ia.prod.struct <- glmmTMB(change.a ~ sg.prod.c * as.factor(sampling)  +
-                              sg.sd.c * as.factor(sampling) + (1 | plot),
+ia.prod.struct <- glmmTMB(change.a ~ sg.prod.c + as.factor(sampling)  +
+                              sg.sd.c  + (1 | plot),
                             data = inv.uni2 %>%
                               filter(season == "summer") %>%
                               mutate(treatment = relevel(treatment, ref = "real")))
 
 # full model
 ia.full <- glmmTMB(change.a ~ treatment * as.factor(sampling) +
-                       sg.prod.c * as.factor(sampling)  +
-                       sg.sd.c * as.factor(sampling) + (1 | plot),
+                       sg.prod.c  +
+                       sg.sd.c  + (1 | plot),
                      data = inv.uni2 %>%
                        filter(season == "summer") %>%
                        mutate(treatment = relevel(treatment, ref = "real")))
 
 # check residuals
 glmm.resids(ia.treat)
-glmm.resids(ia.prod) # residuals ugly
+glmm.resids(ia.prod) 
 glmm.resids(ia.struct)
 glmm.resids(ia.treat.prod)
 glmm.resids(ia.treat.struct)
-glmm.resids(ia.prod.struct) # deviate significantly from normal
+glmm.resids(ia.prod.struct) 
 glmm.resids(ia.full)
 
 # pretty terrible
@@ -345,6 +343,6 @@ for(i in 1:length(abund.cand.mod.names)) {
 print(aictab(cand.set = abund.cand.mods, 
              modnames = abund.cand.mod.names))
 
-# treatment * productivity is best model. Then productivity then treatment. 
+# treatment * productivity is best model. Then treatment then treatment * structure. 
 
-
+summary(ia.treat.prod)
