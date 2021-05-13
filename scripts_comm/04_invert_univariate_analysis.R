@@ -186,9 +186,8 @@ summary(ispr.full)
 # now do model selection for abundance
 
 #Treatment only model
-ia.treat <- glmmTMB(change.a ~ treatment * as.factor(sampling) +
+ia.treat <- glmmTMB(change.a ~ treatment * as.factor(sampling) + 
                         (1 | plot),
-                    #family= poisson,
                       data = inv.uni2 %>%
                         filter(season == "summer") %>%
                         mutate(treatment = relevel(treatment, ref = "real")))
@@ -196,7 +195,6 @@ ia.treat <- glmmTMB(change.a ~ treatment * as.factor(sampling) +
 # seagrass productivity model 
 ia.prod <- glmmTMB(change.a ~ sg.prod.c * as.factor(sampling) +
     (1 | plot),
-  #family= poisson,
   data = inv.uni2 %>%
     filter(season == "summer") %>%
     mutate(treatment = relevel(treatment, ref = "real")))
@@ -247,12 +245,96 @@ glmm.resids(ia.treat.struct)
 glmm.resids(ia.prod.struct) # deviate significantly from normal
 glmm.resids(ia.full)
 
+# pretty terrible
+# try offset and count distributions
+
+ia.treat.o <- glmmTMB(i.abund ~ treatment * as.factor(sampling) + 
+    offset(log(start.a+1)) + 
+    (1 | plot),
+  family = poisson,
+  data = inv.uni2 %>%
+    filter(season == "summer") %>%
+    mutate(treatment = relevel(treatment, ref = "real")))
+
 
 # Residuals are still not perfect but much better. Now do model selection
+
+ia.prod.o <- glmmTMB(i.abund ~ sg.prod.c * as.factor(sampling) +
+    offset(log(start.a+1)) + 
+    (1 | plot),
+  family = nbinom2,
+  data = inv.uni2 %>%
+    filter(season == "summer") %>%
+    mutate(treatment = relevel(treatment, ref = "real")))
+
+# ia.treat.prod.o <- glmmTMB(i.abund ~ treatment * as.factor(sampling) +
+#     sg.prod.c * as.factor(sampling) +     
+#     offset(log(start.a+1)) + 
+#     (1 | plot),
+#   family = nbinom2, #poisson,
+#   data = inv.uni2 %>%
+#     filter(season == "summer") %>%
+#     mutate(treatment = relevel(treatment, ref = "real")))
+# not converg w poisson, nb1, nb2
+
+ia.treat.struct.o <- glmmTMB(i.abund ~ treatment * as.factor(sampling) +
+    sg.sd.c * as.factor(sampling) +     
+    offset(log(start.a+1)) + 
+    (1 | plot),
+  family = poisson,
+  data = inv.uni2 %>%
+    filter(season == "summer") %>%
+    mutate(treatment = relevel(treatment, ref = "real")))
+
+ia.prod.struct.o <- glmmTMB(i.abund ~ sg.prod.c * as.factor(sampling)  +
+    sg.sd.c * as.factor(sampling) +     
+    offset(log(start.a+1)) + 
+    (1 | plot),
+  family = poisson,
+  data = inv.uni2 %>%
+    filter(season == "summer") %>%
+    mutate(treatment = relevel(treatment, ref = "real")))
+# not fully converg w poisson, nb1, nb2
+
+ia.full.o <- glmmTMB(i.abund ~ treatment * as.factor(sampling) +
+    sg.prod.c * as.factor(sampling)  +
+    sg.sd.c * as.factor(sampling) +   
+    offset(log(start.a+1)) + 
+    (1 | plot),
+  family = nbinom1,
+  data = inv.uni2 %>%
+    filter(season == "summer") %>%
+    mutate(treatment = relevel(treatment, ref = "real")))
+# not fully converg w poisson, nb1, nb2
+
+# compare residuals btw model configurations
+glmm.resids(ia.treat)
+glmm.resids(ia.treat.o)
+glmm.resids(ia.prod)
+glmm.resids(ia.prod.o)
+glmm.resids(ia.struct)
+# glmm.resids(ia.struct.o)
+glmm.resids(ia.treat.prod)
+# glmm.resids(ia.treat.prod.o)
+glmm.resids(ia.treat.struct)
+glmm.resids(ia.treat.struct.o)
+glmm.resids(ia.prod.struct)
+glmm.resids(ia.prod.struct.o)
+glmm.resids(ia.full)
+glmm.resids(ia.full.o)
+
+
+# Residuals aren't a lot better. Now do model selection
+
 
 # Model selection
 abund.cand.mod.names <- c("ia.treat", "ia.prod", "ia.treat.prod", "ia.struct",
                         "ia.treat.struct","ia.full")
+
+abund.cand.mod.names <- c("ia.treat.o", "ia.prod.o", "ia.treat.prod.o", #"ia.struct.o",
+                        "ia.prod.struct.o", "ia.treat.struct.o", "ia.full.o")
+
+
 abund.cand.mods <- list( ) 
 
 # This function fills the list by model names
