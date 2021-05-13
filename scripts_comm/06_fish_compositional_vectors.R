@@ -44,6 +44,15 @@ fish.env4<-fish.env3%>%
          plot.end.y2 = end.y - start.y,
          lsize = ifelse(duplicated(vlength)&duplicated(angle),2,1))
 
+# Look at differences in vector length between treatments
+fish.vl.aov<-aov(vlength~treatment,data=fish.env4)
+summary(fish.vl.aov)
+TukeyHSD(fish.vl.aov)
+
+fish.angle.aov<-aov(angle~treatment,data=fish.env4)
+summary(fish.angle.aov)
+TukeyHSD(fish.angle.aov)
+
 # function to make a circle to put on plots
 circleFun <- function(center = c(0, 0), diameter = 1, npoints = 100) {
   r <- diameter / 2
@@ -59,8 +68,9 @@ circ <- circleFun(center = c(0, 0), diameter = 2, npoints = 500)
 (fish.plot<-ggplot(data=fish.env4%>%
                      filter(abs(plot.end.y)>0.000001 | abs(plot.end.x) >0.000001))+
   geom_segment(aes(x = plot.start, y = plot.start,
-                   xend = plot.end.x, yend = plot.end.y,color=treatment,size = as.factor(lsize),alpha=lsize),
-              arrow = arrow(length = unit(0.3, "cm")))+
+                #   xend = plot.end.x, yend = plot.end.y,color=treatment,size = as.factor(lsize),alpha=lsize),
+               xend = plot.end.x2, yend = plot.end.y2,color=treatment,size = as.factor(lsize),alpha=lsize),
+  arrow = arrow(length = unit(0.3, "cm")))+
   geom_path(data = circ, aes(x, y), lty = 2, alpha = 0.7) +
   theme_bw()+
   coord_fixed()+
@@ -75,24 +85,6 @@ circ <- circleFun(center = c(0, 0), diameter = 2, npoints = 500)
     scale_alpha_continuous(range=c(0.75,1),guide=FALSE)+
   geom_text(aes(x=-1,y=1),label="a",size=10))
 
-(fish.plot2<-ggplot(data=fish.env4%>%
-                     filter(abs(plot.end.y)<0.000001 | abs(plot.end.x) <0.000001)%>%
-                     group_by(treatment)%>%
-                     summarize(np= n())%>%
-                      bind_rows(data.frame(treatment="real",np=0)))+
-    geom_hline(aes(yintercept=5),linetype=2,color="grey")+
-  geom_bar(stat="identity",aes(x=treatment,y=np,fill=treatment))+
-    theme_bw()+
-    coord_fixed()+
-    theme(panel.grid = element_blank(),
-          axis.title = element_blank(),
-          axis.text.x = element_blank(),
-          axis.ticks = element_blank(),
-          panel.border = element_blank(),
-          axis.line.y.left = element_line())+
-  scale_fill_viridis_d(option="A", begin=0, end=0.6,name="Treatment",labels=c("Control","Structure","Sponge")))
-  
-  
 
 
 # Non-colonial inverts
@@ -128,15 +120,25 @@ inv.env4<-inv.env3%>%
          angle = atan2(dy,dx),
          plot.start = 0,
          plot.end.x = cos(angle)*vlength.rsc,
-         plot.end.y = sin(angle)*vlength.rsc
+         plot.end.y = sin(angle)*vlength.rsc,
+         plot.end.x2 = end.x - start.x,
+         plot.end.y2 = end.y - start.y,
          lsize = ifelse(duplicated(vlength)&duplicated(angle),2,1))
 
+# Look at differences in vector length between treatments
+inv.vl.aov<-aov(vlength~treatment,data=inv.env4)
+summary(inv.vl.aov)
+
+
+inv.angle.aov<-aov(angle~treatment,data=inv.env4)
+summary(inv.angle.aov)
 
 # make plot
 (inv.plot<-ggplot(data=inv.env4%>%
                     filter(abs(plot.end.y)>0.000001 | abs(plot.end.x) >0.000001))+
   geom_segment(aes(x = plot.start, y = plot.start,
-                   xend = plot.end.x, yend = plot.end.y,color=treatment),
+                   # xend = plot.end.x, yend = plot.end.y,color=treatment),
+                   xend = plot.end.x2, yend = plot.end.y2,color=treatment),
                alpha=.75,size=1,
                   arrow = arrow(length = unit(0.3, "cm")))+
   geom_path(data = circ, aes(x, y), lty = 2, alpha = 0.7) +
@@ -187,14 +189,23 @@ col.inv.env4<-col.inv.env3%>%
          plot.start = 0,
          plot.end.x = cos(angle)*vlength.rsc,
          plot.end.y = sin(angle)*vlength.rsc,
+         plot.end.x2 = end.x - start.x,
+         plot.end.y2 = end.y - start.y,
          lsize = ifelse(duplicated(vlength)&duplicated(angle),2,1))
 
+# Look at differences in vector length between treatments
+col.inv.vl.aov<-aov(vlength~treatment,data=col.inv.env4)
+summary(col.inv.vl.aov)
+
+col.inv.angle.aov<-aov(angle~treatment,data=col.inv.env4)
+summary(col.inv.angle.aov)
 
 # make plot
 (col.inv.plot<-ggplot(data=col.inv.env4%>%
                         filter(abs(plot.end.y)>0.000001 | abs(plot.end.x) >0.000001))+
     geom_segment(aes(x = plot.start, y = plot.start,
-                     xend = plot.end.x, yend = plot.end.y,color=treatment,size = lsize,alpha=lsize),
+                     # xend = plot.end.x, yend = plot.end.y,color=treatment,size = lsize,alpha=lsize),
+                     xend = plot.end.x2, yend = plot.end.y2,color=treatment,size = lsize,alpha=lsize),
                  arrow = arrow(length = unit(0.3, "cm")))+
     geom_path(data = circ, aes(x, y), lty = 2, alpha = 0.7) +
     theme_bw()+
@@ -215,4 +226,8 @@ col.inv.env4<-col.inv.env3%>%
 
 
 fish.plot / inv.plot / col.inv.plot +plot_layout(guides="collect")
+
+
+plot(i.pca)
+
 

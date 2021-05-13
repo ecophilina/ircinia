@@ -62,7 +62,7 @@ productivity<-left_join(sg,sggrow)%>%
          pp.struct.c = pp.struct - pp.struct.global,
          sg.sd.c = sg.sd - sg.sd.global,
          a.abund.c = abund - abund.global) %>%
-  rename(a.abund = abund, a.abund.global)
+  rename(a.abund = abund, a.abund.global = abund.global)
 
 # create community datasets
 
