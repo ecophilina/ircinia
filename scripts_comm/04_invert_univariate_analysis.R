@@ -137,6 +137,11 @@ ispr.treat.struct <- glmmTMB(change.spr ~ treatment * as.factor(sampling) +
     mutate(treatment = relevel(treatment, ref = "real")))
 
 # combine productivity and struct for richness
+# Note that productivity and struct are correlated with eachother so their individual contributions can't be assessed in the full model, just their combined effect:
+
+plot(sg.prod.c~sg.sd.c, data = inv.uni2 %>% filter(season == "summer") %>% mutate(treatment = relevel(treatment, ref = "real")) )
+
+
 ispr.prod.struct <- glmmTMB(change.spr ~ sg.prod.c + as.factor(sampling)  +
                                sg.sd.c + (1 | plot),
                              data = inv.uni2 %>%
@@ -149,6 +154,7 @@ ispr.full <- glmmTMB(change.spr ~ treatment * as.factor(sampling) +
                             data = inv.uni2 %>%
                               filter(season == "summer") %>%
                               mutate(treatment = relevel(treatment, ref = "real")))
+
 
 # check residuals
 glmm.resids(ispr.treat)
@@ -242,97 +248,137 @@ glmm.resids(ia.treat.prod)
 glmm.resids(ia.treat.struct)
 glmm.resids(ia.prod.struct) 
 glmm.resids(ia.full)
-
 # pretty terrible
-# try offset and count distributions
 
-ia.treat.o <- glmmTMB(i.abund ~ treatment * as.factor(sampling) + 
-    offset(log(start.a+1)) + 
+
+# Try a count distribution and include the before condition instead of modeling differences
+
+ia.treat.a <- glmmTMB(i.abund ~ treatment * as.factor(sampling) + 
+    # offset(-log(start.a+1)) +
     (1 | plot),
-  family = poisson,
-  data = inv.uni2 %>%
+  family =  poisson,
+  data = inv.uni %>%
     filter(season == "summer") %>%
     mutate(treatment = relevel(treatment, ref = "real")))
 
+glmm.resids(ia.treat.a) #looks pretty good
+summary(ia.treat.a)
 
-# Residuals are still not perfect but much better. Now do model selection
-
-ia.prod.o <- glmmTMB(i.abund ~ sg.prod.c * as.factor(sampling) +
-    offset(log(start.a+1)) + 
+ia.prod.a <- glmmTMB(i.abund ~  as.factor(sampling) + 
+    sg.prod.c  +
+    # offset(-log(start.a+1)) + 
     (1 | plot),
-  family = nbinom2,
-  data = inv.uni2 %>%
+  family = poisson, #nbinom2,
+  data = inv.uni %>%
     filter(season == "summer") %>%
     mutate(treatment = relevel(treatment, ref = "real")))
+# convergence error: 
+# In (function (start, objective, gradient = NULL, hessian = NULL,  :NA/NaN function evaluation)
+# but gives result
 
-# ia.treat.prod.o <- glmmTMB(i.abund ~ treatment * as.factor(sampling) +
-#     sg.prod.c * as.factor(sampling) +     
-#     offset(log(start.a+1)) + 
+ia.treat.prod.a <- glmmTMB(i.abund ~ treatment * as.factor(sampling) +
+    sg.prod.c  +
+    # offset(-log(start.a+1)) +
+    (1 | plot),
+  family =  poisson, #nbinom2,
+  data = inv.uni %>%
+    filter(season == "summer") %>%
+    mutate(treatment = relevel(treatment, ref = "real")))
+# convergence error: 
+# In (function (start, objective, gradient = NULL, hessian = NULL,  :NA/NaN function evaluation)
+# but gives result
+
+# ia.treat.prod.a <- glmmTMB(i.abund ~ treatment * as.factor(sampling) +
+#     sg.prod.c  +
+#     # offset(-log(start.a+1)) +
 #     (1 | plot),
-#   family = nbinom2, #poisson,
-#   data = inv.uni2 %>%
+#   family =  nbinom2,
+#   data = inv.uni %>%
 #     filter(season == "summer") %>%
 #     mutate(treatment = relevel(treatment, ref = "real")))
-# not converg w poisson, nb1, nb2
+# converges, but nbinoms don't work for just treatment modal
 
-ia.treat.struct.o <- glmmTMB(i.abund ~ treatment * as.factor(sampling) +
-    sg.sd.c * as.factor(sampling) +     
-    offset(log(start.a+1)) + 
+ia.struct.a <- glmmTMB(i.abund ~ as.factor(sampling) +
+    sg.sd.c +     
+    # offset(-log(start.a+1)) + 
     (1 | plot),
   family = poisson,
-  data = inv.uni2 %>%
+  data = inv.uni %>%
     filter(season == "summer") %>%
     mutate(treatment = relevel(treatment, ref = "real")))
 
-ia.prod.struct.o <- glmmTMB(i.abund ~ sg.prod.c * as.factor(sampling)  +
-    sg.sd.c * as.factor(sampling) +     
-    offset(log(start.a+1)) + 
+ia.treat.struct.a <- glmmTMB(i.abund ~ treatment * as.factor(sampling) +
+    sg.sd.c +     
+    # offset(-log(start.a+1)) + 
     (1 | plot),
   family = poisson,
-  data = inv.uni2 %>%
+  data = inv.uni %>%
     filter(season == "summer") %>%
     mutate(treatment = relevel(treatment, ref = "real")))
-# not fully converg w poisson, nb1, nb2
 
-ia.full.o <- glmmTMB(i.abund ~ treatment * as.factor(sampling) +
-    sg.prod.c * as.factor(sampling)  +
-    sg.sd.c * as.factor(sampling) +   
-    offset(log(start.a+1)) + 
+ia.prod.struct.a <- glmmTMB(i.abund ~  as.factor(sampling) + 
+    sg.prod.c +
+    sg.sd.c  +     
+    # offset(-log(start.a+1)) + 
     (1 | plot),
-  family = nbinom1,
-  data = inv.uni2 %>%
+  family =  poisson, #nbinom2,
+  data = inv.uni %>%
     filter(season == "summer") %>%
     mutate(treatment = relevel(treatment, ref = "real")))
-# not fully converg w poisson, nb1, nb2
+# convergence error: 
+# In (function (start, objective, gradient = NULL, hessian = NULL,  :NA/NaN function evaluation)
+# but gives result
+
+ia.full.a <- glmmTMB(i.abund ~ treatment * as.factor(sampling) +
+    sg.prod.c +
+    sg.sd.c +   
+    # offset(-log(start.a+1)) + 
+    (1 | plot),
+  family = poisson, #nbinom2,
+  data = inv.uni %>%
+    filter(season == "summer") %>%
+    mutate(treatment = relevel(treatment, ref = "real")))
+# convergence error: 
+# In (function (start, objective, gradient = NULL, hessian = NULL,  :NA/NaN function evaluation)
+# but gives result
+
+# ia.full.a <- glmmTMB(i.abund ~ treatment * as.factor(sampling) +
+#     sg.prod.c  +
+#     sg.sd.c  +
+#     # offset(-log(start.a+1)) +
+#     (1 | plot),
+#   family = nbinom1,
+#   data = inv.uni %>%
+#     filter(season == "summer") %>%
+#     mutate(treatment = relevel(treatment, ref = "real")))
+
+summary(ia.full.a)
 
 # compare residuals btw model configurations
 glmm.resids(ia.treat)
-glmm.resids(ia.treat.o)
+glmm.resids(ia.treat.a)
 glmm.resids(ia.prod)
-glmm.resids(ia.prod.o)
+glmm.resids(ia.prod.a)
 glmm.resids(ia.struct)
-# glmm.resids(ia.struct.o)
+glmm.resids(ia.struct.a)
 glmm.resids(ia.treat.prod)
-# glmm.resids(ia.treat.prod.o)
+glmm.resids(ia.treat.prod.a)
 glmm.resids(ia.treat.struct)
-glmm.resids(ia.treat.struct.o)
+glmm.resids(ia.treat.struct.a)
 glmm.resids(ia.prod.struct)
-glmm.resids(ia.prod.struct.o)
+glmm.resids(ia.prod.struct.a)
 glmm.resids(ia.full)
-glmm.resids(ia.full.o)
+glmm.resids(ia.full.a)
 
+
+# summary(ia.full.o)
 
 # Residuals aren't a lot better. Now do model selection
 
 
-# Model selection
+# Model selection using linear model of difference from start
 abund.cand.mod.names <- c("ia.treat", "ia.prod", "ia.treat.prod", "ia.struct",
-                        "ia.treat.struct","ia.full")
-
-abund.cand.mod.names <- c("ia.treat.o", "ia.prod.o", "ia.treat.prod.o", #"ia.struct.o",
-                        "ia.prod.struct.o", "ia.treat.struct.o", "ia.full.o")
-
-
+  "ia.treat.struct","ia.full")
 abund.cand.mods <- list( ) 
 
 # This function fills the list by model names
@@ -341,8 +387,29 @@ for(i in 1:length(abund.cand.mod.names)) {
 
 # Function aictab does the AICc-based model comparison
 print(aictab(cand.set = abund.cand.mods, 
-             modnames = abund.cand.mod.names))
+  modnames = abund.cand.mod.names))
 
-# treatment * productivity is best model. Then treatment then treatment * structure. 
 
+# Model selection using poisson model of raw abunadance
+abund.cand.mod.names <- c("ia.treat.a", "ia.prod.a", "ia.treat.prod.a", #
+  "ia.struct.a",  "ia.full.a",
+  "ia.prod.struct.a", "ia.treat.struct.a")
+abund.cand.mods <- list( ) 
+for(i in 1:length(abund.cand.mod.names)) {
+  abund.cand.mods[[i]] <- get(abund.cand.mod.names[i]) }
+print(aictab(cand.set = abund.cand.mods, 
+  modnames = abund.cand.mod.names))
+
+# treatment * productivity is best model in both cases but equal in support to the just treatment model. 
+# the linear model suggests:
+summary(ia.treat) 
+# by first month all treatments differ and difference increases over time
 summary(ia.treat.prod)
+# most of change between 1 and 12 months can be explained by seagrass productivity
+
+
+summary(ia.treat.a) 
+# no diff at start, large increase in abundance in first month
+# fake differs at 1 month, both differ by 12 months
+summary(ia.treat.prod.a)
+# increases in sponge plots not entirely correlated with seagrass productivity, but it does eliminate sig of differences btw treatments 
