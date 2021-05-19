@@ -122,6 +122,15 @@ ispr.struct <- glmmTMB(
     filter(season == "summer") %>%
     mutate(treatment = relevel(treatment, ref = "real")))
 
+#algal abundance model for richness
+ispr.alg <- glmmTMB(
+  change.spr ~ a.abund + as.factor(sampling) +
+    (1 | plot),
+  #family= poisson,
+  data = inv.uni2 %>%
+    filter(season == "summer") %>%
+    mutate(treatment = relevel(treatment, ref = "real")))
+
 # combine treatment and seagrass productivity model
 ispr.treat.prod <- glmmTMB(change.spr ~ treatment * as.factor(sampling) +
     sg.prod.c +(1 | plot),
@@ -136,6 +145,20 @@ ispr.treat.struct <- glmmTMB(change.spr ~ treatment * as.factor(sampling) +
     filter(season == "summer") %>%
     mutate(treatment = relevel(treatment, ref = "real")))
 
+# combine treatment and algal abundance for richness
+ispr.treat.alg <- glmmTMB(change.spr ~ treatment * as.factor(sampling) +
+    a.abund +  (1 | plot),
+    data = inv.uni2 %>%
+    filter(season == "summer") %>%
+    mutate(treatment = relevel(treatment, ref = "real")))
+
+#combine productivity and algal abundance for richness
+ispr.prod.alg <- glmmTMB(change.spr ~ sg.prod.c + as.factor(sampling)  +
+    a.abund+ (1 | plot),
+    data = inv.uni2 %>%
+    filter(season == "summer") %>%
+    mutate(treatment = relevel(treatment, ref = "real")))
+
 # combine productivity and struct for richness
 # Note that productivity and struct are correlated with each other so their 
 # individual contributions can't be assessed in the full model, just their combined effect:
@@ -144,34 +167,81 @@ plot(sg.prod.c~sg.sd.c, data = inv.uni2 %>% filter(season == "summer") %>% mutat
 
 
 ispr.prod.struct <- glmmTMB(change.spr ~ sg.prod.c + as.factor(sampling)  +
-                               sg.sd.c + (1 | plot),
-                             data = inv.uni2 %>%
-                               filter(season == "summer") %>%
-                               mutate(treatment = relevel(treatment, ref = "real")))
+      sg.sd.c + (1 | plot),
+      data = inv.uni2 %>%
+      filter(season == "summer") %>%
+      mutate(treatment = relevel(treatment, ref = "real")))
 
-# full model
-ispr.full <- glmmTMB(change.spr ~ treatment * as.factor(sampling) +
-                              sg.prod.c + sg.sd.c + as.factor(sampling) + (1 | plot),
-                            data = inv.uni2 %>%
-                              filter(season == "summer") %>%
-                              mutate(treatment = relevel(treatment, ref = "real")))
+#combine structure and algal abundance for richness
+ispr.struct.alg <- glmmTMB(change.spr ~ a.abund + as.factor(sampling)  +
+      sg.sd.c + (1 | plot),
+      data = inv.uni2 %>%
+      filter(season == "summer") %>%
+      mutate(treatment = relevel(treatment, ref = "real")))
 
+# combine treatment, productivity, and algal abundance for richenss
+ispr.treat.prod.alg <- glmmTMB(change.spr ~ treatment * as.factor(sampling)  +
+      sg.prod.c + a.abund + (1 | plot),
+      data = inv.uni2 %>%
+      filter(season == "summer") %>%
+      mutate(treatment = relevel(treatment, ref = "real")))
+
+# combine treatment, productivity, and seagrass structure for richness
+ispr.treat.prod.struct <- glmmTMB(change.spr ~ treatment * as.factor(sampling) +
+      sg.prod.c + sg.sd.c + (1 | plot),
+      data = inv.uni2 %>%
+      filter(season == "summer") %>%
+      mutate(treatment = relevel(treatment, ref = "real")))
+
+#combine treatment, seagrass structure, and algal abundance for richness
+ispr.treat.struct.alg <- glmmTMB(change.spr ~ treatment * as.factor(sampling) +
+      sg.sd.c + a.abund + (1| plot),
+      data = inv.uni2 %>%
+      filter(season == "summer") %>%
+      mutate(treatment = relevel(treatment, ref = "real")))
+
+# full model for richness (treatment, seagrass structure, seagrass productivity, and algal abundance)
+ispr.full <- glmmTMB(change.spr~ treatment * as.factor(sampling) +
+      sg.sd.c + sg.prod.c + a.abund + (1|plot),
+      data = inv.uni2 %>%
+      filter(season == "summer") %>%
+      mutate(treatment = relevel(treatment, ref = "real")))
 
 # check residuals
 glmm.resids(ispr.treat)
 glmm.resids(ispr.prod)
 glmm.resids(ispr.struct)
+glmm.resids(ispr.alg)
 glmm.resids(ispr.treat.prod)
 glmm.resids(ispr.treat.struct)
+glmm.resids(ispr.treat.alg)
+glmm.resids(ispr.prod.alg)
 glmm.resids(ispr.prod.struct)
+glmm.resids(ispr.struct.alg)
+glmm.resids(ispr.treat.prod.alg)
+glmm.resids(ispr.treat.prod.struct)
+glmm.resids(ispr.treat.struct.alg)
 glmm.resids(ispr.full)
 
 
 # all look good. Now do model selection
 
 # Model selection
-spr.cand.mod.names <- c("ispr.treat", "ispr.prod", "ispr.treat.prod", "ispr.struct",
-                    "ispr.treat.struct","ispr.prod.struct","ispr.full")
+spr.cand.mod.names <- c(
+"ispr.treat",
+"ispr.prod",
+"ispr.struct",
+"ispr.alg",
+"ispr.treat.prod",
+"ispr.treat.struct",
+"ispr.treat.alg",
+"ispr.prod.alg",
+"ispr.prod.struct",
+"ispr.struct.alg",
+"ispr.treat.prod.alg",
+"ispr.treat.prod.struct",
+"ispr.treat.struct.alg",
+"ispr.full")
 spr.cand.mods <- list( ) 
 
 # This function fills the list by model names
@@ -182,7 +252,7 @@ for(i in 1:length(spr.cand.mod.names)) {
 print(aictab(cand.set = spr.cand.mods, 
              modnames = spr.cand.mod.names))
 
-# results changed. Now the full model is the best model - 
+# it looks like treatment and productivity is now the best model for species richness.....- 
 
 #look at this model
 
