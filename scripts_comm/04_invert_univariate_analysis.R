@@ -137,7 +137,8 @@ ispr.treat.struct <- glmmTMB(change.spr ~ treatment * as.factor(sampling) +
     mutate(treatment = relevel(treatment, ref = "real")))
 
 # combine productivity and struct for richness
-# Note that productivity and struct are correlated with eachother so their individual contributions can't be assessed in the full model, just their combined effect:
+# Note that productivity and struct are correlated with each other so their 
+# individual contributions can't be assessed in the full model, just their combined effect:
 
 plot(sg.prod.c~sg.sd.c, data = inv.uni2 %>% filter(season == "summer") %>% mutate(treatment = relevel(treatment, ref = "real")) )
 
