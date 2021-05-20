@@ -122,6 +122,15 @@ fspr.struct <- glmmTMB(
     filter(season == "summer") %>%
     mutate(treatment = relevel(treatment, ref = "real")))
 
+# algal abundance model for richness
+fspr.alg <- glmmTMB(
+  change.spr ~ a.abund * as.factor(sampling) +
+    (1 | plot),
+  #family= poisson,
+  data = fish.uni2 %>%
+    filter(season == "summer") %>%
+    mutate(treatment = relevel(treatment, ref = "real")))
+
 # combine treatment and seagrass productivity model
 fspr.treat.prod <- glmmTMB(change.spr ~ treatment * as.factor(sampling) +
                              sg.prod.c * as.factor(sampling) + (1 | plot),
@@ -135,6 +144,18 @@ fspr.treat.struct <- glmmTMB(change.spr ~ treatment * as.factor(sampling) +
                              data = fish.uni2 %>%
                                filter(season == "summer") %>%
                                mutate(treatment = relevel(treatment, ref = "real")))
+# combine treatment and algal abundance for richness
+fspr.treat.alg <- glmmTMB(change.spr ~ treatment * as.factor(sampling) +
+                               a.abund * as.factor(sampling) + (1 | plot),
+                             data = fish.uni2 %>%
+                               filter(season == "summer") %>%
+                               mutate(treatment = relevel(treatment, ref = "real")))
+# combine productivity and algal abundance for richness
+fspr.prod.alg <- glmmTMB(change.spr ~ a.abund +
+                               sg.sd.c * as.factor(sampling) + (1 | plot),
+                             data = fish.uni2 %>%
+                               filter(season == "summer") %>%
+                               mutate(treatment = relevel(treatment, ref = "real")))
 
 # combine productivity and struct for richness
 fspr.prod.struct <- glmmTMB(change.spr ~ sg.prod.c * as.factor(sampling)  +
@@ -143,6 +164,7 @@ fspr.prod.struct <- glmmTMB(change.spr ~ sg.prod.c * as.factor(sampling)  +
                               filter(season == "summer") %>%
                               mutate(treatment = relevel(treatment, ref = "real")))
 
+# combine structure and algal abundance for richness
 # full model
 fspr.full <- glmmTMB(change.spr ~ treatment * as.factor(sampling) +
                        sg.prod.c * as.factor(sampling)  +
