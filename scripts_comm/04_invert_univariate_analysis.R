@@ -159,7 +159,7 @@ ispr.prod.alg <- glmmTMB(change.spr ~ sg.prod.c + as.factor(sampling)  +
     filter(season == "summer") %>%
     mutate(treatment = relevel(treatment, ref = "real")))
 
-# combine productivity and struct for richness
+# combine seagrass productivity and struct for richness
 # Note that productivity and struct are correlated with each other so their 
 # individual contributions can't be assessed in the full model, just their combined effect:
 
@@ -211,7 +211,7 @@ ispr.full <- glmmTMB(change.spr~ treatment * as.factor(sampling) +
 glmm.resids(ispr.treat)
 glmm.resids(ispr.prod)
 glmm.resids(ispr.struct)
-glmm.resids(ispr.alg)
+glmm.resids(ispr.alg) # slightly ugly residuals
 glmm.resids(ispr.treat.prod)
 glmm.resids(ispr.treat.struct)
 glmm.resids(ispr.treat.alg)
@@ -224,7 +224,7 @@ glmm.resids(ispr.treat.struct.alg)
 glmm.resids(ispr.full)
 
 
-# ispr.alg and ispr.struct.alg are kind of iffy. Now do model selection
+# ispr.alg and ispr.prod.struct are kind of iffy. Now do model selection
 
 # Model selection
 spr.cand.mod.names <- c(
@@ -349,7 +349,7 @@ ia.treat.prod.struct <- glmmTMB(change.a ~ treatment * as.factor(sampling) +
 
 #combine treatment, structure, and algal abundance for abundance
 ia.treat.struct.alg <- glmmTMB(change.a ~ treatment * as.factor(sampling) +
-                     sg.prod.c  +
+                     a.abund  +
                      sg.sd.c  + (1 | plot),
                    data = inv.uni2 %>%
                      filter(season == "summer") %>%
@@ -366,7 +366,7 @@ ia.full <- glmmTMB(change.a ~ treatment * as.factor(sampling) +
 glmm.resids(ia.treat)
 glmm.resids(ia.prod)
 glmm.resids(ia.struct)
-glmm.resids(ia.alg)
+glmm.resids(ia.alg) # ugly residuals
 glmm.resids(ia.treat.prod)
 glmm.resids(ia.treat.struct)
 glmm.resids(ia.treat.alg)
@@ -379,7 +379,8 @@ glmm.resids(ia.treat.struct.alg)
 glmm.resids(ia.full)
 
 
-# ia.prod, ia.alg, ia.prod.struct, ia.struct.alg all have some reds in the residuals. Now do model selection
+# ia.alg has ugly residuals. Now do model selection
+
 # Model selection
 abund.cand.mod.names <- c(
   "ia.treat",
@@ -406,7 +407,10 @@ for(i in 1:length(abund.cand.mod.names)) {
 print(aictab(cand.set = abund.cand.mods, 
              modnames = abund.cand.mod.names))
 
-#we have issues... ia.treat.prod, ia.treat, and ia.treat.struct are less than two delta AICc away... does this mean ia.treat.prod.struct is the best model?
+# we have three models at the top - treat * sg prod, treat, treat * sg struct
 
+summary(ia.treat.prod)
 
-
+summary(ia.treat)
+s
+summary(ia.treat.struct)
