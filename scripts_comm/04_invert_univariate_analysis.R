@@ -124,7 +124,7 @@ ispr.struct <- glmmTMB(
 
 #algal abundance model for richness
 ispr.alg <- glmmTMB(
-  change.spr ~ a.abund.c+ as.factor(sampling) +
+  change.spr ~ a.abund.c + as.factor(sampling) +
     (1 | plot),
   #family= poisson,
   data = inv.uni2 %>%
@@ -147,14 +147,14 @@ ispr.treat.struct <- glmmTMB(change.spr ~ treatment * as.factor(sampling) +
 
 # combine treatment and algal abundance for richness
 ispr.treat.alg <- glmmTMB(change.spr ~ treatment * as.factor(sampling) +
-    a.abund.c+  (1 | plot),
+    a.abund.c + (1 | plot),
     data = inv.uni2 %>%
     filter(season == "summer") %>%
     mutate(treatment = relevel(treatment, ref = "real")))
 
 #combine productivity and algal abundance for richness
 ispr.prod.alg <- glmmTMB(change.spr ~ sg.prod.c + as.factor(sampling)  +
-    a.abund+ (1 | plot),
+    a.abund.c + (1 | plot),
     data = inv.uni2 %>%
     filter(season == "summer") %>%
     mutate(treatment = relevel(treatment, ref = "real")))
@@ -173,7 +173,7 @@ ispr.prod.struct <- glmmTMB(change.spr ~ sg.prod.c + as.factor(sampling)  +
       mutate(treatment = relevel(treatment, ref = "real")))
 
 #combine structure and algal abundance for richness
-ispr.struct.alg <- glmmTMB(change.spr ~ a.abund.c+ as.factor(sampling)  +
+ispr.struct.alg <- glmmTMB(change.spr ~ a.abund.c + as.factor(sampling)  +
       sg.sd.c + (1 | plot),
       data = inv.uni2 %>%
       filter(season == "summer") %>%
@@ -181,7 +181,7 @@ ispr.struct.alg <- glmmTMB(change.spr ~ a.abund.c+ as.factor(sampling)  +
 
 # combine treatment, productivity, and algal abundance for richenss
 ispr.treat.prod.alg <- glmmTMB(change.spr ~ treatment * as.factor(sampling)  +
-      sg.prod.c + a.abund.c+ (1 | plot),
+      sg.prod.c + a.abund.c + (1 | plot),
       data = inv.uni2 %>%
       filter(season == "summer") %>%
       mutate(treatment = relevel(treatment, ref = "real")))
@@ -211,7 +211,7 @@ ispr.full <- glmmTMB(change.spr~ treatment * as.factor(sampling) +
 glmm.resids(ispr.treat)
 glmm.resids(ispr.prod)
 glmm.resids(ispr.struct)
-glmm.resids(ispr.alg) # slightly ugly residuals
+glmm.resids(ispr.alg) # messy
 glmm.resids(ispr.treat.prod)
 glmm.resids(ispr.treat.struct)
 glmm.resids(ispr.treat.alg)
