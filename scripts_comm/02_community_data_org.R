@@ -58,10 +58,16 @@ productivity<-left_join(sg,sggrow)%>%
          pp.struct = sg.sd + abund,
          sg.prod.global = mean(sg.prod),
          pp.struct.global = mean(pp.struct),
-         sg.prod.c = sg.prod - sg.prod.global,
-         pp.struct.c = pp.struct - pp.struct.global,
-         sg.sd.c = sg.sd - sg.sd.global,
-         a.abund.c = abund - abund.global) %>%
+  # save global standard deviations for back transformation of standarized variables
+         sg.prod.global.sd = sd(sg.prod),
+         pp.struct.global.sd = sd(pp.struct),
+         sg.sd.global.sd = sd(sg.sd),
+         abund.global.sd = sd(abund),
+  # .c variables are centered and standardized to 2 standard deviations for comparison with categorical variables
+         sg.prod.c = (sg.prod - sg.prod.global)/(2*sg.prod.global.sd),
+         pp.struct.c = (pp.struct - pp.struct.global)/(2*pp.struct.global.sd),
+         sg.sd.c = (sg.sd - sg.sd.global)/(2*sg.sd.global.sd),
+         a.abund.c = (abund - abund.global)/(2*abund.global.sd)) %>%
   rename(a.abund = abund, a.abund.global = abund.global)
 
 # create community datasets
