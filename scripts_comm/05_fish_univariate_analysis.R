@@ -384,7 +384,7 @@ data = fish.uni2 %>%
 fa.full <- glmmTMB(change.a ~ treatment * as.factor(sampling) +
   a.abund.c +
   sg.sd.c +
-  sg.prod.c * as.factor(sampling) + (1 | plot),
+  sg.prod.c + (1 | plot),
 data = fish.uni2 %>%
   filter(season == "summer") %>%
   mutate(treatment = relevel(treatment, ref = "real"))
