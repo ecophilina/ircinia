@@ -19,7 +19,7 @@ if(!require(glmmTMB))install.packages("glmmTMB")
 # if(!require(lmerTest))install.packages("lmerTest")
 if(!require(DHARMa))install.packages("DHARMa")
 if(!require(vegan))install.packages('performance')
-
+if(!require(pacman))install.packages('pacman')
 
 if(!require(ggeffects))install.packages("ggeffects")
 if(!require(car))install.packages("car")
