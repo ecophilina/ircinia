@@ -278,6 +278,7 @@ print(aictab(
 # top model: I'm a bit confused as to which groups differ when, but only real interacts with sampling 
 summary(fspr.treat)
 
+# confirm that the control plots don't change sig with time
 fspr.treat.f <- glmmTMB(spr ~ treatment * as.factor(sampling) +
     (1 | plot),
   family = poisson,
@@ -285,9 +286,6 @@ fspr.treat.f <- glmmTMB(spr ~ treatment * as.factor(sampling) +
     filter(season == "summer") %>%
     mutate(treatment = relevel(treatment, ref = "fake"))
 )
-
-summary(fspr.treat.f)
-
 fspr.treat.b <- glmmTMB(spr ~ treatment * as.factor(sampling) +
     (1 | plot),
   family = poisson,
@@ -295,7 +293,7 @@ fspr.treat.b <- glmmTMB(spr ~ treatment * as.factor(sampling) +
     filter(season == "summer") %>%
     mutate(treatment = relevel(treatment, ref = "blank"))
 )
-
+summary(fspr.treat.f)
 summary(fspr.treat.b)
 
 
@@ -483,7 +481,7 @@ print(aictab(
 
 summary(fa.treat)
 
-
+# confirm that the control plots don't change sig with time
 fa.treat.f <- glmmTMB(f.abund ~ treatment * as.factor(sampling) +
     (1 | plot),
   family = poisson,
@@ -491,7 +489,6 @@ fa.treat.f <- glmmTMB(f.abund ~ treatment * as.factor(sampling) +
     filter(season == "summer") %>%
     mutate(treatment = relevel(treatment, ref = "fake"))
 )
-
 fa.treat.b <- glmmTMB(f.abund ~ treatment * as.factor(sampling) +
     (1 | plot),
   family = poisson,

@@ -269,6 +269,7 @@ print(aictab(cand.set = spr.cand.mods,
 
 summary(ispr.treat)
 
+# confirm that the control plots don't change sig with time
 ispr.treat.f <- glmmTMB(spr ~ treatment * as.factor(sampling) +
     (1 | plot),
   family = poisson,
@@ -284,7 +285,7 @@ ispr.treat.b <- glmmTMB(spr ~ treatment * as.factor(sampling) +
     mutate(treatment = relevel(treatment, ref = "blank")))
 
 summary(ispr.treat.f)
-summary(ispr.treat.b)
+summary(ispr.treat.b) #blank at 1 month probably increased by chance, diff gone by 12 months
 
 
 # now do model selection for abundance
@@ -462,3 +463,22 @@ summary(ia.treat.prod)
 summary(ia.treat)
 
 summary(ia.treat.struct)
+
+# confirm that the control plots don't change sig with time
+ia.treat.prod.f <- glmmTMB(i.abund ~ treatment * as.factor(sampling) +
+    sg.prod.c + (1 | plot),
+  family = poisson,
+  data = inv.uni %>%
+    filter(season == "summer") %>%
+    mutate(treatment = relevel(treatment, ref = "fake"))
+)
+ia.treat.prod.b <- glmmTMB(i.abund ~ treatment * as.factor(sampling) +
+    sg.prod.c + (1 | plot),
+  family = poisson,
+  data = inv.uni %>%
+    filter(season == "summer") %>%
+    mutate(treatment = relevel(treatment, ref = "blank"))
+)
+
+summary(ia.treat.prod.f)
+summary(ia.treat.prod.b)
