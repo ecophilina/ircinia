@@ -106,7 +106,7 @@ fspr.treat <- glmmTMB(change.spr ~ treatment * as.factor(sampling) +
 
 # seagrass productivity model for richness
 fspr.prod <- glmmTMB(
-  change.spr ~ sg.prod.c * as.factor(sampling) +
+  change.spr ~ sg.prod.c + as.factor(sampling) +
     (1 | plot),
   #family= poisson,
   data = fish.uni2 %>%
@@ -115,7 +115,7 @@ fspr.prod <- glmmTMB(
 
 # seagrass structure model for richness
 fspr.struct <- glmmTMB(
-  change.spr ~ sg.sd.c  * as.factor(sampling) +
+  change.spr ~ sg.sd.c  + as.factor(sampling) +
     (1 | plot),
   #family= poisson,
   data = fish.uni2 %>%
@@ -124,7 +124,7 @@ fspr.struct <- glmmTMB(
 
 # algal abundance model for richness
 fspr.alg <- glmmTMB(
-  change.spr ~ a.abund * as.factor(sampling) +
+  change.spr ~ a.abund.c + as.factor(sampling) +
     (1 | plot),
   #family= poisson,
   data = fish.uni2 %>%
@@ -133,69 +133,69 @@ fspr.alg <- glmmTMB(
 
 # combine treatment and seagrass productivity model
 fspr.treat.prod <- glmmTMB(change.spr ~ treatment * as.factor(sampling) +
-                             sg.prod.c * as.factor(sampling) + (1 | plot),
+                             sg.prod.c + (1 | plot),
                            data = fish.uni2 %>%
                              filter(season == "summer") %>%
                              mutate(treatment = relevel(treatment, ref = "real")))
 
 # combine treatment and struct for richness
 fspr.treat.struct <- glmmTMB(change.spr ~ treatment * as.factor(sampling) +
-                               sg.sd.c * as.factor(sampling) + (1 | plot),
+                               sg.sd.c  + (1 | plot),
                              data = fish.uni2 %>%
                                filter(season == "summer") %>%
                                mutate(treatment = relevel(treatment, ref = "real")))
 # combine treatment and algal abundance for richness
 fspr.treat.alg <- glmmTMB(change.spr ~ treatment * as.factor(sampling) +
-                               a.abund * as.factor(sampling) + (1 | plot),
+                               a.abund.c + (1 | plot),
                              data = fish.uni2 %>%
                                filter(season == "summer") %>%
                                mutate(treatment = relevel(treatment, ref = "real")))
 # combine productivity and algal abundance for richness
-fspr.prod.alg <- glmmTMB(change.spr ~ a.abund * as.factor(sampling) +
-                               sg.prod.c * as.factor(sampling) + as.factor(sampling) + (1 | plot),
+fspr.prod.alg <- glmmTMB(change.spr ~ a.abund.c + as.factor(sampling) +
+                               sg.prod.c  + (1 | plot),
                              data = fish.uni2 %>%
                                filter(season == "summer") %>%
                                mutate(treatment = relevel(treatment, ref = "real")))
 
 # combine productivity and struct for richness
-fspr.prod.struct <- glmmTMB(change.spr ~ sg.prod.c *  as.factor(sampling)  +
-                              sg.sd.c * as.factor(sampling) + (1 | plot),
+fspr.prod.struct <- glmmTMB(change.spr ~ sg.prod.c + sg.sd.c +
+                            as.factor(sampling) + (1 | plot),
                             data = fish.uni2 %>%
                               filter(season == "summer") %>%
                               mutate(treatment = relevel(treatment, ref = "real")))
 
 # combine structure and algal abundance for richness
-fspr.struct.alg <- glmmTMB(change.spr ~  a.abund * as.factor(sampling) +
-                              sg.sd.c * as.factor(sampling) + (1 | plot),
+fspr.struct.alg <- glmmTMB(change.spr ~  a.abund.c + sg.sd.c + 
+                            as.factor(sampling) + (1 | plot),
                             data = fish.uni2 %>%
                               filter(season == "summer") %>%
                               mutate(treatment = relevel(treatment, ref = "real")))
 
 # combine treatment, productivity, and algal abundance for richness
 fspr.treat.prod.alg <- glmmTMB(change.spr ~ treatment * as.factor(sampling)  +
-                              sg.prod.c* as.factor(sampling) + a.abund * as.factor(sampling) + (1 | plot),
+                              sg.prod.c + a.abund.c + (1 | plot),
                             data = fish.uni2 %>%
                               filter(season == "summer") %>%
                               mutate(treatment = relevel(treatment, ref = "real")))
 
 # combine treatment, productivity, and structure for richness
 fspr.treat.prod.struct <- glmmTMB(change.spr ~ treatment * as.factor(sampling) +
-                       sg.prod.c * as.factor(sampling)  +
-                       sg.sd.c * as.factor(sampling) + (1 | plot),
+                       sg.prod.c   +
+                       sg.sd.c  + (1 | plot),
                      data = fish.uni2 %>%
                        filter(season == "summer") %>%
                        mutate(treatment = relevel(treatment, ref = "real")))
 
 # combine treatment, structure, and algal abundance for richness
-fspr.treat.struct.alg <- glmmTMB(change.spr ~ treatment* as.factor(sampling)  +
-                              sg.sd.c * as.factor(sampling) + a.abund * as.factor(sampling)+ (1 | plot),
+fspr.treat.struct.alg <- glmmTMB(change.spr ~ treatment * as.factor(sampling)  +
+                              sg.sd.c + a.abund.c + (1 | plot),
                             data = fish.uni2 %>%
                               filter(season == "summer") %>%
                               mutate(treatment = relevel(treatment, ref = "real")))
 
 # full model for richness
 fspr.full <- glmmTMB(change.spr ~ treatment * as.factor(sampling)  +
-                                   sg.sd.c * as.factor(sampling) + a.abund * as.factor(sampling) + sg.prod.c * as.factor(sampling) + (1 | plot),
+                                   sg.sd.c  + a.abund.c + sg.prod.c + (1 | plot),
                                  data = fish.uni2 %>%
                                    filter(season == "summer") %>%
                                    mutate(treatment = relevel(treatment, ref = "real")))
@@ -243,7 +243,14 @@ for(i in 1:length(spr.cand.mod.names)) {
 # Function aictab does the AICc-based model comparison
 print(aictab(cand.set = spr.cand.mods, 
              modnames = spr.cand.mod.names))
-# algal abundance is the best model??? probabily not. Is structure and productivity suppose to have an interaction with sampling??
+ 
+
+# top model: fake doesn't differ sig from sponge at 1 month but does by 12
+summary(fspr.treat)
+
+# algae isn't sig. so we can conclude that it's inclusion is spurious
+summary(fspr.treat.alg) 
+
 
 # now do model selection for abundance
 
