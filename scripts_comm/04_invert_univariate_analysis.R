@@ -163,7 +163,8 @@ ispr.prod.alg <- glmmTMB(change.spr ~ sg.prod.c + as.factor(sampling)  +
 # Note that productivity and struct are correlated with each other so their 
 # individual contributions can't be assessed in the full model, just their combined effect:
 
-plot(sg.prod.c~sg.sd.c, data = inv.uni2 %>% filter(season == "summer") %>% mutate(treatment = relevel(treatment, ref = "real")) )
+plot(sg.prod.c ~ sg.sd.c, data = inv.uni2 %>% filter(season == "summer") %>% 
+    mutate(treatment = relevel(treatment, ref = "real")) )
 
 
 ispr.prod.struct <- glmmTMB(change.spr ~ sg.prod.c + as.factor(sampling)  +
@@ -254,11 +255,11 @@ print(aictab(cand.set = spr.cand.mods,
 
 # it looks like treatment and productivity is now the best model for species richness.....- 
 
-#look at this model
-
+#look at top model
 summary(ispr.treat.prod)
 
-# now do model selection for abundance
+
+# model selection for abundance ####
 
 #Treatment only model
 ia.treat <- glmmTMB(change.a ~ treatment * as.factor(sampling) + 

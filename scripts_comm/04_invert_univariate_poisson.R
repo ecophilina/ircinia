@@ -95,7 +95,8 @@ summary(aov(j ~ treatment, data = inv.uni %>%
               filter(sampling == 0)))
 # No difference
 
-## now start with species richness and do model selection
+
+## species richness model selection ####
 
 #Treatment only model
 ispr.treat <- glmmTMB(spr ~ treatment * as.factor(sampling) +
@@ -106,8 +107,7 @@ ispr.treat <- glmmTMB(spr ~ treatment * as.factor(sampling) +
     mutate(treatment = relevel(treatment, ref = "real")))
 
 # seagrass productivity model for richness
-ispr.prod <- glmmTMB(
-  spr ~ sg.prod.c + as.factor(sampling) +
+ispr.prod <- glmmTMB(spr ~ as.factor(sampling) + sg.prod.c + 
     (1 | plot),
   family = poisson,
   data = inv.uni %>%
@@ -115,8 +115,7 @@ ispr.prod <- glmmTMB(
     mutate(treatment = relevel(treatment, ref = "real")))
 
 # seagrass structure model for richness
-ispr.struct <- glmmTMB(
-  spr ~ sg.sd.c + as.factor(sampling) +
+ispr.struct <- glmmTMB(spr ~ as.factor(sampling) + sg.sd.c + 
     (1 | plot),
   family = poisson,
   data = inv.uni %>%
@@ -124,8 +123,7 @@ ispr.struct <- glmmTMB(
     mutate(treatment = relevel(treatment, ref = "real")))
 
 #algal abundance model for richness
-ispr.alg <- glmmTMB(
-  spr ~ a.abund.c + as.factor(sampling) +
+ispr.alg <- glmmTMB(spr ~ as.factor(sampling) + a.abund.c + 
     (1 | plot),
   family = poisson,
   data = inv.uni %>%
@@ -150,7 +148,7 @@ ispr.treat.struct <- glmmTMB(spr ~ treatment * as.factor(sampling) +
 
 # combine treatment and algal abundance for richness
 ispr.treat.alg <- glmmTMB(spr ~ treatment * as.factor(sampling) +
-    a.abund.c +  (1 | plot),
+    a.abund.c + (1 | plot),
     family = poisson,
     data = inv.uni %>%
     filter(season == "summer") %>%
@@ -168,7 +166,7 @@ ispr.prod.alg <- glmmTMB(spr ~ as.factor(sampling)  +
 # Note that productivity and struct are correlated with each other so their 
 # individual contributions can't be assessed in the full model, just their combined effect:
 
-plot(sg.prod.c~sg.sd.c, data = inv.uni %>% filter(season == "summer") %>% mutate(treatment = relevel(treatment, ref = "real")) )
+# plot(sg.prod.c~sg.sd.c, data = inv.uni %>% filter(season == "summer") %>% mutate(treatment = relevel(treatment, ref = "real")) )
 
 
 ispr.prod.struct <- glmmTMB(spr ~ as.factor(sampling)  +
@@ -219,7 +217,7 @@ ispr.full <- glmmTMB(spr ~ treatment * as.factor(sampling) +
       mutate(treatment = relevel(treatment, ref = "real")))
 
 # check residuals
-glmm.resids(ispr.treat)
+glmm.resids(ispr.treat)# sig dispersion
 glmm.resids(ispr.prod)
 glmm.resids(ispr.struct)
 glmm.resids(ispr.alg) 
@@ -234,8 +232,16 @@ glmm.resids(ispr.treat.prod.struct) # sig dispersion
 glmm.resids(ispr.treat.struct.alg) # sig dispersion
 glmm.resids(ispr.full) # sig dispersion
 
-
-# ispr.alg and ispr.prod.struct are kind of iffy. Now do model selection
+# #algal abundance model without time variable
+# ispr.alg.notime <- glmmTMB(spr ~ a.abund.c + 
+#     (1 | plot),
+#   family = poisson,
+#   data = inv.uni %>%
+#     filter(season == "summer") %>%
+#     mutate(treatment = relevel(treatment, ref = "real")))
+# 
+# glmm.resids(ispr.alg.notime)
+# 
 
 # Model selection
 spr.cand.mod.names <- c(
@@ -243,6 +249,7 @@ spr.cand.mod.names <- c(
 "ispr.prod",
 "ispr.struct",
 "ispr.alg",
+# "ispr.alg.notime", 
 "ispr.treat.prod",
 "ispr.treat.struct",
 "ispr.treat.alg",
@@ -263,14 +270,35 @@ for(i in 1:length(spr.cand.mod.names)) {
 print(aictab(cand.set = spr.cand.mods, 
              modnames = spr.cand.mod.names))
 
-# it looks like treatment and productivity is now the best model for species richness.....- 
 
-#look at this model
+# top models of invert spr ####
+# top model is algae
+summary(ispr.alg)
 
+
+# treatment is delta 4.42 AIC worse, this appears to be because sampling*treatment is highly correlated with algae abundance but takes up way more degrees of freedom! 
+
+ggplot(data = inv.uni %>% filter(season == "summer") %>% 
+    mutate(treatment = factor(treatment, 
+      levels = c("blank", "fake", "real"), 
+      labels = c("Control", "Structure Control", "Sponge")))) + 
+  geom_jitter(aes(a.abund, spr, colour = treatment, alpha = as.factor(sampling)), 
+    width = 0.2, height = 0.2, size = 2.5) + 
+  # geom_line(aes(a.abund, spr, group = as.factor(plot))) +
+  geom_smooth(method = "lm", aes(a.abund, spr), colour = "black") + 
+  scale_alpha_discrete(range = c(0.3,1), name = "Months") + 
+  scale_color_viridis_d(option="A", begin=0, end=0.6,"")+
+  xlab("Algae abundance") +
+  ylab("Invertebrate species richness") +
+  # coord_cartesian(expand = F) +
+  ggsidekick::theme_sleek()
+ggsave("invert-spr-by-algae.png", width = 5, height = 3)
+
+
+# treatment model for comparison
 summary(ispr.treat)
-
 # confirm that the control plots don't change sig with time
-ispr.treat.f <- glmmTMB(spr ~ treatment * as.factor(sampling) +
+ispr.treat.f <- glmmTMB(spr ~ treatment *  as.factor(sampling) +
     (1 | plot),
   family = poisson,
   data = inv.uni %>%
@@ -288,7 +316,9 @@ summary(ispr.treat.f)
 summary(ispr.treat.b) #blank at 1 month probably increased by chance, diff gone by 12 months
 
 
-# now do model selection for abundance
+
+# model selection for abundance ####
+
 
 # Treatment only model
 ia.treat <- glmmTMB(i.abund ~ treatment * as.factor(sampling) +
