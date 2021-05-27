@@ -101,7 +101,7 @@ summary(aov(j ~ treatment, data = inv.uni %>%
 #Treatment only model
 ispr.treat <- glmmTMB(spr ~ treatment * as.factor(sampling) +
     (1 | plot),
-  family = poisson,
+  family = compois(link = "log"),
   data = inv.uni %>%
     filter(season == "summer") %>%
     mutate(treatment = relevel(treatment, ref = "real")))
@@ -109,7 +109,7 @@ ispr.treat <- glmmTMB(spr ~ treatment * as.factor(sampling) +
 # seagrass productivity model for richness
 ispr.prod <- glmmTMB(spr ~ as.factor(sampling) + sg.prod.c + 
     (1 | plot),
-  family = poisson,
+  family = compois(link = "log"),
   data = inv.uni %>%
     filter(season == "summer") %>%
     mutate(treatment = relevel(treatment, ref = "real")))
@@ -117,7 +117,7 @@ ispr.prod <- glmmTMB(spr ~ as.factor(sampling) + sg.prod.c +
 # seagrass structure model for richness
 ispr.struct <- glmmTMB(spr ~ as.factor(sampling) + sg.sd.c + 
     (1 | plot),
-  family = poisson,
+  family = compois(link = "log"),
   data = inv.uni %>%
     filter(season == "summer") %>%
     mutate(treatment = relevel(treatment, ref = "real")))
@@ -125,7 +125,7 @@ ispr.struct <- glmmTMB(spr ~ as.factor(sampling) + sg.sd.c +
 #algal abundance model for richness
 ispr.alg <- glmmTMB(spr ~ as.factor(sampling) + a.abund.c + 
     (1 | plot),
-  family = poisson,
+  family = compois(link = "log"),
   data = inv.uni %>%
     filter(season == "summer") %>%
     mutate(treatment = relevel(treatment, ref = "real")))
@@ -133,7 +133,7 @@ ispr.alg <- glmmTMB(spr ~ as.factor(sampling) + a.abund.c +
 # combine treatment and seagrass productivity model
 ispr.treat.prod <- glmmTMB(spr ~ treatment * as.factor(sampling) +
     sg.prod.c +(1 | plot),
-  family = poisson,
+  family = compois(link = "log"),
   data = inv.uni %>%
     filter(season == "summer") %>%
     mutate(treatment = relevel(treatment, ref = "real")))
@@ -141,7 +141,7 @@ ispr.treat.prod <- glmmTMB(spr ~ treatment * as.factor(sampling) +
 # combine treatment and struct for richness
 ispr.treat.struct <- glmmTMB(spr ~ treatment * as.factor(sampling) +
     sg.sd.c + (1 | plot),
-    family = poisson,
+  family = compois(link = "log"),
     data = inv.uni %>%
     filter(season == "summer") %>%
     mutate(treatment = relevel(treatment, ref = "real")))
@@ -149,7 +149,7 @@ ispr.treat.struct <- glmmTMB(spr ~ treatment * as.factor(sampling) +
 # combine treatment and algal abundance for richness
 ispr.treat.alg <- glmmTMB(spr ~ treatment * as.factor(sampling) +
     a.abund.c + (1 | plot),
-    family = poisson,
+  family = compois(link = "log"),
     data = inv.uni %>%
     filter(season == "summer") %>%
     mutate(treatment = relevel(treatment, ref = "real")))
@@ -157,7 +157,7 @@ ispr.treat.alg <- glmmTMB(spr ~ treatment * as.factor(sampling) +
 #combine productivity and algal abundance for richness
 ispr.prod.alg <- glmmTMB(spr ~ as.factor(sampling)  +
     a.abund.c + sg.prod.c + (1 | plot),
-    family = poisson,
+  family = compois(link = "log"),
     data = inv.uni %>%
     filter(season == "summer") %>%
     mutate(treatment = relevel(treatment, ref = "real")))
@@ -171,7 +171,7 @@ ispr.prod.alg <- glmmTMB(spr ~ as.factor(sampling)  +
 
 ispr.prod.struct <- glmmTMB(spr ~ as.factor(sampling)  +
       sg.sd.c + sg.prod.c + (1 | plot),
-      family = poisson,
+  family = compois(link = "log"),
       data = inv.uni %>%
       filter(season == "summer") %>%
       mutate(treatment = relevel(treatment, ref = "real")))
@@ -179,7 +179,7 @@ ispr.prod.struct <- glmmTMB(spr ~ as.factor(sampling)  +
 #combine structure and algal abundance for richness
 ispr.struct.alg <- glmmTMB(spr ~ as.factor(sampling)  +
       sg.sd.c + a.abund.c + (1 | plot),
-      family = poisson,
+  family = compois(link = "log"),
       data = inv.uni %>%
       filter(season == "summer") %>%
       mutate(treatment = relevel(treatment, ref = "real")))
@@ -187,7 +187,7 @@ ispr.struct.alg <- glmmTMB(spr ~ as.factor(sampling)  +
 # combine treatment, productivity, and algal abundance for richenss
 ispr.treat.prod.alg <- glmmTMB(spr ~ treatment * as.factor(sampling)  +
       sg.prod.c + a.abund.c + (1 | plot),
-      family = poisson,
+  family = compois(link = "log"),
       data = inv.uni %>%
       filter(season == "summer") %>%
       mutate(treatment = relevel(treatment, ref = "real")))
@@ -195,7 +195,7 @@ ispr.treat.prod.alg <- glmmTMB(spr ~ treatment * as.factor(sampling)  +
 # combine treatment, productivity, and seagrass structure for richness
 ispr.treat.prod.struct <- glmmTMB(spr ~ treatment * as.factor(sampling) +
       sg.prod.c + sg.sd.c + (1 | plot),
-      family = poisson,
+  family = compois(link = "log"),
       data = inv.uni %>%
       filter(season == "summer") %>%
       mutate(treatment = relevel(treatment, ref = "real")))
@@ -203,7 +203,7 @@ ispr.treat.prod.struct <- glmmTMB(spr ~ treatment * as.factor(sampling) +
 #combine treatment, seagrass structure, and algal abundance for richness
 ispr.treat.struct.alg <- glmmTMB(spr ~ treatment * as.factor(sampling) +
       sg.sd.c + a.abund.c + (1| plot),
-      family = poisson,
+  family = compois(link = "log"),
       data = inv.uni %>%
       filter(season == "summer") %>%
       mutate(treatment = relevel(treatment, ref = "real")))
@@ -211,26 +211,26 @@ ispr.treat.struct.alg <- glmmTMB(spr ~ treatment * as.factor(sampling) +
 # full model for richness (treatment, seagrass structure, seagrass productivity, and algal abundance)
 ispr.full <- glmmTMB(spr ~ treatment * as.factor(sampling) +
       sg.sd.c + sg.prod.c + a.abund.c + (1|plot),
-      family = poisson,
+  family = compois(link = "log"),
       data = inv.uni %>%
       filter(season == "summer") %>%
       mutate(treatment = relevel(treatment, ref = "real")))
 
 # check residuals
-glmm.resids(ispr.treat)# sig dispersion
+glmm.resids(ispr.treat)
 glmm.resids(ispr.prod)
 glmm.resids(ispr.struct)
 glmm.resids(ispr.alg) 
-glmm.resids(ispr.treat.prod) # sig dispersion
-glmm.resids(ispr.treat.struct)# sig dispersion
-glmm.resids(ispr.treat.alg) # sig dispersion
+glmm.resids(ispr.treat.prod) 
+glmm.resids(ispr.treat.struct)
+glmm.resids(ispr.treat.alg) 
 glmm.resids(ispr.prod.alg)
 glmm.resids(ispr.prod.struct)
 glmm.resids(ispr.struct.alg)
-glmm.resids(ispr.treat.prod.alg) # sig dispersion
-glmm.resids(ispr.treat.prod.struct) # sig dispersion
-glmm.resids(ispr.treat.struct.alg) # sig dispersion
-glmm.resids(ispr.full) # sig dispersion
+glmm.resids(ispr.treat.prod.alg) 
+glmm.resids(ispr.treat.prod.struct) 
+glmm.resids(ispr.treat.struct.alg) 
+glmm.resids(ispr.full) 
 
 # #algal abundance model without time variable
 # ispr.alg.notime <- glmmTMB(spr ~ a.abund.c + 
@@ -272,6 +272,7 @@ print(aictab(cand.set = spr.cand.mods,
 
 
 # top models of invert spr ####
+summary(ispr.treat)
 # top model is algae
 summary(ispr.alg)
 
