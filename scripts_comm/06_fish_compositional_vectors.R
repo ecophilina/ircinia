@@ -273,7 +273,7 @@ col.inv.segments<-left_join(col.inv.env4,col.inv.mid)
     scale_shape_discrete(name = "Sampling"))
 
 
-fish.plot / inv.plot / col.inv.plot +plot_layout(guides="collect")
+fish.vplot / inv.plot / col.inv.plot +plot_layout(guides="collect")
 
 
 plot(i.pca)

@@ -2,6 +2,8 @@ install.packages("codyn")
 library(codyn)
 source("scripts_comm/02_community_data_org.R")
 
+#invertebrates
+
 inv.turn<-inv.com.full%>%
   mutate(dummy=1)%>%
   pivot_longer(-treatment:-a.abund.c,names_to="taxa",values_to="abundance")%>%
@@ -79,6 +81,42 @@ fish.turnover <- turnover(df=fish.turn,
   left_join(fish.dis)%>%
   left_join(fish.uni)
 
+#colonial inverts
+col.inv.turn<-col.inv.com.full%>%
+  mutate(dummy=1)%>%
+  pivot_longer(-treatment:-a.abund.c,names_to="taxa",values_to="abundance")%>%
+  filter(!sampling %in% c(5,17))
+
+col.inv.appear <- turnover(df=col.inv.turn,
+                       time.var = "sampling",
+                       species.var = "taxa",
+                       abundance.var = "abundance",
+                       replicate.var = "plot",
+                       metric="appearance")%>%
+  mutate(plot=as.numeric(plot))%>%
+  left_join(col.inv.env)
+
+
+col.inv.dis <- turnover(df=col.inv.turn,
+                    time.var = "sampling",
+                    species.var = "taxa",
+                    abundance.var = "abundance",
+                    replicate.var = "plot",
+                    metric="disappearance")%>%
+  mutate(plot=as.numeric(plot))%>%
+  left_join(col.inv.appear)
+
+col.inv.turnover <- turnover(df=col.inv.turn,
+                         time.var = "sampling",
+                         species.var = "taxa",
+                         abundance.var = "abundance",
+                         replicate.var = "plot")%>%
+  mutate(plot=as.numeric(plot))%>%
+  left_join(col.inv.dis)%>%
+  left_join(col.inv.uni)
+
+
+# plots
 
 ggplot(fish.turnover)+
   #  geom_line(aes(x=sampling, y=appearance,color=treatment,group=plot))
