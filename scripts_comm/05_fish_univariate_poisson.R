@@ -106,7 +106,7 @@ summary(aov(j ~ treatment, data = fish.uni %>%
 # Treatment only model
 fspr.treat <- glmmTMB(spr ~ treatment * as.factor(sampling) +
   (1 | plot),
-  family = poisson,
+  family = compois(link = "log"),
 data = fish.uni %>%
   filter(season == "summer") %>%
   mutate(treatment = relevel(treatment, ref = "real"))
@@ -115,7 +115,7 @@ data = fish.uni %>%
 # seagrass productivity model for richness
 fspr.prod <- glmmTMB(
   spr ~ as.factor(sampling) + sg.prod.c +  (1 | plot),
-  family = poisson,
+  family = compois(link = "log"),
   data = fish.uni %>%
     filter(season == "summer") %>%
     mutate(treatment = relevel(treatment, ref = "real"))
@@ -124,7 +124,7 @@ fspr.prod <- glmmTMB(
 # seagrass structure model for richness
 fspr.struct <- glmmTMB(
   spr ~ as.factor(sampling) + sg.sd.c +  (1 | plot),
-  family = poisson,
+  family = compois(link = "log"),
   data = fish.uni %>%
     filter(season == "summer") %>%
     mutate(treatment = relevel(treatment, ref = "real"))
@@ -133,7 +133,7 @@ fspr.struct <- glmmTMB(
 # algal abundance model for richness
 fspr.alg <- glmmTMB(
   spr ~ as.factor(sampling) + a.abund.c + (1 | plot),
-  family = poisson,
+  family = compois(link = "log"),
   data = fish.uni %>%
     filter(season == "summer") %>%
     mutate(treatment = relevel(treatment, ref = "real"))
@@ -150,7 +150,7 @@ data = fish.uni %>%
 # combine treatment and struct for richness
 fspr.treat.struct <- glmmTMB(spr ~ treatment * as.factor(sampling) +
   sg.sd.c + (1 | plot),
-  family = poisson,
+  family = compois(link = "log"),
 data = fish.uni %>%
   filter(season == "summer") %>%
   mutate(treatment = relevel(treatment, ref = "real"))
@@ -158,7 +158,7 @@ data = fish.uni %>%
 # combine treatment and algal abundance for richness
 fspr.treat.alg <- glmmTMB(spr ~ treatment * as.factor(sampling) +
   a.abund.c + (1 | plot),
-  family = poisson,
+  family = compois(link = "log"),
 data = fish.uni %>%
   filter(season == "summer") %>%
   mutate(treatment = relevel(treatment, ref = "real"))
@@ -166,7 +166,7 @@ data = fish.uni %>%
 # combine productivity and algal abundance for richness
 fspr.prod.alg <- glmmTMB(spr ~ as.factor(sampling) +
     a.abund.c + sg.prod.c + (1 | plot),
-  family = poisson,
+  family = compois(link = "log"),
 data = fish.uni %>%
   filter(season == "summer") %>%
   mutate(treatment = relevel(treatment, ref = "real"))
@@ -175,7 +175,7 @@ data = fish.uni %>%
 # combine productivity and struct for richness
 fspr.prod.struct <- glmmTMB(spr ~ as.factor(sampling) + 
     sg.prod.c + sg.sd.c + (1 | plot),
-  family = poisson,
+  family = compois(link = "log"),
 data = fish.uni %>%
   filter(season == "summer") %>%
   mutate(treatment = relevel(treatment, ref = "real"))
@@ -184,7 +184,7 @@ data = fish.uni %>%
 # combine structure and algal abundance for richness
 fspr.struct.alg <- glmmTMB(spr ~ as.factor(sampling) + 
   a.abund.c + sg.sd.c + (1 | plot),
-  family = poisson,
+  family = compois(link = "log"),
 data = fish.uni %>%
   filter(season == "summer") %>%
   mutate(treatment = relevel(treatment, ref = "real"))
@@ -193,7 +193,7 @@ data = fish.uni %>%
 # combine treatment, productivity, and algal abundance for richness
 fspr.treat.prod.alg <- glmmTMB(spr ~ treatment * as.factor(sampling) +
   sg.prod.c + a.abund.c + (1 | plot),
-  family = poisson,
+  family = compois(link = "log"),
 data = fish.uni %>%
   filter(season == "summer") %>%
   mutate(treatment = relevel(treatment, ref = "real"))
@@ -202,7 +202,7 @@ data = fish.uni %>%
 # combine treatment, productivity, and structure for richness
 fspr.treat.prod.struct <- glmmTMB(spr ~ treatment * as.factor(sampling) +
   sg.prod.c + sg.sd.c + (1 | plot),
-  family = poisson,
+  family = compois(link = "log"),
 data = fish.uni %>%
   filter(season == "summer") %>%
   mutate(treatment = relevel(treatment, ref = "real"))
@@ -211,7 +211,7 @@ data = fish.uni %>%
 # combine treatment, structure, and algal abundance for richness
 fspr.treat.struct.alg <- glmmTMB(spr ~ treatment * as.factor(sampling) +
   sg.sd.c + a.abund.c + (1 | plot),
-  family = poisson,
+  family = compois(link = "log"),
 data = fish.uni %>%
   filter(season == "summer") %>%
   mutate(treatment = relevel(treatment, ref = "real"))
@@ -220,7 +220,7 @@ data = fish.uni %>%
 # full model for richness
 fspr.full <- glmmTMB(spr ~ treatment * as.factor(sampling) +
   sg.sd.c + a.abund.c + sg.prod.c + (1 | plot),
-  family = poisson,
+  family = compois(link = "log"),
 data = fish.uni %>%
   filter(season == "summer") %>%
   mutate(treatment = relevel(treatment, ref = "real"))
@@ -237,10 +237,10 @@ glmm.resids(fspr.treat.alg)
 glmm.resids(fspr.prod.alg)
 glmm.resids(fspr.prod.struct)
 glmm.resids(fspr.struct.alg)
-glmm.resids(fspr.treat.prod.alg)#dispersion sig
-glmm.resids(fspr.treat.prod.struct) #dispersion sig
+glmm.resids(fspr.treat.prod.alg)
+glmm.resids(fspr.treat.prod.struct) 
 glmm.resids(fspr.treat.struct.alg)
-glmm.resids(fspr.full) #dispersion sig
+glmm.resids(fspr.full) 
 
 # not quite as good as change version. Now do model selection
 
@@ -281,14 +281,14 @@ summary(fspr.treat)
 # confirm that the control plots don't change sig with time
 fspr.treat.f <- glmmTMB(spr ~ treatment * as.factor(sampling) +
     (1 | plot),
-  family = poisson,
+  family = compois(link = "log"),
   data = fish.uni %>%
     filter(season == "summer") %>%
     mutate(treatment = relevel(treatment, ref = "fake"))
 )
 fspr.treat.b <- glmmTMB(spr ~ treatment * as.factor(sampling) +
     (1 | plot),
-  family = poisson,
+  family = compois(link = "log"),
   data = fish.uni %>%
     filter(season == "summer") %>%
     mutate(treatment = relevel(treatment, ref = "blank"))
@@ -306,7 +306,7 @@ summary(fspr.treat.alg)
 # Treatment only model
 fa.treat <- glmmTMB(f.abund ~ treatment * as.factor(sampling) +
   (1 | plot),
-family = poisson,
+family = compois(link = "log"),
 data = fish.uni %>%
   filter(season == "summer") %>%
   mutate(treatment = relevel(treatment, ref = "real"))
@@ -315,7 +315,7 @@ data = fish.uni %>%
 # seagrass productivity model
 fa.prod <- glmmTMB(f.abund ~ sg.prod.c + as.factor(sampling) +
   (1 | plot),
-family = poisson,
+family = compois(link = "log"),
 data = fish.uni %>%
   filter(season == "summer") %>%
   mutate(treatment = relevel(treatment, ref = "real"))
@@ -324,7 +324,7 @@ data = fish.uni %>%
 # seagrass structure model
 fa.struct <- glmmTMB(f.abund ~ sg.sd.c + as.factor(sampling) +
   (1 | plot),
-family = poisson,
+family = compois(link = "log"),
 data = fish.uni %>%
   filter(season == "summer") %>%
   mutate(treatment = relevel(treatment, ref = "real"))
@@ -333,7 +333,7 @@ data = fish.uni %>%
 # algal abundance for abundance model
 fa.alg <- glmmTMB(f.abund ~ a.abund.c + as.factor(sampling) +
   (1 | plot),
-family = poisson,
+family = compois(link = "log"),
 data = fish.uni %>%
   filter(season == "summer") %>%
   mutate(treatment = relevel(treatment, ref = "real"))
@@ -341,7 +341,7 @@ data = fish.uni %>%
 # combine treatment and seagrass productivity model
 fa.treat.prod <- glmmTMB(f.abund ~ treatment * as.factor(sampling) +
   sg.prod.c + (1 | plot),
-  family = poisson,
+  family = compois(link = "log"),
 data = fish.uni %>%
   filter(season == "summer") %>%
   mutate(treatment = relevel(treatment, ref = "real"))
@@ -350,7 +350,7 @@ data = fish.uni %>%
 # combine treatment and struct for abundance
 fa.treat.struct <- glmmTMB(f.abund ~ treatment * as.factor(sampling) +
   sg.sd.c + (1 | plot),
-  family = poisson,
+  family = compois(link = "log"),
 data = fish.uni %>%
   filter(season == "summer") %>%
   mutate(treatment = relevel(treatment, ref = "real"))
@@ -359,7 +359,7 @@ data = fish.uni %>%
 # combine treatment and algal abundance for abundance
 fa.treat.alg <- glmmTMB(f.abund ~ treatment * as.factor(sampling) +
   a.abund.c + (1 | plot),
-  family = poisson,
+  family = compois(link = "log"),
 data = fish.uni %>%
   filter(season == "summer") %>%
   mutate(treatment = relevel(treatment, ref = "real"))
@@ -368,7 +368,7 @@ data = fish.uni %>%
 # combine productivity and algal abundance for abundance
 fa.prod.alg <- glmmTMB(f.abund ~ sg.prod.c + as.factor(sampling) +
   a.abund.c + (1 | plot),
-  family = poisson,
+  family = compois(link = "log"),
 data = fish.uni %>%
   filter(season == "summer") %>%
   mutate(treatment = relevel(treatment, ref = "real"))
@@ -377,7 +377,7 @@ data = fish.uni %>%
 # combine productivity and struct for abundance
 fa.prod.struct <- glmmTMB(f.abund ~ sg.prod.c + sg.sd.c +
   as.factor(sampling) + (1 | plot),
-  family = poisson,
+  family = compois(link = "log"),
 data = fish.uni %>%
   filter(season == "summer") %>%
   mutate(treatment = relevel(treatment, ref = "real"))
@@ -386,7 +386,7 @@ data = fish.uni %>%
 # combine algal abundance and structure for abundance
 fa.struct.alg <- glmmTMB(f.abund ~ sg.sd.c + a.abund.c +
   as.factor(sampling) + (1 | plot),
-  family = poisson,
+  family = compois(link = "log"),
 data = fish.uni %>%
   filter(season == "summer") %>%
   mutate(treatment = relevel(treatment, ref = "real"))
@@ -395,7 +395,7 @@ data = fish.uni %>%
 # combine treatment, productivity, and algal abundance for abundance
 fa.treat.prod.alg <- glmmTMB(f.abund ~ treatment * as.factor(sampling) +
   sg.prod.c + a.abund.c + (1 | plot),
-  family = poisson,
+  family = compois(link = "log"),
 data = fish.uni %>%
   filter(season == "summer") %>%
   mutate(treatment = relevel(treatment, ref = "real"))
@@ -403,7 +403,7 @@ data = fish.uni %>%
 # combine treatment, productivity, and structure for abundance
 fa.treat.prod.struct <- glmmTMB(f.abund ~ treatment * as.factor(sampling) +
   sg.prod.c + sg.sd.c + (1 | plot),
-  family = poisson,
+  family = compois(link = "log"),
 data = fish.uni %>%
   filter(season == "summer") %>%
   mutate(treatment = relevel(treatment, ref = "real"))
@@ -412,7 +412,7 @@ data = fish.uni %>%
 # combine treatment, structure, and algal abundance for abundance
 fa.treat.struct.alg <- glmmTMB(f.abund ~ treatment * as.factor(sampling) +
   a.abund.c + sg.sd.c + (1 | plot),
-  family = poisson,
+  family = compois(link = "log"),
 data = fish.uni %>%
   filter(season == "summer") %>%
   mutate(treatment = relevel(treatment, ref = "real"))
@@ -421,7 +421,7 @@ data = fish.uni %>%
 # full model
 fa.full <- glmmTMB(f.abund ~ treatment * as.factor(sampling) +
   a.abund.c + sg.sd.c + sg.prod.c + (1 | plot),
-  family = poisson,
+  family = compois(link = "log"),
 data = fish.uni %>%
   filter(season == "summer") %>%
   mutate(treatment = relevel(treatment, ref = "real"))
@@ -429,9 +429,9 @@ data = fish.uni %>%
 
 # check residuals
 glmm.resids(fa.treat)
-glmm.resids(fa.prod) # iffy
+glmm.resids(fa.prod) 
 glmm.resids(fa.struct)
-glmm.resids(fa.alg) # iffy but ok
+glmm.resids(fa.alg) 
 glmm.resids(fa.treat.prod)
 glmm.resids(fa.treat.struct)
 glmm.resids(fa.treat.alg)
@@ -439,7 +439,7 @@ glmm.resids(fa.prod.alg)
 glmm.resids(fa.prod.struct)
 glmm.resids(fa.struct.alg)
 glmm.resids(fa.treat.prod.alg)
-glmm.resids(fa.treat.prod.struct) # iffy but ok
+glmm.resids(fa.treat.prod.struct) 
 glmm.resids(fa.treat.struct.alg)
 glmm.resids(fa.full)
 
@@ -484,14 +484,14 @@ summary(fa.treat)
 # confirm that the control plots don't change sig with time
 fa.treat.f <- glmmTMB(f.abund ~ treatment * as.factor(sampling) +
     (1 | plot),
-  family = poisson,
+  family = compois(link = "log"),
   data = fish.uni %>%
     filter(season == "summer") %>%
     mutate(treatment = relevel(treatment, ref = "fake"))
 )
 fa.treat.b <- glmmTMB(f.abund ~ treatment * as.factor(sampling) +
     (1 | plot),
-  family = poisson,
+  family = compois(link = "log"),
   data = fish.uni %>%
     filter(season == "summer") %>%
     mutate(treatment = relevel(treatment, ref = "blank"))
