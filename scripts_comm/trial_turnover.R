@@ -122,13 +122,26 @@ col.inv.turnover <- turnover(df=col.inv.turn,
   left_join(col.inv.uni)
 
 
-# plots
+# exploratory plots for non-clonal inverts
+ggplot(inv.turnover)+
+  geom_line(aes(x=sampling, y=appearance,color=treatment,group=plot), alpha = 0.5)
+ggplot(inv.turnover)+
+  geom_line(aes(x=sampling, y=disappearance,color=treatment,group=plot), alpha = 0.5)
+# geom_line(aes(x=sampling, y=total,color=treatment,group=plot))
 
-ggplot(fish.turnover)+
-  #  geom_line(aes(x=sampling, y=appearance,color=treatment,group=plot))
-  #  geom_line(aes(x=sampling, y=disappearance,color=treatment,group=plot))
-  #  geom_line(aes(x=sampling, y=total,color=treatment,group=plot))
-  geom_point(aes(y=appearance,x=disappearance,color=treatment,size=spr))+
+ggplot(inv.turnover)+
+  geom_jitter(aes(y=appearance,x=disappearance,color=treatment,size=spr))+
+  facet_wrap(~sampling)
+
+# exploratory plots for clonal inverts
+ggplot(col.inv.turnover)+
+  geom_line(aes(x=sampling, y=appearance,color=treatment,group=plot), alpha = 0.5)
+ggplot(col.inv.turnover)+
+  geom_line(aes(x=sampling, y=disappearance,color=treatment,group=plot), alpha = 0.5)
+  # geom_line(aes(x=sampling, y=total,color=treatment,group=plot))
+
+ggplot(col.inv.turnover)+
+  geom_jitter(aes(y=appearance,x=disappearance,color=treatment,size=spr))+
   facet_wrap(~sampling)
 
 
@@ -175,10 +188,11 @@ plot_png <- function(dat,
   dat$group <- dat[[png_group]]
 
   p <- ggplot(dat, aes(x, y)) +
-    geom_blank() +
+    geom_blank() + 
     coord_fixed(xlim = xlim, ylim = ylim) +
     xlab(x) + ylab(y) +
     ggsidekick::theme_sleek(base_size = 18)
+  
 # loop over groups to get different png images
 for (i in 1:length(unique(dat$group))) {
   d <- filter(dat, treatment == "real" & group == unique(dat$group)[i]) 
@@ -235,17 +249,22 @@ ggsave("turnover-plots.png", width = 10, height = 6)
 
 # since tunicates show a different pattern, I'm putting them on different panels
 (p1c <- plot_png(filter(col.inv.turnover, sampling == 1), png_list = list(clonalpng), scal_fac = c(80)) +
-    ylab("Proportion of Species Gained") + xlab("Proportion of Species Lost") )
+    ylab("Proportion of Species Gained") + xlab("Proportion of Species Lost")+ 
+    ggtitle("1 month into experiment"))
 
 (p12c <- plot_png(filter(col.inv.turnover, sampling == 12), png_list = list(clonalpng), scal_fac = c(80)) + 
     ylab("") + xlab("Proportion of Species Lost") + 
+    ggtitle("12 months into experiment") + 
     theme(axis.text.y = element_blank()))
 
-(p1 + theme(axis.text.x = element_blank(), axis.title.x = element_blank())) + 
-(p12 + theme(axis.text.x = element_blank(), axis.title.x = element_blank())) + 
-  p1c + p12c + plot_layout(widths=c(1,1))
+p1c + p12c + plot_layout(widths=c(1,1))
+ggsave("turnover-plots-tunicates.png", width = 10, height = 6)
 
-ggsave("turnover-plots-2x2.png", width = 10, height = 10)
+# (p1 + theme(axis.text.x = element_blank(), axis.title.x = element_blank())) + 
+# (p12 + theme(axis.text.x = element_blank(), axis.title.x = element_blank())) + 
+#   p1c + p12c + plot_layout(widths=c(1,1))
+# 
+# ggsave("turnover-plots-2x2.png", width = 10, height = 10)
 
 
 # create a legend that could be added at some point
@@ -258,3 +277,7 @@ ggsave("turnover-plots-2x2.png", width = 10, height = 10)
 )
 
 leg <- ggpubr::get_legend(p0 + theme(legend.position = c(0.9,0.9)))
+
+
+
+
