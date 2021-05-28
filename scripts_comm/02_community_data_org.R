@@ -202,11 +202,11 @@ col.inv.com<-col.inv.com.full %>%
   dplyr::select(!all_of(keep.env))
 
 col.inv.uni<-col.inv.env%>%
-  mutate(spr=vegan::specnumber(inv.com),
-         div=vegan::diversity(inv.com,index = "shannon"),
+  mutate(spr=vegan::specnumber(col.inv.com),
+         div=vegan::diversity(col.inv.com,index = "shannon"),
          j=div/log(spr),
          j=ifelse(is.na(j),0,j),
-         i.abund=rowSums(inv.com))
+         i.abund=rowSums(col.inv.com))
 
 fish.env<-fish.com.full %>%
   dplyr::select(all_of(keep.env))
