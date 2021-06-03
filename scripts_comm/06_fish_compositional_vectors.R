@@ -1,8 +1,11 @@
 # first attempt at compositional vector analysis for fish
 
 library(vegan)
+library(rphylopic)
+library(ggplot2)
 library(tidyverse)
 library(patchwork)
+library(ggpubr)
 
 source("scripts_comm/02_community_data_org.R")
 
@@ -83,7 +86,8 @@ circ <- circleFun(center = c(0, 0), diameter = 2, npoints = 500)
   scale_color_viridis_d(option="A", begin=0, end=0.6,name="Treatment",labels=c("Control","Structure","Sponge"))+
     scale_size_discrete(range=c(1,1.75),name = "Number of Plots")+
     scale_alpha_continuous(range=c(0.75,1),guide=FALSE)+
-  geom_text(aes(x=-1,y=1),label="a",size=10))
+#  geom_text(aes(x=-1,y=1),label="a",size=10)+
+  add_phylopic(fishpng,x=-.8,y=.9,ysize=.25,alpha=1))
 
 fish.mid<-fish.env3%>%
   filter(sampling==1)%>%
@@ -168,7 +172,8 @@ summary(inv.angle.aov)
         panel.border = element_blank(),
         legend.position = "none")+
   scale_color_viridis_d(option="A", begin=0, end=0.6)+
-  geom_text(aes(x=-1,y=1),label="b",size=10))
+#  geom_text(aes(x=-1,y=1),label="b",size=10)+
+    add_phylopic(crabpng,x=-.8,y=.9,ysize=.45,alpha=1))
 
 inv.mid<-inv.env3%>%
   filter(sampling==1)%>%
@@ -253,7 +258,8 @@ summary(col.inv.angle.aov)
     scale_color_viridis_d(option="A", begin=0, end=0.6)+
     scale_size_continuous(range=c(1,1.75))+
     scale_alpha_continuous(range=c(0.75,1))+
-    geom_text(aes(x=-1,y=1),label="c",size=10))
+#    geom_text(aes(x=-1,y=1),label="c",size=10)+
+    add_phylopic(clonalpng,x=-.8,y=.9,ysize=.25,alpha=1))
 
 col.inv.mid<-col.inv.env3%>%
   filter(sampling==1)%>%
@@ -272,10 +278,14 @@ col.inv.segments<-left_join(col.inv.env4,col.inv.mid)
     scale_color_viridis_d(option="A", begin=0, end=0.6,name="Treatment",labels=c("Control","Structure","Sponge"))+
     scale_shape_discrete(name = "Sampling"))
 
+fishpng <- image_data("0b9cdf1f-ccbc-4922-8cf6-60f90d07107e", size = 128)[[1]]
+crabpng <- image_data("9958579e-5e63-4b7c-8e76-9b1a92d7f7ca", size = 256)[[1]]
+clonalpng <- image_data("dbbf1325-10e5-4880-a27b-2d9afb5dc55c", size = 256)[[1]]
+
 
 fish.vplot / inv.plot / col.inv.plot +plot_layout(guides="collect")
 
+ggsave("figures/community_vector_plots.jpg",dpi=300,width=4,height=9)
 
-plot(i.pca)
 
 
