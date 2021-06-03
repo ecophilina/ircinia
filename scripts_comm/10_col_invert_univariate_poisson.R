@@ -220,14 +220,14 @@ cispr.full <- glmmTMB(spr ~ treatment * as.factor(sampling) +
 # check residuals
 glmm.resids(cispr.treat)
 glmm.resids(cispr.prod)
-glmm.resids(cispr.struct) #ugly
+glmm.resids(cispr.struct)
 glmm.resids(cispr.alg) 
 glmm.resids(cispr.treat.prod) 
-glmm.resids(cispr.treat.struct) #kinda ugly
+glmm.resids(cispr.treat.struct)
 glmm.resids(cispr.treat.alg) 
 glmm.resids(cispr.prod.alg)
 glmm.resids(cispr.prod.struct)
-glmm.resids(cispr.struct.alg) #a little ugly 
+glmm.resids(cispr.struct.alg)
 glmm.resids(cispr.treat.prod.alg) 
 glmm.resids(cispr.treat.prod.struct) 
 glmm.resids(cispr.treat.struct.alg) 
@@ -236,7 +236,7 @@ glmm.resids(cispr.full)
 # #algal abundance model without time variable
 # cispr.alg.notime <- glmmTMB(spr ~ a.abund.c + 
 #     (1 | plot),
-#   family = poisson,
+#   family = compois,
 #   data = col.inv.uni %>%
 #     filter(season == "summer") %>%
 #     mutate(treatment = relevel(treatment, ref = "real")))
@@ -272,10 +272,12 @@ print(aictab(cand.set = spr.cand.mods,
              modnames = spr.cand.mod.names))
 
 
-# top models of clonal invert spr #### treatment and algal model are only 1 delta AICc away as the top two models
-summary(cispr.treat)
+# top models of clonal invert spr is structure, alg, and productivity all within 2 delta AICcfrom each other
+summary(cispr.struct)
+summary(cispr.prod)
 summary(cispr.alg)
 
+#nothing is significant
 
 ggplot(data = col.inv.uni %>% filter(season == "summer") %>% 
          mutate(treatment = factor(treatment, 
@@ -294,220 +296,21 @@ ggplot(data = col.inv.uni %>% filter(season == "summer") %>%
 ggsave("clonal-invert-spr-by-algae.png", width = 5, height = 3)
 
 
-# treatment model for comparison
-summary(cispr.treat)
 # confirm that the control plots don't change sig with time
 cispr.treat.f <- glmmTMB(spr ~ treatment *  as.factor(sampling) +
                           (1 | plot),
-                        family = poisson,
+                        family = compois,
                         data = col.inv.uni %>%
                           filter(season == "summer") %>%
                           mutate(treatment = relevel(treatment, ref = "fake")))
 
 cispr.treat.b <- glmmTMB(spr ~ treatment * as.factor(sampling) +
                           (1 | plot),
-                        family = poisson,
+                        family = compois,
                         data = col.inv.uni %>%
                           filter(season == "summer") %>%
                           mutate(treatment = relevel(treatment, ref = "blank")))
 
 summary(cispr.treat.f)
 summary(cispr.treat.b) #blank at 1 month probably increased by chance, diff gone by 12 months
-
-
-
-# model selection for abundance ####
-
-
-# Treatment only model
-cia.treat <- glmmTMB(i.abund ~ treatment * as.factor(sampling) +
-                      (1 | plot),
-                    family = poisson,
-                    data = col.inv.uni %>%
-                      filter(season == "summer") %>%
-                      mutate(treatment = relevel(treatment, ref = "real"))
-)
-
-# seagrass productivity model
-cia.prod <- glmmTMB(i.abund ~ as.factor(sampling) +
-                     sg.prod.c + (1 | plot),
-                   family = poisson,
-                   data = col.inv.uni %>%
-                     filter(season == "summer") %>%
-                     mutate(treatment = relevel(treatment, ref = "real"))
-)
-
-# seagrass structure model
-cia.struct <- glmmTMB(i.abund ~ as.factor(sampling) +
-                       sg.sd.c + (1 | plot),
-                     family = poisson,
-                     data = col.inv.uni %>%
-                       filter(season == "summer") %>%
-                       mutate(treatment = relevel(treatment, ref = "real"))
-)
-
-# algal abundance model for abundance
-cia.alg <- glmmTMB(i.abund ~ a.abund.c + as.factor(sampling) +
-                    (1 | plot),
-                  family = poisson,
-                  data = col.inv.uni %>%
-                    filter(season == "summer") %>%
-                    mutate(treatment = relevel(treatment, ref = "real"))
-)
-# combine treatment and seagrass productivity model
-cia.treat.prod <- glmmTMB(i.abund ~ treatment * as.factor(sampling) +
-                           sg.prod.c + (1 | plot),
-                         family = poisson,
-                         data = col.inv.uni %>%
-                           filter(season == "summer") %>%
-                           mutate(treatment = relevel(treatment, ref = "real"))
-)
-
-# combine treatment and struct for abundance
-cia.treat.struct <- glmmTMB(i.abund ~ treatment * as.factor(sampling) +
-                             sg.sd.c + (1 | plot),
-                           family = poisson,
-                           data = col.inv.uni %>%
-                             filter(season == "summer") %>%
-                             mutate(treatment = relevel(treatment, ref = "real"))
-)
-
-# combine treatment and algal abundance for abundance
-cia.treat.alg <- glmmTMB(i.abund ~ treatment * as.factor(sampling) +
-                          a.abund.c + (1 | plot),
-                        family = poisson,
-                        data = col.inv.uni %>%
-                          filter(season == "summer") %>%
-                          mutate(treatment = relevel(treatment, ref = "real"))
-)
-
-# combine seagrass productivity and algal abundance for abundance
-cia.prod.alg <- glmmTMB(i.abund ~ as.factor(sampling) +
-                         sg.prod.c + a.abund.c + (1 | plot),
-                       family = poisson,
-                       data = col.inv.uni %>%
-                         filter(season == "summer") %>%
-                         mutate(treatment = relevel(treatment, ref = "real"))
-)
-
-# combine productivity and struct for abundance
-cia.prod.struct <- glmmTMB(i.abund ~ as.factor(sampling) +
-                            sg.prod.c + sg.sd.c + (1 | plot),
-                          data = col.inv.uni %>%
-                            filter(season == "summer") %>%
-                            mutate(treatment = relevel(treatment, ref = "real"))
-)
-
-# combine structure and algal abundance for abundance
-cia.struct.alg <- glmmTMB(i.abund ~ as.factor(sampling) +
-                           sg.sd.c + a.abund.c + (1 | plot),
-                         family = poisson,
-                         data = col.inv.uni %>%
-                           filter(season == "summer") %>%
-                           mutate(treatment = relevel(treatment, ref = "real"))
-)
-
-# combine treatment, productivity, and algal abundance for abundance
-cia.treat.prod.alg <- glmmTMB(i.abund ~ treatment * as.factor(sampling) +
-                               sg.prod.c + a.abund.c + (1 | plot),
-                             family = poisson,
-                             data = col.inv.uni %>%
-                               filter(season == "summer") %>%
-                               mutate(treatment = relevel(treatment, ref = "real"))
-)
-
-# combine treatment, productivity and structure for abundance
-cia.treat.prod.struct <- glmmTMB(i.abund ~ treatment * as.factor(sampling) +
-                                  sg.prod.c + sg.sd.c + (1 | plot),
-                                family = poisson,
-                                data = col.inv.uni %>%
-                                  filter(season == "summer") %>%
-                                  mutate(treatment = relevel(treatment, ref = "real"))
-)
-
-# combine treatment, structure, and algal abundance for abundance
-cia.treat.struct.alg <- glmmTMB(i.abund ~ treatment * as.factor(sampling) +
-                                 a.abund.c + sg.sd.c + (1 | plot),
-                               family = poisson,
-                               data = col.inv.uni %>%
-                                 filter(season == "summer") %>%
-                                 mutate(treatment = relevel(treatment, ref = "real"))
-)
-# full model for abundance
-cia.full <- glmmTMB(i.abund ~ treatment * as.factor(sampling) +
-                     sg.prod.c + sg.sd.c + a.abund.c + (1 | plot),
-                   family = poisson,
-                   data = col.inv.uni %>%
-                     filter(season == "summer") %>%
-                     mutate(treatment = relevel(treatment, ref = "real"))
-)
-# check residuals
-glmm.resids(cia.treat)
-glmm.resids(cia.prod)
-glmm.resids(cia.struct)
-glmm.resids(cia.alg) 
-glmm.resids(cia.treat.prod)
-glmm.resids(cia.treat.struct)
-glmm.resids(cia.treat.alg)
-glmm.resids(cia.prod.alg)
-glmm.resids(cia.prod.struct)
-glmm.resids(cia.struct.alg)
-glmm.resids(cia.treat.prod.alg)
-glmm.resids(cia.treat.prod.struct)
-glmm.resids(cia.treat.struct.alg)
-glmm.resids(cia.full)
-
-#Now do model selection
-
-# Model selection
-abund.cand.mod.names <- c(
-  "cia.treat",
-  "cia.prod",
-  "cia.struct",
-  "cia.alg",
-  "cia.treat.prod",
-  "cia.treat.struct",
-  "cia.treat.alg",
-  "cia.prod.alg",
-  "cia.prod.struct",
-  "cia.struct.alg",
-  "cia.treat.prod.alg",
-  "cia.treat.prod.struct",
-  "cia.treat.struct.alg",
-  "cia.full")
-abund.cand.mods <- list( ) 
-
-# This function fills the list by model names
-for(i in 1:length(abund.cand.mod.names)) {
-  abund.cand.mods[[i]] <- get(abund.cand.mod.names[i]) }
-
-# Function aictab does the AICc-based model comparison
-print(aictab(cand.set = abund.cand.mods, 
-             modnames = abund.cand.mod.names))
-
-# we have three models at the top - treat * sg prod, treat, treat * sg struct
-
-summary(cia.treat.prod)
-
-summary(cia.treat)
-
-summary(cia.treat.struct)
-
-# confirm that the control plots don't change sig with time
-cia.treat.prod.f <- glmmTMB(i.abund ~ treatment * as.factor(sampling) +
-                             sg.prod.c + (1 | plot),
-                           family = poisson,
-                           data = col.inv.uni %>%
-                             filter(season == "summer") %>%
-                             mutate(treatment = relevel(treatment, ref = "fake"))
-)
-cia.treat.prod.b <- glmmTMB(i.abund ~ treatment * as.factor(sampling) +
-                             sg.prod.c + (1 | plot),
-                           family = poisson,
-                           data = col.inv.uni %>%
-                             filter(season == "summer") %>%
-                             mutate(treatment = relevel(treatment, ref = "blank"))
-)
-
-summary(cia.treat.prod.f)
-summary(cia.treat.prod.b)
+ #no difference
