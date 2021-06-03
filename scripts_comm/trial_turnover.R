@@ -1,10 +1,12 @@
 # install.packages("codyn")
-# remotes::install_github("sckott/rphylopic")
+#remotes::install_github("sckott/rphylopic")
+
 library(codyn)
 library(rphylopic)
 library(ggplot2)
 library(tidyverse)
 library(patchwork)
+library(ggpubr)
 
 source("scripts_comm/02_community_data_org.R")
 
@@ -234,13 +236,15 @@ png_list <- list(crabpng, fishpng)
 (p1 <- plot_png(filter(turnoverdat, sampling == 1), png_list, scal_fac = c(70, 100)) +
     ylab("Proportion of Species Gained") + 
     xlab("Proportion of Species Lost") +
-    ggtitle("1 month into experiment"))
+    theme(plot.title=element_text(hjust=0.5))+
+    ggtitle("1 month"))
 
 (p12 <- plot_png(filter(turnoverdat, sampling == 12), png_list, scal_fac = c(70, 100)) + 
     ylab("") + 
     xlab("Proportion of Species Lost") +
     theme(axis.text.y = element_blank(), axis.title.y = element_blank()) + 
-    ggtitle("12 months into experiment"))
+    theme(plot.title=element_text(hjust=0.5))+
+    ggtitle("12 months"))
 
 p1 + p12 + plot_layout(widths=c(1,1))
 
@@ -278,6 +282,57 @@ ggsave("turnover-plots-tunicates.png", width = 10, height = 6)
 
 leg <- ggpubr::get_legend(p0 + theme(legend.position = c(0.9,0.9)))
 
+# make the species richness v time 
 
+fspr.sum<-fish.uni%>%
+  group_by(treatment,sampling)%>%
+  summarize(spr.m=mean(spr),
+            spr.sd=sd(spr))%>%
+  filter(sampling %in% c(0,1,12))
 
+ispr.sum<-inv.uni%>%
+  group_by(treatment,sampling)%>%
+  summarize(spr.m=mean(spr),
+            spr.sd=sd(spr))%>%
+  filter(sampling %in% c(0,1,12))
 
+(fspr<-ggplot()+
+  geom_point(data=fish.uni%>%filter(sampling %in% c(0,1,12)),aes(x=as.factor(sampling),y=spr,color=treatment),alpha=.3,position=position_dodge(0.3))+
+  geom_point(data=fspr.sum,aes(x=as.factor(sampling),y=spr.m,color=treatment),alpha=.7,size=5,position=position_dodge(0.3))+
+  geom_errorbar(data=fspr.sum,aes(x=as.factor(sampling),ymin=spr.m-spr.sd,ymax=spr.m+spr.sd,color=treatment),alpha=.7,width=.3,position=position_dodge(0.3))+ 
+  scale_color_viridis_d(option="A", begin=0, end=0.6,name="Treatment",labels=c("Control","Structure","Sponge"))+
+  theme_bw()+
+  theme(panel.grid = element_blank(),
+        plot.margin=margin(t=5,r=1,b=1,l=5),
+        axis.text.x = element_blank())+
+  add_phylopic(fishpng,x=.5,y=4,ysize = 2,alpha=1)+
+#  ggtitle("Fish")+
+  ylab("")+
+  xlab(""))
+
+(ispr<-ggplot()+
+    geom_point(data=inv.uni%>%filter(sampling %in% c(0,1,12)),aes(x=as.factor(sampling),y=spr,color=treatment),alpha=.3,position=position_dodge(0.3))+
+    geom_point(data=ispr.sum,aes(x=as.factor(sampling),y=spr.m,color=treatment),alpha=.7,size=5,position=position_dodge(0.3))+
+    geom_errorbar(data=ispr.sum,aes(x=as.factor(sampling),ymin=spr.m-spr.sd,ymax=spr.m+spr.sd,color=treatment),alpha=.7,width=.3,position=position_dodge(0.3))+ 
+    scale_color_viridis_d(option="A", begin=0, end=0.6,name="Treatment",labels=c("Control","Structure","Sponge"))+
+    theme_bw()+
+    theme(panel.grid = element_blank(),
+          plot.margin=margin(t=1,r=1,b=5,l=5))+
+    add_phylopic(crabpng,x=.5,y=5,ysize = 3,alpha = 1)+
+#    ggtitle("Invertebrates")+
+    ylab("")+
+    xlab("Months into the Experiment"))
+
+layout1<-c(
+  area(t=1,b=2,l=1,r=1),
+  area(t=1,b=1,l=2,r=9),
+  area(t=2,b=2,l=2,r=9),
+  area(t=3,b=6,l=1,r=5),
+  area(t=3,b=6,l=6,r=10))
+
+plot(layout1)
+
+wrap_elements(grid::textGrob("Species Richness",rot=90,gp=gpar(fontsize=14)))+fspr+ispr+
+  p1+p12+plot_layout(design=layout1,guides="collect")
+
+ggsave("figures/Species_Richness_Turnover.jpg",dpi=300,width=10,height=6)
