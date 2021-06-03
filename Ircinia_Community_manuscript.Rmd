@@ -1,0 +1,65 @@
+---
+title: "Sponges presence increases diversity and abundance of fish and invertebrates in subtropical seagrass beds"
+output: 
+  bookdown::word_document2:
+    number_sections: false
+    reference_docx: "template.docx"
+editor_options: 
+  chunk_output_type: console
+bibliography: Paper2.bib
+csl: estuaries-and-coasts.csl
+---
+
+Stephanie K. Archer^1^*, Philina A. English^2^, Finella Campanino^1^, Craig A. Layman^3^   
+  
+1. Louisiana Universities Marine Consortium, Chauvin, Louisiana, USA
+2. Pacific Biological Station, Fisheries and Oceans Canada, Nanaimo, British Columbia, Canada
+3. Center for Energy, Environment, and Sustainability, Department of Biology, Wake Forest University, Winston-Salem, North Carolina, USA
+  
+*corresponding author: sarcher@lumcon.edu  
+
+# Abstract  
+
+
+##### break  
+
+# Introduction  
+Ecosystem engineers and maintenance of biodiversity
+
+# Methods  
+
+## Study site and experimental design  
+**THE TEXT BELOW WAS COPIED DIRECTLY FROM THE FIRST MANUSCRIPT MUST BE REWORDED**  
+This study was conducted in a shallow (1.1 m low tide depth) subtidal seagrass bed located off of Southern Great Abaco Island, The Bahamas (26.02610 N, 77.37408 W). 
+Fifteen 5 x 5 m plots were delineated in a continuous seagrass bed on June 9, 2013 by placing wooden stakes at the corners and center of each plot. 
+All plots were separated >2 m. All variables (see below) were measured once before the establishment of the treatments, and again at 1 and 12 months after the treatments were established. 
+After preliminary data were collected, each plot was randomly assigned to one of three treatments: control (n=5), structure (n=5), or sponge (n=5; Fig. S1). 
+Control plots were not manipulated.
+A polypropylene model of a sponge was placed inside a cage at the center of each structure plot.
+A single living sponge (*I. felix*, average volume ± standard deviation, 2.5 ± 0.75 L) was placed inside a cage in the center of each sponge plot.
+Live sponges were replaced as needed with a total of 3 individual sponge replacements, all occurring within the first month of the experiment.\par 
+
+## Community Structure Response Variables  
+The response of the fish and epibenthic macroinvertebrate communities were monitored throughout the course of the experiment. 
+The fish community was quantified by observing the plot for 5 minutes, all fish observed within the plot during the observation period were recorded. 
+For analysis small silvery pelagic fishes which form large schools (e.g. fishes in the families Atherinopsidae and Clupeidae) were excluded following @peters2015. 
+The macroinvertebrate community were quantified within a 3 m x 1 m band extending from the center of the plot. 
+All macroinvertebrates were identified to genus and recorded. 
+If identification was not possible in situ a representative sample was photographed and subsequently collected.\par 
+
+# Results  
+
+
+
+# Discussion  
+
+
+
+# Acknowledgements  
+We would like to thank Friends of the Environment (NGO, Abaco, The Bahamas), Diane Claridge and Charlotte Dunn for their logistical support, Erik Archer, Elizabeth Whitman, and Ryann Rossi for their assistance in the field, and Katie Lewia and Jillian Tucker for their assistance in the lab, and the reviewers for their help improving this manuscript. This work was supported by donations from Win and Tana Archer, North Carolina State University, and NSF OCE 1405198.\par
+
+  
+# References  
+<div id="refs"></div>  
+
+##### break  

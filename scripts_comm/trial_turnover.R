@@ -325,6 +325,7 @@ ispr.sum<-inv.uni%>%
 
 layout1<-c(
   area(t=1,b=2,l=1,r=1),
+#  area(t=1,b=1,l=10,r=10),
   area(t=1,b=1,l=2,r=9),
   area(t=2,b=2,l=2,r=9),
   area(t=3,b=6,l=1,r=5),
