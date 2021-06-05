@@ -149,6 +149,25 @@ ggplot(col.inv.turnover)+
 
 
 #### Make multipanel figure for paper ####
+# find animal images
+# http://phylopic.org/image/browse/
+# try Hyperprosopon argenteum for fish (http://phylopic.org/image/0b9cdf1f-ccbc-4922-8cf6-60f90d07107e/) and blue crab for inverts
+fishpng <- image_data("0b9cdf1f-ccbc-4922-8cf6-60f90d07107e", size = 256)[[1]]
+crabpng <- image_data("9958579e-5e63-4b7c-8e76-9b1a92d7f7ca", size = 256)[[1]]
+
+# tunicate options
+# Tunicata: http://phylopic.org/image/dbbf1325-10e5-4880-a27b-2d9afb5dc55c/
+# Ciona intestinalis: http://phylopic.org/name/534a6a2a-1bb7-4163-ab02-e2e69b6d045a
+# Ciona savignyi: http://phylopic.org/name/5288b025-0974-4bbd-8dd1-394748322559
+
+# # alternate fish: Prognathodes sp
+# fishpng <- image_data("8051e46b-c0b3-4e48-8640-3c84f105f107", size = 128)[[1]]
+
+clonalpng <- image_data("dbbf1325-10e5-4880-a27b-2d9afb5dc55c", size = 256)[[1]]
+
+# or use an image saved to our project folder 
+# library(png)
+# fishpng <- readPNG("scripts_comm/Hyperprosopon_argenteum.png")
 
 #### plot species richness vs time ####
 
@@ -234,25 +253,6 @@ l1 <- ggpubr::get_legend(ispr + theme(legend.position = c(0.9,0.9)))
 
 
 #### make turnover plots with animal shapes ####
-# find animal images
-# http://phylopic.org/image/browse/
-# try Hyperprosopon argenteum for fish (http://phylopic.org/image/0b9cdf1f-ccbc-4922-8cf6-60f90d07107e/) and blue crab for inverts
-fishpng <- image_data("0b9cdf1f-ccbc-4922-8cf6-60f90d07107e", size = 256)[[1]]
-crabpng <- image_data("9958579e-5e63-4b7c-8e76-9b1a92d7f7ca", size = 256)[[1]]
-
-# tunicate options
-# Tunicata: http://phylopic.org/image/dbbf1325-10e5-4880-a27b-2d9afb5dc55c/
-# Ciona intestinalis: http://phylopic.org/name/534a6a2a-1bb7-4163-ab02-e2e69b6d045a
-# Ciona savignyi: http://phylopic.org/name/5288b025-0974-4bbd-8dd1-394748322559
-
-# # alternate fish: Prognathodes sp
-# fishpng <- image_data("8051e46b-c0b3-4e48-8640-3c84f105f107", size = 128)[[1]]
-
-clonalpng <- image_data("dbbf1325-10e5-4880-a27b-2d9afb5dc55c", size = 256)[[1]]
-
-# or use an image saved to our project folder 
-# library(png)
-# fishpng <- readPNG("scripts_comm/Hyperprosopon_argenteum.png")
 
 fish.turnover$group <- "fish"
 inv.turnover$group <- "invert"
@@ -430,7 +430,7 @@ layout2b <- c(
 )
 
 cspr + l1 + p1c + p12c + l3 + plot_layout(design=layout2b)
-ggsave("figures/turnover-plots-tunicates2.png", width = 10, height = 9)
+ggsave("figures/turnover-plots-tunicates2.jpg", width = 10, height = 9)
 
 
 #### make combined plot for fish and inverts only ####
