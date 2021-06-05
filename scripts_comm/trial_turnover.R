@@ -204,6 +204,31 @@ ispr.sum<-inv.uni%>%
     ylab("")+
     xlab("Months into the Experiment"))
 
+cspr.sum<-col.inv.uni%>%
+  group_by(treatment,sampling)%>%
+  summarize(spr.m=mean(spr),
+    spr.sd=sd(spr))%>%
+  filter(sampling %in% c(0,1,12))
+
+(cspr<-ggplot()+
+    geom_point(data=col.inv.uni%>%filter(sampling %in% c(0,1,12)),
+      aes(x=as.factor(sampling),y=spr,color=treatment),alpha=.3,position=position_dodge(0.3))+
+    geom_point(data=cspr.sum,
+      aes(x=as.factor(sampling),y=spr.m,color=treatment),alpha=.7,size=5,position=position_dodge(0.3))+
+    geom_errorbar(data=cspr.sum,
+      aes(x=as.factor(sampling),ymin=spr.m-spr.sd,ymax=spr.m+spr.sd,color=treatment),alpha=.7,width=.3,position=position_dodge(0.3))+ 
+    scale_color_viridis_d(option="A", begin=0, end=0.6,name="Treatment",labels=c("Control","Structure","Sponge"))+
+    ggsidekick::theme_sleek(base_size = 16) +
+    theme(
+      axis.title.x = element_blank(),
+      # axis.title.y = element_blank(),
+      legend.position = "none"
+    )+
+    add_phylopic(crabpng,x=0.75,y=5,ysize = 3,alpha = 1)+
+    ylab("Species Richness")+
+    ggtitle("Months into the Experiment"))
+
+
 # make separate legend for placement using patchwork
 l1 <- ggpubr::get_legend(ispr + theme(legend.position = c(0.9,0.9)))
 
@@ -376,24 +401,36 @@ ldat3 <- filter(ldat, group== "fish") # manually convert legend to scale for tun
 ldat3$group <- "clonal"
 ldat3$spr <- c(0, round(max(col.inv.turnover$spr)/2)-1, round(quantile(col.inv.turnover$spr, 0.95)))
 ldat3$disappearance <- c(0.1, 0.1, 0.1)
-ldat3$appearance <- c(0.61, 0.68, 0.775)
+ldat3$appearance <- c(0.66, 0.72, 0.79)
 
 (l3 <- plot_png(ldat3, png_list = list(clonalpng), plot_treatments = F, 
   scal_fac = c(80), xlim = c(0.05, 0.25)) +
-    geom_text( aes( x=0.2, y=0.775, label= round(quantile(col.inv.turnover$spr, 0.95)))) +
-    geom_text( aes( x=0.2, y=0.68, label= round(max(col.inv.turnover$spr)/2)-1)) +
-    geom_text( aes( x=0.2, y=0.61, label= "0")) +
+    geom_text( aes( x=0.2, y=0.79, label= round(quantile(col.inv.turnover$spr, 0.95)))) +
+    geom_text( aes( x=0.2, y=0.72, label= round(max(col.inv.turnover$spr)/2)-1)) +
+    geom_text( aes( x=0.2, y=0.66, label= "0")) +
     theme_void()+ theme(plot.title = element_text(hjust = 0.5)) +
     ggtitle("Species Richness"))
 
-layout2 <- c(
-  area(t=1, b=14, l=1, r=6),
-  area(t=1, b=14, l=7, r=12),
-  area(t=2, b=14, l=4, r=6)
+# layout2 <- c(
+#   area(t=1, b=14, l=1, r=6),
+#   area(t=1, b=14, l=7, r=12),
+#   area(t=2, b=14, l=4, r=6)
+# )
+# plot(layout2)
+# p1c + p12c + l3 + plot_layout(design=layout2)
+# 
+# ggsave("figures/turnover-plots-tunicates.png", width = 11, height = 6)
+
+layout2b <- c(
+  area(t=1, b=7, l=1, r=9),
+  area(t=2, b=3, l=8, r=11),
+  area(t=8, b=21, l=1, r=6),
+  area(t=8, b=21, l=7, r=12),
+  area(t=4, b=18, l=10, r=12)
 )
-plot(layout2)
-p1c + p12c + l3 + plot_layout(design=layout2)
-ggsave("figures/turnover-plots-tunicates.png", width = 11, height = 6)
+
+cspr + l1 + p1c + p12c + l3 + plot_layout(design=layout2b)
+ggsave("figures/turnover-plots-tunicates2.png", width = 10, height = 9)
 
 
 #### make combined plot for fish and inverts only ####
