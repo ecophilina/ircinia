@@ -6,6 +6,7 @@ library(rphylopic)
 library(ggplot2)
 library(tidyverse)
 library(patchwork)
+library(grid)
 library(ggpubr)
 
 source("scripts_comm/02_community_data_org.R")
@@ -150,7 +151,7 @@ ggplot(col.inv.turnover)+
 # find animal images
 # http://phylopic.org/image/browse/
 # try Hyperprosopon argenteum for fish (http://phylopic.org/image/0b9cdf1f-ccbc-4922-8cf6-60f90d07107e/) and blue crab for inverts
-fishpng <- image_data("0b9cdf1f-ccbc-4922-8cf6-60f90d07107e", size = 128)[[1]]
+fishpng <- image_data("0b9cdf1f-ccbc-4922-8cf6-60f90d07107e", size = 256)[[1]]
 crabpng <- image_data("9958579e-5e63-4b7c-8e76-9b1a92d7f7ca", size = 256)[[1]]
 
 # tunicate options
@@ -178,6 +179,7 @@ col.inv.turnover$spr
 plot_png <- function(dat, 
                      png_list, # a list() with same num of images as groups, in same order as unique(dat$group)
                      png_group = "group", # variable that determines which image
+                     plot_treatments = T, 
                      x = "disappearance", 
                      y = "appearance",
                      xlim = c(-0.03, 0.8),
@@ -193,10 +195,11 @@ plot_png <- function(dat,
     geom_blank() + 
     coord_fixed(xlim = xlim, ylim = ylim) +
     xlab(x) + ylab(y) +
-    ggsidekick::theme_sleek(base_size = 18)
+    ggsidekick::theme_sleek(base_size = 16)
   
 # loop over groups to get different png images
 for (i in 1:length(unique(dat$group))) {
+  if(plot_treatments){
   d <- filter(dat, treatment == "real" & group == unique(dat$group)[i]) 
   for (j in 1:nrow(d)) {
     p <- p + add_phylopic(png_list[[i]], alpha,
@@ -213,13 +216,22 @@ for (i in 1:length(unique(dat$group))) {
       ysize = (d$spr[j] + 2) / scal_fac[i]
     )
   }
+  }
   d <- filter(dat, treatment == "blank" & group == unique(dat$group)[i])
   for (j in 1:nrow(d)) {
+    if(plot_treatments){
     p <- p + add_phylopic(png_list[[i]], alpha,
       d$x[j]+runif(1, -0.02, 0.02), d$y[j]+runif(1, -0.02, 0.02),
       col = "black",
       ysize = (d$spr[j] + 2) / scal_fac[i]
     )
+    } else{
+      p <- p + add_phylopic(png_list[[i]], alpha,
+        d$x[j], d$y[j],
+        col = "black",
+        ysize = (d$spr[j] + 2) / scal_fac[i]
+      )
+    }
   }
 }
   p 
@@ -234,30 +246,57 @@ png_list <- list(crabpng, fishpng)
 
 # each jitter is random, so just rerun plot code if points are falling on edge of plot area
 (p1 <- plot_png(filter(turnoverdat, sampling == 1), png_list, scal_fac = c(70, 100)) +
-    ylab("Proportion of Species Gained") + 
-    xlab("Proportion of Species Lost") +
+    ylab("Proportion of Species Gained") + xlab("Proportion of Species Lost") +
+    theme(axis.title.x = element_blank(),axis.title.y = element_blank()) +
     theme(plot.title=element_text(hjust=0.5))+
     ggtitle("1 month"))
 
 (p12 <- plot_png(filter(turnoverdat, sampling == 12), png_list, scal_fac = c(70, 100)) + 
-    ylab("") + 
-    xlab("Proportion of Species Lost") +
-    theme(axis.text.y = element_blank(), axis.title.y = element_blank()) + 
+    # ylab("") +  xlab("Proportion of Species Lost") +
+    theme(axis.title.x = element_blank(), axis.text.y = element_blank(), 
+      axis.title.y = element_blank()) + 
     theme(plot.title=element_text(hjust=0.5))+
     ggtitle("12 months"))
 
 p1 + p12 + plot_layout(widths=c(1,1))
 
-ggsave("turnover-plots.png", width = 10, height = 6)
+ldatmin <-  turnoverdat %>% #filter(treatment == "blank") %>%
+  select(group, treatment, disappearance, appearance, spr) %>%   
+  mutate(disappearance = ifelse(group=="fish", 0.15, 0.44), appearance = 0.5, spr = 1) %>%
+  distinct()
+ldatmid <-  turnoverdat %>% #filter(treatment == "blank") %>%
+  select(group, treatment, disappearance, appearance, spr) %>%   
+  mutate(disappearance = ifelse(group=="fish", 0.15, 0.44), appearance = 0.625, spr = 3)%>%
+  distinct()
+ldatmax <-  turnoverdat %>% #filter(treatment == "blank") %>%
+  select(group, treatment, disappearance, appearance, spr) %>%   
+  mutate(disappearance = ifelse(group=="fish", 0.15, 0.44), appearance = 0.75, spr = max(spr))%>%
+  distinct()
+
+ldat <- bind_rows(ldatmin, ldatmid, ldatmax)
+
+(l2 <- plot_png(ldat, png_list, plot_treatments = F, scal_fac = c(70, 100), xlim = c(0.05, 0.5)) + 
+    geom_text( aes( x=0.3, y=0.75, label= "7")) +
+    geom_text( aes( x=0.3, y=0.625, label= "3")) +
+    geom_text( aes( x=0.3, y=0.5, label= "1")) +
+    theme_void()+ theme(plot.title = element_text(hjust = 0.5)) +
+    ggtitle("Species richness"))
+
+#
+
+
+# ggsave("turnover-plots.png", width = 10, height = 6)
 
 
 # since tunicates show a different pattern, I'm putting them on different panels
 (p1c <- plot_png(filter(col.inv.turnover, sampling == 1), png_list = list(clonalpng), scal_fac = c(80)) +
-    ylab("Proportion of Species Gained") + xlab("Proportion of Species Lost")+ 
+    ylab("Proportion of Species Gained") + xlab("Proportion of Species Lost")+
+    # theme(axis.title.x = element_blank(),axis.title.y = element_blank()) +
     ggtitle("1 month into experiment"))
 
 (p12c <- plot_png(filter(col.inv.turnover, sampling == 12), png_list = list(clonalpng), scal_fac = c(80)) + 
-    ylab("") + xlab("Proportion of Species Lost") + 
+    ylab("") + xlab("Proportion of Species Lost") +
+    # theme(axis.title.x = element_blank(),axis.title.y = element_blank()) +
     ggtitle("12 months into experiment") + 
     theme(axis.text.y = element_blank()))
 
@@ -280,7 +319,6 @@ ggsave("turnover-plots-tunicates.png", width = 10, height = 6)
     ggsidekick::theme_sleek(base_size = 18)
 )
 
-leg <- ggpubr::get_legend(p0 + theme(legend.position = c(0.9,0.9)))
 
 # make the species richness v time 
 
@@ -297,43 +335,74 @@ ispr.sum<-inv.uni%>%
   filter(sampling %in% c(0,1,12))
 
 (fspr<-ggplot()+
-  geom_point(data=fish.uni%>%filter(sampling %in% c(0,1,12)),aes(x=as.factor(sampling),y=spr,color=treatment),alpha=.3,position=position_dodge(0.3))+
-  geom_point(data=fspr.sum,aes(x=as.factor(sampling),y=spr.m,color=treatment),alpha=.7,size=5,position=position_dodge(0.3))+
-  geom_errorbar(data=fspr.sum,aes(x=as.factor(sampling),ymin=spr.m-spr.sd,ymax=spr.m+spr.sd,color=treatment),alpha=.7,width=.3,position=position_dodge(0.3))+ 
+  geom_point(data=fish.uni%>%filter(sampling %in% c(0,1,12)),
+    aes(x=as.factor(sampling),y=spr,color=treatment),alpha=.3,position=position_dodge(0.3))+
+  geom_point(data=fspr.sum,
+    aes(x=as.factor(sampling),y=spr.m,color=treatment),alpha=.7,size=5,position=position_dodge(0.3))+
+  geom_errorbar(data=fspr.sum,
+    aes(x=as.factor(sampling),ymin=spr.m-spr.sd,ymax=spr.m+spr.sd,color=treatment),alpha=.7,width=.3,position=position_dodge(0.3))+ 
   scale_color_viridis_d(option="A", begin=0, end=0.6,name="Treatment",labels=c("Control","Structure","Sponge"))+
-  theme_bw()+
-  theme(panel.grid = element_blank(),
-        plot.margin=margin(t=5,r=1,b=1,l=5),
+  # theme_bw()+
+    ggsidekick::theme_sleek(base_size = 16) +
+    theme(
+      axis.title.x = element_blank(), axis.title.y = element_blank(),
+      legend.position = "none",
+        # panel.grid = element_blank(),
+        # plot.margin=margin(t=5,r=1,b=1,l=5),
+       axis.ticks.x = element_blank(),
         axis.text.x = element_blank())+
-  add_phylopic(fishpng,x=.5,y=4,ysize = 2,alpha=1)+
-#  ggtitle("Fish")+
-  ylab("")+
-  xlab(""))
+  add_phylopic(fishpng,x=.75,y=5,ysize = 1.5,alpha=1)+
+ ggtitle("Months into the Experiment"))
 
 (ispr<-ggplot()+
-    geom_point(data=inv.uni%>%filter(sampling %in% c(0,1,12)),aes(x=as.factor(sampling),y=spr,color=treatment),alpha=.3,position=position_dodge(0.3))+
-    geom_point(data=ispr.sum,aes(x=as.factor(sampling),y=spr.m,color=treatment),alpha=.7,size=5,position=position_dodge(0.3))+
-    geom_errorbar(data=ispr.sum,aes(x=as.factor(sampling),ymin=spr.m-spr.sd,ymax=spr.m+spr.sd,color=treatment),alpha=.7,width=.3,position=position_dodge(0.3))+ 
+    geom_point(data=inv.uni%>%filter(sampling %in% c(0,1,12)),
+      aes(x=as.factor(sampling),y=spr,color=treatment),alpha=.3,position=position_dodge(0.3))+
+    geom_point(data=ispr.sum,
+      aes(x=as.factor(sampling),y=spr.m,color=treatment),alpha=.7,size=5,position=position_dodge(0.3))+
+    geom_errorbar(data=ispr.sum,
+      aes(x=as.factor(sampling),ymin=spr.m-spr.sd,ymax=spr.m+spr.sd,color=treatment),alpha=.7,width=.3,position=position_dodge(0.3))+ 
     scale_color_viridis_d(option="A", begin=0, end=0.6,name="Treatment",labels=c("Control","Structure","Sponge"))+
-    theme_bw()+
-    theme(panel.grid = element_blank(),
-          plot.margin=margin(t=1,r=1,b=5,l=5))+
-    add_phylopic(crabpng,x=.5,y=5,ysize = 3,alpha = 1)+
+    # theme_bw()+
+    ggsidekick::theme_sleek(base_size = 16) +
+    theme(axis.title.x = element_blank(),axis.title.y = element_blank(),
+      legend.position = "none",
+      # panel.grid = element_blank(),
+      # plot.margin=margin(t=1,r=1,b=5,l=5)
+      )+
+    add_phylopic(crabpng,x=0.75,y=5,ysize = 3,alpha = 1)+
 #    ggtitle("Invertebrates")+
     ylab("")+
     xlab("Months into the Experiment"))
 
+leg <- ggpubr::get_legend(ispr + theme(legend.position = c(0.9,0.9)))
+
+
+
 layout1<-c(
-  area(t=1,b=2,l=1,r=1),
-#  area(t=1,b=1,l=10,r=10),
-  area(t=1,b=1,l=2,r=9),
-  area(t=2,b=2,l=2,r=9),
-  area(t=3,b=6,l=1,r=5),
-  area(t=3,b=6,l=6,r=10))
+  area(t=2,b=5,l=1,r=1),
+  
+  area(t=1,b=3,l=2,r=5),
+  area(t=4,b=6,l=2,r=5),
+  
+  area(t=7,b=11,l=1,r=1),
+  # turnover plots
+  area(t=7,b=11,l=2,r=4),
+  area(t=7,b=11,l=5,r=7),
+  
+  area(t=2,b=3,l=6,r=6),
+  area(t=5,b=7,l=6,r=7),
+  area(t=12,b=12,l=2,r=7)
+  )
 
 plot(layout1)
 
-wrap_elements(grid::textGrob("Species Richness",rot=90,gp=gpar(fontsize=14)))+fspr+ispr+
-  p1+p12+plot_layout(design=layout1,guides="collect")
+wrap_elements(grid::textGrob("Species Richness",rot=90,vjust =2,gp=gpar(fontsize=16)))+
+  fspr+ispr+
+  wrap_elements(grid::textGrob("Proportion Gained",rot=90,vjust =2,gp=gpar(fontsize=16)))+
+  p1+p12+
+  leg + l2+ 
+  wrap_elements(grid::textGrob("Proportion Lost",vjust =0,gp=gpar(fontsize=16)))+
+  plot_layout(design=layout1)
 
-ggsave("figures/Species_Richness_Turnover.jpg",dpi=300,width=10,height=6)
+ggsave("figures/Species_Richness_Turnover.jpg",dpi=300,width=8,height=9.5)
+
