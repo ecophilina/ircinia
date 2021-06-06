@@ -9,6 +9,12 @@ library(ggpubr)
 
 source("scripts_comm/02_community_data_org.R")
 
+# load animal shapes
+fishpng <- image_data("0b9cdf1f-ccbc-4922-8cf6-60f90d07107e", size = 256)[[1]]
+crabpng <- image_data("9958579e-5e63-4b7c-8e76-9b1a92d7f7ca", size = 256)[[1]]
+clonalpng <- image_data("dbbf1325-10e5-4880-a27b-2d9afb5dc55c", size = 256)[[1]]
+
+
 # Fish 
 
 # subset down to only 0 and 12 month sampling data to start
@@ -278,12 +284,7 @@ col.inv.segments<-left_join(col.inv.env4,col.inv.mid)
     scale_color_viridis_d(option="A", begin=0, end=0.6,name="Treatment",labels=c("Control","Structure","Sponge"))+
     scale_shape_discrete(name = "Sampling"))
 
-fishpng <- image_data("0b9cdf1f-ccbc-4922-8cf6-60f90d07107e", size = 128)[[1]]
-crabpng <- image_data("9958579e-5e63-4b7c-8e76-9b1a92d7f7ca", size = 256)[[1]]
-clonalpng <- image_data("dbbf1325-10e5-4880-a27b-2d9afb5dc55c", size = 256)[[1]]
-
-
-fish.vplot / inv.plot / col.inv.plot +plot_layout(guides="collect")
+fish.vplot / inv.plot / col.inv.plot + plot_layout(guides="collect")
 
 ggsave("figures/community_vector_plots.jpg",dpi=300,width=4,height=9)
 
