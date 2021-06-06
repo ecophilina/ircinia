@@ -4,10 +4,10 @@
 library(codyn)
 library(rphylopic)
 library(ggplot2)
-library(tidyverse)
 library(patchwork)
 library(grid)
 library(ggpubr)
+library(tidyverse)
 
 source("scripts_comm/02_community_data_org.R")
 
@@ -190,7 +190,7 @@ ispr.sum<-inv.uni%>%
       aes(x=as.factor(sampling),y=spr.m,color=treatment),alpha=.7,size=5,position=position_dodge(0.3))+
     geom_errorbar(data=fspr.sum,
       aes(x=as.factor(sampling),ymin=spr.m-spr.sd,ymax=spr.m+spr.sd,color=treatment),alpha=.7,width=.3,position=position_dodge(0.3))+ 
-    scale_color_viridis_d(option="A", begin=0, end=0.6,name="Treatment",labels=c("Control","Structure","Sponge"))+
+    scale_color_viridis_d(option="A", begin=0, end=0.65,name="Treatment",labels=c("Control","Structure","Sponge"))+
     # theme_bw()+
     ggsidekick::theme_sleek(base_size = 16) +
     theme(
@@ -210,7 +210,7 @@ ispr.sum<-inv.uni%>%
       aes(x=as.factor(sampling),y=spr.m,color=treatment),alpha=.7,size=5,position=position_dodge(0.3))+
     geom_errorbar(data=ispr.sum,
       aes(x=as.factor(sampling),ymin=spr.m-spr.sd,ymax=spr.m+spr.sd,color=treatment),alpha=.7,width=.3,position=position_dodge(0.3))+ 
-    scale_color_viridis_d(option="A", begin=0, end=0.6,name="Treatment",labels=c("Control","Structure","Sponge"))+
+    scale_color_viridis_d(option="A", begin=0, end=0.65,name="Treatment",labels=c("Control","Structure","Sponge"))+
     # theme_bw()+
     ggsidekick::theme_sleek(base_size = 16) +
     theme(axis.title.x = element_blank(),axis.title.y = element_blank(),
@@ -236,7 +236,7 @@ cspr.sum<-col.inv.uni%>%
       aes(x=as.factor(sampling),y=spr.m,color=treatment),alpha=.7,size=5,position=position_dodge(0.3))+
     geom_errorbar(data=cspr.sum,
       aes(x=as.factor(sampling),ymin=spr.m-spr.sd,ymax=spr.m+spr.sd,color=treatment),alpha=.7,width=.3,position=position_dodge(0.3))+ 
-    scale_color_viridis_d(option="A", begin=0, end=0.6,name="Treatment",labels=c("Control","Structure","Sponge"))+
+    scale_color_viridis_d(option="A", begin=0, end=0.65,name="Treatment",labels=c("Control","Structure","Sponge"))+
     ggsidekick::theme_sleek(base_size = 16) +
     theme(
       axis.title.x = element_blank(),

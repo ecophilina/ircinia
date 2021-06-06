@@ -89,7 +89,7 @@ circ <- circleFun(center = c(0, 0), diameter = 2, npoints = 500)
         axis.ticks = element_blank(),
         line = element_blank(),
         panel.border = element_blank())+
-  scale_color_viridis_d(option="A", begin=0, end=0.6,name="Treatment",labels=c("Control","Structure","Sponge"))+
+  scale_color_viridis_d(option="A", begin=0, end=0.65,name="Treatment",labels=c("Control","Structure","Sponge"))+
     scale_size_discrete(range=c(1,1.75),name = "Number of Plots")+
     scale_alpha_continuous(range=c(0.75,1),guide=FALSE)+
 #  geom_text(aes(x=-1,y=1),label="a",size=10)+
@@ -109,7 +109,7 @@ fish.segments<-left_join(fish.env4,fish.mid)
     geom_segment(aes(x=start.x,y=start.y,xend=end.x,yend=end.y,color=treatment),data=fish.segments,arrow = arrow(length = unit(0.3, "cm")))+
     theme_bw()+
     theme(panel.grid = element_blank())+
-    scale_color_viridis_d(option="A", begin=0, end=0.6,name="Treatment",labels=c("Control","Structure","Sponge"))+
+    scale_color_viridis_d(option="A", begin=0, end=0.65,name="Treatment",labels=c("Control","Structure","Sponge"))+
     scale_shape_discrete(name = "Sampling"))
 
 
@@ -177,7 +177,7 @@ summary(inv.angle.aov)
         line = element_blank(),
         panel.border = element_blank(),
         legend.position = "none")+
-  scale_color_viridis_d(option="A", begin=0, end=0.6)+
+  scale_color_viridis_d(option="A", begin=0, end=0.65)+
 #  geom_text(aes(x=-1,y=1),label="b",size=10)+
     add_phylopic(crabpng,x=-.8,y=.9,ysize=.45,alpha=1))
 
@@ -195,7 +195,7 @@ inv.segments<-left_join(inv.env4,inv.mid)
     geom_segment(aes(x=start.x,y=start.y,xend=end.x,yend=end.y,color=treatment),data=inv.segments,arrow = arrow(length = unit(0.3, "cm")))+
     theme_bw()+
     theme(panel.grid = element_blank())+
-    scale_color_viridis_d(option="A", begin=0, end=0.6,name="Treatment",labels=c("Control","Structure","Sponge"))+
+    scale_color_viridis_d(option="A", begin=0, end=0.65,name="Treatment",labels=c("Control","Structure","Sponge"))+
     scale_shape_discrete(name = "Sampling"))
 
 
@@ -261,7 +261,7 @@ summary(col.inv.angle.aov)
           line = element_blank(),
           panel.border = element_blank(),
           legend.position = "none")+
-    scale_color_viridis_d(option="A", begin=0, end=0.6)+
+    scale_color_viridis_d(option="A", begin=0, end=0.65)+
     scale_size_continuous(range=c(1,1.75))+
     scale_alpha_continuous(range=c(0.75,1))+
 #    geom_text(aes(x=-1,y=1),label="c",size=10)+
@@ -281,7 +281,7 @@ col.inv.segments<-left_join(col.inv.env4,col.inv.mid)
     geom_segment(aes(x=start.x,y=start.y,xend=end.x,yend=end.y,color=treatment),data=col.inv.segments,arrow = arrow(length = unit(0.3, "cm")))+
     theme_bw()+
     theme(panel.grid = element_blank())+
-    scale_color_viridis_d(option="A", begin=0, end=0.6,name="Treatment",labels=c("Control","Structure","Sponge"))+
+    scale_color_viridis_d(option="A", begin=0, end=0.65,name="Treatment",labels=c("Control","Structure","Sponge"))+
     scale_shape_discrete(name = "Sampling"))
 
 fish.vplot / inv.plot / col.inv.plot + plot_layout(guides="collect")
