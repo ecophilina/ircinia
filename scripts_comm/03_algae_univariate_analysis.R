@@ -102,9 +102,7 @@ alg.pr<-ggeffects::ggpredict(aspr.glmm,terms=c("treatment","sampling"))%>%
   mutate(sampling=as.numeric(sampling),
          sampling=case_when(
            sampling==1~1,
-           sampling==2~5,
-           sampling==3~12,
-           sampling==4~17))
+           sampling==2~12))
 
 alg.pr$treatment<-factor(alg.pr$treatment,levels=c("blank","fake","real"),labels=c("Control","Structure Control","Sponge"))
 
@@ -121,7 +119,8 @@ alg.plot<-alg.uni2%>%
             mcj=mean(change.j),
             sdj=sd(change.j),
             sej=sdj/sqrt(5),
-            j95=sej*1.96)
+            j95=sej*1.96)%>%
+  filter(sampling %in% c(1,12))
 
 alg.plot$treatment<-factor(alg.plot$treatment,levels=c("blank","fake","real"),labels=c("Control","Structure Control","Sponge"))
 
@@ -131,9 +130,9 @@ ggplot(alg.plot)+
   geom_point(aes(x=sampling,y=mcspr,color=treatment),size=5,position=position_dodge(0.5))+
   geom_errorbar(aes(x=sampling,ymax=mcspr+spr95,ymin=mcspr-spr95,color=treatment),width=.4,position=position_dodge(0.5))+
   geom_line(data=alg.pr,aes(x=sampling,y=predicted,group=treatment,color=treatment))+
-  geom_ribbon(data = alg.pr, 
-              aes(sampling,ymin = conf.low, ymax = conf.high,
-                  group = treatment, fill = treatment), alpha = 0.2)+
+  # geom_ribbon(data = alg.pr, 
+  #             aes(sampling,ymin = conf.low, ymax = conf.high,
+  #                 group = treatment, fill = treatment), alpha = 0.2)+
   scale_color_viridis_d(name="", option="A",end=0.6)+
   scale_fill_viridis_d(name="", option="A",end=0.6)+
   theme_bw()+
@@ -149,11 +148,9 @@ ggsave("figures/algae_taxa_richness.jpg",dpi=300)
 alg.j<-ggeffects::ggpredict(aj.glmm,terms=c("treatment","sampling"))%>%
   rename(treatment=x,sampling=group)%>%
   mutate(sampling=as.numeric(sampling),
-         sampling=case_when(
-           sampling==1~1,
-           sampling==2~5,
-           sampling==3~12,
-           sampling==4~17))
+    sampling=case_when(
+      sampling==1~1,
+      sampling==2~12))
 
 alg.j$treatment<-factor(alg.j$treatment,levels=c("blank","fake","real"),labels=c("Control","Structure Control","Sponge"))
 
@@ -162,9 +159,9 @@ ggplot(alg.plot)+
   geom_point(aes(x=sampling,y=mcj,color=treatment),size=5,position=position_dodge(0.5))+
   geom_errorbar(aes(x=sampling,ymax=mcj +j95,ymin=mcj-j95,color=treatment),width=.4,position=position_dodge(0.5))+
   geom_line(data=alg.j,aes(x=sampling,y=predicted,group=treatment,color=treatment))+
-  geom_ribbon(data = alg.j, 
-              aes(sampling,ymin = conf.low, ymax = conf.high,
-                  group = treatment, fill = treatment), alpha = 0.2)+
+  # geom_ribbon(data = alg.j,
+  #             aes(sampling,ymin = conf.low, ymax = conf.high,
+  #                 group = treatment, fill = treatment), alpha = 0.2)+
   scale_color_viridis_d(name="", option="A",end=0.6)+
   scale_fill_viridis_d(name="", option="A",end=0.6)+
   theme_bw()+
@@ -179,11 +176,9 @@ ggsave("figures/algae_taxa_evenness.jpg",dpi=300)
 alg.div<-ggeffects::ggpredict(adiv.glmm,terms=c("treatment","sampling"))%>%
   rename(treatment=x,sampling=group)%>%
   mutate(sampling=as.numeric(sampling),
-         sampling=case_when(
-           sampling==1~1,
-           sampling==2~5,
-           sampling==3~12,
-           sampling==4~17))
+    sampling=case_when(
+      sampling==1~1,
+      sampling==2~12))
 
 alg.div$treatment<-factor(alg.div$treatment,levels=c("blank","fake","real"),labels=c("Control","Structure Control","Sponge"))
 
@@ -192,9 +187,9 @@ ggplot(alg.plot)+
   geom_point(aes(x=sampling,y=mcdiv,color=treatment),size=5,position=position_dodge(0.5))+
   geom_errorbar(aes(x=sampling,ymax=mcdiv +div95,ymin=mcdiv-div95,color=treatment),width=.4,position=position_dodge(0.5))+
   geom_line(data=alg.div,aes(x=sampling,y=predicted,group=treatment,color=treatment))+
-  geom_ribbon(data = alg.div, 
-              aes(sampling,ymin = conf.low, ymax = conf.high,
-                  group = treatment, fill = treatment), alpha = 0.2)+
+  # geom_ribbon(data = alg.div, 
+  #             aes(sampling,ymin = conf.low, ymax = conf.high,
+  #                 group = treatment, fill = treatment), alpha = 0.2)+
   scale_color_viridis_d(name="", option="A",end=0.6)+
   scale_fill_viridis_d(name="", option="A",end=0.6)+
   theme_bw()+
