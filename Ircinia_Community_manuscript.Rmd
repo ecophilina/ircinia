@@ -50,6 +50,21 @@ If identification was not possible in situ a representative sample was photograp
 # Results  
 
 
+\newpage
+
+```{r turnover-plots, fig.align='center', out.width="85%", echo=FALSE, message=FALSE, fig.cap="Change in species richness (A) and the components of species turnover (B) for fish (upper panel of A and fish shapes in B) and non-clonal invertebrates (lower panel of A and crab shapes in B) from start of experiment to the first experimental sample (1 month into experiment and left panel of B), and between that first experimental sample and one year later (12 months into experiment and right panel of B)."}
+
+knitr::include_graphics("figures/Species_Richness_Turnover_A_B.jpg")
+```
+
+\newpage
+
+```{r vector-plots, fig.align='center', out.width="85%", echo=FALSE, message=FALSE, fig.cap="NEEDS CAPTION"}
+
+knitr::include_graphics("figures/community_vector_plots.jpg")
+```
+
+\newpage
 
 # Discussion  
 
@@ -61,5 +76,26 @@ We would like to thank Friends of the Environment (NGO, Abaco, The Bahamas), Dia
   
 # References  
 <div id="refs"></div>  
+
+\newpage
+
+***This can be split off later.***
+
+# Supplementary Materials 
+
+```{r expdes, echo=FALSE, fig.align='center', out.width="85%", message=FALSE, warning=FALSE}
+knitr::include_graphics("figures/Experimental design.pdf")
+
+```
+  
+Figure S1. Experimental design and sampling scheme  
+***This probably needs modifying (or remaking?) to include only summer sampling periods, the plots with their assigned treatment, and the outline of the total area in which inverts, algae, and sea grass density were sampled. Also, we may want to remove the notes about fish and inverts from the version of this to go in the productivity manuscript.***
+
+```{r turnover-clonal, echo=FALSE, fig.align='center', out.width="95%", message=FALSE, warning=FALSE}
+
+knitr::include_graphics("figures/turnover-plots-tunicates2.jpg")
+```
+
+Figure S2. Change in clonal invertebrate species richness and the components of species turnover from start of experiment to the first experimental sample (1 month into experiment), and between that first experimental sample and one year later (12 months into experiment). All species encountered were tunicates.   
 
 ##### break  
