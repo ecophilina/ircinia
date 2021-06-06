@@ -59,7 +59,7 @@ knitr::include_graphics("figures/Species_Richness_Turnover_A_B.jpg")
 
 \newpage
 
-```{r vector-plots, fig.align='center', out.width="85%", echo=FALSE, message=FALSE, fig.cap="NEEDS CAPTION"}
+```{r vector-plots, fig.align='center', out.width="55%", echo=FALSE, message=FALSE, fig.cap="NEEDS CAPTION"}
 
 knitr::include_graphics("figures/community_vector_plots.jpg")
 ```
@@ -83,7 +83,7 @@ We would like to thank Friends of the Environment (NGO, Abaco, The Bahamas), Dia
 
 # Supplementary Materials 
 
-```{r expdes, echo=FALSE, fig.align='center', out.width="85%", message=FALSE, warning=FALSE}
+```{r expdes, echo=FALSE, fig.align='center', out.width="95%", message=FALSE, warning=FALSE}
 knitr::include_graphics("figures/Experimental design.pdf")
 
 ```
