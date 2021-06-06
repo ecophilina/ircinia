@@ -296,9 +296,99 @@ fspr.treat.b <- glmmTMB(spr ~ treatment * as.factor(sampling) +
 summary(fspr.treat.f)
 summary(fspr.treat.b)
 
-
 # algae isn't sig. so we can conclude that it's inclusion is spurious
 summary(fspr.treat.alg)
+
+
+
+## equally supported model with non-sig effect of algae; it's pretty messy
+f.alg.pr<-ggeffects::ggpredict(fspr.treat.alg,terms=c("a.abund.c", "sampling", "treatment"))%>%
+  filter(group == 12) %>% # plotting prediction for 12 months in
+  mutate(treatment = factor(facet,
+    levels = c("blank", "fake", "real"),
+    labels = c("Control", "Structure", "Sponge")))
+f.alg.pr$x <- (f.alg.pr$x * fish.uni$abund.global.sd[1]*2 )+ fish.uni$a.abund.global[1]
+
+ggplot(data = fish.uni %>% filter(season == "summer") %>% 
+    mutate(treatment = factor(treatment, 
+      levels = c("blank", "fake", "real"), 
+      labels = c("Control", "Structure", "Sponge")))) + 
+  geom_ribbon(data = f.alg.pr,
+    aes(x, ymin = conf.low, ymax = conf.high
+      , fill = treatment
+      ), alpha = 0.2)+
+  geom_jitter(aes(a.abund, spr, colour = treatment, alpha = as.factor(sampling)), 
+    width = 0.3, height = 0.1, size = 2.5) + 
+  geom_line(data=f.alg.pr,aes(x=x,y=predicted, colour = treatment))+
+  scale_alpha_discrete(range = c(0.3,1), name = "Months") + 
+  scale_color_viridis_d(option="A", begin=0, end=0.65,"")+
+  scale_fill_viridis_d(option="A", begin=0, end=0.65,"")+
+  xlab("Algae Abundance") +
+  ylab("Fish Species Richness") +
+  # coord_cartesian(expand = F, xlim = c(-0.1,35.35)) +
+  coord_cartesian(expand = F, ylim = c(-0.1,7.5), xlim = c(-0.1,35.35)) +
+  ggsidekick::theme_sleek()
+
+ggsave("figures/fish_spr_by_algae.jpg", width = 5, height = 3)
+# 
+### same thing for other well supported model with sg density
+f.struct.pr<-ggeffects::ggpredict(fspr.treat.struct,terms=c("sg.sd.c", "sampling", "treatment"))%>%
+  filter(group == 12) %>% # plotting prediction for 12 months in
+  mutate(treatment = factor(facet,
+    levels = c("blank", "fake", "real"),
+    labels = c("Control", "Structure", "Sponge")))
+f.struct.pr$x <- (f.struct.pr$x * fish.uni$sg.sd.global.sd[1]*2 )+ fish.uni$sg.sd.global[1]
+
+ggplot(data = fish.uni %>% filter(season == "summer") %>% 
+    mutate(treatment = factor(treatment, 
+      levels = c("blank", "fake", "real"), 
+      labels = c("Control", "Structure", "Sponge")))) + 
+  geom_ribbon(data = f.struct.pr,
+    aes(x, ymin = conf.low, ymax = conf.high
+      , fill = treatment
+    ), alpha = 0.2)+
+  geom_jitter(aes(sg.sd, spr, colour = treatment, alpha = as.factor(sampling)), 
+    width = 0.3, height = 0.1, size = 2.5) + 
+  geom_line(data=f.struct.pr,aes(x=x,y=predicted, colour = treatment))+
+  scale_alpha_discrete(range = c(0.3,1), name = "Months") + 
+  scale_color_viridis_d(option="A", begin=0, end=0.65,"")+
+  scale_fill_viridis_d(option="A", begin=0, end=0.65,"")+
+  xlab("Seagrass Density") +
+  ylab("Fish Species Richness") +
+  coord_cartesian(expand = F) +
+  # coord_cartesian(expand = F, ylim = c(-0.1,7.5), xlim = c(-0.1,35.35)) +
+  ggsidekick::theme_sleek()
+
+ggsave("figures/fish_spr_by_sgsd.jpg", width = 5, height = 3)
+
+
+## probably not interesting but for comparison with invert one and less busy
+alg.pr<-ggeffects::ggpredict(fspr.alg,terms=c("a.abund.c", "sampling"))%>%
+  filter(group == 12)  # plotting prediction for 12 months in
+alg.pr$x <- (alg.pr$x * fish.uni$abund.global.sd[1]*2 )+ fish.uni$a.abund.global[1]
+
+ggplot(data = fish.uni %>% filter(season == "summer") %>% 
+    mutate(treatment = factor(treatment, 
+      levels = c("blank", "fake", "real"), 
+      labels = c("Control", "Structure", "Sponge")))) + 
+  geom_ribbon(data = alg.pr,
+    aes(x, ymin = conf.low, ymax = conf.high
+      # , fill = treatment
+    ), alpha = 0.2)+
+  geom_jitter(aes(a.abund, spr, colour = treatment, alpha = as.factor(sampling)), 
+    width = 0.3, height = 0.1, size = 2.5) + 
+  # geom_line(data=alg.pr,aes(x=x,y=predicted, colour = treatment))+
+  geom_line(data=alg.pr,aes(x=x,y=predicted))+
+  scale_alpha_discrete(range = c(0.3,1), name = "Months") + 
+  scale_color_viridis_d(option="A", begin=0, end=0.65,"")+
+  scale_fill_viridis_d(option="A", begin=0, end=0.65,"")+
+  xlab("Algae Abundance") +
+  ylab("Fish Species Richness") +
+  # coord_cartesian(expand = F, xlim = c(-0.1,35.35)) +
+  coord_cartesian(expand = F, ylim = c(-0.1,7.5), xlim = c(-0.1,35.35)) +
+  ggsidekick::theme_sleek()
+
+ggsave("figures/fish_spr_by_algae2.jpg", width = 5, height = 3)
 
 
 # now do model selection for abundance

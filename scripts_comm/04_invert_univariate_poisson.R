@@ -168,7 +168,6 @@ ispr.prod.alg <- glmmTMB(spr ~ as.factor(sampling)  +
 
 # plot(sg.prod.c~sg.sd.c, data = inv.uni %>% filter(season == "summer") %>% mutate(treatment = relevel(treatment, ref = "real")) )
 
-
 ispr.prod.struct <- glmmTMB(spr ~ as.factor(sampling)  +
       sg.sd.c + sg.prod.c + (1 | plot),
   family = compois(link = "log"),
@@ -277,23 +276,37 @@ summary(ispr.treat)
 summary(ispr.alg)
 
 
-# treatment is delta 4.42 AIC worse, this appears to be because sampling*treatment is highly correlated with algae abundance but takes up way more degrees of freedom! 
+# treatment is less than 2 delta AIC better than the algae model, this suggest that algae 
+#algal abundance model for richness
+ispr.alg2 <- glmmTMB(spr ~ a.abund.c + 
+    (1 | plot),
+  family = compois(link = "log"),
+  data = inv.uni %>%
+    filter(season == "summer") %>%
+    mutate(treatment = relevel(treatment, ref = "real")))
+summary(ispr.alg2)
+
+# make dataset for plots
+alg.pr<-ggeffects::ggpredict(ispr.alg,terms=c("a.abund.c", "sampling"))%>%
+  filter(group == 12)
+alg.pr$x <- (alg.pr$x * inv.uni$abund.global.sd[1]*2 )+ inv.uni$a.abund.global[1]
 
 ggplot(data = inv.uni %>% filter(season == "summer") %>% 
     mutate(treatment = factor(treatment, 
       levels = c("blank", "fake", "real"), 
-      labels = c("Control", "Structure Control", "Sponge")))) + 
+      labels = c("Control", "Structure", "Sponge")))) + 
+  geom_ribbon(data = alg.pr,
+              aes(x , ymin = conf.low, ymax = conf.high), alpha = 0.2)+
   geom_jitter(aes(a.abund, spr, colour = treatment, alpha = as.factor(sampling)), 
-    width = 0.2, height = 0.2, size = 2.5) + 
-  # geom_line(aes(a.abund, spr, group = as.factor(plot))) +
-  geom_smooth(method = "lm", aes(a.abund, spr), colour = "black") + 
+    width = 0.3, height = 0.1, size = 2.5) + 
+  geom_line(data=alg.pr,aes(x=x,y=predicted))+
   scale_alpha_discrete(range = c(0.3,1), name = "Months") + 
-  scale_color_viridis_d(option="A", begin=0, end=0.6,"")+
-  xlab("Algae abundance") +
-  ylab("Invertebrate species richness") +
-  # coord_cartesian(expand = F) +
+  scale_color_viridis_d(option="A", begin=0, end=0.65,"")+
+  xlab("Algae Abundance") +
+  ylab("Invertebrate Species Richness") +
+  coord_cartesian(expand = F, ylim = c(-0.1,7.5), xlim = c(-0.1,35.35)) +
   ggsidekick::theme_sleek()
-ggsave("invert-spr-by-algae.png", width = 5, height = 3)
+ggsave("figures/invert_spr_by_algae.jpg", width = 5, height = 3)
 
 
 # treatment model for comparison
