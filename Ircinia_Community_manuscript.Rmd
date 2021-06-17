@@ -53,28 +53,28 @@ If identification was not possible in situ a representative sample was photograp
 # Results  
 
 
-\newpage
+##### break  
 
 ```{r turnover-plots, fig.align='center', out.width="85%", echo=FALSE, message=FALSE, fig.cap="Change in species richness (A) and the components of species turnover (B) for fish (upper panel of A and fish shapes in B) and non-clonal invertebrates (lower panel of A and crab shapes in B) from start of experiment to the first experimental sample (1 month into experiment and left panel of B), and between that first experimental sample and one year later (12 months into experiment and right panel of B)."}
 
 knitr::include_graphics("figures/Species_Richness_Turnover_A_B.jpg")
 ```
 
-\newpage
+##### break  
 
 ```{r covariate-plots, fig.align='center', out.width="75%", echo=FALSE, message=FALSE, fig.cap="Non-clonal invertebrate species richness can be explained by algae abundance almost as well as by experimental treatment. Line and shading represent the predicted relationship at 12 months after initiation of experiment from a GLMM with only algae abundance and time as fixed effects."}
 
 knitr::include_graphics("figures/invert_spr_by_algae.jpg")
 ```
 
-\newpage
+##### break  
 
 ```{r vector-plots, fig.align='center', out.width="55%", echo=FALSE, message=FALSE, fig.cap="NEEDS CAPTION"}
 
 knitr::include_graphics("figures/community_vector_plots.jpg")
 ```
 
-\newpage
+##### break  
 
 # Discussion  
 
@@ -87,7 +87,7 @@ We would like to thank Friends of the Environment (NGO, Abaco, The Bahamas), Dia
 # References  
 <div id="refs"></div>  
 
-\newpage
+##### break  
 
 ***This can be split off later.***
 
