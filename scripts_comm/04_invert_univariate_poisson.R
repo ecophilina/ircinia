@@ -60,6 +60,7 @@ inv.uni2 <- inv.uni %>%
     change.a = i.abund - start.a)
 
 inv.uni2$treatment <- factor(inv.uni2$treatment)
+inv.uni$treatment <- factor(inv.uni$treatment)
 
 # look at distribution of potential response variables
 hist(inv.uni2$change.spr)
