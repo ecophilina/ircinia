@@ -49,6 +49,12 @@ If identification was not possible in situ a representative sample was photograp
 
 ***compois = Conway–Maxwell–Poisson parametrized via the mean and a log link (Huang 2017)***
 
+## Statistical Analyses
+To control for confounding effects of season, sampling events that occurred in Summer months only were used for our analyses. One sampling event in June (0 months into the experiment) and two sampling events in July (1 and 12 months into the experiment) were used and then grouped by years into the experiment. 
+
+Univariate analyses
+Univariate analyses were performed on three community groupings: fish, non-clonal invertebrates, and clonal invertebrates. All groupings were fit with a Conway–Maxwell–Poisson distribution parametrized via the mean and a log link (Huang 2017). 
+
 
 # Results  
 
