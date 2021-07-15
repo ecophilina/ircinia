@@ -47,18 +47,78 @@ sv<-filter(sgn, sampling == 1) %>%
   rename(snv = nvalue)%>%select(treatment,plot,dist,snv,nut)
 
 dsgn<-left_join(sgn,sv)%>%
-  mutate(delta=nvalue-snv)%>%filter(sampling!=1)
+  mutate(delta=nvalue-snv,
+    season=case_when(
+      sampling==2~"Summer",
+      sampling==3~"Winter",
+      sampling==4~"Summer",
+      sampling==5~"Winter"),
+    yr=case_when(
+      sampling==2~1,
+      sampling==3~1,
+      sampling==4~2,
+      sampling==5~2),
+    mnths=case_when(
+      sampling==1~0,
+      sampling==2~1,
+      sampling==3~5,
+      sampling==4~12,
+      sampling==5~17))%>%filter(sampling!=1)
 
-ggplot(data=dsgn%>%
-         filter(dist==0 &nut %in% c("PC","PN","PP"))%>%
-         group_by(treatment,dist,sampling,nut)%>%
-         summarize(mv=mean(delta),sd=sd(delta)),
-       aes(y=mv,color=treatment,x=as.factor(sampling)))+
-  geom_point(position=position_dodge(width=.3),size=2)+
-  geom_errorbar(aes(ymin=mv-sd,ymax=mv+sd,color=treatment),width=.1,position=position_dodge(width=0.3))+
-  facet_grid(rows = vars(nut),scales="free")
+dsgn%>% filter(dist==0 & nut %in% c("PC","PN","PP"))%>%
+  # group_by(treatment,dist,sampling,nut,season,yr,mnths)%>%
+  # summarize(mv=mean(delta),sd=sd(delta)) %>%
+  # ggplot(aes(y=mv,color=treatment,x=as.factor(mnths)))+
+  # geom_point(position=position_dodge(width=.3),size=2)+
+  # geom_errorbar(aes(ymin=mv-sd,ymax=mv+sd,color=treatment),width=.1,position=position_dodge(width=0.3))+
+  ggplot(aes(y=delta,color=treatment,x=as.factor(mnths)))+
+  geom_point(position=position_dodge(width=.3),size=1.5,alpha=0.7)+
+  xlab("Months into experiment") +
+  scale_color_viridis_d(
+    option="A",
+    begin=0, end=0.6,
+    name="",
+    labels=c("Control","Structure","Sponge"))+
+  facet_grid(rows = vars(nut),cols = vars(season),scales="free") +
+  ggtitle("At center of plot")
 
+dsgn %>% filter(dist==0.5 &nut %in% c("PC","PN","PP"))%>%
+    ggplot(aes(y=delta,color=treatment,x=as.factor(mnths)))+
+    geom_point(position=position_dodge(width=.3),size=1.5,alpha=0.7)+
+    xlab("Months into experiment") +
+  scale_color_viridis_d(
+    option="A",
+    begin=0, end=0.6,
+    name="",
+    labels=c("Control","Structure","Sponge"))+
+  facet_grid(rows = vars(nut),cols = vars(season),scales="free") +
+  ggtitle("At 0.5m from center of plot")
 
+dsgn %>% filter(dist==1 &nut %in% c("PC","PN","PP"))%>%
+  ggplot(aes(y=delta,color=treatment,x=as.factor(mnths)))+
+  geom_point(position=position_dodge(width=.3),size=1.5,alpha=0.7)+
+  xlab("Months into experiment") +
+  scale_color_viridis_d(
+    option="A",
+    begin=0, end=0.6,
+    name="",
+    labels=c("Control","Structure","Sponge"))+
+  facet_grid(rows = vars(nut),cols = vars(season),scales="free") +
+  ggtitle("At 1m from center of plot")
+
+dsgn %>% filter(dist==2 &nut %in% c("PC","PN","PP"))%>%
+  ggplot(aes(y=delta,color=treatment,x=as.factor(mnths)))+
+  geom_point(position=position_dodge(width=.3),size=1.5,alpha=0.7)+
+  xlab("Months into experiment") +
+  scale_color_viridis_d(
+    option="A",
+    begin=0, end=0.6,
+    name="",
+    labels=c("Control","Structure","Sponge"))+
+  facet_grid(rows = vars(nut),cols = vars(season),scales="free") +
+  ggtitle("At 2m from center of plot")
+
+# because we don't have a before sample during winter, we focus on summer
 # look at change after 1 year
 #in %N
 n.lmerb<-lmer(nvalue~treatment*sampling+(1|plot),
