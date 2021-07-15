@@ -45,6 +45,12 @@ sgg2<- left_join(sgg1, sv) %>%
       sampling==3~1,
       sampling==4~2,
       sampling==5~2),
+    mnths=case_when(
+      sampling==1~0,
+      sampling==2~1,
+      sampling==3~5,
+      sampling==4~12,
+      sampling==5~17),
     delta_gpd = gpd - previous_gpd,
     delta_gpd_st = gpd - start_gr,
     dist_factor = case_when(
@@ -55,6 +61,11 @@ sgg2<- left_join(sgg1, sv) %>%
   )
 
 sgg2$treatment<-factor(sgg2$treatment)
+
+# check for season effect
+sgmdseason<-lmer(gpd~season+(1|plot), data=sgg2) 
+(sgmdseason<-Anova(sgmdseason, type = "III"))
+# YES
 
 ## distance pooling
 # at 0 and 0.5 both real and fake have increased growth
@@ -109,11 +120,14 @@ sgmd0s<-lmer(gpd~
              # data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "fake"))
 )
 
-
 # (sgr.aov<-glmmTMB:::Anova.glmmTMB(sgmd0s, type = "III"))
 (sgr<-summary(sgmd0s))
 
-sgmd0sb<-lmer(gpd~ treatment * dist_factor+treatment * yr + treatment*season   + (1|stake_id), 
+sgmd0sb<-lmer(gpd~ 
+    treatment * dist_factor+
+    treatment * yr + 
+    treatment*season + 
+    (1|stake_id), 
               offset=start_gr,
               data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "blank"))
               #data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "real"))
@@ -128,6 +142,18 @@ sgmd0sf<-lmer(gpd~ treatment * dist_factor+treatment * yr + treatment*season  +
               #data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "real"))
               data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "fake"))
 )
+
+# sgmd0sf <- lmer(gpd~ treatment * dist_factor+treatment * mnths + treatment*season  + 
+#     (1|plot) + # adding this explains so little variation that it doesn't change anything...
+#     (1|stake_id), 
+#   offset=start_gr,
+#   # data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "blank"))
+#   #data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "real"))
+#   data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "fake"))
+# )
+# summary(sgmd0sf)
+# anova(sgmd0sf))
 sgf<-summary(sgmd0sf)
 (sgaov<-anova(sgmd0sf))
+
 

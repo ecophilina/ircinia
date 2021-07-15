@@ -44,7 +44,7 @@ ggplot(data=a3)+
   geom_smooth(aes(x=sampling,y=abundance,color=treatment),method = "lm")+
   facet_wrap(~taxa,scales = "free_y")
 
-# looks like there's likely a good story here.
+# looks like there's something here.
 
 a4<-a3 %>%
   group_by(treatment, sampling,plot,season)%>%
@@ -103,6 +103,13 @@ a5<-a5%>%
     sampling==4~2,
     sampling==5~2),
     logstart= log(start.abund+1))
+
+# check for season effect
+Aseason<-glmmTMB(abundance~season +
+    (1|plot) + (1|taxa), data=a5, REML=F,
+  family=nbinom2) 
+(Aseason<-glmmTMB:::Anova.glmmTMB(Aseason, type = "III"))
+# YES
 
 # trying the one global model first
 alm1.r<-glmmTMB(abundance~treatment*year+treatment*season + 

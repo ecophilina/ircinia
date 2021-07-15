@@ -40,11 +40,12 @@ sgsd<-sgsd0%>%
   filter(sampling!=1)%>%
   left_join(sgsd1)%>%
   # filter(dist2=="near")%>%
-  mutate(yr=case_when(
-    sampling==2~1,
-    sampling==3~1,
-    sampling==4~2,
-    sampling==5~2),
+  mutate(
+    yr=case_when(
+      sampling==2~1,
+      sampling==3~1,
+      sampling==4~2,
+      sampling==5~2),
     season=case_when(
       sampling==2~"summer",
       sampling==3~"winter",
@@ -59,15 +60,27 @@ sgsd<-sgsd0%>%
     ratio = delta/msd
   )
 
-# confirm no season effect
-tsdseason<-glmmTMB(T.SD~season+yr+(1|plot), data=sgsd, family = nbinom1) 
+# check for season effect
+tsdseason<-glmmTMB(T.SD~season+(1|plot), data=sgsd, REML=F, family = nbinom1) 
 (tsdseason<-glmmTMB:::Anova.glmmTMB(tsdseason, type = "III"))
 # (tsdseason2<-summary(tsdseason))
 
-shsdseason<-glmmTMB(SH.SD~season+yr+(1|plot),data=sgsd, family = nbinom1)
+# # more complex model has nothing significant
+# tsdseason<-glmmTMB(T.SD ~
+#     treatment*season + treatment*yr + #treatment*dist1 +
+#     (1|plot),
+#   offset=log(mtsd+1),
+#   data=sgsd %>% mutate(treatment=relevel(treatment, ref = "real")),
+#   REML = F,
+#   family = nbinom1)
+# (tsd.season<-glmmTMB:::Anova.glmmTMB(tsdseason, type = "III"))
+
+
+shsdseason<-glmmTMB(SH.SD~season+(1|plot),data=sgsd, REML=F, family = nbinom1)
 (shsdseason<-glmmTMB:::Anova.glmmTMB(shsdseason, type = "III"))
 # (shsdseason2<-summary(shsdseason))
 
+# NO for both
 
 #Thalassia shoot density analysis
 tsdlmr<-glmmTMB(T.SD ~ 

@@ -65,6 +65,20 @@ dsgn<-left_join(sgn,sv)%>%
       sampling==4~12,
       sampling==5~17))%>%filter(sampling!=1)
 
+# check for season effect
+Nseason<-lmer(nvalue~season+(1|plot), data = dsgn%>%
+    filter(nut=="PN")) 
+(Nseason<-Anova(Nseason, type = "III"))
+
+Pseason<-lmer(nvalue~season+(1|plot), data = dsgn%>%
+    filter(nut=="PP")) 
+(Pseason<-Anova(Pseason, type = "III"))
+
+Cseason<-lmer(nvalue~season+(1|plot), data = dsgn%>%
+    filter(nut=="PC")) 
+(Cseason<-Anova(Cseason, type = "III"))
+# YES for all
+
 dsgn%>% filter(dist==0 & nut %in% c("PC","PN","PP"))%>%
   # group_by(treatment,dist,sampling,nut,season,yr,mnths)%>%
   # summarize(mv=mean(delta),sd=sd(delta)) %>%
