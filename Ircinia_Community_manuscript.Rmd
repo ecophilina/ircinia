@@ -29,10 +29,13 @@ Ecosystem engineers and maintenance of biodiversity
 # Methods  
 
 ## Study site and experimental design  
-**THE TEXT BELOW WAS COPIED DIRECTLY FROM THE FIRST MANUSCRIPT MUST BE REWORDED**  
-This study was conducted in a shallow (1.1 m low tide depth) subtidal seagrass bed located off of Southern Great Abaco Island, The Bahamas (26.02610 N, 77.37408 W). 
-Fifteen 5 x 5 m plots were delineated in a continuous seagrass bed on June 9, 2013 by placing wooden stakes at the corners and center of each plot. 
-All plots were separated >2 m. All variables (see below) were measured once before the establishment of the treatments, and again at 1 and 12 months after the treatments were established. 
+ 
+This study was conducted in a continuous subtidal seagrass bed (1.1 m low tide depth) on Southern Great Abaco Island, The Bahamas (26.02610 N, 77.37408 W). 
+Depth, temperature, and salinity were consistent across the seagrass bed.
+Within the seagrass bed, fifteen 5 x 5 m plots were delineated on June 9, 2013 by placing wooden stakes at the corners and center of each plot. 
+All plots were separated >2 m. 
+The fish and epibenthic macroinvertebrate communities as well as all explanatory variables (see below) were sampled once before and again at 1 and 12 months after the treatments were established. 
+**THE TEXT BELOW WAS COPIED DIRECTLY FROM THE FIRST MANUSCRIPT MUST BE REWORDED** 
 After preliminary data were collected, each plot was randomly assigned to one of three treatments: control (n=5), structure (n=5), or sponge (n=5; Fig. S1). 
 Control plots were not manipulated.
 A polypropylene model of a sponge was placed inside a cage at the center of each structure plot.
