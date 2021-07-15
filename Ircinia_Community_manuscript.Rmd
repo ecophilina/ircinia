@@ -50,10 +50,15 @@ If identification was not possible in situ a representative sample was photograp
 ***compois = Conway–Maxwell–Poisson parametrized via the mean and a log link (Huang 2017)***
 
 ## Statistical Analyses
-To control for confounding effects of season, sampling events that occurred in Summer months only were used for our analyses. One sampling event in June (0 months into the experiment) and two sampling events in July (1 and 12 months into the experiment) were used and then grouped by years into the experiment. 
+Three sampling events occured in the Summer: one in June (0 months into the experiment) and two in July (1 and 12 months into the experiment). The sampling events were grouped by years into the experiment for temporal examination.
 
 Univariate analyses
-Univariate analyses were performed on three community groupings: fish, non-clonal invertebrates, and clonal invertebrates. All groupings were fit with a Conway–Maxwell–Poisson distribution parametrized via the mean and a log link (Huang 2017). 
+Univariate analyses were performed on three community groupings: fish, non-clonal invertebrates, and clonal invertebrates. All groupings were fit with a Conway–Maxwell–Poisson distribution parametrized via the mean and a log link (Huang 2017). Forward model selection was performed to determine the model explaining the most variance using corrected Akaike Infromation Criterion scores (AICc). The model with the lowest AICc value for species richness of each community grouping was reviewed in the final analyses.
+
+Taxa Turnover
+To visualize changes in taxa richness over time (i.e. taxa gained or lost relative to the total number of taxa observed across the two sampling events in July), we used the turnover function in "codyn" package. 
+
+Compositional Vectors
 
 
 # Results  
