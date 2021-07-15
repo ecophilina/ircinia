@@ -129,7 +129,7 @@ dsgn<-left_join(sgn,sv)%>%
     dist2=case_when(
       dist==0~"close",
       dist==0.5~"middle dist",
-      dist!=0~"no sponge")
+      dist>0.5~"no sponge")
     )%>%filter(sampling!=1)
 
 # check all distances? Focusing on summer for simplicity
