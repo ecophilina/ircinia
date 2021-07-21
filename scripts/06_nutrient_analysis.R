@@ -35,8 +35,10 @@ filter(sgn,nut=="PN" & nvalue>2.5)
 # are outliers for both- makes me think something besides seagrass got in there.
 # I'm going to remove these points before going further. 
 
-sgn_no<-sgn %>%
-  filter(nut=="PC" & nvalue > 60)
+sgn_no<-bind_rows(sgn %>%
+                    filter(plot==7 & sampling==2 & dist==0),
+                  sgn %>%
+                    filter(plot==8 & sampling==2 & dist==1))
 
 sgn<-sgn %>%
   anti_join(sgn_no)
@@ -64,7 +66,13 @@ dsgn<-left_join(sgn,sv)%>%
       sampling==3~5,
       sampling==4~12,
       sampling==5~17))%>%filter(sampling!=1)
-
+# look at sample sizes here
+ggplot(dsgn%>%
+  group_by(treatment,sampling,dist,nut)%>%
+  filter(nut %in% c("PN","PP","PC"))%>%
+  summarize(ns=n()))+
+  geom_bar(aes(x=treatment,y=ns,fill=nut),position=position_dodge(),stat="identity")+
+  facet_grid(sampling~dist)
 # check for season effect
 Nseason<-lmer(nvalue~season+(1|plot), data = dsgn%>%
     filter(nut=="PN")) 
@@ -138,7 +146,7 @@ dsgn %>% filter(dist==2 &nut %in% c("PC","PN","PP"))%>%
 n.lmerb<-lmer(nvalue~treatment*sampling+(1|plot),
               data=sgn%>%
                 filter(nut=="PN" & dist==0 & sampling %in% c(1,4)))
-nbs<-summary(n.lmerb)
+(nbs<-summary(n.lmerb))
 # relevel with real as the base
 # first make treatment a factor
 sgn <- sgn %>% ungroup() 
@@ -161,7 +169,7 @@ n.lmerf<-lmer(nvalue~treatment*sampling+(1|plot),
               data=sgn%>%
                 filter(nut=="PN" & dist==0 & sampling %in% c(1,4))%>%
                 mutate(treatment=relevel(treatment,ref="fake")))
-nfs<-summary(n.lmerf)
+(nfs<-summary(n.lmerf))
 # fake decreased but not significantly.
 
 # now doing percent phosphorus
@@ -176,7 +184,7 @@ p.lmerr<-lmer(nvalue~treatment*sampling+(1|plot),
               data=sgn%>%
                 filter(nut=="PP" & dist==0 & sampling %in% c(1,4))%>%
                 mutate(treatment=relevel(treatment,ref="real")))
-prs<-summary(p.lmerr)
+(prs<-summary(p.lmerr))
 # one year later seagrass in plots with sponges have higher %P than blank, but not fake
 # % P increased in real plots over the year,
 # although this increase is not statistically significant. 
