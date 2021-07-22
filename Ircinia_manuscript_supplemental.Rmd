@@ -13,7 +13,7 @@ knitr::include_graphics("figures/Experimental design.jpg")
 
 ```
   
-Figure S1. Experimental design and sampling scheme  
+\textbf{Figure S1.} Experimental design and sampling scheme  
 \end{landscape}
 
 \newpage
@@ -357,12 +357,12 @@ kbl(pd2,booktabs=TRUE)
 knitr::include_graphics("figures/algal_sp_abundance.jpg")
 ```
   
-Figure S2. Taxon-specific algal abundance over the course of the experiment.
+\textbf{Figure S2.} Taxon-specific algal abundance over the course of the experiment.
 \newpage
 ```{r data,echo=FALSE,warning=FALSE,message=FALSE,include=FALSE}
 source("scripts/04_algae_analysis.R")
 source("scripts/05_growth_analysis.R")
-source("scripts/06_nutrient_explore.R")
+source("scripts/06_nutrient_analysis.R")
 source("scripts/07_shoots_analysis.R")
 ```  
 \begin{landscape}
@@ -400,89 +400,95 @@ if(type=="aov")tab1<-msum
 rnames<-rownames(tab1)
 rnames<-case_when(rnames == "(Intercept)"~"Intercept",
                   rnames == "treatmentblank"~"Treatment [control]",
-                  rnames == "treatmentfake"~"Treatment [structure control]",
+                  rnames == "treatmentfake"~"Treatment [structure]",
                   rnames == "year"~"Year",
                   rnames == "seasonwinter"~"Season [winter]",
                   rnames == "treatmentblank:year"~"Treatment [control] x Year 2",
-                  rnames == "treatmentfake:year"~"Treatment [structure control] x Year 2",
+                  rnames == "treatmentfake:year"~"Treatment [structure] x Year 2",
                   rnames == "treatmentblank:seasonwinter"~"Treatment [control] x Season [winter]",
-                  rnames == "treatmentfake:seasonwinter"~"Treatment [structure control] x Season [winter]",
+                  rnames == "treatmentfake:seasonwinter"~"Treatment [structure] x Season [winter]",
                   rnames == "samp2"~"Sampling",
                   rnames == "sampling4"~"Year 2",
                   rnames == "dist1"~"Distance from center",
                   rnames == "treatmentblank:samp2"~"Treatment [control] x Sampling",
-                  rnames == "treatmentfake:sampling4"~"Treatment [structure control] x Year 2",
+                  rnames == "treatmentfake:sampling4"~"Treatment [structure] x Year 2",
                   rnames == "treatmentblank:sampling4"~"Treatment [control] x Year 2",
-                  rnames == "treatmentfake:samp2"~"Treatment [structure control] x Sampling",
+                  rnames == "treatmentfake:samp2"~"Treatment [structure] x Sampling",
                   rnames == "treatmentblank:dist1"~"Treatment [control] x Distance from center",
-                  rnames == "treatmentfake:dist1"~"Treatment [structure control] x Distance from center",
+                  rnames == "treatmentfake:dist1"~"Treatment [structure] x Distance from center",
                   rnames == "treatmentblank:samp2:dist1"~"Treatment [control] x Sampling x Distance from center",
-                  rnames == "treatmentfake:samp2:dist1"~"Treatment [structure control] x Sampling x Distance from center",
+                  rnames == "treatmentfake:samp2:dist1"~"Treatment [structure] x Sampling x Distance from center",
                   rnames == "samp2:dist1"~"Sampling x Distance from center",
                   rnames == "sampling"~"Sampling",
                   rnames == "treatmentblank:sampling"~"Treatment [control] x Sampling",
-                  rnames == "treatmentfake:sampling"~"Treatment [structure control] x Sampling",
+                  rnames == "treatmentfake:sampling"~"Treatment [structure] x Sampling",
                   rnames == "dist_factorfarther"~"Distance [far]",
                   rnames == "yr"~"Year 2",
                   rnames == "seasonw"~"Season [winter]",
                   rnames == "treatmentblank:dist_factorfarther"~"Treatment [control] x Distance [far]",
-                  rnames == "treatmentfake:dist_factorfarther"~"Treatment [structure control] x Distance [far]",
+                  rnames == "treatmentfake:dist_factorfarther"~"Treatment [structure] x Distance [far]",
                   rnames == "treatmentblank:yr"~"Treatment [control] x Year 2",
-                  rnames == "treatmentfake:yr"~"Treatment [structure control] x Year 2",
+                  rnames == "treatmentfake:yr"~"Treatment [structure] x Year 2",
                   rnames == "treatmentblank:seasonw"~"Treatment [control] x Season [winter]",
-                  rnames == "treatmentfake:seasonw"~"Treatment [structure control] x Season [winter]")
+                  rnames == "treatmentfake:seasonw"~"Treatment [structure] x Season [winter]",
+                  rnames == "treatmentblank:sampling3"~
+                    "Treatment [control] x Months [5]",
+                  rnames == "treatmentfake:sampling3"~
+                    "Treatment [structure] x Months [5]",
+                  rnames == "sampling3"~ "Months [5]")
 rownames(tab1)<-rnames
 return(kbl(tab1,
   longtable = FALSE,booktabs=TRUE))
 }
 ```  
 
-**Table S15.** Macroalgal abundance model results. 
+\textbf{Table S15.} Macroalgal abundance model results. 
 ```{r alg.table,echo=FALSE,warning=FALSE,message=FALSE}
 tab.func(type="glmmtmb",msum=alm1r.sum)
 ```  
   
-**Table S16.** *Thalassia testudinum* shoot density model results.  
+\textbf{Table S16.} \emph{Thalassia testudinum} shoot density model results.  
 ```{r tsd.table,echo=FALSE,warning=FALSE,message=FALSE}
 tab.func(type="glmmtmb",msum=tsdr.sum)
 ```  
 \newpage
-**Table S17.** *Syringodium filliforme* and *Halodule wrightii* shoot density model results.
+\textbf{Table S17.} \emph{Syringodium filliforme} and \emph{Halodule wrightii} shoot density model results.
 ```{r shsd.table,echo=FALSE,warning=FALSE,message=FALSE}
 tab.func(type="glmmtmb",msum=shsdr.sum)
 ```  
   
-**Table S18.** Seagrass growth model results.
+\textbf{Table S18.} Seagrass growth model results.
 ```{r grow.table,echo=FALSE,warning=FALSE,message=FALSE}
 tab.func(type="lmer",msum=sgr)
 ```  
 \newpage  
-**Table S19.** Percent nitrogen in seagrass tissue model results.
+\textbf{Table S19.} Percent nitrogen in seagrass tissue model results.
 ```{r pn.table,echo=FALSE,warning=FALSE,message=FALSE}
 tab.func(type="lmer",msum=nrs)
 ```  
   
-**Table S20.** Percent carbon in seagrass tissue model results.
+\textbf{Table S20.} Percent carbon in seagrass tissue model results.
 ```{r pc.table,echo=FALSE,warning=FALSE,message=FALSE}
 tab.func(type="lmer",msum=crls)
 ```  
   
-**Table S21.** Percent phosphorus in seagrass tissue model results.
+\textbf{Table S21.} Percent phosphorus in seagrass tissue model results.
 ```{r pp.table,echo=FALSE,warning=FALSE,message=FALSE}
 tab.func(type="lmer",msum=prs)
 ```
-**Table S22.** Percent nitrogen in seagrass tissue model results at 5 months into the experiment.
-```{r pn.table,echo=FALSE,warning=FALSE,message=FALSE}
+\newpage
+\textbf{Table S22.} Percent nitrogen in seagrass tissue model results at 5 months into the experiment.
+```{r pn.table5,echo=FALSE,warning=FALSE,message=FALSE}
 tab.func(type="lmer",msum=nrs5)
 ```  
   
-**Table S23.** Percent carbon in seagrass tissue model results at 5 months into the experiment.
-```{r pc.table,echo=FALSE,warning=FALSE,message=FALSE}
+\textbf{Table S23.} Percent carbon in seagrass tissue model results at 5 months into the experiment.
+```{r pc.table5,echo=FALSE,warning=FALSE,message=FALSE}
 tab.func(type="lmer",msum=crls5)
 ```  
   
-**Table S24.** Percent phosphorus in seagrass tissue model results at 5 months into the experiment.
-```{r pp.table,echo=FALSE,warning=FALSE,message=FALSE}
+\textbf{Table S24.} Percent phosphorus in seagrass tissue model results at 5 months into the experiment.
+```{r pp.table5,echo=FALSE,warning=FALSE,message=FALSE}
 tab.func(type="lmer",msum=prs5)
 ```
 \end{landscape}

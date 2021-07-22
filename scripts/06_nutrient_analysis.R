@@ -242,7 +242,7 @@ n.lmerr5<-lmer(nvalue~treatment*sampling+(1|plot),
 # now doing percent phosphorus
 p.lmerr5<-lmer(nvalue~treatment*sampling+(1|plot),
               data=sgn%>%
-                filter(nut=="PP" & dist==0 & sampling %in% c(1,5))%>%
+                filter(nut=="PP" & dist==0 & sampling %in% c(1,3))%>%
                 mutate(treatment=relevel(treatment,ref="real")))
 (prs5<-summary(p.lmerr5))
 # one year later seagrass in plots with sponges have higher %P than blank, but not fake
