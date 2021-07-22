@@ -229,3 +229,35 @@ sgn2 <- sgn %>% filter(nut=="PP" & dist==0 & sampling %in% c(1,4))
 hist(sgn2$nvalue, breaks=30)
 sgn3 <- sgn %>% filter(nut=="PN" & dist==0 & sampling %in% c(1,4))
 hist(sgn3$nvalue, breaks=30)
+
+
+# looking at change after 5 months
+n.lmerr5<-lmer(nvalue~treatment*sampling+(1|plot),
+              data=sgn%>%
+                filter(nut=="PN" & dist==0 & sampling %in% c(1,3))%>%
+                mutate(treatment=relevel(treatment,ref="real")))
+(nrs5<-summary(n.lmerr5))
+# already an increase in %N in real plots
+
+# now doing percent phosphorus
+p.lmerr5<-lmer(nvalue~treatment*sampling+(1|plot),
+              data=sgn%>%
+                filter(nut=="PP" & dist==0 & sampling %in% c(1,5))%>%
+                mutate(treatment=relevel(treatment,ref="real")))
+(prs5<-summary(p.lmerr5))
+# one year later seagrass in plots with sponges have higher %P than blank, but not fake
+# % P increased in real plots over the year,
+# although this increase is not statistically significant. 
+# check trend in fake
+
+# look at %C now
+
+c.lmerr5<-lmer(nvalue~treatment*sampling+(1|plot),
+              data=sgn%>%
+                filter(nut=="PC" & dist==0 & sampling %in% c(1,3))%>%
+                mutate(treatment=relevel(treatment,ref="real")))
+(crls5<-summary(c.lmerr5))
+# increase in %C in sponge plots, but again not significant. There is a significant 
+# difference between real and fake after a year
+
+

@@ -165,16 +165,7 @@ nd0<-signif(Anova(Nd0,Type="III"),2)
 kbl(nd0,caption="Results of the mixed effects model to determine if there is an effect of treatment on the nitrogen content of seagrass in our study at the center of each plot.",booktabs=TRUE)
 ```
 
-```{r nd05,echo=FALSE,message=FALSE,warning=FALSE}
-# check for year effect
-Nd05<-lmer(nvalue~treatment+season+(1|plot),
-          offset=snv,
-          data = dsgn%>%
-            filter(nut=="PN")%>%
-            filter(dist==0.5)) 
-nd05<-signif(Anova(Nd05,Type="III"),2)
-kbl(nd05,caption="Results of the mixed effects model to determine if there is an effect of treatment on the nitrogen content of seagrass in our study at 0.5 m from the center of each plot.",booktabs=TRUE)
-```
+
 
 ```{r nd1,echo=FALSE,message=FALSE,warning=FALSE}
 # check for year effect
