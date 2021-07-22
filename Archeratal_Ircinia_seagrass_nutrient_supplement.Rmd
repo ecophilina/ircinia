@@ -138,7 +138,7 @@ kbl(n2,caption="Results of the mixed effects model to determine if there is a se
 Pseason<-lmer(nvalue~season+(1|plot), data = dsgn%>%
                 filter(nut=="PP")) 
 p2<-signif(Anova(Pseason,Type="III"),2)
-kbl(p2,caption="Results of the mixed effects model to determine if there is a seasonal pattern to the Phosphorus content of seagrass in our study.",booktabs=TRUE)
+kbl(p2,caption="Results of the mixed effects model to determine if there is a seasonal pattern to the phosphorus content of seagrass in our study.",booktabs=TRUE)
 ```
 
 
@@ -146,7 +146,7 @@ kbl(p2,caption="Results of the mixed effects model to determine if there is a se
 Cseason<-lmer(nvalue~season+(1|plot), data = dsgn%>%
                 filter(nut=="PC")) 
 c2<-signif(Anova(Cseason,Type="III"),2)
-kbl(c2,caption="Results of the mixed effects model to determine if there is a seasonal pattern to the Phosphorus content of seagrass in our study.",booktabs=TRUE)
+kbl(c2,caption="Results of the mixed effects model to determine if there is a seasonal pattern to the carbon content of seagrass in our study.",booktabs=TRUE)
 
 ```
 
@@ -195,7 +195,7 @@ Nd2<-lmer(nvalue~treatment+season+(1|plot),
             filter(nut=="PN")%>%
             filter(dist==2)) 
 nd2<-signif(Anova(Nd2,Type="III"),2)
-kbl(nd2,caption="Results of the mixed effects model to determine if there is a seasonal pattern to the nitrogen content of seagrass in our study.",booktabs=TRUE)
+kbl(nd2,caption="Results of the mixed effects model to determine if there is a seasonal pattern to the nitrogen content of seagrass in our study at 2 m from the center of each plot..",booktabs=TRUE)
 ```
 
 For phosphorus, there was no significant treatment effect at any distance (0 m, Table \@ref(tab:pd0); 0.5, Table \@ref(tab:pd05); 1 m, Table \@ref(tab:pd1); 2 m, Table \@ref(tab:pd2))
@@ -241,7 +241,7 @@ pd2<-lmer(nvalue~treatment+season+(1|plot),
             filter(nut=="PP")%>%
             filter(dist==2)) 
 pd2<-signif(Anova(pd2,Type="III"),2)
-kbl(pd2,caption="Results of the mixed effects model to determine if there is a seasonal pattern to the phosphorus content of seagrass in our study.",booktabs=TRUE)
+kbl(pd2,caption="Results of the mixed effects model to determine if there is a seasonal pattern to the phosphorus content of seagrass at 2 m in our study.",booktabs=TRUE)
 ```
 
 For carbon, the pattern was similar to nitrogen. Treatment was significant at 0 m (Table \@ref(tab:cd0)) but not at any other distance (0.5 m, Table \@ref(tab:cd05); 1 m, Table \@ref(tab:cd1); and 2 m, Table \@ref(tab:cd2))
@@ -287,12 +287,12 @@ cd2<-lmer(nvalue~treatment+season+(1|plot),
             filter(nut=="PC")%>%
             filter(dist==2)) 
 cd2<-signif(Anova(cd2,Type="III"),2)
-kbl(cd2,caption="Results of the mixed effects model to determine if there is a seasonal pattern to the carbon content of seagrass in our study.",booktabs=TRUE)
+kbl(cd2,caption="Results of the mixed effects model to determine if there is a seasonal pattern to the carbon content of seagrass in our study at 2 m from the center of each plot.",booktabs=TRUE)
 ```
 
 Consequently, we chose to narrow our primary analysis to only the distance closest to the center of the plot. At this distance we only have a full dataset (i.e., no missing samples) for the winter of year 1 and the summer of year 2. As we already know there is a seasonal effect, and our preliminary data was from the summer, for the primary analysis presented in the main text, we chose to examine the change in nutrient levels in seagrass closest to the center of our plots one year into the experiment (i.e., the summer of year 2). 
 
-For comparison purposes we show below what the results are if we include the winter sampling in the model so that there is an interaction between treatment and months into the experiment (Tables \@ref(tab:altnutn),\@ref(tab:altnutp),\@ref(tab:altnutc). The interpretation fo the results does not change for nitrogen and phosphorus. However, due to our small sample size, by including the extra terms in this model we have lost the power to detect differences in carbon content. 
+For comparison purposes we show below what the results are if we include the winter sampling in the model so that there is an interaction between treatment and months into the experiment (Tables \@ref(tab:altnutn),\@ref(tab:altnutp),\@ref(tab:altnutc). The interpretation for the results does not change for nitrogen and phosphorus. However, due to our small sample size, by including the extra terms in this model we have lost the power to detect differences in carbon content. 
 
 
 ```{r altnutn,echo=FALSE,message=FALSE,warning=FALSE}
