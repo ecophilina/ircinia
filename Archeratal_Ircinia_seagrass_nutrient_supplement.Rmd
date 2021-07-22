@@ -75,7 +75,7 @@ dsgn<-left_join(sgn,sv)%>%
 ```
 # Nutrient Analysis  
 
-Unfortunately, samples for nutrient analysis were lost after collection, resulting in an unbalanced sampling design and even smaller sample sizes(Table \@ref(tab:ntable)). 
+Unfortunately, some samples for nutrient analysis were lost after collection, resulting in an unbalanced sampling design and even smaller sample sizes(Table \@ref(tab:ntable)). 
 ```{r ntable,echo=FALSE,warning=FALSE,message=FALSE}
 # look at sample sizes to see what makes the most sense
 ntable<-dsgn %>%
@@ -289,7 +289,62 @@ cd2<-lmer(nvalue~treatment+season+(1|plot),
 cd2<-signif(Anova(cd2,Type="III"),2)
 kbl(cd2,caption="Results of the mixed effects model to determine if there is a seasonal pattern to the carbon content of seagrass in our study.",booktabs=TRUE)
 ```
-Consequently, for the primary analysis presented in the main text, we chose to examine the change in nutrient levels in seagrass closest to the center of our plots one year into the experiment as this allows us   
+
+Consequently, we chose to narrow our primary analysis to only the distance closest to the center of the plot. At this distance we only have a full dataset (i.e., no missing samples) for the winter of year 1 and the summer of year 2. As we already know there is a seasonal effect, and our preliminary data was from the summer, for the primary analysis presented in the main text, we chose to examine the change in nutrient levels in seagrass closest to the center of our plots one year into the experiment (i.e., the summer of year 2). 
+
+For comparison purposes we show below what the results are if we include the winter sampling in the model so that there is an interaction between treatment and months into the experiment (Tables \@ref(tab:altnutn),\@ref(tab:altnutp),\@ref(tab:altnutc). The interpretation fo the results does not change for nitrogen and phosphorus. However, due to our small sample size, by including the extra terms in this model we have lost the power to detect differences in carbon content. 
+
+
+```{r altnutn,echo=FALSE,message=FALSE,warning=FALSE}
+dn<-lmer(nvalue~treatment*mnths+(1|plot),
+          offset=snv,
+          data = dsgn%>%
+            filter(nut=="PN")%>%
+           filter(mnths %in% c(5,12))%>%
+            filter(dist==0)%>%
+           mutate(mnths=factor(mnths),
+                  treatment=factor(treatment),
+                  treatment = relevel(treatment, ref = "Sponge"))) 
+
+dns<-signif(summary(dn)$coefficient,2)
+
+kbl(dns,caption="Results of the mixed effects model to determine if there is an effect of treatment on seagrass nitrogen content at 5 and 12 months into the experiment.",booktabs=TRUE)
+```
+
+```{r altnutp,echo=FALSE,message=FALSE,warning=FALSE}
+dp<-lmer(nvalue~treatment*mnths+(1|plot),
+          offset=snv,
+          data = dsgn%>%
+            filter(nut=="PP")%>%
+           filter(mnths %in% c(5,12))%>%
+            filter(dist==0)%>%
+           mutate(mnths=factor(mnths),
+                  treatment=factor(treatment),
+                  treatment = relevel(treatment, ref = "Sponge"))) 
+
+dps<-signif(summary(dp)$coefficient,2)
+
+kbl(dps,caption="Results of the mixed effects model to determine if there is an effect of treatment on seagrass phosphorus content at 5 and 12 months into the experiment.",booktabs=TRUE)
+```
+
+```{r altnutc,echo=FALSE,message=FALSE,warning=FALSE}
+dc<-lmer(nvalue~treatment*mnths+(1|plot),
+          offset=snv,
+          data = dsgn%>%
+            filter(nut=="PC")%>%
+           filter(mnths %in% c(5,12))%>%
+            filter(dist==0)%>%
+           mutate(mnths=factor(mnths),
+                  treatment=factor(treatment),
+                  treatment = relevel(treatment, ref = "Sponge"))) 
+
+dcs<-signif(summary(dc)$coefficient,2)
+
+kbl(dcs,caption="Results of the mixed effects model to determine if there is an effect of treatment on seagrass carbon content at 5 and 12 months into the experiment.",booktabs=TRUE)
+```
+
+
+
 
 
 
