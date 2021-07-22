@@ -78,6 +78,10 @@ sgmd0s<-lmer(gpd~ treatment + yr + season +  (1|plot),
 
 (sg0<-anova(sgmd0s))
 
+## Eta2 if needed
+# (sg0e<-effectsize::eta_squared(sg0, ci =.95))
+
+
 sgmd0s<-lmer(gpd~ treatment + yr + season +  (1|plot),
   offset=start_gr,
   data=sgg2 %>% mutate(treatment=relevel(treatment, ref = "real"))
