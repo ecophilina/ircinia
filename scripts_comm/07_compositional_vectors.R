@@ -288,5 +288,160 @@ fish.vplot / inv.plot / col.inv.plot + plot_layout(guides="collect")
 
 ggsave("figures/community_vector_plots.jpg",dpi=300,width=4,height=9)
 
+# now making species association plots
+
+#fish
+fsp<-scores(f.pca,choices=c(1,2),display = "species")
+fsp<-data.frame(fsp)%>%
+  filter((abs(PC1)+abs(PC2))>.01)%>%
+  mutate(sp=row.names(.))
+
+circleFun <- function(center = c(0,0),diameter = 1, npoints = 100){
+  r = diameter / 2
+  tt <- seq(0,2*pi,length.out = npoints)
+  xx <- center[1] + r * cos(tt)
+  yy <- center[2] + r * sin(tt)
+  return(data.frame(x = xx, y = yy))
+}
+# the denominator of the diameter is the number of principle components where the
+# eigenvalue is >0
+circ <- circleFun(center = c(0, 0), diameter = sqrt(2 / 7), npoints = 500)
+
+# make one plot to see who to keep
+ggplot(data=fsp)+
+  geom_segment(aes(x=0,xend=PC1,y=0,yend=PC2,group=sp,color=sp),
+               arrow = arrow(length = unit(0.3, "cm")))+
+  geom_path(data = circ, aes(x, y), lty = 2, color = "grey", alpha = 0.7)
+
+# keep grunt, damselfish, slippery dick, and green blotch and rescale to vector length 1
+
+  
+
+fsp2<-filter(fsp,sp %in% c("grunt", "damselfish", "slippery dick", "green blotch"))%>%
+  mutate(vlength = sqrt(PC1^2 +PC2^2),
+         vlength.rsc = vlength/max(vlength),
+         angle = atan2(PC2,PC1),
+         plot.start = 0,
+         plot.end.x = cos(angle)*vlength.rsc,
+         plot.end.y = sin(angle)*vlength.rsc,)
+
+#now make pretty graph
+(fish.spp<-ggplot(data=fsp2)+
+  # geom_vline(aes(xintercept=0),linetype="dashed",alpha=.5)+
+  # geom_hline(aes(yintercept=0),linetype="dashed",alpha=.5)+
+  geom_segment(aes(x=0,xend=PC1,y=0,yend=PC2),
+               arrow = arrow(length = unit(0.3, "cm")))+
+  coord_fixed(xlim=c(-1.5,1.5),ylim=c(-1.5,1.5))+
+  #geom_path(data = circ, aes(x, y), lty = 2, alpha = 0.5)+
+  theme(panel.grid = element_blank(),
+        panel.background = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank(),
+        axis.title = element_blank())+
+  # ylab("PC2")+
+  # xlab("PC1")+
+  geom_text(aes(x=PC1,y=PC2,
+                label=c("Slippery dick","Green blotch parrotfish","Damselfish","Grunts")),
+            nudge_x = c(.4,.2,.6,-.3),
+            nudge_y = c(-.15,-.1,.1,.1)))#+
+  #add_phylopic(fishpng,x=-.8,y=.9,ysize=.25,alpha=1))
 
 
+#inverts
+isp<-scores(i.pca,choices=c(1,2),display = "species")
+isp<-data.frame(isp)%>%
+  filter((abs(PC1)+abs(PC2))>.1)%>%
+  mutate(sp=row.names(.))
+
+# the denominator of the diameter is the number of principle components where the
+# eigenvalue is >0
+circ <- circleFun(center = c(0, 0), diameter = sqrt(2 / 8), npoints = 500)
+
+# make one plot to see who to keep
+ggplot(data=isp)+
+  geom_segment(aes(x=0,xend=PC1,y=0,yend=PC2,group=sp,color=sp),
+               arrow = arrow(length = unit(0.3, "cm")))+
+  geom_path(data = circ, aes(x, y), lty = 2, color = "grey", alpha = 0.7)
+
+# keep cerith, little white snail, and ground tunicate
+
+
+isp2<-filter(isp,sp %in% c("cerith", "little white snail", "ground tunicate"))%>%
+  mutate(vlength = sqrt(PC1^2 +PC2^2),
+         vlength.rsc = vlength/max(vlength),
+         angle = atan2(PC2,PC1),
+         plot.start = 0,
+         plot.end.x = cos(angle)*vlength.rsc,
+         plot.end.y = sin(angle)*vlength.rsc,)
+
+#now make pretty graph
+(invrt.spp<-ggplot(data=isp2)+
+    # geom_vline(aes(xintercept=0),linetype="dashed",alpha=.5)+
+    # geom_hline(aes(yintercept=0),linetype="dashed",alpha=.5)+
+    geom_segment(aes(x=0,xend=PC1,y=0,yend=PC2),
+                 arrow = arrow(length = unit(0.3, "cm")))+
+    coord_fixed(xlim=c(-1.5,1.5),ylim=c(-1.5,1.5))+
+    #geom_path(data = circ, aes(x, y), lty = 2, alpha = 0.5)+
+    theme(panel.grid = element_blank(),
+          panel.background = element_blank(),
+          axis.text = element_blank(),
+          axis.ticks = element_blank(),
+          axis.title = element_blank())+
+    # ylab("PC2")+
+    # xlab("PC1")+
+    geom_text(aes(x=PC1,y=PC2,
+                  label=c("Ceriths","Whelk","Sea squirt")),
+              nudge_y = c(.1,-.1,-.1)))#+
+    #add_phylopic(crabpng,x=-.8,y=.9,ysize=.25,alpha=1))
+
+#colonial inverts
+cisp<-scores(ci.pca,choices=c(1,2),display = "species")
+cisp<-data.frame(cisp)%>%
+  mutate(sp=row.names(.))
+
+# the denominator of the diameter is the number of principle components where the
+# eigenvalue is >0
+circ <- circleFun(center = c(0, 0), diameter = sqrt(2 / 7), npoints = 500)
+
+# make one plot to see who to keep
+ggplot(data=cisp)+
+  geom_segment(aes(x=0,xend=PC1,y=0,yend=PC2,group=sp,color=sp),
+               arrow = arrow(length = unit(0.3, "cm")))+
+  geom_path(data = circ, aes(x, y), lty = 2, color = "grey", alpha = 0.7)
+
+# keep cerith, little white snail, and ground tunicate
+
+
+cisp2<-filter(cisp,sp %in% c("black and orange tunicate", "pinkish brown tunicate", "white and green tunicate"))%>%
+  mutate(vlength = sqrt(PC1^2 +PC2^2),
+         vlength.rsc = vlength/max(vlength),
+         angle = atan2(PC2,PC1),
+         plot.start = 0,
+         plot.end.x = cos(angle)*vlength.rsc,
+         plot.end.y = sin(angle)*vlength.rsc,)
+
+#now make pretty graph
+(cinvrt.spp<-ggplot(data=cisp2)+
+    # geom_vline(aes(xintercept=0),linetype="dashed",alpha=.5)+
+    # geom_hline(aes(yintercept=0),linetype="dashed",alpha=.5)+
+    geom_segment(aes(x=0,xend=PC1,y=0,yend=PC2),
+                 arrow = arrow(length = unit(0.3, "cm")))+
+    coord_fixed(xlim=c(-1.5,1.5),ylim=c(-1.5,1.5))+
+    #geom_path(data = circ, aes(x, y), lty = 2, alpha = 0.5)+
+    theme(panel.grid = element_blank(),
+          panel.background = element_blank(),
+          axis.text = element_blank(),
+          axis.ticks = element_blank(),
+          axis.title = element_blank())+
+    # ylab("PC2")+
+    # xlab("PC1")+
+    geom_text(aes(x=PC1,y=PC2,
+                  label=c("Tunicate-white","Tunicate-pink","Tunciate-black + orange")),
+              nudge_x = c(-.57,0,.1),
+              nudge_y = c(.18,.15,-.15)))#+
+    #add_phylopic(clonalpng,x=-.8,y=.9,ysize=.25,alpha=1))
+
+
+(fish.vplot +fish.spp) / (inv.plot +invrt.spp) / (col.inv.plot + cinvrt.spp)+ plot_layout(guides="collect")
+
+ggsave("figures/community_vector_plots_withspp.jpg",dpi=300,width=6,height=9)
