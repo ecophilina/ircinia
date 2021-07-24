@@ -155,6 +155,7 @@ sgplot <- ggplot(sgf, aes(x=as.factor(yr),y=mdsg,group=treatment,color=treatment
                   begin=0, end=0.6,
                   name="",
                   labels=c("Control","Structure","Sponge"))+
+  scale_y_continuous(expand=expansion(add = c(0.1, 2))) +
   theme_bw()+
   xlab("Year")+
   ylab(sglab)
