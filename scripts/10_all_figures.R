@@ -139,6 +139,7 @@ sgf$dist_factor<-factor(sgf$dist_factor,levels=c("closer","farther"),labels=c("N
 sglab<-expression(paste(Delta," Seagrass growth (mm "^2,"d "^"-1",")"))
 
 sgplot <- ggplot(sgf, aes(x=as.factor(yr),y=mdsg,group=treatment,color=treatment)) +
+  geom_hline(aes(yintercept=0), linetype = "dashed", colour = "darkgrey")+
   geom_point(size=5,position=position_dodge(0.5))+
   geom_path(position=position_dodge(0.5))+
   geom_errorbar(aes(x=as.factor(yr),
