@@ -113,7 +113,13 @@ sdp<-ggplot()+
   xlab("Months into experiment")+
   facet_wrap(~seagrass,scales="free_y",nrow=2)
 
-sdp<-egg::tag_facet(sdp)
+sdp<-egg::tag_facet(sdp, hjust = 0, y = Inf,
+  tag_pool = c(
+    "(a)", "(b)"
+    ## tried adding italic names but it didn't work
+    # expression("(a)"~italic(Ttestudinum)), 
+    # expression("(b)"~italic(S filliforme)~"and"~italic(H wrightii))
+    ), open = " ", close = " ", fontface = 2)
 sdp
 ggsave(filename="figures/shootdensity-95CI.jpg", plot=sdp, width = 3.5, height=4.5)
 
@@ -166,7 +172,7 @@ sgplot <- ggplot(sgf, aes(x=as.factor(yr),y=mdsg,group=treatment,color=treatment
         panel.spacing = unit(1, "lines"),
         strip.background = element_blank(),
         #legend.position = "none",
-        legend.position = "bottom",
+        legend.position = "top",
         legend.text = element_text(size=12),
         axis.title=element_text(size=14),
         axis.text = element_text(size=12),
@@ -200,7 +206,11 @@ pn<-ggplot(sgn %>%
       color = treatment),
     width = .1,
     position = position_dodge(width = .5))+
+  scale_y_continuous(expand=expansion(add = c(0.05, 0.1)),
+    breaks=c(1.60,1.80,2.00),labels=c("1.60","1.80","2.00")) +
   ylab("% Nitrogen")+
+  scale_x_discrete(labels = c(0,12))+
+  xlab("Months into the experiment")+
   # scale_color_brewer(type="qual",
   #                     palette="Set2",
   #                     name="",
@@ -209,11 +219,9 @@ scale_color_viridis_d(option="A",
                  begin=0, end=0.6,
                  name="",
                  labels=c("Control","Structure","Sponge"))+
-  scale_x_discrete(labels = c(0,12))+
   theme(panel.grid = element_blank(),
          legend.position = "none",
-        axis.title.x = element_blank())+
-  scale_y_continuous(breaks=c(1.60,1.80,2.00),labels=c("1.60","1.80","2.00"))
+        axis.title.x = element_blank())
 
 pp<-ggplot(sgn %>%
     group_by(treatment, sampling, nut, dist) %>%
@@ -237,15 +245,18 @@ pp<-ggplot(sgn %>%
       ymin = mn - se*1.96, ymax = mn + se*1.96,
       color = treatment),
     width = .1,
-    position = position_dodge(width = .5))+
+    position = position_dodge(width = .5))+  
+  scale_y_continuous(expand=expansion(add = c(0.001, 0.005)), 
+    breaks=c(0.05,0.06,0.07)) +
+  # ylab("")+
   ylab("% Phosphorus")+
-  xlab("Months into the experiment")+
   # scale_color_brewer(type="qual",palette="Set2")+
   scale_color_viridis_d(option="A", begin=0, end=0.6)+
   scale_x_discrete(labels = c(0,12))+
+  xlab("Months into the experiment")+
   theme(panel.grid = element_blank(),
-         legend.position = "none")+
-  scale_y_continuous(breaks=c(0.05,0.06,0.07))
+    # axis.title.x = element_blank(),
+         legend.position = "none")
 
 pc<-ggplot(sgn %>%
     group_by(treatment, sampling, nut, dist) %>%
@@ -270,32 +281,49 @@ pc<-ggplot(sgn %>%
       color = treatment),
     width = .1,
     position = position_dodge(width = .5))+
+  scale_y_continuous(expand=expansion(add = c(0.5, 1.75)), 
+    breaks = c(30.0, 33.0, 36.0),labels = c("30.0", "33.0", "36.0")) +
+  # ylab("")+
   ylab("% Carbon")+
   # scale_color_brewer(type="qual",palette="Set2")+
   scale_color_viridis_d(option="A", begin=0, end=0.6)+
   scale_x_discrete(labels = c(0,12))+
+  xlab("Months into the experiment")+
   theme(panel.grid = element_blank(),
-         legend.position = "none",
-        axis.title.x = element_blank())
+    # axis.title.x = element_blank(),
+         legend.position = "none")
+
 library(cowplot)
 lgnd<-get_legend(pn +
-    guides(color = guide_legend(nrow = 1)) +
+    guides(color = guide_legend(nrow = 1, align_plots = "right")) +
     theme(legend.position = "bottom"))
-pn<-egg::tag_facet(pn)+
-  theme(axis.text.x = element_blank(),axis.ticks.x = element_blank())
-pc<-egg::tag_facet(pc,tag_pool = c("b"))+
-  theme(axis.text.x = element_blank(),axis.ticks.x = element_blank())
-pp<-egg::tag_facet(pp,tag_pool = c("c"))
+# hjust = 0, y = Inf,
+  # tag_pool = c('(a)  Control','(b)  Structure', "(c)  Sponge"),
+  # open = " ", close = " "
+pn<-egg::tag_facet(pn
+  , tag_pool = c('(a)  Nitrogen'), open = " ", close = " ", hjust = 0, y = Inf
+  )+
+  theme(axis.text.x = element_blank(),axis.ticks.x = element_blank(),axis.title.x = element_blank()) + ylab("")
+pc<-egg::tag_facet(pc 
+  # , tag_pool = c("b"))+
+  , tag_pool = c('(c)  Carbon'), open = " ", close = " ", hjust = 0, y = Inf)+
+  # theme(axis.text.x = element_blank(),axis.ticks.x = element_blank(),
+  # axis.title.X = element_blank())+ 
+  ylab("")
+pp<-egg::tag_facet(pp
+  # , tag_pool = c("c")
+  , tag_pool = c('(b)  Phosphorus'), open = " ", close = " ", hjust = 0, y = Inf
+  )+ theme(axis.text.x = element_blank(),axis.ticks.x = element_blank(),axis.title.x = element_blank()) + ylab("Nutrient concentrations (%)")
 #without carbon
 #n1<-plot_grid(lgnd,pn,pp,labels = c("","A","B"),nrow=3,ncol = 1,rel_heights = c(.1,1,1))
 #with carbon
 (n2<-plot_grid(
-  lgnd,pn,pc,pp,nrow=4,ncol = 1,rel_heights = c(.1,1,1,1.1)
+  lgnd,pn,pp,pc,nrow=4,ncol = 1,rel_heights = c(.1,1,1,1.1), align = "right"
   #pn,pc,pp,nrow=3,ncol = 1,rel_heights = c(1,1,1.1)
   ))
 # ggsave(filename = "figures/nuts.pdf",plot=n2,width=3,height = 6)
 # ggsave(filename = "figures/nuts.jpg",plot=n2,width=3,height = 6)
-ggsave(filename = "figures/nuts-95CI.jpg",plot=n2,width=3,height=5.5)
+ggsave(filename = "figures/nuts-95CI.jpg",plot=n2,width=3.5,height=6.5)
 
 
 # Figures for supplement
