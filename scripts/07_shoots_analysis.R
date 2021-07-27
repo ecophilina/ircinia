@@ -18,7 +18,13 @@ overdisp_fun <- function(model) {
 
 # make things into factors and create a continuous distance variable
 sgsd0<-sg_shoot%>%
-  mutate(dist2=factor(dist,
+  mutate(dist=case_when(
+    dist=="0-1"~"0-1",
+    dist=="1-2"~"1-2",
+    dist=="2-Jan"~"1-2",
+    dist=="2-3"~"2-3",
+    dist=="3-Feb"~"2-3"),
+         dist2=factor(dist,
                       level=c("0-1","1-2","2-3"),labels = c("near","mid","far")),
          dist1=case_when(dist2=="near"~0,
                          dist2=="mid"~1,
