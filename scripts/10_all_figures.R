@@ -188,8 +188,12 @@ pn<-ggplot(sgn %>%
     summarize(mn = mean(nvalue), sdn = sd(nvalue),
       se = sdn/sqrt(5)) %>%
     filter(sampling %in% c(1, 4) &
-             dist == 0 &
-             nut %in% c("PN"))) +
+             dist <= 0.5 &
+             nut %in% c("PN")) %>% 
+    mutate(
+      dist = if_else(dist == 0, "0 m", "0.5 m")
+    )
+  ) +
    geom_line(aes(group=treatment,
                  x=as.factor(sampling),
                  y=mn,
@@ -219,8 +223,12 @@ scale_color_viridis_d(option="A",
                  begin=0, end=0.6,
                  name="",
                  labels=c("Control","Structure","Sponge"))+
+  facet_grid(cols = vars(dist)) + 
+  theme_bw()+
   theme(panel.grid = element_blank(),
          legend.position = "none",
+    strip.background = element_blank(),
+    strip.text = element_text(size=14),
         axis.title.x = element_blank())
 
 pp<-ggplot(sgn %>%
@@ -228,7 +236,7 @@ pp<-ggplot(sgn %>%
     summarize(mn = mean(nvalue), sdn = sd(nvalue),
       se = sdn/sqrt(5)) %>%
     filter(sampling %in% c(1, 4) &
-             dist == 0 &
+             dist <= 0.5 &
              nut %in% c("PP"))) +
   geom_line(aes(group=treatment,
                  x=as.factor(sampling),
@@ -254,6 +262,7 @@ pp<-ggplot(sgn %>%
   scale_color_viridis_d(option="A", begin=0, end=0.6)+
   scale_x_discrete(labels = c(0,12))+
   xlab("Months into the experiment")+
+  facet_grid(cols = vars(dist)) +
   theme(panel.grid = element_blank(),
     # axis.title.x = element_blank(),
          legend.position = "none")
@@ -263,7 +272,7 @@ pc<-ggplot(sgn %>%
     summarize(mn = mean(nvalue), sdn = sd(nvalue),
       se = sdn/sqrt(5)) %>%
     filter(sampling %in% c(1, 4) &
-             dist == 0 &
+             dist <= 0.5 &
              nut %in% c("PC"))) +
   geom_line(aes(group=treatment,
                  x=as.factor(sampling),
@@ -289,6 +298,7 @@ pc<-ggplot(sgn %>%
   scale_color_viridis_d(option="A", begin=0, end=0.6)+
   scale_x_discrete(labels = c(0,12))+
   xlab("Months into the experiment")+
+  facet_grid(cols = vars(dist)) +   
   theme(panel.grid = element_blank(),
     # axis.title.x = element_blank(),
          legend.position = "none")
@@ -301,19 +311,29 @@ lgnd<-get_legend(pn +
   # tag_pool = c('(a)  Control','(b)  Structure', "(c)  Sponge"),
   # open = " ", close = " "
 pn<-egg::tag_facet(pn
-  , tag_pool = c('(a)  Nitrogen'), open = " ", close = " ", hjust = 0, y = Inf
-  )+
-  theme(axis.text.x = element_blank(),axis.ticks.x = element_blank(),axis.title.x = element_blank()) + ylab("")
+  , tag_pool = c("a", "b")
+  # , tag_pool = c('(a)  Nitrogen'), open = " ", close = " ", hjust = 0, y = Inf
+  )+ 
+  # ylab("") +
+  theme(
+    strip.background = element_blank(),
+    strip.text = element_text(size=14),
+    axis.text.x = element_blank(),
+    axis.ticks.x = element_blank(),axis.title.x = element_blank()) 
 pc<-egg::tag_facet(pc 
-  # , tag_pool = c("b"))+
-  , tag_pool = c('(c)  Carbon'), open = " ", close = " ", hjust = 0, y = Inf)+
+  , tag_pool = c("c","d"))
+  # , tag_pool = c('(c)  Carbon'), open = " ", close = " ", hjust = 0, y = Inf)+
   # theme(axis.text.x = element_blank(),axis.ticks.x = element_blank(),
   # axis.title.X = element_blank())+ 
-  ylab("")
+  # ylab("")
 pp<-egg::tag_facet(pp
-  # , tag_pool = c("c")
-  , tag_pool = c('(b)  Phosphorus'), open = " ", close = " ", hjust = 0, y = Inf
-  )+ theme(axis.text.x = element_blank(),axis.ticks.x = element_blank(),axis.title.x = element_blank()) + ylab("Nutrient concentrations (%)")
+  , tag_pool = c("e", "f")
+  # , tag_pool = c('(b)  Phosphorus'), open = " ", close = " ", hjust = 0, y = Inf
+  )+ 
+  # ylab("Nutrient concentrations (%)") + 
+  theme(axis.text.x = element_blank(),
+    axis.ticks.x = element_blank(),
+    axis.title.x = element_blank()) 
 #without carbon
 #n1<-plot_grid(lgnd,pn,pp,labels = c("","A","B"),nrow=3,ncol = 1,rel_heights = c(.1,1,1))
 #with carbon
@@ -323,7 +343,8 @@ pp<-egg::tag_facet(pp
   ))
 # ggsave(filename = "figures/nuts.pdf",plot=n2,width=3,height = 6)
 # ggsave(filename = "figures/nuts.jpg",plot=n2,width=3,height = 6)
-ggsave(filename = "figures/nuts-95CI.jpg",plot=n2,width=3.5,height=6.5)
+# ggsave(filename = "figures/nuts-95CI.jpg",plot=n2,width=3.5,height=6.5)
+ggsave(filename = "figures/nuts-95CI-w-0.5.jpg",plot=n2,width=6,height=6.5)
 
 
 # Figures for supplement

@@ -160,10 +160,31 @@ n.lmerr<-lmer(nvalue~treatment*sampling+(1|plot),
                 mutate(treatment=relevel(treatment,ref="real")))
 (nrs<-summary(n.lmerr))
 
+
+## effect disappears by 0.5m
+# n.lmerr0.5<-lmer(nvalue~treatment*sampling+(1|plot),
+#   data=sgn%>%
+#     filter(nut=="PN" & dist==0.5 & sampling %in% c(1,4))%>%
+#     mutate(treatment=relevel(treatment,ref="real")))
+# (nrs0.5<-summary(n.lmerr0.5))
+
+# OR WE COULD DO THIS?
+n.lmerr.dist<-lmer(nvalue~
+    treatment*sampling*dist+
+    # treatment*sampling+treatment*dist+sampling*dist+
+    (1|plot),
+  data=sgn%>%
+    filter(nut=="PN" & 
+        dist<=0.5 & # both these distances have complete samples
+        sampling %in% c(1,4))%>%
+    mutate(treatment=relevel(treatment,ref="real")))
+(nrs.dist<-summary(n.lmerr.dist))
+
 # one year later seagrass in plots with sponges have higher %N than either treatment
 # even though they started out lower than both and significantly lower than blank.
 # although this increase is not statistically significant. 
 # seagrass in blank plots did decrease significantly- check fake
+
 
 n.lmerf<-lmer(nvalue~treatment*sampling+(1|plot),
               data=sgn%>%
@@ -176,7 +197,8 @@ n.lmerf<-lmer(nvalue~treatment*sampling+(1|plot),
 p.lmerb<-lmer(nvalue~treatment*sampling+(1|plot),
               data=sgn%>%
                 filter(nut=="PP" & dist==0 & sampling %in% c(1,4)))
-pbs<-summary(p.lmerb)
+(pbs<-summary(p.lmerb))
+
 # no significant change in %P over time in blank plots (but it decreased), but a significant increase in 
 # real compared to blank one year later
 # relevel with real as the base
@@ -188,8 +210,20 @@ p.lmerr<-lmer(nvalue~treatment*sampling+(1|plot),
 # one year later seagrass in plots with sponges have higher %P than blank, but not fake
 # % P increased in real plots over the year,
 # although this increase is not statistically significant. 
-# check trend in fake
 
+# OR WE COULD DO THIS?
+p.lmerr.dist<-lmer(nvalue~
+    treatment*sampling*dist+
+    # treatment*sampling+treatment*dist+sampling*dist+
+    (1|plot),
+  data=sgn%>%
+    filter(nut=="PP" & 
+        dist<=0.5 & # both these distances have complete samples
+        sampling %in% c(1,4))%>%
+    mutate(treatment=relevel(treatment,ref="real")))
+(prs.dist<-summary(p.lmerr.dist))
+
+# check trend in fake
 p.lmerf<-lmer(nvalue~treatment*sampling+(1|plot),
               data=sgn%>%
                 filter(nut=="PP" & dist==0 & sampling %in% c(1,4))%>%
@@ -202,10 +236,16 @@ pfs<-summary(p.lmerf)
 c.lmerb<-lmer(nvalue~treatment*sampling+(1|plot),
               data=sgn%>%
                 filter(nut=="PC" & dist==0 & sampling %in% c(1,4)))
-cbs<-summary(c.lmerb)
+(cbs<-summary(c.lmerb))
 # real was significantly lower than blank at the beginning
 # decrease in %C over the year in blank, but its not significant
 # barely not significant increase in %C in sponge plots after 1 year.
+
+c.lmerb0.5<-lmer(nvalue~treatment*sampling+(1|plot),
+  data=sgn%>%
+    filter(nut=="PC" & dist==0.5 & sampling %in% c(1,4)))
+(cbs0.5<-summary(c.lmerb0.5))
+
 # relevel with real as the base
 c.lmerr<-lmer(nvalue~treatment*sampling+(1|plot),
               data=sgn%>%
@@ -214,6 +254,19 @@ c.lmerr<-lmer(nvalue~treatment*sampling+(1|plot),
 crls<-summary(c.lmerr)
 # increase in %C in sponge plots, but again not significant. There is a significant 
 # difference between real and fake after a year
+
+# OR WE COULD DO THIS?
+c.lmerr.dist<-lmer(nvalue~
+    treatment*sampling*dist+
+    # treatment*sampling+treatment*dist+sampling*dist+
+    (1|plot),
+  data=sgn%>%
+    filter(nut=="PC" & 
+        dist<=0.5 & # both these distances have complete samples
+        sampling %in% c(1,4))%>%
+    mutate(treatment=relevel(treatment,ref="real")))
+(crs.dist<-summary(c.lmerr.dist))
+# (a.crs.dist<-anova(c.lmerr.dist))
 
 c.lmerf<-lmer(nvalue~treatment*sampling+(1|plot),
               data=sgn%>%
