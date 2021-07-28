@@ -1,13 +1,18 @@
 ---
 title: 'Sponges facilitate primary producers in a Bahamas seagrass system'
 author: "Stephanie K. Archer, Finella Campanino, Philina English, Craig A. Layman"
-output:  
-  pdf_document
+output: 
+  pdf_document:
+    includes:
+      in_header: "preamble.tex"
 ---
+
 ```{r,echo=FALSE,warning=FALSE,include=FALSE,message=FALSE}
 if(!require(tidyverse))install.packages("tidyverse");library(tidyverse)
 ```
+
 \begin{landscape}
+
 ```{r expdes, echo=FALSE, fig.align='center', out.width="85%", message=FALSE, warning=FALSE}
 knitr::include_graphics("figures/Experimental design.jpg")
 
@@ -90,7 +95,7 @@ dsgn<-left_join(sgn,sv)%>%
 
 Unfortunately, some samples for nutrient analysis were lost after collection, resulting in an unbalanced sampling design and even smaller sample sizes(Table S1). 
 
-**Table S1.** Sample sizes per treatment, nutrient, distance and sampling. The samples used for the analysis presented in the manuscript text are highlighted. Samples were retained for all plots at all distances from the pre-experiment sample period and are not shown here.
+
 
 ```{r ntable,echo=FALSE,warning=FALSE,message=FALSE}
 # look at sample sizes to see what makes the most sense
@@ -190,8 +195,8 @@ ntable<-dsgn %>%
    #    header=c("Distance(m)","%C","%N","%P","%C","%N","%P","%C"# ,"% N","% P"))
 
 kbl(ntable, booktabs = T,
-    col.names = c("Distance(m)","%C","%N","%P","%C","%N","%P","%C","% N","% P")) %>%
-  kable_styling(latex_options = "scale_down")%>%
+    col.names = c("Distance(m)","%C","%N","%P","%C","%N","%P","%C","% N","% P"),position="h",caption="Table S1. Sample sizes per treatment, nutrient, distance and sampling. The samples used for the analysis presented in the manuscript text are highlighted. Samples were retained for all plots at all distances from the pre-experiment sample period and are not shown here.") %>%
+  kable_styling(latex_options = "scale_down",font_size=11)%>%
 add_header_above(c(" "=1, "Control" = 3, "Structure" = 3,
                    "Sponge" = 3)) %>%
 pack_rows("Year 1", 1, 8) %>%
