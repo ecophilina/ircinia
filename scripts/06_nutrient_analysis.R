@@ -170,7 +170,7 @@ n.lmerr<-lmer(nvalue~treatment*sampling+(1|plot),
 
 # OR WE COULD DO THIS?
 n.lmerr.dist<-lmer(nvalue~
-    treatment*sampling*dist+
+    treatment*sampling*dist+ 
     # treatment*sampling+treatment*dist+sampling*dist+
     (1|plot),
   data=sgn%>%
@@ -184,6 +184,67 @@ n.lmerr.dist<-lmer(nvalue~
 # even though they started out lower than both and significantly lower than blank.
 # although this increase is not statistically significant. 
 # seagrass in blank plots did decrease significantly- check fake
+
+#calcualte the mean of the pre-experiment sampling to add as an offset in analysis
+sgn1<-sgn%>%
+  filter(sampling==1)%>%
+  group_by(nut,treatment,plot,dist)%>%
+  mutate(start_nval=mean(nvalue))%>%
+  ungroup()
+
+sgn1<-sgn1%>%
+  select(-sampling, -nvalue)%>%
+  distinct()
+
+# summer offset version
+n.lmerr.dist<-glmmTMB(nvalue~
+    treatment*dist+ 
+    # treatment*as.factor(dist)+ #use as.factor if including more than 2 levels due to likely non-linearity
+    (1|plot),
+  offset=start_nval,
+  data=sgn%>%left_join(sgn1)%>%
+    filter(nut=="PN" & 
+        dist<=0.5 & # both these distances have complete samples
+        sampling %in% c(4))%>%
+    mutate(
+      treatment=relevel(treatment,ref="real")))
+(nrs.dist<-summary(n.lmerr.dist))
+
+# winter
+n.lmerr.dist<-glmmTMB(nvalue~
+    treatment*dist+ 
+    # treatment*sampling+treatment*dist+sampling*dist+
+    (1|plot),
+  offset=start_nval,
+  data=sgn%>%left_join(sgn1)%>%
+    filter(nut=="PN" & 
+        dist<=0.5 & # both these distances have complete samples
+        sampling %in% c(3))%>%
+    mutate(treatment=relevel(treatment,ref="real")))
+(nrs.dist<-summary(n.lmerr.dist))
+
+
+# offset version for sesons in second yr -- in case takes time to show response? 
+n.lmerr.dist<-glmmTMB(nvalue~
+    treatment*dist+
+    # treatment*poly(dist, 2)+ # another way of coping with non-linearity?
+    season +
+    (1|plot),
+  offset=start_nval,
+  data=sgn%>%left_join(sgn1)%>%
+    filter(nut=="PN" & 
+        dist<=0.5 & # both these distances have complete samples
+        sampling %in% c(3, 4))%>%
+    mutate(
+      season = case_when(
+        sampling==2~"Summer",
+        sampling==3~"Winter",
+        sampling==4~"Summer",
+        sampling==5~"Winter"),
+      treatment=relevel(treatment,ref="real")))
+(nrs.dist<-summary(n.lmerr.dist))
+
+
 
 
 n.lmerf<-lmer(nvalue~treatment*sampling+(1|plot),
@@ -286,7 +347,7 @@ hist(sgn3$nvalue, breaks=30)
 
 # looking at change after 5 months
 n.lmerr5<-lmer(nvalue~treatment*sampling+(1|plot),
-              data=sgn%>%
+              data=dsgn%>%
                 filter(nut=="PN" & dist==0 & sampling %in% c(1,3))%>%
                 mutate(treatment=relevel(treatment,ref="real")))
 (nrs5<-summary(n.lmerr5))
