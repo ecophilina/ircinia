@@ -339,7 +339,9 @@ pp<-egg::tag_facet(pp
 ggsave(filename = "figures/nuts-95CI-w-0.5.jpg",plot=n2,width=6,height=6.5)
 
 
-# alternate figure 4 - nutrients with delta and season
+# Figures for supplement
+
+# supplemental nutrients with delta and season
 source("scripts/06_nutrient_analysis.R")
 pn<-ggplot(dsgn %>%
     group_by(treatment, sampling, nut, dist) %>%
@@ -349,7 +351,7 @@ pn<-ggplot(dsgn %>%
         dist <= 0.5 &
         nut %in% c("PN")) %>% 
     mutate(
-      season = if_else(sampling == 3, "Winter", "Summer"),
+      season = if_else(sampling == 4, "Summer", "Winter"),
       dist = if_else(dist == 0, "0 m", "0.5 m")
     )
 ) +
@@ -391,7 +393,7 @@ pp<-ggplot(dsgn %>%
         dist <= 0.5 &
         nut %in% c("PP")) %>% 
     mutate(
-      season = if_else(sampling == 3, "Winter", "Summer"),
+      season = if_else(sampling == 4, "Summer", "Winter"),
       dist = if_else(dist == 0, "0 m", "0.5 m")
     )
 ) +
@@ -433,7 +435,7 @@ pc<-ggplot(dsgn %>%
         dist <= 0.5 &
         nut %in% c("PC")) %>% 
     mutate(
-      season = if_else(sampling == 3, "Winter", "Summer"),
+      season = if_else(sampling == 4, "Summer", "Winter"),
       dist = if_else(dist == 0, "0 m", "0.5 m")
     )
 ) +
@@ -511,9 +513,6 @@ pp<-egg::tag_facet(pp
 # ggsave(filename = "figures/nuts-95CI.jpg",plot=n2,width=3.5,height=6.5)
 ggsave(filename = "figures/nuts-95CI-w-season.jpg",plot=n2,width=6,height=6.5)
 
-
-
-# Figures for supplement
 
 
 # Algae 

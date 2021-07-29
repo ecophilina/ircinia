@@ -36,6 +36,8 @@ filter(sgn,nut=="PN" & nvalue>2.5)
 # I'm going to remove these points before going further. 
 
 sgn_no<-bind_rows(sgn %>%
+                    filter(plot==6 & sampling==2 & dist==0),
+                  sgn %>%
                     filter(plot==7 & sampling==2 & dist==0),
                   sgn %>%
                     filter(plot==8 & sampling==2 & dist==1))
@@ -51,21 +53,24 @@ sv<-filter(sgn, sampling == 1) %>%
 dsgn<-left_join(sgn,sv)%>%
   mutate(delta=nvalue-snv,
     season=case_when(
+      sampling==1~"Summer",
       sampling==2~"Summer",
       sampling==3~"Winter",
       sampling==4~"Summer",
       sampling==5~"Winter"),
-    yr=case_when(
+    yr=as.factor(case_when(
+      sampling==1~0,
       sampling==2~1,
       sampling==3~1,
       sampling==4~2,
-      sampling==5~2),
+      sampling==5~2)),
     mnths=case_when(
       sampling==1~0,
       sampling==2~1,
       sampling==3~5,
       sampling==4~12,
-      sampling==5~17))%>%filter(sampling!=1)
+      sampling==5~17))#%>%filter(sampling!=1)
+
 # look at sample sizes here
 ggplot(dsgn%>%
   group_by(treatment,sampling,dist,nut)%>%
@@ -73,6 +78,8 @@ ggplot(dsgn%>%
   summarize(ns=n()))+
   geom_bar(aes(x=treatment,y=ns,fill=nut),position=position_dodge(),stat="identity")+
   facet_grid(sampling~dist)
+
+
 # check for season effect
 Nseason<-lmer(nvalue~season+(1|plot), data = dsgn%>%
     filter(nut=="PN")) 
@@ -87,13 +94,52 @@ Cseason<-lmer(nvalue~season+(1|plot), data = dsgn%>%
 (Cseason<-Anova(Cseason, type = "III"))
 # YES for all
 
-dsgn%>% filter(dist==0 & nut %in% c("PC","PN","PP"))%>%
+# first make treatment a factor to allow releveling 
+sgn$treatment<-as.factor(sgn$treatment)
+sv$treatment<-as.factor(sv$treatment)
+dsgn$treatment<-as.factor(dsgn$treatment)
+# check starting conditions at the distances for which there is balanced data
+n.lmerb<-lmer(snv~treatment+(1|plot),
+  data=sv%>%
+    filter(nut=="PN" & dist<=0.5)%>%
+    mutate(treatment=relevel(treatment,ref="real")))
+# (nstart<-Anova(n.lmerb, type = "III"))
+(nstart<-summary(n.lmerb))
+
+p.lmerb<-lmer(snv~treatment+(1|plot),
+  data=sv%>%
+    filter(nut=="PP" & dist<=0.5)%>%
+    mutate(treatment=relevel(treatment,ref="real")))
+# (pstart<-Anova(p.lmerb, type = "III"))
+(pstart<-summary(p.lmerb))
+
+c.lmerb<-lmer(snv~treatment+(1|plot),
+  data=sv%>%
+    filter(nut=="PC" & dist<=0.5)%>%
+    mutate(treatment=relevel(treatment,ref="real")))
+# (cstart<-Anova(c.lmerb, type = "III"))
+(cstart<-summary(c.lmerb))
+
+# fake never differs from real at start, only % carbon in blank plots differs sig from real
+
+# make a function to look at residuals
+glmm.resids<-function(model){
+  t1 <- simulateResiduals(model)
+  print(testDispersion(t1))
+  plot(t1)
+}
+
+
+dsgn%>% filter(dist<=0 & nut %in% c("PC","PN","PP"))%>%
   # group_by(treatment,dist,sampling,nut,season,yr,mnths)%>%
   # summarize(mv=mean(delta),sd=sd(delta)) %>%
   # ggplot(aes(y=mv,color=treatment,x=as.factor(mnths)))+
   # geom_point(position=position_dodge(width=.3),size=2)+
   # geom_errorbar(aes(ymin=mv-sd,ymax=mv+sd,color=treatment),width=.1,position=position_dodge(width=0.3))+
-  ggplot(aes(y=delta,color=treatment,x=as.factor(mnths)))+
+  ggplot(aes(
+    # y=delta,
+    y=nvalue,
+    color=treatment,x=as.factor(mnths)))+
   geom_point(position=position_dodge(width=.3),size=1.5,alpha=0.7)+
   xlab("Months into experiment") +
   scale_color_viridis_d(
@@ -104,8 +150,8 @@ dsgn%>% filter(dist==0 & nut %in% c("PC","PN","PP"))%>%
   facet_grid(rows = vars(nut),cols = vars(season),scales="free") +
   ggtitle("At center of plot")
 
-dsgn %>% filter(dist==0.5 &nut %in% c("PC","PN","PP"))%>%
-    ggplot(aes(y=delta,color=treatment,x=as.factor(mnths)))+
+dsgn %>% filter(dist<=0.5 &nut %in% c("PC","PN","PP"))%>%
+    ggplot(aes(y=nvalue,color=treatment,x=as.factor(mnths)))+
     geom_point(position=position_dodge(width=.3),size=1.5,alpha=0.7)+
     xlab("Months into experiment") +
   scale_color_viridis_d(
@@ -114,10 +160,12 @@ dsgn %>% filter(dist==0.5 &nut %in% c("PC","PN","PP"))%>%
     name="",
     labels=c("Control","Structure","Sponge"))+
   facet_grid(rows = vars(nut),cols = vars(season),scales="free") +
-  ggtitle("At 0.5m from center of plot")
+  ggtitle("Up to 0.5m from center of plot")
 
-dsgn %>% filter(dist==1 &nut %in% c("PC","PN","PP"))%>%
-  ggplot(aes(y=delta,color=treatment,x=as.factor(mnths)))+
+# ggsave("figures/allnutrient0.5m.png")
+
+dsgn %>% filter(dist<=1 &nut %in% c("PC","PN","PP"))%>%
+  ggplot(aes(y=nvalue,color=treatment,x=as.factor(mnths)))+
   geom_point(position=position_dodge(width=.3),size=1.5,alpha=0.7)+
   xlab("Months into experiment") +
   scale_color_viridis_d(
@@ -126,10 +174,10 @@ dsgn %>% filter(dist==1 &nut %in% c("PC","PN","PP"))%>%
     name="",
     labels=c("Control","Structure","Sponge"))+
   facet_grid(rows = vars(nut),cols = vars(season),scales="free") +
-  ggtitle("At 1m from center of plot")
+  ggtitle("Up to 1m from center of plot")
 
-dsgn %>% filter(dist==2 &nut %in% c("PC","PN","PP"))%>%
-  ggplot(aes(y=delta,color=treatment,x=as.factor(mnths)))+
+dsgn %>% filter(dist<=2 & nut %in% c("PC","PN","PP"))%>%
+  ggplot(aes(y=nvalue,color=treatment,x=as.factor(mnths)))+
   geom_point(position=position_dodge(width=.3),size=1.5,alpha=0.7)+
   xlab("Months into experiment") +
   scale_color_viridis_d(
@@ -138,203 +186,286 @@ dsgn %>% filter(dist==2 &nut %in% c("PC","PN","PP"))%>%
     name="",
     labels=c("Control","Structure","Sponge"))+
   facet_grid(rows = vars(nut),cols = vars(season),scales="free") +
-  ggtitle("At 2m from center of plot")
+  ggtitle("Entire plots")
+
+# ggsave("figures/allnutrients.png")
+
 
 # because we don't have a before sample during winter, we focus on summer
-# look at change after 1 year
+# due to unbalanced sample number in some distances and sample times
+# look at change after 1 year and include only nearest two distances 
+
 #in %N
-n.lmerb<-lmer(nvalue~treatment*sampling+(1|plot),
-              data=sgn%>%
-                filter(nut=="PN" & dist==0 & sampling %in% c(1,4)))
-(nbs<-summary(n.lmerb))
 # relevel with real as the base
-# first make treatment a factor
-sgn <- sgn %>% ungroup() 
-sgn$treatment<-as.factor(sgn$treatment)
+# one year later seagrass in plots with sponges have higher %N than either treatment
 
-sgn$sampling<-as.factor(sgn$sampling)
+# # summer offset version
+# n.lmerb.o<-glmmTMB(nvalue~
+#     treatment*dist+
+#     # treatment*as.factor(dist)+ #use as.factor if including more than 2 levels due to likely non-linearity
+#     (1|plot),
+#   offset=snv,
+#   data=dsgn%>%
+#     filter(nut=="PN" &
+#         dist<=0.5 & # both these distances have complete samples
+#         sampling %in% c(4))) # second summer
+# (nbs<-summary(n.lmerb.o))
+# glmm.resids(n.lmerb.o) # ugly residuals
 
-n.lmerr<-lmer(nvalue~treatment*sampling+(1|plot),
-              data=sgn%>%
-                filter(nut=="PN" & dist==0 & sampling %in% c(1,4))%>%
-                mutate(treatment=relevel(treatment,ref="real")))
+
+# summer BACI version
+n.lmerb<-lmer(nvalue~
+    treatment*yr*dist+ 
+    (1|plot),
+  data=dsgn%>%
+    filter(nut=="PN" & 
+        dist<=0.5 & # both these distances have complete samples
+        sampling %in% c(1,4))%>%# second summer
+    mutate(treatment=relevel(treatment,ref="blank")))
+(nbs<-summary(n.lmerb))
+glmm.resids(n.lmerb) # good!
+
+# # summer glmmTMB BACI version similar but less concervative so stick with lmer
+# n.lmerb<-glmmTMB(nvalue~
+#     treatment*yr*dist+ 
+#     (1|plot),
+#   data=dsgn%>%
+#     filter(nut=="PN" & 
+#         dist<=0.5 & # both these distances have complete samples
+#         sampling %in% c(1,4)) %>%
+#   mutate(treatment=relevel(treatment,ref="blank")))
+# (nbs<-summary(n.lmerb))
+# glmm.resids(n.lmerb)
+
+
+n.lmerr<-lmer(nvalue~
+    treatment*yr*dist+
+    (1|plot),
+  data=dsgn%>%
+    filter(nut=="PN" & 
+        dist<=0.5 & # both these distances have complete samples
+        sampling %in% c(1,4))%>% # second summer
+    mutate(
+      treatment=relevel(treatment,ref="real")))
 (nrs<-summary(n.lmerr))
 
-
-## effect disappears by 0.5m
-# n.lmerr0.5<-lmer(nvalue~treatment*sampling+(1|plot),
-#   data=sgn%>%
-#     filter(nut=="PN" & dist==0.5 & sampling %in% c(1,4))%>%
-#     mutate(treatment=relevel(treatment,ref="real")))
-# (nrs0.5<-summary(n.lmerr0.5))
-
-# OR WE COULD DO THIS?
-n.lmerr.dist<-lmer(nvalue~
-    treatment*sampling*dist+ 
-    # treatment*sampling+treatment*dist+sampling*dist+
+n.lmerb<-lmer(nvalue~
+    treatment*yr*dist+ 
     (1|plot),
-  data=sgn%>%
+  data=dsgn%>%
     filter(nut=="PN" & 
         dist<=0.5 & # both these distances have complete samples
-        sampling %in% c(1,4))%>%
+        sampling %in% c(1,4))%>%# second summer
     mutate(treatment=relevel(treatment,ref="real")))
-(nrs.dist<-summary(n.lmerr.dist))
+(nbs<-summary(n.lmerb))
+# glmm.resids(n.lmerb)
 
-# one year later seagrass in plots with sponges have higher %N than either treatment
-# even though they started out lower than both and significantly lower than blank.
-# although this increase is not statistically significant. 
-# seagrass in blank plots did decrease significantly- check fake
 
-#calcualte the mean of the pre-experiment sampling to add as an offset in analysis
-sgn1<-sgn%>%
-  filter(sampling==1)%>%
-  group_by(nut,treatment,plot,dist)%>%
-  mutate(start_nval=mean(nvalue))%>%
-  ungroup()
 
-sgn1<-sgn1%>%
-  select(-sampling, -nvalue)%>%
-  distinct()
-
-# summer offset version
-n.lmerr.dist<-glmmTMB(nvalue~
-    treatment*dist+ 
-    # treatment*as.factor(dist)+ #use as.factor if including more than 2 levels due to likely non-linearity
+n.lmerf<-glmmTMB(nvalue~    
+    treatment*yr*dist+ 
     (1|plot),
-  offset=start_nval,
-  data=sgn%>%left_join(sgn1)%>%
+  data=dsgn%>%
     filter(nut=="PN" & 
         dist<=0.5 & # both these distances have complete samples
-        sampling %in% c(4))%>%
-    mutate(
-      treatment=relevel(treatment,ref="real")))
-(nrs.dist<-summary(n.lmerr.dist))
-
-# winter
-n.lmerr.dist<-glmmTMB(nvalue~
-    treatment*dist+ 
-    # treatment*sampling+treatment*dist+sampling*dist+
-    (1|plot),
-  offset=start_nval,
-  data=sgn%>%left_join(sgn1)%>%
-    filter(nut=="PN" & 
-        dist<=0.5 & # both these distances have complete samples
-        sampling %in% c(3))%>%
-    mutate(treatment=relevel(treatment,ref="real")))
-(nrs.dist<-summary(n.lmerr.dist))
-
-
-# offset version for sesons in second yr -- in case takes time to show response? 
-n.lmerr.dist<-glmmTMB(nvalue~
-    treatment*dist+
-    # treatment*poly(dist, 2)+ # another way of coping with non-linearity?
-    season +
-    (1|plot),
-  offset=start_nval,
-  data=sgn%>%left_join(sgn1)%>%
-    filter(nut=="PN" & 
-        dist<=0.5 & # both these distances have complete samples
-        sampling %in% c(3, 4))%>%
-    mutate(
-      season = case_when(
-        sampling==2~"Summer",
-        sampling==3~"Winter",
-        sampling==4~"Summer",
-        sampling==5~"Winter"),
-      treatment=relevel(treatment,ref="real")))
-(nrs.dist<-summary(n.lmerr.dist))
-
-
-
-
-n.lmerf<-lmer(nvalue~treatment*sampling+(1|plot),
-              data=sgn%>%
-                filter(nut=="PN" & dist==0 & sampling %in% c(1,4))%>%
-                mutate(treatment=relevel(treatment,ref="fake")))
+        sampling %in% c(1, 4))%>% # second summer
+    mutate(treatment=relevel(treatment,ref="fake")))
 (nfs<-summary(n.lmerf))
-# fake decreased but not significantly.
+# fake starts higher and decreases non-significantly in nearest distance, and increases at 0.5 m.
+
+# winter BACI (sampling 3, 5 months)
+n.lmerr.w<-glmmTMB(nvalue~
+    treatment*yr*dist+ 
+    # treatment*sampling+treatment*dist+sampling*dist+
+    (1|plot),
+  data=dsgn%>%
+    filter(nut=="PN" & 
+        dist<=0.5 & # both these distances have complete samples
+        sampling %in% c(1, 3))%>% # first winter
+    mutate(treatment=relevel(treatment,ref="real")))
+(nrs5<-summary(n.lmerr.w))
+glmm.resids(n.lmerr.w)
+# nothing sig in winter
+
+## Winter offset version
+# n.lmerr.w.o<-glmmTMB(nvalue~
+#     treatment*dist+ 
+#     # treatment*sampling+treatment*dist+sampling*dist+
+#     (1|plot),
+#   offset=snv,
+#   data=dsgn%>%
+#     filter(nut=="PN" & 
+#         dist<=0.5 & # both these distances have complete samples
+#         sampling %in% c(3))%>% # first winter
+#     mutate(treatment=relevel(treatment,ref="real")))
+# (nrs5<-summary(n.lmerr.w.o))
+# glmm.resids(n.lmerr.w.o)
+
+# # offset version for sesons in second yr -- in case takes time to show response?
+# n.lmerr.season<-glmmTMB(nvalue~
+#     treatment*dist+
+#     # treatment*poly(dist, 2)+ # another way of coping with non-linearity?
+#     season +
+#     (1|plot),
+#   offset=snv,
+#   data=dsgn%>%
+#     filter(nut=="PN" &
+#         dist<=0.5 & # both these distances have complete samples in year 2
+#         sampling %in% c( 4, 5))%>%
+#     mutate(
+#       treatment=relevel(treatment,ref="real")))
+# (nrs.season<-summary(n.lmerr.season))
+# glmm.resids(n.lmerr.season) # not good 
+
 
 # now doing percent phosphorus
-p.lmerb<-lmer(nvalue~treatment*sampling+(1|plot),
-              data=sgn%>%
-                filter(nut=="PP" & dist==0 & sampling %in% c(1,4)))
-(pbs<-summary(p.lmerb))
 
-# no significant change in %P over time in blank plots (but it decreased), but a significant increase in 
-# real compared to blank one year later
-# relevel with real as the base
-p.lmerr<-lmer(nvalue~treatment*sampling+(1|plot),
-              data=sgn%>%
-                filter(nut=="PP" & dist==0 & sampling %in% c(1,4))%>%
-                mutate(treatment=relevel(treatment,ref="real")))
-(prs<-summary(p.lmerr))
-# one year later seagrass in plots with sponges have higher %P than blank, but not fake
-# % P increased in real plots over the year,
-# although this increase is not statistically significant. 
-
-# OR WE COULD DO THIS?
-p.lmerr.dist<-lmer(nvalue~
-    treatment*sampling*dist+
-    # treatment*sampling+treatment*dist+sampling*dist+
+# summer BACI version
+p.lmerb<-lmer(nvalue~
+    treatment*yr*dist+ 
+    # treatment*as.factor(dist)+ #use as.factor if including more than 2 levels due to likely non-linearity
     (1|plot),
-  data=sgn%>%
+  # offset=snv,
+  data=dsgn%>%
     filter(nut=="PP" & 
         dist<=0.5 & # both these distances have complete samples
-        sampling %in% c(1,4))%>%
-    mutate(treatment=relevel(treatment,ref="real")))
-(prs.dist<-summary(p.lmerr.dist))
+        sampling %in% c(1,4))) # second summer
+(pbs<-summary(p.lmerb))
+glmm.resids(p.lmerb)
 
-# check trend in fake
-p.lmerf<-lmer(nvalue~treatment*sampling+(1|plot),
-              data=sgn%>%
-                filter(nut=="PP" & dist==0 & sampling %in% c(1,4))%>%
-                mutate(treatment=relevel(treatment,ref="fake")))
-pfs<-summary(p.lmerf)
-# %P decreased in fake plots, but again, not significantly
+p.lmerr<-lmer(nvalue~
+    treatment*yr*dist+ 
+    (1|plot),
+  # offset=snv,
+  data=dsgn%>%
+    filter(nut=="PP" & 
+        dist<=0.5 & # both these distances have complete samples
+        sampling %in% c(1, 4))%>% # second summer
+    mutate(
+      treatment=relevel(treatment,ref="real")))
+(prs<-summary(p.lmerr))
+
+p.lmerf<-lmer(nvalue ~    
+    treatment*yr*dist+ 
+    (1|plot),
+  # offset=snv,
+  data=dsgn%>%
+    filter(nut=="PP" & 
+        dist<=0.5 & # both these distances have complete samples
+        sampling %in% c(1, 4))%>% # second summer
+    mutate(treatment=relevel(treatment,ref="fake")))
+(pfs<-summary(p.lmerf))
+
+
+# winter BACI
+p.lmerr.w<-lmer(nvalue~
+    treatment*yr*dist+ 
+    (1|plot),
+  # offset=snv,
+  data=dsgn%>%
+    filter(nut=="PP" & 
+        dist<=0.5 & # both these distances have complete samples
+        sampling %in% c(1,3))%>% # first winter
+    mutate(treatment=relevel(treatment,ref="real")))
+(prs5<-summary(p.lmerr.w))
+glmm.resids(p.lmerr.w)
+# nothing sig in winter
+
+# # offset version for sesons in second yr -- in case takes time to show response? 
+# p.lmerr.season<-glmmTMB(nvalue~
+#     treatment*dist+
+#     # treatment*poly(dist, 2)+ # another way of coping with non-linearity?
+#     season +
+#     (1|plot),
+#   offset=snv,
+#   data=dsgn%>%
+#     filter(nut=="PP" & 
+#         dist<=0.5 & # both these distances have complete samples in year 2
+#         sampling %in% c( 4, 5))%>%
+#     mutate(
+#       treatment=relevel(treatment,ref="real")))
+# (prs.season<-summary(p.lmerr.season))
+
+# %P decreased very slightly in second summer in blank plots
+# %P in sponge plots stable, this differs sig from blank, but not from fake
+# nothing sig for fake plots
+
 
 # look at %C now
 
-c.lmerb<-lmer(nvalue~treatment*sampling+(1|plot),
-              data=sgn%>%
-                filter(nut=="PC" & dist==0 & sampling %in% c(1,4)))
-(cbs<-summary(c.lmerb))
-# real was significantly lower than blank at the beginning
-# decrease in %C over the year in blank, but its not significant
-# barely not significant increase in %C in sponge plots after 1 year.
-
-c.lmerb0.5<-lmer(nvalue~treatment*sampling+(1|plot),
-  data=sgn%>%
-    filter(nut=="PC" & dist==0.5 & sampling %in% c(1,4)))
-(cbs0.5<-summary(c.lmerb0.5))
-
-# relevel with real as the base
-c.lmerr<-lmer(nvalue~treatment*sampling+(1|plot),
-              data=sgn%>%
-                filter(nut=="PC" & dist==0 & sampling %in% c(1,4))%>%
-                mutate(treatment=relevel(treatment,ref="real")))
-crls<-summary(c.lmerr)
-# increase in %C in sponge plots, but again not significant. There is a significant 
-# difference between real and fake after a year
-
-# OR WE COULD DO THIS?
-c.lmerr.dist<-lmer(nvalue~
-    treatment*sampling*dist+
-    # treatment*sampling+treatment*dist+sampling*dist+
+# summer BACI version
+c.lmerb<-lmer(nvalue~
+    treatment*yr*dist+
+    # treatment*as.factor(dist)+ #use as.factor if including more than 2 levels due to likely non-linearity
     (1|plot),
-  data=sgn%>%
+  # offset=snv,
+  data=dsgn%>%
     filter(nut=="PC" & 
         dist<=0.5 & # both these distances have complete samples
-        sampling %in% c(1,4))%>%
-    mutate(treatment=relevel(treatment,ref="real")))
-(crs.dist<-summary(c.lmerr.dist))
-# (a.crs.dist<-anova(c.lmerr.dist))
+        sampling %in% c(1,4))) # second summer
+(cbs<-summary(c.lmerb))
+glmm.resids(c.lmerb) #nquantile deviations detected
 
-c.lmerf<-lmer(nvalue~treatment*sampling+(1|plot),
-              data=sgn%>%
-                filter(nut=="PC" & dist==0 & sampling %in% c(1,4))%>%
-                mutate(treatment=relevel(treatment,ref="fake")))
-cfs<-summary(c.lmerf)
+c.lmerr<-lmer(nvalue~
+    treatment*yr*dist+ 
+    (1|plot),
+  # offset=snv,
+  data=dsgn%>%
+    filter(nut=="PC" & 
+        dist<=0.5 & # both these distances have complete samples
+        sampling %in% c(1,4))%>% # second summer
+    mutate(
+      treatment=relevel(treatment,ref="real")))
+(crs<-summary(c.lmerr))
+
+c.lmerf<-lmer(nvalue~    
+    treatment*yr*dist+ 
+    (1|plot),
+  # offset=snv,
+  data=dsgn%>%
+    filter(nut=="PC" & 
+        dist<=0.5 & # both these distances have complete samples
+        sampling %in% c(1,4))%>% # second summer
+    mutate(treatment=relevel(treatment,ref="fake")))
+(cfs<-summary(c.lmerf))
+glmm.resids(c.lmerf)
+
+# sponge plots were significantly lower in %C than blank at the beginning 
+# sponge plots remain stable (no sig change) in both time and at both distances, but differs from blank an fake by yr 2
+# decrease in %C over the year in blank, but its not significant
+# There is a significant difference between real and fake after a year
 # %C decreased significantly in fake plots after 1 year.
+
+
+
+# winter
+c.lmerr.w<-lmer(nvalue~
+    treatment*yr*dist+ 
+    (1|plot),
+  # offset=snv,
+  data=dsgn%>%
+    filter(nut=="PC" & 
+        dist<=0.5 & # both these distances have complete samples
+        sampling %in% c(1,3))%>% # first winter
+    mutate(treatment=relevel(treatment,ref="real")))
+(crs5<-summary(c.lmerr.w))
+
+
+# # offset version for sesons in second yr -- in case takes time to show response? 
+# c.lmerr.season<-glmmTMB(nvalue~
+#     treatment*dist+
+#     season +
+#     (1|plot),
+#   offset=snv,
+#   data=dsgn%>%
+#     filter(nut=="PC" & 
+#         dist<=0.5 & # both these distances have complete samples in year 2
+#         sampling %in% c( 4, 5))%>%
+#     mutate(
+#       treatment=relevel(treatment,ref="real")))
+# (crs.season<-summary(c.lmerr.season))
+
+
 
 # check distributions
 sgn1 <- sgn %>% filter(nut=="PC" & dist==0 & sampling %in% c(1,4))
