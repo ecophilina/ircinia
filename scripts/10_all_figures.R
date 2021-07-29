@@ -215,10 +215,6 @@ pn<-ggplot(sgn %>%
   ylab("% Nitrogen")+
   scale_x_discrete(labels = c(0,12))+
   xlab("Months into the experiment")+
-  # scale_color_brewer(type="qual",
-  #                     palette="Set2",
-  #                     name="",
-  #                     labels=c("Control","Structure","Sponge"))+
 scale_color_viridis_d(option="A",
                  begin=0, end=0.6,
                  name="",
@@ -256,9 +252,7 @@ pp<-ggplot(sgn %>%
     position = position_dodge(width = .5))+  
   scale_y_continuous(expand=expansion(add = c(0.001, 0.005)), 
     breaks=c(0.05,0.06,0.07)) +
-  # ylab("")+
   ylab("% Phosphorus")+
-  # scale_color_brewer(type="qual",palette="Set2")+
   scale_color_viridis_d(option="A", begin=0, end=0.6)+
   scale_x_discrete(labels = c(0,12))+
   xlab("Months into the experiment")+
@@ -292,12 +286,10 @@ pc<-ggplot(sgn %>%
     position = position_dodge(width = .5))+
   scale_y_continuous(expand=expansion(add = c(0.5, 1.75)), 
     breaks = c(30.0, 33.0, 36.0),labels = c("30.0", "33.0", "36.0")) +
-  # ylab("")+
-  ylab("% Carbon")+
-  # scale_color_brewer(type="qual",palette="Set2")+
   scale_color_viridis_d(option="A", begin=0, end=0.6)+
   scale_x_discrete(labels = c(0,12))+
   xlab("Months into the experiment")+
+  ylab("% Carbon")+
   facet_grid(cols = vars(dist)) +   
   theme(panel.grid = element_blank(),
     # axis.title.x = element_blank(),
@@ -345,6 +337,180 @@ pp<-egg::tag_facet(pp
 # ggsave(filename = "figures/nuts.jpg",plot=n2,width=3,height = 6)
 # ggsave(filename = "figures/nuts-95CI.jpg",plot=n2,width=3.5,height=6.5)
 ggsave(filename = "figures/nuts-95CI-w-0.5.jpg",plot=n2,width=6,height=6.5)
+
+
+# alternate figure 4 - nutrients with delta and season
+source("scripts/06_nutrient_analysis.R")
+pn<-ggplot(dsgn %>%
+    group_by(treatment, sampling, nut, dist) %>%
+    summarize(mn = mean(delta), sdn = sd(delta),
+      se = sdn/sqrt(5)) %>%
+    filter(sampling %in% c(3, 4) &
+        dist <= 0.5 &
+        nut %in% c("PN")) %>% 
+    mutate(
+      season = if_else(sampling == 3, "Winter", "Summer"),
+      dist = if_else(dist == 0, "0 m", "0.5 m")
+    )
+) +
+  geom_line(aes(group=treatment,
+    x=dist,
+    y=mn,
+    color=treatment),
+    position = position_dodge(width = .5))+
+  geom_point(aes( x = dist,
+    y = mn,
+    color = treatment),
+    size = 4,
+    position = position_dodge(width = .5)) +
+  geom_errorbar(aes(x = dist,
+    # ymin = mn - sdn, ymax = mn + sdn,
+    ymin = mn - se*1.96, ymax = mn + se*1.96,
+    color = treatment),
+    width = .1,
+    position = position_dodge(width = .5))+
+  xlab("Distance from centre")+
+  scale_color_viridis_d(option="A",
+    begin=0, end=0.6,
+    name="",
+    labels=c("Control","Structure","Sponge"))+
+  facet_grid(cols = vars(season)) + 
+  theme_bw()+
+  theme(panel.grid = element_blank(),
+    legend.position = "none",
+    strip.background = element_blank(),
+    strip.text = element_text(size=14),
+    axis.title.x = element_blank())+  
+  ylab(expression(paste(Delta," % Nitrogen")))
+
+pp<-ggplot(dsgn %>%
+    group_by(treatment, sampling, nut, dist) %>%
+    summarize(mn = mean(delta), sdn = sd(delta),
+      se = sdn/sqrt(5)) %>%
+    filter(sampling %in% c(3, 4) &
+        dist <= 0.5 &
+        nut %in% c("PP")) %>% 
+    mutate(
+      season = if_else(sampling == 3, "Winter", "Summer"),
+      dist = if_else(dist == 0, "0 m", "0.5 m")
+    )
+) +
+  geom_line(aes(group=treatment,
+    x=dist,
+    y=mn,
+    color=treatment),
+    position = position_dodge(width = .5))+
+  geom_point(aes( x = dist,
+    y = mn,
+    color = treatment),
+    size = 4,
+    position = position_dodge(width = .5)) +
+  geom_errorbar(aes(x = dist,
+    # ymin = mn - sdn, ymax = mn + sdn,
+    ymin = mn - se*1.96, ymax = mn + se*1.96,
+    color = treatment),
+    width = .1,
+    position = position_dodge(width = .5))+
+  xlab("Distance from centre")+
+  scale_color_viridis_d(option="A",
+    begin=0, end=0.6,
+    name="",
+    labels=c("Control","Structure","Sponge"))+
+  facet_grid(cols = vars(season)) + 
+  theme_bw()+
+  theme(panel.grid = element_blank(),
+    legend.position = "none",
+    strip.background = element_blank(),
+    strip.text = element_text(size=14),
+    axis.title.x = element_blank())+
+ylab(expression(paste(Delta," % Phosphorus")))
+  
+pc<-ggplot(dsgn %>%
+    group_by(treatment, sampling, nut, dist) %>%
+    summarize(mn = mean(delta), sdn = sd(delta),
+      se = sdn/sqrt(5)) %>%
+    filter(sampling %in% c(3, 4) &
+        dist <= 0.5 &
+        nut %in% c("PC")) %>% 
+    mutate(
+      season = if_else(sampling == 3, "Winter", "Summer"),
+      dist = if_else(dist == 0, "0 m", "0.5 m")
+    )
+) +
+  geom_line(aes(group=treatment,
+    x=dist,
+    y=mn,
+    color=treatment),
+    position = position_dodge(width = .5))+
+  geom_point(aes( x = dist,
+    y = mn,
+    color = treatment),
+    size = 4,
+    position = position_dodge(width = .5)) +
+  geom_errorbar(aes(x = dist,
+    # ymin = mn - sdn, ymax = mn + sdn,
+    ymin = mn - se*1.96, ymax = mn + se*1.96,
+    color = treatment),
+    width = .1,
+    position = position_dodge(width = .5))+
+  # scale_y_continuous(expand=expansion(add = c(0.05, 0.1)),
+  #   breaks=c(1.60,1.80,2.00),labels=c("1.60","1.80","2.00")) +
+  # scale_x_discrete(labels = c(0,12))+
+  xlab("Distance from centre")+
+  scale_color_viridis_d(option="A",
+    begin=0, end=0.6,
+    name="",
+    labels=c("Control","Structure","Sponge"))+
+  facet_grid(cols = vars(season)) + 
+  theme_bw()+
+  ylab(expression(paste(Delta," % Carbon")))+
+  theme(panel.grid = element_blank(),
+    # axis.title.x = element_blank(),
+    legend.position = "none")
+
+library(cowplot)
+lgnd<-get_legend(pn +
+    guides(color = guide_legend(nrow = 1, align_plots = "right")) +
+    theme(legend.position = "bottom"))
+# hjust = 0, y = Inf,
+# tag_pool = c('(a)  Control','(b)  Structure', "(c)  Sponge"),
+# open = " ", close = " "
+pn<-egg::tag_facet(pn
+  , tag_pool = c("a", "b")
+  # , tag_pool = c('(a)  Nitrogen'), open = " ", close = " ", hjust = 0, y = Inf
+)+ 
+  # ylab("") +
+  theme(
+    strip.background = element_blank(),
+    strip.text = element_text(size=14),
+    axis.text.x = element_blank(),
+    axis.ticks.x = element_blank(),axis.title.x = element_blank()) 
+pc<-egg::tag_facet(pc 
+  , tag_pool = c("c","d"))
+# , tag_pool = c('(c)  Carbon'), open = " ", close = " ", hjust = 0, y = Inf)+
+# theme(axis.text.x = element_blank(),axis.ticks.x = element_blank(),
+# axis.title.X = element_blank())+ 
+# ylab("")
+pp<-egg::tag_facet(pp
+  , tag_pool = c("e", "f")
+  # , tag_pool = c('(b)  Phosphorus'), open = " ", close = " ", hjust = 0, y = Inf
+)+ 
+  # ylab("Nutrient concentrations (%)") + 
+  theme(axis.text.x = element_blank(),
+    axis.ticks.x = element_blank(),
+    axis.title.x = element_blank()) 
+#without carbon
+#n1<-plot_grid(lgnd,pn,pp,labels = c("","A","B"),nrow=3,ncol = 1,rel_heights = c(.1,1,1))
+#with carbon
+(n2<-plot_grid(
+  lgnd,pn,pp,pc,nrow=4,ncol = 1,rel_heights = c(.1,1,1,1.1), align = "right"
+  #pn,pc,pp,nrow=3,ncol = 1,rel_heights = c(1,1,1.1)
+))
+# ggsave(filename = "figures/nuts.pdf",plot=n2,width=3,height = 6)
+# ggsave(filename = "figures/nuts.jpg",plot=n2,width=3,height = 6)
+# ggsave(filename = "figures/nuts-95CI.jpg",plot=n2,width=3.5,height=6.5)
+ggsave(filename = "figures/nuts-95CI-w-season.jpg",plot=n2,width=6,height=6.5)
+
 
 
 # Figures for supplement
