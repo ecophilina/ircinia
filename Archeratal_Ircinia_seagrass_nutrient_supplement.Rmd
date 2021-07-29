@@ -107,7 +107,7 @@ ntable<-dsgn %>%
    #    n.cgroup = c(1, 3, 3, 3),
    #    header=c("Distance(m)","%C","%N","%P","%C","%N","%P","%C"# ,"% N","% P"))
 
-kbl(ntable, caption = "Sample sizes per treatment, nutrient, distance and sampling. The samples used for the analysis presented in the manuscript text are highlighted. Samples were retained for all plots at all distances from the pre-experiment sample period and are not shown here.", booktabs = T,
+kbl(ntable, caption = "Sample sizes per treatment, nutrient, distance and sampling. The samples used for the analysis presented in the manuscript text are highlighted. Samples were retained for all plots at all distances from the pre-experiment sample period, which was conducted in summer and is not shown here.", booktabs = T,
     col.names = c("Distance(m)","%C","%N","%P","%C","%N","%P","%C","% N","% P")) %>%
   kable_styling(latex_options = "scale_down")%>%
 add_header_above(c(" "=1, "Control" = 3, "Structure" = 3,
