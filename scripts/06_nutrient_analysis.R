@@ -249,20 +249,7 @@ n.lmerr<-lmer(nvalue~
       treatment=relevel(treatment,ref="real")))
 (nrs<-summary(n.lmerr))
 
-n.lmerb<-lmer(nvalue~
-    treatment*yr*dist+ 
-    (1|plot),
-  data=dsgn%>%
-    filter(nut=="PN" & 
-        dist<=0.5 & # both these distances have complete samples
-        sampling %in% c(1,4))%>%# second summer
-    mutate(treatment=relevel(treatment,ref="real")))
-(nbs<-summary(n.lmerb))
-# glmm.resids(n.lmerb)
-
-
-
-n.lmerf<-glmmTMB(nvalue~    
+n.lmerf<-lmer(nvalue~    
     treatment*yr*dist+ 
     (1|plot),
   data=dsgn%>%

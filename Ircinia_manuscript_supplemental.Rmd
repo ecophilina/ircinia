@@ -91,9 +91,6 @@ dsgn<-left_join(sgn,sv)%>%
            treatment=="blank"~"Control",
            treatment=="real"~"Sponge"))%>%filter(sampling!=1)
 ```
-# Nutrient Analysis  
-
-Unfortunately, some samples for nutrient analysis were lost after collection, resulting in an unbalanced sampling design and even smaller sample sizes(Table S1). 
 
 
 
@@ -205,158 +202,13 @@ pack_rows("Summer", 1, 4) %>%
 pack_rows("Winter", 5, 8)%>%
 pack_rows("Summer", 9, 12) %>%
 pack_rows("Winter", 13, 16) %>%
-  row_spec(9,background="lightgray")
+  row_spec(9,background="lightgray")%>%
+  row_spec(10,background="lightgray")
 ```
 
-As a result our ability to detect differences in one global model was greatly reduced. 
-Therefore, we first examined each nutrient for a seasonal effect using separate mixed effects models with season as the fixed effect and plot as the random effect.
-There was a significant seasonal effect for all nutrients (Nitrogen, Table Table S2; Phosphorus, Table S3; Carbon, Table S4). 
+
 \newpage 
-**Table S2.** Results of the mixed effects model to determine if there is a seasonal pattern to the nitrogen content of seagrass in our study.
-```{r nseason,echo=FALSE,message=FALSE,warning=FALSE}
-# check for season effect
-Nseason<-lmer(nvalue~season+(1|plot), data = dsgn%>%
-                filter(nut=="PN")) 
-n2<-signif(Anova(Nseason,Type="III"),2)
-kbl(n2,booktabs=TRUE)
-```
 
-**Table S3.** Results of the mixed effects model to determine if there is a seasonal pattern to the phosphorus content of seagrass in our study.
-```{r pseason,echo=FALSE,message=FALSE,warning=FALSE}
-Pseason<-lmer(nvalue~season+(1|plot), data = dsgn%>%
-                filter(nut=="PP")) 
-p2<-signif(Anova(Pseason,Type="III"),2)
-kbl(p2,booktabs=TRUE)
-```
-
-**Table S4.** Results of the mixed effects model to determine if there is a seasonal pattern to the carbon content of seagrass in our study.
-```{r cseason,echo=FALSE,message=FALSE,warning=FALSE}
-Cseason<-lmer(nvalue~season+(1|plot), data = dsgn%>%
-                filter(nut=="PC")) 
-c2<-signif(Anova(Cseason,Type="III"),2)
-kbl(c2,booktabs=TRUE)
-```
-
-**Table S5.** Results of the mixed effects model to determine if there is an effect of treatment on the nitrogen content of seagrass in our study at 0.5 m from the center of each plot.
-```{r nd05,echo=FALSE,message=FALSE,warning=FALSE}
-# check for year effect
-Nd05<-lmer(nvalue~treatment+season+(1|plot),
-          offset=snv,
-          data = dsgn%>%
-            filter(nut=="PN")%>%
-            filter(dist==0.5)) 
-nd05<-signif(Anova(Nd05,Type="III"),2)
-kbl(nd05,booktabs=TRUE)
-```
-
-**Table S6.** Results of the mixed effects model to determine if there is an effect of treatment on the nitrogen content of seagrass in our study at 1 m from the center of each plot.
-```{r nd1,echo=FALSE,message=FALSE,warning=FALSE}
-# check for year effect
-Nd1<-lmer(nvalue~treatment+season+(1|plot),
-          offset=snv,
-          data = dsgn%>%
-            filter(nut=="PN")%>%
-            filter(dist==1)) 
-nd1<-signif(Anova(Nd1,Type="III"),2)
-kbl(nd1,booktabs=TRUE)
-```
-
-**Table S7.** Results of the mixed effects model to determine if there is a seasonal pattern to the nitrogen content of seagrass in our study at 2 m from the center of each plot.
-```{r nd2,echo=FALSE,message=FALSE,warning=FALSE}
-# check for year effect
-Nd2<-lmer(nvalue~treatment+season+(1|plot),
-          offset=snv,
-          data = dsgn%>%
-            filter(nut=="PN")%>%
-            filter(dist==2)) 
-nd2<-signif(Anova(Nd2,Type="III"),2)
-kbl(nd2,booktabs=TRUE)
-```
-
-**Table S8.** Results of the mixed effects model to determine if there is an effect of treatment on the carbon content of seagrass in our study at 0.5 m from the center of each plot.
-```{r cd05,echo=FALSE,message=FALSE,warning=FALSE}
-# check for year effect
-cd05<-lmer(nvalue~treatment+season+(1|plot),
-          offset=snv,
-          data = dsgn%>%
-            filter(nut=="PC")%>%
-            filter(dist==0.5)) 
-cd05<-signif(Anova(cd05,Type="III"),2)
-kbl(cd05,booktabs=TRUE)
-```
-
-**Table S9.** Results of the mixed effects model to determine if there is an effect of treatment on the carbon content of seagrass in our study at 1 m from the center of each plot.
-```{r cd1,echo=FALSE,message=FALSE,warning=FALSE}
-# check for year effect
-cd1<-lmer(nvalue~treatment+season+(1|plot),
-          offset=snv,
-          data = dsgn%>%
-            filter(nut=="PC")%>%
-            filter(dist==1)) 
-cd1<-signif(Anova(cd1,Type="III"),2)
-kbl(cd1,booktabs=TRUE)
-```
-
-**Table S10** Results of the mixed effects model to determine if there is a seasonal pattern to the carbon content of seagrass in our study at 2 m from the center of each plot.
-```{r cd2,echo=FALSE,message=FALSE,warning=FALSE}
-# check for year effect
-cd2<-lmer(nvalue~treatment+season+(1|plot),
-          offset=snv,
-          data = dsgn%>%
-            filter(nut=="PC")%>%
-            filter(dist==2)) 
-cd2<-signif(Anova(cd2,Type="III"),2)
-kbl(cd2,booktabs=TRUE)
-```
-
-**Table S11.** Results of the mixed effects model to determine if there is an effect of treatment on the phosphorus content of seagrass in our study at the center of each plot.
-```{r pd0,echo=FALSE,message=FALSE,warning=FALSE}
-# check for year effect
-pd0<-lmer(nvalue~treatment+season+(1|plot),
-          offset=snv,
-          data = dsgn%>%
-            filter(nut=="PP")%>%
-            filter(dist==0)) 
-pd0<-signif(Anova(pd0,Type="III"),2)
-kbl(pd0,booktabs=TRUE)
-```
-
-**Table S12.** Results of the mixed effects model to determine if there is an effect of treatment on the phosphorus content of seagrass in our study at 0.5 m from the center of each plot.
-```{r pd05,echo=FALSE,message=FALSE,warning=FALSE}
-# check for year effect
-pd05<-lmer(nvalue~treatment+season+(1|plot),
-          offset=snv,
-          data = dsgn%>%
-            filter(nut=="PP")%>%
-            filter(dist==0.5)) 
-pd05<-signif(Anova(pd05,Type="III"),2)
-kbl(pd05,booktabs=TRUE)
-```
-
-**Table S13.** Results of the mixed effects model to determine if there is an effect of treatment on the phosphorus content of seagrass in our study at 1 m from the center of each plot.
-```{r pd1,echo=FALSE,message=FALSE,warning=FALSE}
-# check for year effect
-pd1<-lmer(nvalue~treatment+season+(1|plot),
-          offset=snv,
-          data = dsgn%>%
-            filter(nut=="PP")%>%
-            filter(dist==1)) 
-pd1<-signif(Anova(pd1,Type="III"),2)
-kbl(pd1,booktabs=TRUE)
-```
-
-**Table S14.** Results of the mixed effects model to determine if there is a seasonal pattern to the phosphorus content of seagrass at 2 m in our study.
-```{r pd2,echo=FALSE,message=FALSE,warning=FALSE}
-# check for year effect
-pd2<-lmer(nvalue~treatment+season+(1|plot),
-          offset=snv,
-          data = dsgn%>%
-            filter(nut=="PP")%>%
-            filter(dist==2)) 
-pd2<-signif(Anova(pd2,Type="III"),2)
-kbl(pd2,booktabs=TRUE)
-```
-\newpage
 
 ```{r algspab, echo=FALSE, fig.align='center', out.width="85%", message=FALSE, warning=FALSE}
 knitr::include_graphics("figures/algal_sp_abundance.jpg")
@@ -376,7 +228,7 @@ All results tables have the sponge treatment as the reference level for treatmen
 \end{Large}
 
 ```{r table.func,echo=FALSE,warning=FALSE,message=FALSE}
-tab.func<-function(type,msum){
+tab.func<-function(type,msum,cap){
   if(type=="glmmtmb"){
     tab1<-msum$coefficients[[1]]
     tab1<-signif(tab1,2)
@@ -407,28 +259,37 @@ rnames<-case_when(rnames == "(Intercept)"~"Intercept",
                   rnames == "treatmentblank"~"Treatment [control]",
                   rnames == "treatmentfake"~"Treatment [structure]",
                   rnames == "year"~"Year",
+                  rnames == "yr2"~"12 months into experiment",
                   rnames == "seasonwinter"~"Season [winter]",
                   rnames == "treatmentblank:year"~"Treatment [control] x Year 2",
+                  rnames == "treatmentblank:yr2"~"Treatment [control] x 12 months into experiment",
                   rnames == "treatmentfake:year"~"Treatment [structure] x Year 2",
+                  rnames == "treatmentfake:yr2"~"Treatment [structure] x 12 months into experiment",
                   rnames == "treatmentblank:seasonwinter"~"Treatment [control] x Season [winter]",
                   rnames == "treatmentfake:seasonwinter"~"Treatment [structure] x Season [winter]",
                   rnames == "samp2"~"Sampling",
                   rnames == "sampling4"~"Year 2",
                   rnames == "dist1"~"Distance from center",
+                  rnames == "dist"~"Distance from center",
                   rnames == "treatmentblank:samp2"~"Treatment [control] x Sampling",
                   rnames == "treatmentfake:sampling4"~"Treatment [structure] x Year 2",
                   rnames == "treatmentblank:sampling4"~"Treatment [control] x Year 2",
                   rnames == "treatmentfake:samp2"~"Treatment [structure] x Sampling",
                   rnames == "treatmentblank:dist1"~"Treatment [control] x Distance from center",
+                  rnames == "treatmentblank:dist"~"Treatment [control] x Distance from center",
                   rnames == "treatmentfake:dist1"~"Treatment [structure] x Distance from center",
+                  rnames == "treatmentfake:dist"~"Treatment [structure] x Distance from center",
                   rnames == "treatmentblank:samp2:dist1"~"Treatment [control] x Sampling x Distance from center",
                   rnames == "treatmentfake:samp2:dist1"~"Treatment [structure] x Sampling x Distance from center",
+                  rnames == "treatmentfake:yr2:dist"~"Treatment [structure] x 12 months into experiment x Distance from center",
+                  rnames == "treatmentblank:yr2:dist"~"Treatment [control] x 12 months into experiment x Distance from center",
                   rnames == "samp2:dist1"~"Sampling x Distance from center",
                   rnames == "sampling"~"Sampling",
                   rnames == "treatmentblank:sampling"~"Treatment [control] x Sampling",
                   rnames == "treatmentfake:sampling"~"Treatment [structure] x Sampling",
                   rnames == "dist_factorfarther"~"Distance [far]",
                   rnames == "yr"~"Year 2",
+                  rnames == "yr2:dist"~ "12 months into experiment x Distance from center",
                   rnames == "seasonw"~"Season [winter]",
                   rnames == "treatmentblank:dist_factorfarther"~"Treatment [control] x Distance [far]",
                   rnames == "treatmentfake:dist_factorfarther"~"Treatment [structure] x Distance [far]",
@@ -443,57 +304,66 @@ rnames<-case_when(rnames == "(Intercept)"~"Intercept",
                   rnames == "sampling3"~ "Months [5]")
 rownames(tab1)<-rnames
 return(kbl(tab1,
-  longtable = FALSE,booktabs=TRUE))
+  longtable = FALSE,booktabs=TRUE,caption=cap))
 }
 ```  
 
-\textbf{Table S15.} Macroalgal abundance model results. 
+ 
 ```{r alg.table,echo=FALSE,warning=FALSE,message=FALSE}
-tab.func(type="glmmtmb",msum=alm1r.sum)
+tab.func(type="glmmtmb",msum=alm1r.sum,cap="Table S3. Macroalgal abundance model results.")
 ```  
   
-\textbf{Table S16.} \emph{Thalassia testudinum} shoot density model results.  
+  
 ```{r tsd.table,echo=FALSE,warning=FALSE,message=FALSE}
-tab.func(type="glmmtmb",msum=tsdr.sum)
+tab.func(type="glmmtmb",msum=tsdr.sum,cap="Table S4. Thalassia testudinum shoot density model results.")
 ```  
 \newpage
-\textbf{Table S17.} \emph{Syringodium filliforme} and \emph{Halodule wrightii} shoot density model results.
+
+
 ```{r shsd.table,echo=FALSE,warning=FALSE,message=FALSE}
-tab.func(type="glmmtmb",msum=shsdr.sum)
+tab.func(type="glmmtmb",msum=shsdr.sum, cap="Table S5. Syringodium filliforme and Halodule wrightii shoot density model results.")
 ```  
   
-\textbf{Table S18.} Seagrass growth model results.
+
 ```{r grow.table,echo=FALSE,warning=FALSE,message=FALSE}
-tab.func(type="lmer",msum=sgr)
+tab.func(type="lmer",msum=sgr, cap="Table S6. Seagrass growth model results.")
 ```  
 \newpage  
-\textbf{Table S19.} Percent nitrogen in seagrass tissue model results.
+
 ```{r pn.table,echo=FALSE,warning=FALSE,message=FALSE}
-tab.func(type="lmer",msum=nrs)
+tab.func(type="lmer",msum=nrs, cap="Table S7. Percent nitrogen in seagrass tissue model results.")
 ```  
   
-\textbf{Table S20.} Percent carbon in seagrass tissue model results.
-```{r pc.table,echo=FALSE,warning=FALSE,message=FALSE}
-tab.func(type="lmer",msum=crls)
-```  
-  
-\textbf{Table S21.} Percent phosphorus in seagrass tissue model results.
+
 ```{r pp.table,echo=FALSE,warning=FALSE,message=FALSE}
-tab.func(type="lmer",msum=prs)
+tab.func(type="lmer",msum=prs,cap="Table S8. Percent phosphorus in seagrass tissue model results.")
 ```
+
+
+```{r pc.table,echo=FALSE,warning=FALSE,message=FALSE}
+tab.func(type="lmer",msum=crs, cap="Table S9. Percent carbon in seagrass tissue model results.")
+```  
+  
+
 \newpage
-\textbf{Table S22.} Percent nitrogen in seagrass tissue model results at 5 months into the experiment.
+
 ```{r pn.table5,echo=FALSE,warning=FALSE,message=FALSE}
-tab.func(type="lmer",msum=nrs5)
+tab.func(type="lmer",msum=nrs5, cap="Table S10. Percent nitrogen in seagrass tissue model results at 5 months into the experiment.")
 ```  
   
-\textbf{Table S23.} Percent carbon in seagrass tissue model results at 5 months into the experiment.
+
 ```{r pc.table5,echo=FALSE,warning=FALSE,message=FALSE}
-tab.func(type="lmer",msum=crls5)
+tab.func(type="lmer",msum=crls5, cap="Table S11. Percent carbon in seagrass tissue model results at 5 months into the experiment.")
 ```  
   
-\textbf{Table S24.} Percent phosphorus in seagrass tissue model results at 5 months into the experiment.
+
 ```{r pp.table5,echo=FALSE,warning=FALSE,message=FALSE}
-tab.func(type="lmer",msum=prs5)
+tab.func(type="lmer",msum=prs5, cap="Table S12. Percent phosphorus in seagrass tissue model results at 5 months into the experiment.")
 ```
 \end{landscape}
+
+```{r nutfigure,echo=FALSE}
+knitr::include_graphics("figures/nuts_dist-95CI-w-0.5.jpg")
+```
+
+Figure S3. Change in nutrient concentrations (% nitrogen (a, b), % phosphorus (c,d), and % carbon (e,f)) from 0 to 0.5 m from the center of the plot initially (a,c, and e) and one year into the experiment (b,d, and f).

@@ -313,13 +313,13 @@ pn<-egg::tag_facet(pn
     axis.text.x = element_blank(),
     axis.ticks.x = element_blank(),axis.title.x = element_blank()) 
 pc<-egg::tag_facet(pc 
-  , tag_pool = c("c","d"))
+  , tag_pool = c("e","f"))
   # , tag_pool = c('(c)  Carbon'), open = " ", close = " ", hjust = 0, y = Inf)+
   # theme(axis.text.x = element_blank(),axis.ticks.x = element_blank(),
   # axis.title.X = element_blank())+ 
   # ylab("")
 pp<-egg::tag_facet(pp
-  , tag_pool = c("e", "f")
+  , tag_pool = c("c", "d")
   # , tag_pool = c('(b)  Phosphorus'), open = " ", close = " ", hjust = 0, y = Inf
   )+ 
   # ylab("Nutrient concentrations (%)") + 
@@ -338,8 +338,173 @@ pp<-egg::tag_facet(pp
 # ggsave(filename = "figures/nuts-95CI.jpg",plot=n2,width=3.5,height=6.5)
 ggsave(filename = "figures/nuts-95CI-w-0.5.jpg",plot=n2,width=6,height=6.5)
 
+# Figure for supplement to look at change over distance
 
-# Figures for supplement
+
+pn2<-ggplot(sgn %>%
+             group_by(treatment, sampling, nut, dist) %>%
+             summarize(mn = mean(nvalue), sdn = sd(nvalue),
+                       se = sdn/sqrt(5)) %>%
+             filter(sampling %in% c(1, 4) &
+                      dist <= 0.5 &
+                      nut %in% c("PN")) %>% 
+             mutate(
+               dist = if_else(dist == 0, "0 m", "0.5 m"),
+               sampling=ifelse(sampling==1,"Pre-experiment","One year later"),
+               sampling=factor(sampling,levels=c("Pre-experiment","One year later"))
+             )
+) +
+  geom_line(aes(group=treatment,
+                x=as.factor(dist),
+                y=mn,
+                color=treatment),
+            position = position_dodge(width = .5))+
+  geom_point(aes( x = as.factor(dist),
+                  y = mn,
+                  color = treatment),
+             size = 4,
+             position = position_dodge(width = .5)) +
+  geom_errorbar(aes(x = as.factor(dist),
+                    # ymin = mn - sdn, ymax = mn + sdn,
+                    ymin = mn - se*1.96, ymax = mn + se*1.96,
+                    color = treatment),
+                width = .1,
+                position = position_dodge(width = .5))+
+  scale_y_continuous(expand=expansion(add = c(0.05, 0.1)),
+                     breaks=c(1.60,1.80,2.00),labels=c("1.60","1.80","2.00")) +
+  ylab("% Nitrogen")+
+  scale_x_discrete(labels = c(0,0.5))+
+  xlab("Distance from center of plot (m)")+
+  scale_color_viridis_d(option="A",
+                        begin=0, end=0.6,
+                        name="",
+                        labels=c("Control","Structure","Sponge"))+
+  facet_grid(cols = vars(sampling)) + 
+  theme_bw()+
+  theme(panel.grid = element_blank(),
+        legend.position = "none",
+        strip.background = element_blank(),
+        strip.text = element_text(size=14),
+        axis.title.x = element_blank())
+
+pp2<-ggplot(sgn %>%
+              group_by(treatment, sampling, nut, dist) %>%
+              summarize(mn = mean(nvalue), sdn = sd(nvalue),
+                        se = sdn/sqrt(5)) %>%
+              filter(sampling %in% c(1, 4) &
+                       dist <= 0.5 &
+                       nut %in% c("PP")) %>% 
+              mutate(
+                dist = if_else(dist == 0, "0 m", "0.5 m")
+              )
+) +
+  geom_line(aes(group=treatment,
+                x=as.factor(dist),
+                y=mn,
+                color=treatment),
+            position = position_dodge(width = .5))+
+  geom_point(aes( x = as.factor(dist),
+                  y = mn,
+                  color = treatment),
+             size = 4,
+             position = position_dodge(width = .5)) +
+  geom_errorbar(aes(x = as.factor(dist),
+                    # ymin = mn - sdn, ymax = mn + sdn,
+                    ymin = mn - se*1.96, ymax = mn + se*1.96,
+                    color = treatment),
+                width = .1,
+                position = position_dodge(width = .5))+ 
+  scale_y_continuous(expand=expansion(add = c(0.001, 0.005)), 
+                     breaks=c(0.05,0.06,0.07)) +
+  ylab("% Phosphorus")+
+  scale_color_viridis_d(option="A", begin=0, end=0.6)+
+  scale_x_discrete(labels = c(0,0.5))+
+  xlab("Distance from center of plot (m)")+
+  facet_grid(cols = vars(sampling)) +
+  theme(panel.grid = element_blank(),
+        # axis.title.x = element_blank(),
+        legend.position = "none")
+
+pc2<-ggplot(sgn %>%
+             group_by(treatment, sampling, nut, dist) %>%
+             summarize(mn = mean(nvalue), sdn = sd(nvalue),
+                       se = sdn/sqrt(5)) %>%
+             filter(sampling %in% c(1, 4) &
+                      dist <= 0.5 &
+                      nut %in% c("PC")) %>% 
+             mutate(
+               dist = if_else(dist == 0, "0 m", "0.5 m")
+             )
+) +
+  geom_line(aes(group=treatment,
+                x=as.factor(dist),
+                y=mn,
+                color=treatment),
+            position = position_dodge(width = .5))+
+  geom_point(aes( x = as.factor(dist),
+                  y = mn,
+                  color = treatment),
+             size = 4,
+             position = position_dodge(width = .5)) +
+  geom_errorbar(aes(x = as.factor(dist),
+                    # ymin = mn - sdn, ymax = mn + sdn,
+                    ymin = mn - se*1.96, ymax = mn + se*1.96,
+                    color = treatment),
+                width = .1,
+                position = position_dodge(width = .5))+
+  scale_y_continuous(expand=expansion(add = c(0.5, 1.75)), 
+                     breaks = c(30.0, 33.0, 36.0),labels = c("30.0", "33.0", "36.0")) +
+  scale_color_viridis_d(option="A", begin=0, end=0.6)+
+  scale_x_discrete(labels = c(0,0.5))+
+  xlab("Distance from center of plot (m)")+
+  ylab("% Carbon")+
+  facet_grid(cols = vars(sampling)) +   
+  theme(panel.grid = element_blank(),
+        # axis.title.x = element_blank(),
+        legend.position = "none")
+
+library(cowplot)
+lgnd<-get_legend(pn2 +
+                   guides(color = guide_legend(nrow = 1, align_plots = "right")) +
+                   theme(legend.position = "bottom"))
+# hjust = 0, y = Inf,
+# tag_pool = c('(a)  Control','(b)  Structure', "(c)  Sponge"),
+# open = " ", close = " "
+pn2<-egg::tag_facet(pn2
+                   , tag_pool = c("a", "b")
+                   # , tag_pool = c('(a)  Nitrogen'), open = " ", close = " ", hjust = 0, y = Inf
+)+ 
+  # ylab("") +
+  theme(
+    strip.background = element_blank(),
+    strip.text = element_text(size=14),
+    axis.text.x = element_blank(),
+    axis.ticks.x = element_blank(),axis.title.x = element_blank()) 
+pc2<-egg::tag_facet(pc2 
+                   , tag_pool = c("e","f"))
+# , tag_pool = c('(c)  Carbon'), open = " ", close = " ", hjust = 0, y = Inf)+
+# theme(axis.text.x = element_blank(),axis.ticks.x = element_blank(),
+# axis.title.X = element_blank())+ 
+# ylab("")
+pp2<-egg::tag_facet(pp2
+                   , tag_pool = c("c", "d")
+                   # , tag_pool = c('(b)  Phosphorus'), open = " ", close = " ", hjust = 0, y = Inf
+)+ 
+  # ylab("Nutrient concentrations (%)") + 
+  theme(axis.text.x = element_blank(),
+        axis.ticks.x = element_blank(),
+        axis.title.x = element_blank()) 
+#without carbon
+#n1<-plot_grid(lgnd,pn,pp,labels = c("","A","B"),nrow=3,ncol = 1,rel_heights = c(.1,1,1))
+#with carbon
+(n2<-plot_grid(
+  lgnd,pn2,pp2,pc2,nrow=4,ncol = 1,rel_heights = c(.1,1,1,1.1), align = "right"
+  #pn,pc,pp,nrow=3,ncol = 1,rel_heights = c(1,1,1.1)
+))
+# ggsave(filename = "figures/nuts.pdf",plot=n2,width=3,height = 6)
+# ggsave(filename = "figures/nuts.jpg",plot=n2,width=3,height = 6)
+# ggsave(filename = "figures/nuts-95CI.jpg",plot=n2,width=3.5,height=6.5)
+ggsave(filename = "figures/nuts_dist-95CI-w-0.5.jpg",plot=n2,width=6,height=6.5)
 
 # supplemental nutrients with delta and season
 source("scripts/06_nutrient_analysis.R")
