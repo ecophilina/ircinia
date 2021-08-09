@@ -66,7 +66,7 @@ fish.uni2 <- fish.uni %>%
   )
 
 fish.uni2$treatment <- factor(fish.uni2$treatment)
-
+fish.uni$treatment <- factor(fish.uni$treatment)
 # look at distribution of potential response variables
 hist(fish.uni2$change.spr)
 hist(fish.uni2$change.a)
