@@ -24,7 +24,41 @@ Stephanie K. Archer^1^*, Philina A. English^2^, Finella Campanino^1^, Craig A. L
 ##### break  
 
 # Introduction  
-Ecosystem engineers and maintenance of biodiversity
+
+All habitats on earth are influenced by ecosystem engineers. 
+Ecosystem engineers [*sensu* @Jones1994] are organisms that directly or indirectly change the flow of resources (excluding their own living or dead tissue) to other species, through changes in an ecosystem’s biotic or abiotic materials. 
+Because of this interaction, ecosystem engineers can create, change, or destroy entire habitats. 
+Ecosystem engineers can have significant effects on the distribution, diversity, and abundance of other organisms within their community [@Jones1994]. 
+Thus, it is important that we study ecosystem engineer’s cascading effects on associated communities, especially because of the current major environmental problems, like the overexploitation of marine ecosystem engineers [@Coleman2002]. \par
+
+There are two types of ecosystem engineers: autogenic and allogenic. 
+Autogenic engineers alter the environment by their physical structures [@Jones1994]. 
+For example, crustose coralline algae on coral reefs attenuate wave energy with their hard, calcareous structure which protects the corals from damage by wave energy [@Anderson1992]. 
+This function provides stabilization to the coral reefs, which are foundation species [*sensu* @Dayton1972 as refined by @Bruno2001], a species that provides habitat and alters abiotic conditions with net positive effects on diversity, distribution, and abundance of other organisms [@Altieri 2014]. 
+Additionally, an allogenic engineer alters the environment by changing living or non-living materials from one physical state to another [@Jones1994]. 
+Again, crustose coralline algae secretes a chemical that binds suspended sediment together forming calcareous mounds on the benthos [@Anderson1992; @Goreau1963]. 
+The calcareous mounds act as a hard substrate in which numerous organisms need to settle and survive [@Goreau1963]. 
+Evidently, an organism can be both an autogenic and allogenic ecosystem engineer. 
+In addition, the crustose coralline algae exemplifies the potential effects that ecosystem engineers have on foundation species and associated communities. \par
+
+Seagrass beds are foundation species and important coastal ecosystems worldwide; they provide habitat [@James1994], stabilize sediments [@Folmer2012], attenuate wave energy [@Fonseca1992], and are important locations for nutrient cycling [@Hemminga1991]. 
+Many studies have shown how seagrass beds affect their dependent communities [@Healey2004; @Hori2009]. 
+However, the effects that some ecosystem engineers, specifically marine sponges, have on seagrass communities are underrepresented and underappreciated in marine systems [@Bell2008]. \par 
+
+Marine sponges can be considered ecosystem engineers because they retain and recycle energy and nutrients, act as microhabitats, and facilitate primary production [@Archer2021; @Bell2008]. 
+A prime example is *Ircinia felix*, a high microbial abundant sponge common to reefs and seagrass beds throughout the sub-tropical Atlantic and Caribbean [@Diaz2005; @Loh2014]. 
+This sponge, like many found in The Bahamas, hosts a dense and diverse microbiome [@Weisz2008] which facilitates complex nutrient transformations, having indirect effects on ambient nutrient and energy availability [@Archer2017]. 
+Like the crustose coralline algae, *Irciania felix* can act as both an autogenic and allogenic ecosystem engineer. 
+Because sponges are being threatened by anthropogenic stressors that may change the composition and stability of sponge’s microbiome, it is important that we study how the ecosystem engineers, sponges, affect organisms within their community in a low-impact environment [@Pita2018].  
+Furthermore, Archer et al. (2021) describes the effects of *Ircinia felix* on seagrass beds (foundation species)in a low-impact environment.  
+Our goal is to further Archer et al.’s [2021] findings on the ecosystem engineer [*Ircinia felix*] to the fish and macroinvertebrate community level. \par
+
+While sponges of all sizes are common in seagrass beds, larger sponges are likely to have a stronger influence on their environment due to both their size and the volume of water they filter. 
+In the present study, we investigated the impact of a moderately large sponge, [*Ircinia felix*], on seagrass bed associated communities. 
+Using a 1.5 yr field-based experiment, we examined how sponge presence influenced fish and invertebrate species richness, abundance, and turnover. 
+Because *Ircinia felix* was found to enhance primary producers in seagrass beds [@Archer2021] we hypothesize that the ecosystem engineer will enhance the community as well. 
+Specifically, we hypothesize that seagrass beds with *Ircinia felix* will have higher species richness and abundance after one year than seagrass beds without *Ircinia felix* present. 
+We also hypothesize that species turnover in treatments with *Ircinia felix* will be maintained over time while treatments without will have more disappearance and less appearance of new species over time. \par
 
 # Methods  
 
@@ -91,6 +125,38 @@ knitr::include_graphics("figures/community_vector_plots.jpg")
 ##### break  
 
 # Discussion  
+
+Ecosystem engineers can affect many aspects of an ecosystem including habitat structure, resource availability and location, and community structure and dynamics [@Jones1994; @Anderson1992; @Byers2006].
+Here we present, to the best of our knowledge, the first in situ experiment to test the effects of the presence of *I. felix* on species richness, abundance, and species turnover as an ecosystem engineer in a subtropical seagrass ecosystem over a 1.5 year experiment.
+We found that species richness and abundance increased  after 1 month and 1 year in the presence of *I. felix* while decreasing or remaining the same without the sponge presence in seagrass ecosystems. \par
+
+This study presents an ecosystem engineer that can affect community structure in terms of species richness, abundance, and turnover, but the mechanism of this interaction is unclear.
+The change in community structure could be due to the indirect effects of *I. felix* releasing bioavailable forms of nitrogen and phosphorus into the environment [@Southwell2008; Archer2017] which has been shown to increase primary production in seagrass beds [@Archer2021].
+This increase in primary producers could bring in more organisms that use them for food and shelter. However, it is possible that *I. felix* acts as a food source in itself, attracting specific species that eat sponges [@Wulff1997].
+It is important to note that, for this experiment, the *I. felix* sponge within the plots were encased in a cage, which would restrict large fish and invertebrates from consuming it.
+More research is still needed to show the exact mechanism for how this ecosystem engineer changes the community structure in seagrass ecosystems. \par
+
+	Two major fishes observed in treatments with *I. felix* present were grunts and damselfish.
+The grunts and damselfish were highly abundant in sponge treatments and less in control and stucture control.
+Other people have shown grunts to be sponge associated and they are associated because….
+It is possible the grunts in our experiment were highly abundant in sponge treatments because … like ref causing a statistical shift in the fish community.
+However, more researcher on sponge-grunt interactions is needed to fully understand this mechanism.\par
+
+When selecting the statistical model that would explain the most variance, there were a few models that came in close second (i.e. were not >2 delta aicc away from top model) to our treatment model for invertebrate species richness and abundance.
+Algal community, seagrass structure, and seagrass productivity, individually, were all close top models to treatment.
+However, treatment always had the lowest AIC value and therefore the model we chose for analysis.
+We further explored those models (which can be found in the supplement) to find that they showed similar results of species richness and abundance being higher in real treatments after 1 and 12 months into the experiment with no change or decrease in species richness and abundance in control and structure control plots.
+This provides further support to our findings that the ecosystem engineer, I felix, has cascading effects on seagrass communities. \par
+
+Many sponges have been shown to act as a habitat structure to invertebrates.
+Specifically, _____ found invertebrates using a sponge as a habitat and structure to hide from predators.
+However, we did not find these species present in our experiment.
+More research should be performed on I. felix as a habitat structure. \par
+
+	It is important to understand ecosystem engineers (e.g. *I. felix*) effects on the organisms around them because it can result in changes in the community structure and dynamics, therefore indirectly influencing ecosystem functions and services provided by the community.
+We studied the effect of the presence of an ecosystem engineer, *I felix*, on species richness, abundance, and turnover in low impact seagrass beds and found that sponge presence can increase species richness and abundance and maintain turnover rates.
+Thus, this study is another in situ example of how one organism, an ecosystem engineer, can affect an entire community.
+Additional research is needed to find the mechanism through which *I. felix* influences seagrass bed community, and if the influence direction changes in impacted systems. \par
 
 
 

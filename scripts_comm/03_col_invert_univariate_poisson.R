@@ -290,9 +290,9 @@ ggplot(data = col.inv.uni %>% filter(season == "summer") %>%
   scale_alpha_discrete(range = c(0.3,1), name = "Months") + 
   scale_color_viridis_d(option="A", begin=0, end=0.6,"")+
   xlab("Algae abundance") +
-  ylab("Clonal Invertebrate species richness") +
+  ylab("Clonal Invertebrate species richness") 
   # coord_cartesian(expand = F) +
-  ggsidekick::theme_sleek()
+  #ggsidekick::theme_sleek()
 ggsave("clonal-invert-spr-by-algae.png", width = 5, height = 3)
 
 
