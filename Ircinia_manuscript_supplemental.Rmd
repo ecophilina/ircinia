@@ -1,6 +1,6 @@
 ---
 title: 'Sponges facilitate primary producers in a Bahamas seagrass system'
-author: "Stephanie K. Archer,  Philina A. English, Finella M. Campanino,Craig A. Layman"
+author: "Stephanie K. Archer,  Philina A. English, Finella M. Campanino, Craig A. Layman"
 output: 
   pdf_document:
     includes:
