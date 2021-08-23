@@ -26,25 +26,26 @@ Stephanie K. Archer^1^*, Philina A. English^2^, Finella Campanino^1^, Craig A. L
 # Introduction  
 
 All habitats on earth are influenced by ecosystem engineers. 
-Ecosystem engineers [*sensu* @Jones1994] are organisms that directly or indirectly change the flow of resources (excluding their own living or dead tissue) to other species, through changes in an ecosystem’s biotic or abiotic materials. 
-Because of this interaction, ecosystem engineers can create, change, or destroy entire habitats. 
-Ecosystem engineers can have significant effects on the distribution, diversity, and abundance of other organisms within their community [@Jones1994]. 
-Thus, it is important that we study ecosystem engineer’s cascading effects on associated communities, especially because of the current major environmental problems, like the overexploitation of marine ecosystem engineers [@Coleman2002]. \par
+Ecosystem engineers [*sensu* @Jones1994] are organisms that directly or indirectly change the flow of resources (excluding their own living or dead tissue) to other species, through changes in an ecosystem’s biotic or abiotic materials. **While correct this sentence gets down into the weeds real quickly, I'd maybe suggest something along the lines of - Ecosystem engineers [*sensu* @Jones1994] are organisms that have a larger impact on ecosystem structure and function than their abundance would suggest.**
+Because of this interaction, ecosystem engineers can create, change, or destroy entire habitats. **Suggest changing "because of this interaction" - you haven't really described an interaction just yet - something like Consequently might work**
+Ecosystem engineers can have significant effects on the distribution, diversity, and abundance of other organisms within their community [@Jones1994]. **I think you can combine this with the sentence above so it reads... habitats and have significant effects...**
+Thus, it is important that we study ecosystem engineer’s cascading effects on associated communities, especially because of the current major environmental problems, like the overexploitation of marine ecosystem engineers [@Coleman2002]. **I think we need to add in identifying ecosystem engineers here - right now sponges are not considered ecosystem engineers in seagrass ecosystems. Also I would change this to read "especially due to the overexploitation of many marine ecosystem engineers**\par
 
-There are two types of ecosystem engineers: autogenic and allogenic. 
-Autogenic engineers alter the environment by their physical structures [@Jones1994]. 
+There are two types of ecosystem engineers: autogenic and allogenic. **Right now this doesn't really flow from the last paragraph - I think if you change the last sentence of the previous paragraph to focus on how we don't actually know which species are acting as ecosystem engineers in many systems this will make more sense. Right now with the last sentence focusing on needing to study ecosystem engineer's cascading effects and overexploitation you expect this paragraph to be about one of those two things.**
+Autogenic engineers alter the environment by their physical structures [@Jones1994]. **change by to through**
 For example, crustose coralline algae on coral reefs attenuate wave energy with their hard, calcareous structure which protects the corals from damage by wave energy [@Anderson1992]. 
-This function provides stabilization to the coral reefs, which are foundation species [*sensu* @Dayton1972 as refined by @Bruno2001], a species that provides habitat and alters abiotic conditions with net positive effects on diversity, distribution, and abundance of other organisms [@Altieri 2014]. 
-Additionally, an allogenic engineer alters the environment by changing living or non-living materials from one physical state to another [@Jones1994]. 
-Again, crustose coralline algae secretes a chemical that binds suspended sediment together forming calcareous mounds on the benthos [@Anderson1992; @Goreau1963]. 
+This function provides stabilization to the coral reefs, which are foundation species [*sensu* @Dayton1972 as refined by @Bruno2001], a species that provides habitat and alters abiotic conditions with net positive effects on diversity, distribution, and abundance of other organisms [@Altieri 2014]. **This sentence is a lot. I don't think we need to define foundation species specifically here since it isn't the focus of the paper. I suggest changing it and the previous sentence a bit - in the previous sentence I'd make it: ...protects the foundation species [*sensu* @Dayton1972 as refined by @Bruno2001], corals, from damage by wave energy, stabilizing the reef and promoting the biodiversity it supports [@Anderson1992].**
+Additionally, an allogenic engineer alters the environment by changing living or non-living materials from one physical state to another [@Jones1994]. **I don't think additionally is the right transition here**
+Again, crustose coralline algae secretes a chemical that binds suspended sediment together forming calcareous mounds on the benthos [@Anderson1992; @Goreau1963]. **I'd delete "Again"**
 The calcareous mounds act as a hard substrate in which numerous organisms need to settle and survive [@Goreau1963]. 
 Evidently, an organism can be both an autogenic and allogenic ecosystem engineer. 
-In addition, the crustose coralline algae exemplifies the potential effects that ecosystem engineers have on foundation species and associated communities. \par
+In addition, the crustose coralline algae exemplifies the potential effects that ecosystem engineers have on foundation species and associated communities. **I think I'd rework this paragraph a little bit. You can start out with the same first sentence, then I'd give the allogenic engineer definition then the autogenic. Then state that an ecosystem engineer can be one or both. For example - give the crustose coraline algae but change the order so its allogenic then autogenic. Then talk about how ecosystem engineers can have even larger impacts on the biodiversity associated with a system when they influence the foundation species** \par
 
-Seagrass beds are foundation species and important coastal ecosystems worldwide; they provide habitat [@James1994], stabilize sediments [@Folmer2012], attenuate wave energy [@Fonseca1992], and are important locations for nutrient cycling [@Hemminga1991]. 
+Seagrass beds are foundation species and **form** important coastal ecosystems worldwide; they provide habitat [@James1994], stabilize sediments [@Folmer2012], attenuate wave energy [@Fonseca1992], and are important locations for nutrient cycling [@Hemminga1991]. **A couple things - first this text is't quite different enough from our other paper, second - I think you should focus more on the biodiversity seagrass beds support and why. Then you can talk about how sponges are a common component of seagrass beds and that they have the potential to act as ecosystem engineers in seagrass beds because they do things like provide structure and act as sources of nutrients in oligotrophic systems. But we don't know if sponges can be considered ecosystem engineers in seagrass beds yet**
 Many studies have shown how seagrass beds affect their dependent communities [@Healey2004; @Hori2009]. 
 However, the effects that some ecosystem engineers, specifically marine sponges, have on seagrass communities are underrepresented and underappreciated in marine systems [@Bell2008]. \par 
 
+**So, after reading the paragraph below I think you are approaching this in a different way than I thought. It seems like you're approaching it from a place of "we know sponges can be ecosystem engineers now how do they impact communities? I'm fine with that approach, but if that's the way you want to go I think the intro should be reorganized. The first paragraph is generally fine. But after that I'd switch to making the case for sponges as ecosystem engineers in seargass beds  - introduce seagrass beds in the second paragraph then shift to making the case for sponges as ecosystem engineers in seagrass beds. Then talk about why you'd expect ecosystem engineers to have cascading consequences on seagrass bed biodiversity, then use the last parargaph of the intro largely as is.** 
 Marine sponges can be considered ecosystem engineers because they retain and recycle energy and nutrients, act as microhabitats, and facilitate primary production [@Archer2021; @Bell2008]. 
 A prime example is *Ircinia felix*, a high microbial abundant sponge common to reefs and seagrass beds throughout the sub-tropical Atlantic and Caribbean [@Diaz2005; @Loh2014]. 
 This sponge, like many found in The Bahamas, hosts a dense and diverse microbiome [@Weisz2008] which facilitates complex nutrient transformations, having indirect effects on ambient nutrient and energy availability [@Archer2017]. 
@@ -53,7 +54,7 @@ Because sponges are being threatened by anthropogenic stressors that may change 
 Furthermore, Archer et al. (2021) describes the effects of *Ircinia felix* on seagrass beds (foundation species)in a low-impact environment.  
 Our goal is to further Archer et al.’s [2021] findings on the ecosystem engineer [*Ircinia felix*] to the fish and macroinvertebrate community level. \par
 
-While sponges of all sizes are common in seagrass beds, larger sponges are likely to have a stronger influence on their environment due to both their size and the volume of water they filter. 
+While sponges of all sizes are common in seagrass beds, larger sponges are likely to have a stronger influence on their environment due to both their size and the volume of water they filter. **need to make this different than the wording in the previous paper**
 In the present study, we investigated the impact of a moderately large sponge, [*Ircinia felix*], on seagrass bed associated communities. 
 Using a 1.5 yr field-based experiment, we examined how sponge presence influenced fish and invertebrate species richness, abundance, and turnover. 
 Because *Ircinia felix* was found to enhance primary producers in seagrass beds [@Archer2021] we hypothesize that the ecosystem engineer will enhance the community as well. 
@@ -68,9 +69,9 @@ This study was conducted in a continuous subtidal seagrass bed (1.1 m low tide d
 Depth, temperature, and salinity were consistent across the seagrass bed.
 Within the seagrass bed, fifteen 5 x 5 m plots were delineated on June 9, 2013 by placing wooden stakes at the corners and center of each plot. 
 All plots were separated >2 m. 
-The fish and epibenthic macroinvertebrate communities as well as all explanatory variables (see below) were sampled once before and again at 1 and 12 months after the treatments were established. 
+The fish and epibenthic macroinvertebrate communities as well as all explanatory variables (see below) were sampled once before the beginning of the experiment and again at 1 and 12 months after the treatments were established. 
+Control (n=5), structure (n=5), and sponge (n=5) treatments were randomly assigned to plots. 
 **THE TEXT BELOW WAS COPIED DIRECTLY FROM THE FIRST MANUSCRIPT MUST BE REWORDED** 
-Each of the 15 plots were randomly assigned to one of three treatments: control (n=5), structure (n=5), or sponge (n=5; Fig. S1). 
 Control plots were not manipulated.
 A polypropylene model of a sponge was placed inside a cage at the center of each structure plot.
 A single living sponge (*I. felix*, average volume ± standard deviation, 2.5 ± 0.75 L) was placed inside a cage in the center of each sponge plot.
