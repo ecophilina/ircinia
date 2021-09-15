@@ -63,6 +63,11 @@ fish.angle.aov<-aov(angle~treatment,data=fish.env4)
 summary(fish.angle.aov)
 TukeyHSD(fish.angle.aov)
 
+#to reference in manuscript
+(fish.vl.aov.sum<-summary(fish.vl.aov))
+
+(fish.angle.aov.sum<-summary(fish.angle.aov))
+
 # function to make a circle to put on plots
 circleFun <- function(center = c(0, 0), diameter = 1, npoints = 100) {
   r <- diameter / 2
