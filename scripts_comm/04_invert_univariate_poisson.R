@@ -273,6 +273,10 @@ print(aictab(cand.set = spr.cand.mods,
 
 # top models of invert spr ####
 summary(ispr.treat)
+
+#to reference in manuscript
+(ispr.treat.sum<-summary(ispr.treat))
+
 # top model is algae
 summary(ispr.alg)
 
@@ -507,6 +511,8 @@ summary(ia.treat)
 summary(ia.treat.prod)
 summary(ia.treat.struct)
 
+#to reference in manuscript
+(ia.treat.sum<-summary(ia.treat))
 # confirm that the control plots don't change sig with time
 ia.treat.prod.f <- glmmTMB(i.abund ~ treatment * as.factor(sampling) +
     sg.prod.c + (1 | plot),
