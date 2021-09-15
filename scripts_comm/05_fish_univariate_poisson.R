@@ -278,6 +278,9 @@ print(aictab(
 # top model: I'm a bit confused as to which groups differ when, but only real interacts with sampling 
 summary(fspr.treat)
 
+#to reference in manuscript
+(fspr.treat.sum<-summary(fspr.treat))
+
 # confirm that the control plots don't change sig with time
 fspr.treat.f <- glmmTMB(spr ~ treatment * as.factor(sampling) +
     (1 | plot),
@@ -570,6 +573,9 @@ print(aictab(
 # treatment only is the best model?
 
 summary(fa.treat)
+
+#to reference in the manuscript
+(fa.treat.sum<-summary(fa.treat))
 
 # confirm that the control plots don't change sig with time
 fa.treat.f <- glmmTMB(f.abund ~ treatment * as.factor(sampling) +
