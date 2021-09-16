@@ -5,6 +5,7 @@ source("scripts/03_reimport.R")#imports all the data sets
 if(!require(DHARMa))install.packages("DHARMa");library(DHARMa)
 if(!require(lmerTest))install.packages("lmerTest");library(lmerTest)
 if(!require(glmmTMB))install.packages("glmmTMB");library(glmmTMB)
+source("scripts/04_algae_analysis.R")
 
 # custom function for checking for overdispersion
 overdisp_fun <- function(model) {
@@ -68,6 +69,9 @@ sgsd<-sgsd0%>%
 
 # check for season effect
 tsdseason<-glmmTMB(T.SD~season+(1|plot), data=sgsd, REML=F, family = nbinom1) 
+(tsdseason.sum<-summary(tsdseason))
+efsize.tmb(tsdseason.sum,2)
+
 (tsdseason<-glmmTMB:::Anova.glmmTMB(tsdseason, type = "III"))
 # (tsdseason2<-summary(tsdseason))
 
@@ -83,6 +87,9 @@ tsdseason<-glmmTMB(T.SD~season+(1|plot), data=sgsd, REML=F, family = nbinom1)
 
 
 shsdseason<-glmmTMB(SH.SD~season+(1|plot),data=sgsd, REML=F, family = nbinom1)
+(shsdseason.sum<-summary(shsdseason))
+efsize.tmb(shsdseason.sum,2)
+
 (shsdseason<-glmmTMB:::Anova.glmmTMB(shsdseason, type = "III"))
 # (shsdseason2<-summary(shsdseason))
 

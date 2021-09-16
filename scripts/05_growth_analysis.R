@@ -11,7 +11,7 @@ if(!require(readxl))install.packages('readxl');library(readxl)
 if(!require(lmerTest))install.packages('lmerTest');library(lmerTest)
 #imports all the data sets with awesome new code!
 source("scripts/03_reimport.R")
-
+source("scripts/04_algae_analysis.R")
 # is there a sig dif in seagrass growth per day among blank, fake, 
 # and real treatment over time
 
@@ -64,6 +64,10 @@ sgg2$treatment<-factor(sgg2$treatment)
 
 # check for season effect
 sgmdseason<-lmer(gpd~season+(1|plot), data=sgg2) 
+(gpdseason.sum<-summary(sgmdseason))
+
+efsize(gpdseason.sum,2)
+
 (sgmdseason<-Anova(sgmdseason, type = "III"))
 # YES
 

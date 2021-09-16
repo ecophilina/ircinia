@@ -4,7 +4,7 @@
 if(!require(tidyverse))install.packages("tidyverse");library(tidyverse)
 if(!require(car))install.packages("car");library(car)
 if(!require(lmerTest))install.packages("lmerTest");library(lmerTest)
-
+source("scripts/00_results_functions.R")
 theme_set(theme_bw())
 # load data----
 source("scripts/03_reimport.R")#imports all the data sets
@@ -83,6 +83,10 @@ ggplot(dsgn%>%
 # check for season effect
 Nseason<-lmer(nvalue~season+(1|plot), data = dsgn%>%
     filter(nut=="PN")) 
+(Nsum<-summary(Nseason))
+
+efsize(Nsum,2)
+
 (Nseason<-Anova(Nseason, type = "III"))
 
 Pseason<-lmer(nvalue~season+(1|plot), data = dsgn%>%

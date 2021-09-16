@@ -5,6 +5,8 @@ if(!require(lmerTest))install.packages("lmerTest");library(lmerTest)
 if(!require(DHARMa))install.packages("DHARMa");library(DHARMa)
 if(!require(glmmTMB))install.packages("glmmTMB");library(glmmTMB)
 if(!require(ggeffects))install.packages("ggeffects");library(ggeffects)
+source("scripts/00_results_functions.R")# loads functions to format results
+
 
 
 # ---- algaeplot ----
@@ -108,6 +110,10 @@ a5<-a5%>%
 Aseason<-glmmTMB(abundance~season +
     (1|plot) + (1|taxa), data=a5, REML=F,
   family=nbinom2) 
+
+Aseason.sum<-summary(Aseason)
+efsize.tmb(Aseason.sum,2)
+
 (Aseason<-glmmTMB:::Anova.glmmTMB(Aseason, type = "III"))
 # YES
 
