@@ -191,7 +191,7 @@ source("scripts_comm/04_invert_univariate_poisson.R")
 In the sponge treatment, non-clonal invertebrate species richness and abundance significantly increased at 1 and 12 months into the experiment (species richness: $\beta$ = `r efsize.tmb(ispr.treat.sum,4)`; $\beta$ = `r efsize.tmb(ispr.treat.sum,5)`; species abundance: $\beta$ = `r efsize.tmb(ia.treat.sum,4)`; $\beta$ = `r efsize.tmb(ia.treat.sum,5)` respectively, Fig. \@ref(fig:invspr), Fig. \@ref(fig:invab)).
 In the structure treatment, species richness and abundance  decrease at 1 and 12 months into the experiment, though species richness at 1 month was not significant (species richness: 12 months- $\beta$ = `r efsize.tmb(ispr.treat.sum,9)`; species abundance: 1 month- $\beta$ = `r efsize.tmb(ia.treat.sum,7)`; 12 months- $\beta$ = `r efsize.tmb(ia.treat.sum,9)`, Fig. \@ref(fig:invspr), Fig. \@ref(fig:invab)).
 At 1 month into the experiment, species richness increased while species abundance decreased in control plots, though neither changes were significant( Fig. \@ref(fig:invspr), Fig. \@ref(fig:invab)).
-Then, at 12 months into the experiment, both species richness and abundance in control plots decreased, but only species abundance was significant ( $\beta$ = `r efsize.tmb(ia.treat.sum,8`, Fig. \@ref(fig:invspr), Fig. \@ref(fig:invab)).
+Then, at 12 months into the experiment, both species richness and abundance in control plots decreased, but only species abundance was significant ( $\beta$ = `r efsize.tmb(ia.treat.sum,8)`, Fig. \@ref(fig:invspr), Fig. \@ref(fig:invab)).
 
 ##Clonal Invertebrates
 There were no significant differences between treatments for species richness of clonal invertebrates ( Fig. \@ref(fig:turnover-plots)). Species abundance could not be analyzed because of difficulty defining individuals in a colony.
@@ -208,7 +208,7 @@ The lack of differences in species turnover among treatments coincides with lack
 ```{r fish.env4 , include=FALSE}
 source("scripts_comm/07_compositional_vectors.R")
 ```  
-Fish species were significantly difference among treatments in vector length and angle ( $\beta$ = `r aov.res(fish.vl.aov.sum,1`; $\beta$ = `r aov.res(fish.angle.aov.sum,1` respectively, Fig. \@ref(fig:vector-plots)). 
+Fish species were significantly difference among treatments in vector length and angle ( $\beta$ = `r aov.res(fish.vl.aov.sum,1)`; $\beta$ = `r aov.res(fish.angle.aov.sum,1)` respectively, Fig. \@ref(fig:vector-plots)). 
 Sponge treatment vectors appear to relatively be pointing in the same direction and have similar long vector lengths compared to other treatments in the fish community(Fig. \@ref(fig:vector-plots)).
 The most prevalent fish species contributing to the differences among treatment plots were grunts, damselfish, slippery dicks, and green blotch parrotfish (Fig. \@ref(fig:vector-plots)).\par 
 For clonal and non-clonal invertebrates, there were no significant differences among treatments in vector length nor angle.
