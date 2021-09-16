@@ -181,7 +181,7 @@ source("scripts_comm/05_fish_univariate_poisson.R")
 
 In the sponge treatment, fish species richness and abundance increased at 1 and 12 months into the experiment (species richness: $\beta$ = `r efsize.tmb(fspr.treat.sum,4)`; $\beta$ = `r efsize.tmb(fspr.treat.sum,5)`; species abundance: $\beta$ = `r efsize.tmb(fa.treat.sum,4)`; $\beta$ = `r efsize.tmb(fa.treat.sum,5)` respectively, Fig. \@ref(fig:fishspr), Fig. \@ref(fig:fishab)).
 In the structure treatment, species richness and abundance increased at 1 month and decreased at 12 months, but neither changes were significant ( Fig. \@ref(fig:fishspr), Fig. \@ref(fig:fishab)).
-After 1 and 12 months into the experiment, species richness and abundance in control plots decreased, though the change was only significant after 12 months (species richness: $\beta$ = `r efsize.tmb(fspr.treat.sum,8`; species abundance: $\beta$ = `r efsize.tmb(fa.treat.sum,8`, Fig. \@ref(fig:fishspr), Fig. \@ref(fig:fishab)).
+After 1 and 12 months into the experiment, species richness and abundance in control plots decreased, though the change was only significant after 12 months (species richness: $\beta$ = `r efsize.tmb(fspr.treat.sum,8)`; species abundance: $\beta$ = `r efsize.tmb(fa.treat.sum,8)`, Fig. \@ref(fig:fishspr), Fig. \@ref(fig:fishab)).
 
 ##Non-clonal Invertebrates
 ```{r inv.uni , include=FALSE}
