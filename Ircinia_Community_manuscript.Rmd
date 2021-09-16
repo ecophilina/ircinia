@@ -199,9 +199,10 @@ There were no significant differences between treatments for species richness of
 
 ##Species Turnover
 When comparing species turnover from 1 month to 12 months in sponge treatment plots, the overall turnover rates show an increase in species gained for fish and non-clonal invertebrates, which parallels the results from the univariate analysis (Fig. \@ref(fig:turnover-plots).
-In structure and control plots there appears to be a decrease in species gained and increase in species lost for both fish and non-clonal invertebrates, also supporting the results from th univariate analyses (Fig. \@ref(fig:turnover-plots).
+In structure and control plots there appears to be a decrease in species gained and increase in species lost for both fish and non-clonal invertebrates, also supporting the results from th univariate analyses (Fig. \@ref(fig:turnover-plots). \par
 
-
+For clonal invertebrates, species turnover from 1 to 12 months did not show differences in treatment plots for species gained or lost (Fig. S2). 
+The lack of differences in species turnover among treatments coincides with lack of change in species richness at 1 on 12 months into the experiment. 
 
 ## Compositional Vectors
 ```{r fish.env4 , include=FALSE}
