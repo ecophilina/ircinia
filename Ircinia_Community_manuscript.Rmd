@@ -26,7 +26,7 @@ Stephanie K. Archer^1^*, Philina A. English^2^, Finella Campanino^1^, Craig A. L
 # Introduction  
 
 All habitats on earth are influenced by ecosystem engineers. 
-Ecosystem engineers [*sensu* @Jones1994] are organisms that impact an ecosystem's structure and function more so than their abundance would suggest. **While correct this sentence gets down into the weeds real quickly, I'd maybe suggest something along the lines of - Ecosystem engineers [*sensu* @Jones1994] are organisms that have a larger impact on ecosystem structure and function than their abundance would suggest.**
+Ecosystem engineers [*sensu* @Jones1994] are organisms that impact an ecosystem's structure and function more so than their abundance would suggest.
 They can create, change, or destroy entire habitats and have significant effects on the distribution, diversity, and abundance of other organisms within their community [@Jones1994].
 Consequently, it is important that we study ecosystem engineer’s cascading effects on associated communities, especially due to the overexploitation of many marine ecosystem engineers [@Coleman2002]. Ecosystem engineer is a relatively new term and, thus, researchers are still working towards identifying which species are acting as ecosystem engineers in many systems. **I think we need to add in identifying ecosystem engineers here - right now sponges are not considered ecosystem engineers in seagrass ecosystems.**\par
 
