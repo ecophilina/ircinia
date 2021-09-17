@@ -70,6 +70,10 @@ Within the seagrass bed, fifteen 5 x 5 m plots were delineated on June 9, 2013 b
 All plots were separated >2 m. 
 The fish and epibenthic macroinvertebrate communities, as well as all explanatory variables (see below), were sampled once before the beginning of the experiment and again at 1 and 12 months after the treatments were established. 
 Control (n=5), structure (n=5), and sponge (n=5) treatments were randomly assigned to plots. 
+The control plots were unaltered sections within the seagrass bed.
+The structure treatment had, at the center of each plot, a polypropylene model of a sponge within a cage to keep the model stationary.
+At the center of each sponge treatment plot, we placed one living sponge (*I. felix*, average volume ± standard deviation, 2.5 ± 0.75 L)within a cafe to keep the sponge stationary.
+
 **THE TEXT BELOW WAS COPIED DIRECTLY FROM THE FIRST MANUSCRIPT MUST BE REWORDED** 
 Control plots were not manipulated.
 A polypropylene model of a sponge was placed inside a cage at the center of each structure plot.
