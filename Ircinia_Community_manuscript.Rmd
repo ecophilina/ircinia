@@ -34,29 +34,29 @@ Seagrasses, important habitat-forming (foundation) species, support a wide range
 This is because they provide shelter[@James1994] to numerous species and at multiple life stages [@Nakamura2012], act as a food source [@Vincente1980], play a key role in nutrient cycling [@Hemminga1991], etc.
 Of the many organisms seagrass beds support are sponges, which have the potential to act as ecosystem engineers within these systems.
 However, the effects of marine sponges on seagrass communities have long been underrepresented and underappreciated in marine systems [@Bell2008]. 
-Now we believe that marine sponges have the potential to act as ecosystem engineers in seagrass beds for several reasons. \par
+We believe that marine sponges have the potential to act as ecosystem engineers in seagrass beds for several reasons. \par
 
 One of the main contributions by marine sponges that deem them ecosystem engineers is their addition to the structural complexity of seagrass habitats. 
-Structural complexity of a habitat, or rugosity, is one of the main habitat characteristics influencing biodiversity in fish and invertebrates in subtropical marine systems, including seagrass beds  [Gratwicke & Speight 2005; Fuchs 2013].
+Structural complexity of a habitat, or rugosity, is one of the main habitat characteristics influencing biodiversity in fish and invertebrates in subtropical marine systems, including seagrass beds [Gratwicke & Speight 2005; Fuchs 2013].
 Through the addition of structural complexity, sponges have been shown to alter local-scale water flow[@Bell2008] and stabilize substrate [@Wulff1984], alleviating some of the physical pressures put on seagrass beds and associated fauna.
 Not only can they alleviate abiotic stressors, the increased structural complexity can provide settlement substrate, creating more opportunities for a range of sessile organisms [@Bell2008].
 These characteristics exemplify how marine sponges in seagrass systems can be considered autogenic ecosystem engineers, altering the environment by their physical structure [@Jones1994] \par
 
-Marine sponges also play a role in bento-pelagic coupling in seagrass systems . 
+Marine sponges also play a role in bento-pelagic coupling in seagrass systems. 
 Archer et al [2017] showed that the marine sponge, *Ircinia felix*, acted as a source of bioavailable forms of phosphorus and nitrogen on seagrass beds under oligotrophic conditions.
 This marine sponge has also been shown to facilitate primary production in low-impact, sub-tropical seagrass beds [@Archer2021], in turn, creating more organic matter to support microbes and macrofauna.
-In addition, some marine sponges feed on microscopic plankton and have high bacterial diversity living within them, creating the opportunity for more organisms to be infiltrated into higher trophic levels through sponge predation [@Bell2003].
-These characteristics portrau marine sponges in seagrass systems as allogenic ecosystem engineers, altering the environment by changing living or non-living materials from one physical state to another [@Jones1994]  \par
+In addition, some marine sponges feed on microscopic plankton and have high bacterial diversity living within them, creating the opportunity for more organisms to be infiltrated into higher trophic levels within seagrass systems [@Bell2003].
+These characteristics portray marine sponges in seagrass systems as allogenic ecosystem engineers, altering the environment by changing living or non-living materials from one physical state to another [@Jones1994]  \par
 
-Lastly, marine sponge research has shown several associations and interactions with other organisms that could deem them ecosystem engineers and, overall, affecting the diversity of seagrass communities.
+Lastly, marine sponge research has shown several associations/interactions with other organisms that could deem them ecosystem engineers and, overall, affecting the diversity of seagrass communities.
 Marine sponges act as organismal camouflage and provide protection from potential predators, indirectly increasing the survival rates of a wide variety of organisms [@McClay1983; @Martin1992]. 
-Many studies have shown marine sponges act as a microhabitat for microbes and macrofauna which were associated with a specific marine sponge species, providing potential to host a highly biodiverse community [@Wulff2996; @Taylor2007; @Bell2003].
-The multiple interactions marine sponges have with other organisms and nutrient and organic matter transformations alludes to their ability to significantly affect the distribution, diversity, and abundance of other organisms within their community. \par
+Many studies have shown marine sponges provide a microhabitat for microbes and macrofauna, providing potential to host a highly biodiverse community [@Wulff2996; @Taylor2007; @Bell2003].
+The multiple interactions marine sponges have with other organisms and their abilitiy to transform nutrients  alludes to their ability to significantly affect the distribution, diversity, and abundance of other organisms within their community. \par
 
 Through the wide variety of ecosystem functions by marine sponges, as ecosystem engineers in seagrass systems, we predict a single sponge has the potential to affect an entire community. 
 A prime example is *I. felix*, a high microbial abundant sponge common to reefs and seagrass beds throughout the sub-tropical Atlantic and Caribbean [@Diaz2005; @Loh2014]. 
 This sponge, like many found in The Bahamas, hosts a dense and diverse microbiome [@Weisz2008] which facilitates complex nutrient transformations, having indirect effects on ambient nutrient and energy availability [@Archer2017]. 
-*I. felix* is a moderately large sponge, which is likely to influence their surrounding environment because of their size and filtration rates.
+*I. felix* is a moderately large sponge, which is likely to influence the surrounding environment because of their size and filtration rates.
 Because marine sponges are being threatened by anthropogenic stressors that may change the composition and stability of the sponge's microbiome, it is important that we study how these ecosystem engineers affect organisms within their community in a low-impact environment [@Pita2018].  
 Our goal is to further Archer et al.’s [2021] findings by viewing *I. felix* as an ecosystem engineer in seagrass ecosystems, and how it affects the fish and macroinvertebrate community. \par
 
@@ -79,14 +79,8 @@ The fish and epibenthic macroinvertebrate communities, as well as all explanator
 Control (n=5), structure (n=5), and sponge (n=5) treatments were randomly assigned to plots. 
 The control plots were unaltered sections within the seagrass bed.
 The structure treatment had, at the center of each plot, a polypropylene model of a sponge within a cage to keep the model stationary.
-At the center of each sponge treatment plot, we placed one living sponge (*I. felix*, average volume ± standard deviation, 2.5 ± 0.75 L)within a cafe to keep the sponge stationary.
-
-**THE TEXT BELOW WAS COPIED DIRECTLY FROM THE FIRST MANUSCRIPT MUST BE REWORDED** 
-Control plots were not manipulated.
-A polypropylene model of a sponge was placed inside a cage at the center of each structure plot.
-A single living sponge (*I. felix*, average volume ± standard deviation, 2.5 ± 0.75 L) was placed inside a cage in the center of each sponge plot.
-Live sponges were replaced as needed with a total of 3 individual sponge replacements, all occurring within the first month of the experiment.\par 
-
+At the center of each sponge treatment plot, we placed one living sponge (*I. felix*, average volume ± standard deviation, 2.5 ± 0.75 L) within a cage to keep the sponge stationary.
+Only within the first month of the experiment, 3 live sponges needed to be and were replaced. \par
 **Likely need to cite the first paper and mention that effects on primary production were assessed in it?** 
 
 ## Community Assessment
@@ -104,8 +98,8 @@ For clonal tunicates an accurate count of individuals was not feasible; therefor
 
 ## Statistical Analyses
 
-Univariate analyses were performed on three community groupings: fish, non-clonal invertebrates, and clonal invertebrates. All groupings were fit with a Conway–Maxwell–Poisson distribution parametrized via the mean and a log link (Huang 2017). ***reference package compois function comes from***
-Forward model selection was performed to determine the model explaining the most variance using corrected Akaike Infromation Criterion scores (AICc). 
+Univariate analyses were performed on three community groupings: fish, non-clonal invertebrates, and clonal invertebrates. All groupings were fit with a Conway–Maxwell–Poisson distribution performed through the glmmTMB package and parametrized via the mean and a log link [@brooks2017; @Huan2017].
+We chose model configurations that represented different hypotheses was performed to determine the model explaining the most variance using corrected Akaike Infromation Criterion scores (AICc). 
 ***did we actually use forward selection? If so, we need to say what the starting model was and what variables were added... instead maybe we chose model configurations that represented different hypotheses about what might contribute to species richness? Sponges (aka treatment), vs. primary production vs. ???***
 The model with the lowest AICc value for species richness of each community grouping was reviewed in the final analyses. ***not sure what this means***
 
