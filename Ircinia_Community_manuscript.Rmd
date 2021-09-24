@@ -98,16 +98,23 @@ For clonal tunicates an accurate count of individuals was not feasible; therefor
 
 ## Statistical Analyses
 
-Univariate analyses were performed on three community groupings: fish, non-clonal invertebrates, and clonal invertebrates. All groupings were fit with a Conway–Maxwell–Poisson distribution performed through the glmmTMB package and parametrized via the mean and a log link [@brooks2017; @Huan2017].
-We chose model configurations that represented different hypotheses was performed to determine the model explaining the most variance using corrected Akaike Infromation Criterion scores (AICc). 
-***did we actually use forward selection? If so, we need to say what the starting model was and what variables were added... instead maybe we chose model configurations that represented different hypotheses about what might contribute to species richness? Sponges (aka treatment), vs. primary production vs. ???***
-The model with the lowest AICc value for species richness of each community grouping was reviewed in the final analyses. ***not sure what this means***
+Univariate analyses were performed on three community groupings: fish, non-clonal invertebrates, and clonal invertebrates. 
+All groupings were fit with a Conway–Maxwell–Poisson distribution performed through the glmmTMB package and parametrized via the mean and a log link [@brooks2017; @Huan2017].
+We chose candidate model configurations that represented different biological hypotheses and used the package AICcmodavg [@Mazerolle2020] to create a model selection table based on Akaike Infromation Criterion scores (AICc). 
+We used treatment, seagrass productivity, seagrass structure, and algal abundance as explanatory variables with plot as a random variable and sampling event always included in the model. 
+When treatment and sampling event were in a model, there was an interaction between the two. 
+The model with the lowest AICc value was selected in the final analyses, however, models that were within two delta AICc's away from this model was further analyzed for thoroughness (see discussion).
 
 Taxa Turnover
-To visualize changes in taxa richness over time (i.e. taxa gained or lost relative to the total number of taxa observed across the two sampling events in July), we used the turnover function in "codyn" package. ***need citation***
+To visualize changes in taxa richness over time (i.e. taxa gained or lost relative to the total number of taxa observed across the two sampling events in July), we used the turnover function in codyn package [@Hallett2020].
 
 Compositional Vectors
-
+In order to assess community changes among the three treatment groups, we created compositional vectors, where each treatment plot was represented as a single vector. 
+We separating analyzed differences in compositional vector's direction and length across species space. 
+To analyze vector length (differences in rate of change across species space) we used an ANOVA to test for differences among treatments, followed by a Post-Hoc analysis using a Tukey test through the ____ package. 
+The same analysis was performed for vector angle (differences in directional change across species space. 
+These tests were performed for each community: fish, non-clonal invertebrates, and clonal invertebrates. 
+For visual purposes, all vectors were translated to a common origin to simultaneously view the rate of change in both direction and rate across species space. 
 
 # Results  
 ```{r results function,include=FALSE}
