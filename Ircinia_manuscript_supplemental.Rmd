@@ -30,7 +30,7 @@ if(!require(lmerTest))install.packages("lmerTest");library(lmerTest)
 if(!require(kableExtra))install.packages("kableExtra");library(kableExtra)
 
 theme_set(theme_bw())
-source("scripts/03_reimport.R")#imports all the data sets
+source("MarineBiology_DOI_10.1007/03_reimport.R")#imports all the data sets
 #load data
 mn<-readxl::read_xlsx("Original_data/missing_nutrients.xlsx")
 sg_nuts<-bind_rows(sg_nuts,mn)%>%
@@ -102,7 +102,7 @@ if(!require(lmerTest))install.packages("lmerTest");library(lmerTest)
 if(!require(kableExtra))install.packages("kableExtra");library(kableExtra)
 
 theme_set(theme_bw())
-source("scripts/03_reimport.R")#imports all the data sets
+source("MarineBiology_DOI_10.1007/03_reimport.R")#imports all the data sets
 #load data
 mn<-readxl::read_xlsx("Original_data/missing_nutrients.xlsx")
 sg_nuts<-bind_rows(sg_nuts,mn)%>%
@@ -217,10 +217,10 @@ knitr::include_graphics("figures/algal_sp_abundance.jpg")
 \textbf{Figure S2.} Taxon-specific algal abundance over the course of the experiment.
 \newpage
 ```{r data,echo=FALSE,warning=FALSE,message=FALSE,include=FALSE}
-source("scripts/04_algae_analysis.R")
-source("scripts/05_growth_analysis.R")
-source("scripts/06_nutrient_analysis.R")
-source("scripts/07_shoots_analysis.R")
+source("MarineBiology_DOI_10.1007/04_algae_analysis.R")
+source("MarineBiology_DOI_10.1007/05_growth_analysis.R")
+source("MarineBiology_DOI_10.1007/06_nutrient_analysis.R")
+source("MarineBiology_DOI_10.1007/07_shoots_analysis.R")
 ```  
 \begin{landscape}
 \begin{Large}
@@ -267,6 +267,8 @@ rnames<-case_when(rnames == "(Intercept)"~"Intercept",
                   rnames == "treatmentfake:yr2"~"Treatment [structure] x 12 months into experiment",
                   rnames == "treatmentblank:seasonwinter"~"Treatment [control] x Season [winter]",
                   rnames == "treatmentfake:seasonwinter"~"Treatment [structure] x Season [winter]",
+                  rnames == "treatmentfake:seasonwinter:dist"~"Treatment [structure] x Season [winter] x Distance from center",
+                  rnames == "treatmentblank:seasonwinter:dist"~"Treatment [control] x Season [winter]x Distance from center",
                   rnames == "samp2"~"Sampling",
                   rnames == "sampling4"~"Year 2",
                   rnames == "dist1"~"Distance from center",
@@ -291,6 +293,7 @@ rnames<-case_when(rnames == "(Intercept)"~"Intercept",
                   rnames == "yr"~"Year 2",
                   rnames == "yr2:dist"~ "12 months into experiment x Distance from center",
                   rnames == "seasonw"~"Season [winter]",
+                  rnames == "seasonwinter:dist"~"Season [winter] x Distance from center",
                   rnames == "treatmentblank:dist_factorfarther"~"Treatment [control] x Distance [far]",
                   rnames == "treatmentfake:dist_factorfarther"~"Treatment [structure] x Distance [far]",
                   rnames == "treatmentblank:yr"~"Treatment [control] x Year 2",
@@ -351,15 +354,16 @@ tab.func(type="lmer",msum=crs, cap="Table S9. Percent carbon in seagrass tissue 
 tab.func(type="lmer",msum=nrs5, cap="Table S10. Percent nitrogen in seagrass tissue model results at 5 months into the experiment.")
 ```  
   
+```{r pp.table5,echo=FALSE,warning=FALSE,message=FALSE}
+tab.func(type="lmer",msum=prs5, cap="Table S11. Percent phosphorus in seagrass tissue model results at 5 months into the experiment.")
+```
 
 ```{r pc.table5,echo=FALSE,warning=FALSE,message=FALSE}
-tab.func(type="lmer",msum=crls5, cap="Table S11. Percent carbon in seagrass tissue model results at 5 months into the experiment.")
+tab.func(type="lmer",msum=crls5, cap="Table S12. Percent carbon in seagrass tissue model results at 5 months into the experiment.")
 ```  
   
 
-```{r pp.table5,echo=FALSE,warning=FALSE,message=FALSE}
-tab.func(type="lmer",msum=prs5, cap="Table S12. Percent phosphorus in seagrass tissue model results at 5 months into the experiment.")
-```
+
 \end{landscape}
 
 ```{r nutfigure,echo=FALSE}

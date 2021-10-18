@@ -10,7 +10,7 @@ if(!require(tidyverse))install.packages('tidyverse');library(tidyverse)
 if(!require(readxl))install.packages('readxl');library(readxl)
 if(!require(lmerTest))install.packages('lmerTest');library(lmerTest)
 #imports all the data sets with awesome new code!
-source("scripts/03_reimport.R")
+source("MarineBiology_DOI_10.1007/03_reimport.R")
 
 # is there a sig dif in seagrass growth per day among blank, fake, 
 # and real treatment over time

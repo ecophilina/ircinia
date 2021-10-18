@@ -10,7 +10,7 @@ if(!require(here))install.packages('here');library(here)
 if(!require(tidyverse))install.packages('tidyverse');library(tidyverse)
 if(!require(readxl))install.packages('readxl');library(readxl)
 #imports all the data sets with awesome new code!
-source("scripts/03_reimport.R")
+source("MarineBiology_DOI_10.1007/03_reimport.R")
 
 #Before exploring, we need to make the growth per day added as a new column because collection days were not done in even intervals
 sg_grow$gd <- sg_grow$total.growth.mm2/sg_grow$days

@@ -1,7 +1,7 @@
 # All figures for productivity
 
 # figure 1 - algae abundance
-source("scripts/04_algae_analysis.R")
+source("MarineBiology_DOI_10.1007/04_algae_analysis.R")
 a8$taxa<-factor(a8$taxa, labels=c("Acetabularia",
                                     "Halimeda",
                                     "Laurencia",
@@ -67,7 +67,7 @@ a8$taxa<-factor(a8$taxa, labels=c("Acetabularia",
 ggsave("figures/algae_summer_95CIbw_shapes.jpg", plot = algaeplot, width = 7,height=3.5)
 
 # figure 2 - seagrass shoot density
-source("scripts/07_shoots_analysis.R")
+source("MarineBiology_DOI_10.1007/07_shoots_analysis.R")
 sdplot<-sgsd%>%
   mutate(thalassia=T.SD-mtsd,sh=SH.SD-mshsd)%>%
   select(treatment,samp2,thalassia,sh)%>%
@@ -124,7 +124,7 @@ sdp
 ggsave(filename="figures/shootdensity-95CI.jpg", plot=sdp, width = 3.5, height=4.5)
 
 # figure 3 - seagrass growth
-source("scripts/05_growth_analysis.R")
+source("MarineBiology_DOI_10.1007/05_growth_analysis.R")
 sgf<-sgg2%>%
   # mutate(dy=case_when(
   #   yr==1 & dist_factor=="closer"~"Yr 1 near",
@@ -182,7 +182,7 @@ ggsave("figures/sggrow-95CI.jpg", plot=sgplot, width=5.5,height=5.5)
 
 
 # figure 4 - nutrients
-source("scripts/06_nutrient_analysis.R")
+source("MarineBiology_DOI_10.1007/06_nutrient_analysis.R")
 pn<-ggplot(sgn %>%
     group_by(treatment, sampling, nut, dist) %>%
     summarize(mn = mean(nvalue), sdn = sd(nvalue),
@@ -507,7 +507,7 @@ pp2<-egg::tag_facet(pp2
 ggsave(filename = "figures/nuts_dist-95CI-w-0.5.jpg",plot=n2,width=6,height=6.5)
 
 # supplemental nutrients with delta and season
-source("scripts/06_nutrient_analysis.R")
+source("MarineBiology_DOI_10.1007/06_nutrient_analysis.R")
 pn<-ggplot(dsgn %>%
     group_by(treatment, sampling, nut, dist) %>%
     summarize(mn = mean(delta), sdn = sd(delta),

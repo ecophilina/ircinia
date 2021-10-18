@@ -1,11 +1,11 @@
 # Cleaned up seagrass shoot density analysis
 
-source("scripts/03_reimport.R")#imports all the data sets
+source("MarineBiology_DOI_10.1007/03_reimport.R")#imports all the data sets
 
 if(!require(DHARMa))install.packages("DHARMa");library(DHARMa)
 if(!require(lmerTest))install.packages("lmerTest");library(lmerTest)
 if(!require(glmmTMB))install.packages("glmmTMB");library(glmmTMB)
-source("scripts/04_algae_analysis.R")
+source("MarineBiology_DOI_10.1007/04_algae_analysis.R")
 
 # custom function for checking for overdispersion
 overdisp_fun <- function(model) {

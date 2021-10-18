@@ -10,7 +10,7 @@ if(!require(lmerTest))install.packages("lmerTest");library(lmerTest)
 
 theme_set(theme_bw())
 # load data----
-source("scripts/03_reimport.R")#imports all the data sets
+source("MarineBiology_DOI_10.1007/03_reimport.R")#imports all the data sets
 mn<-readxl::read_xlsx("Original_data/missing_nutrients.xlsx")
 sg_nuts<-bind_rows(sg_nuts,mn)%>%
   select(-mg)%>%

@@ -10,8 +10,8 @@ if(!require(tidyverse))install.packages('tidyverse');library(tidyverse)
 if(!require(readxl))install.packages('readxl');library(readxl)
 if(!require(lmerTest))install.packages('lmerTest');library(lmerTest)
 #imports all the data sets with awesome new code!
-source("scripts/03_reimport.R")
-source("scripts/04_algae_analysis.R")
+source("MarineBiology_DOI_10.1007/03_reimport.R")
+source("MarineBiology_DOI_10.1007/04_algae_analysis.R")
 # is there a sig dif in seagrass growth per day among blank, fake, 
 # and real treatment over time
 
@@ -161,7 +161,10 @@ sgmd0sf<-lmer(gpd~ treatment * dist_factor+treatment * yr + treatment*season  +
 # )
 # summary(sgmd0sf)
 # anova(sgmd0sf))
-sgf<-summary(sgmd0sf)
+(sgf<-summary(sgmd0sf))
+
+efsize(sgf,5)
+
 (sgaov<-anova(sgmd0sf))
 
 

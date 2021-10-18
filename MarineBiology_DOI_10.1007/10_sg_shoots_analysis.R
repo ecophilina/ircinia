@@ -4,7 +4,7 @@
 # run 03_reimport.R fist #
 
 # load data and necessary packages----
-source("scripts/03_reimport.R")#imports all the data sets
+source("MarineBiology_DOI_10.1007/03_reimport.R")#imports all the data sets
 if(!require(lmerTest))install.packages("lmerTest");library(lmerTest)
 #make things into factors
 sgsd0<-sg_shoot%>%
