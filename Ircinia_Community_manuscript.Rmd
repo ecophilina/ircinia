@@ -27,46 +27,46 @@ Stephanie K. Archer^1^*, Philina A. English^2^, Finella Campanino^1^, Craig A. L
 
 Ecosystem engineers [*sensu* @Jones1994] are organisms that impact an ecosystem's structure and function more so than their abundance would suggest.
 They can create, change, or destroy entire habitats and have significant effects on the distribution, diversity, and abundance of other organisms within their community [@Jones1994].
-Consequently, it is important that we study ecosystem engineer’s cascading effects on associated communities, especially due to the overexploitation of many marine ecosystem engineers [@Coleman2002]. 
-The ecosystem engineering concept is a relatively new term and, thus, researchers are still working towards identifying which species are acting as ecosystem engineers in many systems[Byers2006]. \par
+The ecosystem engineering concept is still a relatively new term and, thus, researchers are continuously identifying which species are acting as ecosystem engineers in many systems[Byers2006].
+Consequently, it is important that we continue to identify ecosystem engineers and their cascading effects on associated communities, especially due to the overexploitation of many marine ecosystem engineers [@Coleman2002].\par
 
 Seagrasses, important habitat-forming (foundation) species, support a wide range of biodiversity[@Hori2009]. 
 This is because they provide shelter[@James1994] to numerous species and at multiple life stages [@Nakamura2012], act as a food source [@Vincente1980], play a key role in nutrient cycling [@Hemminga1991], etc.
 Of the many organisms seagrass beds support are sponges, which have the potential to act as ecosystem engineers within these systems.
 However, the effects of marine sponges on seagrass communities have long been underrepresented and underappreciated in marine systems [@Bell2008]. 
-We believe that marine sponges have the potential to act as ecosystem engineers in seagrass beds for several reasons. \par
+We believe that marine sponges have the potential to act as ecosystem engineers in seagrass beds because of the functions they provide as autogenic and allogenic ecosystem engineers while also significantly affecting other organism within their community. \par
 
-One of the main contributions by marine sponges that deem them ecosystem engineers is their addition to the structural complexity of seagrass habitats. 
+One of the main contributions by marine sponges that categorize them as ecosystem engineers is their addition to the structural complexity of seagrass habitats. 
 Structural complexity of a habitat, or rugosity, is one of the main habitat characteristics influencing biodiversity in fish and invertebrates in subtropical marine systems, including seagrass beds [Gratwicke & Speight 2005; Fuchs 2013].
 Through the addition of structural complexity, sponges have been shown to alter local-scale water flow[@Bell2008] and stabilize substrate [@Wulff1984], alleviating some of the physical pressures put on seagrass beds and associated fauna.
 Not only can they alleviate abiotic stressors, the increased structural complexity can provide settlement substrate, creating more opportunities for a range of sessile organisms [@Bell2008].
 These characteristics exemplify how marine sponges in seagrass systems can be considered autogenic ecosystem engineers, altering the environment by their physical structure [@Jones1994] \par
 
 Marine sponges also play a role in bento-pelagic coupling in seagrass systems. 
-Archer et al [2017] showed that the marine sponge, *Ircinia felix*, acted as a source of bioavailable forms of phosphorus and nitrogen on seagrass beds under oligotrophic conditions.
+Archer et al. [2017] showed that the marine sponge, *Ircinia felix*, acted as a source of bioavailable forms of phosphorus and nitrogen in seagrass beds under oligotrophic conditions.
 This marine sponge has also been shown to facilitate primary production in low-impact, sub-tropical seagrass beds [@Archer2021], in turn, creating more organic matter to support microbes and macrofauna.
-In addition, some marine sponges feed on microscopic plankton and have high bacterial diversity living within them, creating the opportunity for more organisms to be infiltrated into higher trophic levels within seagrass systems [@Bell2003].
+In addition, some marine sponges feed on plankton and have high bacterial diversity living within them, creating the opportunity for more organisms to be infiltrated into higher trophic levels within seagrass systems [@Bell2003].
 These characteristics portray marine sponges in seagrass systems as allogenic ecosystem engineers, altering the environment by changing living or non-living materials from one physical state to another [@Jones1994]  \par
 
-Lastly, marine sponge research has shown several associations/interactions with other organisms that could deem them ecosystem engineers and, overall, affecting the diversity of seagrass communities.
+Lastly, marine sponge research has shown several associations/interactions with other organisms that fits the ecosystem engineer definition and, overall, affecting the diversity of seagrass communities.
 Marine sponges act as organismal camouflage and provide protection from potential predators, indirectly increasing the survival rates of a wide variety of organisms [@McClay1983; @Martin1992]. 
 Many studies have shown marine sponges provide a microhabitat for microbes and macrofauna, providing potential to host a highly biodiverse community [@Wulff2996; @Taylor2007; @Bell2003].
-The multiple interactions marine sponges have with other organisms and their abilitiy to transform nutrients  alludes to their ability to significantly affect the distribution, diversity, and abundance of other organisms within their community. \par
+The multiple interactions marine sponges have with other organisms and their abilitiy to transform nutrients alludes to their ability to significantly affect the distribution, diversity, and abundance of other organisms within their community. \par
 
 Through the wide variety of ecosystem functions by marine sponges, as ecosystem engineers in seagrass systems, we predict a single sponge has the potential to affect an entire community. 
 A prime example is *I. felix*, a high microbial abundant sponge common to reefs and seagrass beds throughout the sub-tropical Atlantic and Caribbean [@Diaz2005; @Loh2014]. 
 This sponge, like many found in The Bahamas, hosts a dense and diverse microbiome [@Weisz2008] which facilitates complex nutrient transformations, having indirect effects on ambient nutrient and energy availability [@Archer2017]. 
-*I. felix* is a moderately large sponge, which is likely to influence the surrounding environment because of their size and filtration rates.
+*I. felix* is a moderately large sponge, which is likely to influence the surrounding environment because of its size and filtration rates.
 Because marine sponges are being threatened by anthropogenic stressors that may change the composition and stability of the sponge's microbiome, it is important that we study how these ecosystem engineers affect organisms within their community in a low-impact environment [@Pita2018].  
 Our goal is to further Archer et al.’s [2021] findings by viewing *I. felix* as an ecosystem engineer in seagrass ecosystems, and how it affects the fish and macroinvertebrate community. \par
 
 In the present study, we investigated the impact of a moderately large sponge, [*I.felix*], on seagrass bed associated communities. 
-Using a 1.5 yr field-based experiment, we examined how sponge presence influenced fish and invertebrate species richness, abundance, and turnover. 
-Because *I. felix* was found to enhance primary producers in seagrass beds [@Archer2021] we hypothesize that the ecosystem engineer will enhance the community as well. 
-Specifically, we hypothesize that seagrass beds with *I. felix* will have higher species richness and abundance after one year than seagrass beds without *Ircinia felix* present. 
+Using a 1.5 yr field-based experiment, we examined how sponge presence influenced fish and invertebrate species richness, abundance, turnover, and community compositional vectors. 
+Because *I. felix* was found to enhance primary producers in seagrass beds [@Archer2021], we hypothesize that the ecosystem engineer will affect the community as well. 
+Specifically, we hypothesize that seagrass beds with *I. felix* will have higher species richness and abundance over time than seagrass beds without *Ircinia felix* present. 
 We also hypothesize that species turnover in treatments with *I. felix* will have a greater appearance of species over time, while treatments without a sponge will have more species disappear over time. \par
 
-
+##### break
 # Methods  
 
 ## Study site and experimental design  
@@ -80,7 +80,7 @@ Control (n=5), structure (n=5), and sponge (n=5) treatments were randomly assign
 The control plots were unaltered sections within the seagrass bed.
 The structure treatment had, at the center of each plot, a polypropylene model of a sponge within a cage to keep the model stationary.
 At the center of each sponge treatment plot, we placed one living sponge (*I. felix*, average volume ± standard deviation, 2.5 ± 0.75 L) within a cage to keep the sponge stationary.
-Only within the first month of the experiment, 3 live sponges needed to be and were replaced. \par
+It was only within the first month of the experiment that 3 live sponges needed to and were replaced. \par
 **Likely need to cite the first paper and mention that effects on primary production were assessed in it?** 
 
 ## Community Assessment
@@ -92,28 +92,33 @@ On each occassion, all fish observed within each plot during a 5 min observation
 However, small silvery pelagic fishes which form large schools (e.g. fishes in the families Atherinopsidae and Clupeidae) were excluded from analyses following @peters2015. 
 The macroinvertebrate community were quantified within a 3 m x 1 m band extending from the center of the plot. 
 All macroinvertebrates were identified to genus and recorded. 
-If identification was not possible in situ a representative sample was photographed and subsequently collected.
+If identification was not possible in situ, a representative sample was photographed and subsequently collected.
 For clonal tunicates an accurate count of individuals was not feasible; therefore species of tunicate were assessed simply as present/absent and analyzed separately from non-clonal invertebrates.\par 
 
 
 ## Statistical Analyses
 
-Univariate analyses were performed on three community groupings: fish, non-clonal invertebrates, and clonal invertebrates. 
-All groupings were fit with a Conway–Maxwell–Poisson distribution performed through the glmmTMB package and parametrized via the mean and a log link [@brooks2017; @Huan2017].
-We chose candidate model configurations that represented different biological hypotheses and used the package AICcmodavg [@Mazerolle2020] to create a model selection table based on Akaike Infromation Criterion scores (AICc). 
-We used treatment, seagrass productivity, seagrass structure, and algal abundance as explanatory variables with plot as a random variable and sampling event always included in the model. 
-When treatment and sampling event were in a model, there was an interaction between the two. 
+#Univariate analysis
+
+Univariate analyses were performed on three community groups: fish, non-clonal invertebrates, and clonal invertebrates. 
+The groups were assessed for differences among treatment types using a generalized linear mixed model, with the sponge treatment plots as the reference level .
+All groups were fit with a Conway–Maxwell–Poisson distribution performed through the glmmTMB package and parametrized via the mean and a log link [@brooks2017; @Huan2017].
+We chose candidate model configurations that represented different biological hypotheses and used the package AICcmodavg [@Mazerolle2020] to create a model selection tables based on Akaike Infromation Criterion scores (AICc). 
+We used treatment, seagrass productivity, seagrass structure, and algal abundance as explanatory variables.
+Plot (as a random variable) and sampling event were always included in the model as explanatory variables. 
+When treatment and sampling event were both in a model, there was an interaction between the two. 
 The model with the lowest AICc value was selected in the final analyses, however, models that were within two delta AICc's away from this model was further analyzed for thoroughness (see discussion).
 
-Taxa Turnover
-To visualize changes in taxa richness over time (i.e. taxa gained or lost relative to the total number of taxa observed across the two sampling events in July), we used the turnover function in codyn package [@Hallett2020].
+# Taxa Turnover
 
-Compositional Vectors
-In order to assess community changes among the three treatment groups, we created compositional vectors, where each treatment plot was represented as a single vector. 
-We separating analyzed differences in compositional vector's direction and length across species space. 
-To analyze vector length (differences in rate of change across species space) we used an ANOVA to test for differences among treatments, followed by a Post-Hoc analysis using a Tukey test through the ____ package. 
-The same analysis was performed for vector angle (differences in directional change across species space. 
-These tests were performed for each community: fish, non-clonal invertebrates, and clonal invertebrates. 
+To visualize changes in taxa richness over time (i.e. taxa gained or lost relative to the total number of taxa observed across the two sampling events in July), we used the turnover function in codyn package [@Hallett2020] to visualize the proportion of species lost by the proportion of species gained. Taxa turnover was performed on the community data for each plot and compared among treatments at 1 month into the experiment and 12 months into the experiment.
+
+# Compositional Vectors
+
+In order to assess community changes among the three treatment groups, we created compositional vectors, where each treatment plot represented a single vector. 
+We separately analyzed fish, non-clonal invertebrate, and clonal invertebrate differences in compositional vector's angle (direction) and length across species space. 
+To analyze vector length (differences in rate of change across species space) we used an linear model to test for differences among treatments, with the sponge treatment plots as the reference level through the stats package[@RCoreTeam2021]. 
+The same analysis was performed for vector angle (differences in directional change) across species space. 
 For visual purposes, all vectors were translated to a common origin to simultaneously view the rate of change in both direction and rate across species space. 
 
 # Results  
@@ -188,7 +193,7 @@ tmb.res<-function(rtable,row){
 
 ```
   
-Throughout the results, we present effect sizes and 95% confidence intervals rather than test statistics and p-values. All test statistics and p-values can be found in the supplemental material. 
+Throughout the results, we present effect sizes and 95% confidence intervals rather than test statistics and p-values. All test statistics and p-values can be found in the supplemental material.  ***need to make different?***
 
 ##Univariate Results
 ##Fish
@@ -211,10 +216,12 @@ At 1 month into the experiment, species richness increased while species abundan
 Then, at 12 months into the experiment, both species richness and abundance in control plots decreased, but only species abundance was significant ( $\beta$ = `r efsize.tmb(ia.treat.sum,8)`, Fig. \@ref(fig:turnover-plots), Fig. \@ref(fig:invab)).
 
 ##Clonal Invertebrates
-There were no significant differences between treatments for species richness of clonal invertebrates ( Fig. \@ref(fig:turnover-plots)). Species abundance could not be analyzed because of difficulty defining individuals in a colony.
+
+There were no significant differences between treatments for species richness of clonal invertebrates ( Fig. \@ref(fig:turnover-plots)). Species abundance could not be analyzed because an accurate count of individuals was not feasible.
 
 
 ##Species Turnover
+
 When comparing species turnover from 1 month to 12 months in sponge treatment plots, the overall turnover rates show an increase in species gained for fish and non-clonal invertebrates, which parallels the results from the univariate analysis (Fig. \@ref(fig:turnover-plots).
 In structure and control plots there appears to be a decrease in species gained and increase in species lost for both fish and non-clonal invertebrates, also supporting the results from th univariate analyses (Fig. \@ref(fig:turnover-plots). \par
 
@@ -225,6 +232,13 @@ The lack of differences in species turnover among treatments coincides with lack
 ```{r fish.env4 , include=FALSE}
 source("scripts_comm/07_compositional_vectors.R")
 ```  
+At the end of the 12 months, the rate of change in the fish community from the beginning of the experiment (i.e. vector length) was largest in the sponge treatment plots ( $\beta$ = `r efsize(fish.vl.aov.sum,1)`).
+This was significantly more than the rate of change in the fish communities within the control and structure treatment plots ( $\beta$ = `r efsize(fish.vl.aov.sum,2)`; $\beta$ = `r efsize(fish.vl.aov.sum,3)` respectively, Fig. \@ref(fig:vector-plots)).
+The change in direction that the fish communities shifted from the start of the experiment (i.e. vector angle) in the structure treatment plots was significantly different from the sponge treatment plots ($\beta$ = `r efsize(fish.angle.aov.sum,3)`, Fig. \@ref(fig:vector-plots)).
+However, the change in fish community direction in the control plots was not significant, and may be due the the small rate of change in the community (see figure). 
+
+
+
 Fish species were significantly difference among treatments in vector length and angle ( $\beta$ = `r aov.res(fish.vl.aov.sum,1)`; $\beta$ = `r aov.res(fish.angle.aov.sum,1)` respectively, Fig. \@ref(fig:vector-plots)). 
 Sponge treatment vectors appear to relatively be pointing in the same direction and have similar long vector lengths compared to other treatments in the fish community(Fig. \@ref(fig:vector-plots)).
 The most prevalent fish species contributing to the differences among treatment plots were grunts, damselfish, slippery dicks, and green blotch parrotfish (Fig. \@ref(fig:vector-plots)).\par 
@@ -237,23 +251,23 @@ However, the most prevalent non-clonal invertebrate species contributing the com
 # Discussion  
 
 Ecosystem engineers can affect many aspects of an ecosystem including habitat structure, resource availability and location, and community structure and dynamics [@Jones1994; @Anderson1992; @Byers2006].
-Here we present, to the best of our knowledge, the first in situ experiment to test the effects of the presence of *I. felix* on species richness, abundance, and species turnover as an ecosystem engineer in a subtropical seagrass ecosystem over a 1.5 year experiment.
+Here we present, to the best of our knowledge, the first in situ experiment to test the effects of the presence of *I. felix* on species richness, abundance, species turnover, and community compositional vectors as an ecosystem engineer in a subtropical seagrass ecosystem over a 1.5 year experiment.
 We found that, in fish and non-clonal invertebrates, species richness and abundance increased  after 1 month and 1 year in the presence of *I. felix* while decreasing or remaining the same without the sponge presence in seagrass ecosystems. \par
 
 This study presents an ecosystem engineer that can affect community structure in terms of species richness, abundance, and turnover, but the mechanism of this interaction is unclear.
 The change in community structure could be due to the indirect effects of *I. felix* releasing bioavailable forms of nitrogen and phosphorus into the environment [@Southwell2008; Archer2017] which has been shown to increase primary production in seagrass beds [@Archer2021].
 This increase in primary producers could bring in more organisms that use them for food and shelter. 
 However, it is possible that *I. felix* acts as a food source in itself, attracting specific species that eat sponges [@Wulff1997].
-It is important to note that, for this experiment, the *I. felix* sponge within the plots were encased in a cage, which would restrict large fish and invertebrates from consuming it.
+It is important to note that, for this experiment, the *I. felix* sponge within the plots were encased in a cage, which would restrict fish and macroinvertebrates from consuming it.
 More research is still needed to show the exact mechanism for how this ecosystem engineer changes the community structure in seagrass ecosystems. \par
 
-	Two major fishes observed in treatments with *I. felix* present were grunts and damselfish.
+Two major fishes observed in treatments with *I. felix* present were grunts and damselfish.
 The grunts and damselfish were highly abundant in sponge treatments and less in control and stucture control.
-Other people have shown grunts to be sponge associated and they are associated because….
-It is possible the grunts in our experiment were highly abundant in sponge treatments because … like ref causing a statistical shift in the fish community.
+Other research has shown grunts to be sponge associated and they are associated because….
+It is possible the grunts in our experiment were highly abundant in sponge treatments because …, causing a significant shift in the fish community.
 However, more researcher on sponge-grunt interactions is needed to fully understand this mechanism.\par
 
-When selecting the statistical model that would explain the most variance, there were a few models that came in close second (i.e. were not >2 delta aicc away from top model) to our treatment model for invertebrate species richness and abundance.
+When selecting the statistical model that would explain the most variance, there were a few models that were not >2 delta aicc away from top model to our treatment model for invertebrate species richness and abundance.
 Algal community, seagrass structure, and seagrass productivity, individually, were all close top models to treatment.
 However, treatment always had the lowest AIC value and therefore the model we chose for analysis.
 We further explored those models (which can be found in the supplement) to find that they showed similar results of species richness and abundance being higher in sponge treatments after 1 and 12 months into the experiment with no change or decrease in species richness and abundance in control and structure  plots.
@@ -336,3 +350,4 @@ knitr::include_graphics("figures/invert_spr_by_algae.jpg")
 
 knitr::include_graphics("figures/community_vector_plots.jpg")
 ```
+

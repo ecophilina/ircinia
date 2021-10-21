@@ -54,19 +54,43 @@ fish.env4<-fish.env3%>%
          plot.end.y2 = end.y - start.y,
          lsize = ifelse(duplicated(vlength)&duplicated(angle),2,1))
 
-# Look at differences in vector length between treatments
-fish.vl.aov<-aov(vlength~treatment,data=fish.env4)
-summary(fish.vl.aov)
-TukeyHSD(fish.vl.aov)
+fish.env4$treatment <- as.factor(fish.env4$treatment)
 
-fish.angle.aov<-aov(angle~treatment,data=fish.env4)
+
+# Look at differences in vector length between treatments
+fish.vl.aov<-lm(vlength~treatment,data=fish.env4%>%
+                  mutate(treatment = relevel(treatment, ref = "real")))
+summary(fish.vl.aov)
+#Checking residuals 
+par(mfrow=c(2,2))
+plot(fish.vl.aov)
+
+#checking the distributions
+par(mfrow=c(1,1))
+hist(fish.env4$vlength)
+
+#Look at differences in vector length between treatments
+fish.angle.aov<-lm(angle~treatment,data=fish.env4%>%
+                     mutate(treatment = relevel(treatment, ref = "real")))
 summary(fish.angle.aov)
-TukeyHSD(fish.angle.aov)
+
+#Checking residuals 
+par(mfrow=c(2,2))
+plot(fish.angle.aov)
+
+#checking the distributions
+par(mfrow=c(1,1))
+hist(fish.env4$angle)
+
 
 #to reference in manuscript
 (fish.vl.aov.sum<-anova(fish.vl.aov))
 
 (fish.angle.aov.sum<-anova(fish.angle.aov))
+
+(fish.vl.aov.sum<-fish.vl.aov)
+
+(fish.angle.aov.sum<-fish.angle.aov)
 
 # function to make a circle to put on plots
 circleFun <- function(center = c(0, 0), diameter = 1, npoints = 100) {
@@ -81,24 +105,24 @@ circ <- circleFun(center = c(0, 0), diameter = 2, npoints = 500)
 
 # make plot
 (fish.vplot<-ggplot(data=fish.env4)+
-  geom_segment(aes(x = plot.start, y = plot.start,
-                xend = plot.end.x, yend = plot.end.y,color=treatment,size = as.factor(lsize),alpha=lsize),
-              # xend = plot.end.x2, yend = plot.end.y2,color=treatment,size = as.factor(lsize),alpha=lsize),
-  arrow = arrow(length = unit(0.3, "cm")))+
-  geom_path(data = circ, aes(x, y), lty = 2, alpha = 0.7) +
-  theme_bw()+
-  coord_fixed()+
-  theme(panel.grid = element_blank(),
-        axis.title = element_blank(),
-        axis.text = element_blank(),
-        axis.ticks = element_blank(),
-        line = element_blank(),
-        panel.border = element_blank())+
-  scale_color_viridis_d(option="A", begin=0, end=0.65,name="Treatment",labels=c("Control","Structure","Sponge"))+
+    geom_segment(aes(x = plot.start, y = plot.start,
+                     xend = plot.end.x, yend = plot.end.y,color=treatment,size = as.factor(lsize),alpha=lsize),
+                 # xend = plot.end.x2, yend = plot.end.y2,color=treatment,size = as.factor(lsize),alpha=lsize),
+                 arrow = arrow(length = unit(0.3, "cm")))+
+    geom_path(data = circ, aes(x, y), lty = 2, alpha = 0.7) +
+    theme_bw()+
+    coord_fixed()+
+    theme(panel.grid = element_blank(),
+          axis.title = element_blank(),
+          axis.text = element_blank(),
+          axis.ticks = element_blank(),
+          line = element_blank(),
+          panel.border = element_blank())+
+    scale_color_viridis_d(option="A", begin=0, end=0.65,name="Treatment",labels=c("Control","Structure","Sponge"))+
     scale_size_discrete(range=c(1,1.75),name = "Number of Plots")+
     scale_alpha_continuous(range=c(0.75,1),guide=FALSE)+
-#  geom_text(aes(x=-1,y=1),label="a",size=10)+
-  add_phylopic(fishpng,x=-.8,y=.9,ysize=.25,alpha=1))
+    #  geom_text(aes(x=-1,y=1),label="a",size=10)+
+    add_phylopic(fishpng,x=-.8,y=.9,ysize=.25,alpha=1))
 
 fish.mid<-fish.env3%>%
   filter(sampling==1)%>%
@@ -107,9 +131,9 @@ fish.mid<-fish.env3%>%
 fish.segments<-left_join(fish.env4,fish.mid)
 
 (fish.sp.space<-ggplot()+
-  # geom_point(aes(x=PC1,y=PC2,color=treatment,shape=as.factor(sampling)),data=fish.env3,size=3,alpha=.5,position=position_dodge(0.01))+
-  # geom_segment(aes(x=start.x,y=start.y,xend=mid.x,yend=mid.y,color=treatment),data=fish.segments)+
-  # geom_segment(aes(x=mid.x,y=mid.y,xend=end.x,yend=end.y,color=treatment),data=fish.segments,  arrow = arrow(length = unit(0.3, "cm"))) +
+    # geom_point(aes(x=PC1,y=PC2,color=treatment,shape=as.factor(sampling)),data=fish.env3,size=3,alpha=.5,position=position_dodge(0.01))+
+    # geom_segment(aes(x=start.x,y=start.y,xend=mid.x,yend=mid.y,color=treatment),data=fish.segments)+
+    # geom_segment(aes(x=mid.x,y=mid.y,xend=end.x,yend=end.y,color=treatment),data=fish.segments,  arrow = arrow(length = unit(0.3, "cm"))) +
     geom_point(aes(x=PC1,y=PC2,color=treatment,shape=as.factor(sampling)),data=fish.env3%>%filter(sampling!=1),size=3,alpha=.5,position=position_dodge(0.01))+
     geom_segment(aes(x=start.x,y=start.y,xend=end.x,yend=end.y,color=treatment),data=fish.segments,arrow = arrow(length = unit(0.3, "cm")))+
     theme_bw()+
@@ -156,34 +180,64 @@ inv.env4<-inv.env3%>%
          plot.end.y2 = end.y - start.y,
          lsize = ifelse(duplicated(vlength)&duplicated(angle),2,1))
 
+inv.env4$treatment <- as.factor(inv.env4$treatment)
+
 # Look at differences in vector length between treatments
-inv.vl.aov<-aov(vlength~treatment,data=inv.env4)
+inv.vl.aov<-lm(vlength~treatment,data=inv.env4%>%
+                 mutate(treatment = relevel(treatment, ref = "real")))
 summary(inv.vl.aov)
 
+#Checking residuals 
+par(mfrow=c(2,2))
+plot(inv.vl.aov)
 
-inv.angle.aov<-aov(angle~treatment,data=inv.env4)
+#checking the distributions
+par(mfrow=c(1,1))
+hist(inv.env4$vlength)
+
+#Look at differences in vector length between treatments
+inv.angle.aov<-lm(angle~treatment,data=inv.env4%>%
+                    mutate(treatment = relevel(treatment, ref = "real")))
 summary(inv.angle.aov)
+
+#Checking residuals 
+par(mfrow=c(2,2))
+plot(inv.angle.aov)
+
+#checking the distributions
+par(mfrow=c(1,1))
+hist(inv.env4$angle)
+
+
+#to reference in manuscript
+(inv.vl.aov.sum<-anova(inv.vl.aov))
+
+(inv.angle.aov.sum<-anova(inv.angle.aov))
+
+(inv.vl.aov.sum<-inv.vl.aov)
+
+(inv.angle.aov.sum<-inv.angle.aov)
 
 # make plot
 (inv.plot<-ggplot(data=inv.env4%>%
                     filter(abs(plot.end.y)>0.000001 | abs(plot.end.x) >0.000001))+
-  geom_segment(aes(x = plot.start, y = plot.start,
-                   xend = plot.end.x, yend = plot.end.y,color=treatment),
-                   # xend = plot.end.x2, yend = plot.end.y2,color=treatment),
-               alpha=.75,size=1,
-                  arrow = arrow(length = unit(0.3, "cm")))+
-  geom_path(data = circ, aes(x, y), lty = 2, alpha = 0.7) +
-  theme_bw()+
-  coord_fixed()+
-  theme(panel.grid = element_blank(),
-        axis.title = element_blank(),
-        axis.text = element_blank(),
-        axis.ticks = element_blank(),
-        line = element_blank(),
-        panel.border = element_blank(),
-        legend.position = "none")+
-  scale_color_viridis_d(option="A", begin=0, end=0.65)+
-#  geom_text(aes(x=-1,y=1),label="b",size=10)+
+    geom_segment(aes(x = plot.start, y = plot.start,
+                     xend = plot.end.x, yend = plot.end.y,color=treatment),
+                 # xend = plot.end.x2, yend = plot.end.y2,color=treatment),
+                 alpha=.75,size=1,
+                 arrow = arrow(length = unit(0.3, "cm")))+
+    geom_path(data = circ, aes(x, y), lty = 2, alpha = 0.7) +
+    theme_bw()+
+    coord_fixed()+
+    theme(panel.grid = element_blank(),
+          axis.title = element_blank(),
+          axis.text = element_blank(),
+          axis.ticks = element_blank(),
+          line = element_blank(),
+          panel.border = element_blank(),
+          legend.position = "none")+
+    scale_color_viridis_d(option="A", begin=0, end=0.65)+
+    #  geom_text(aes(x=-1,y=1),label="b",size=10)+
     add_phylopic(crabpng,x=-.8,y=.9,ysize=.45,alpha=1))
 
 inv.mid<-inv.env3%>%
@@ -242,19 +296,51 @@ col.inv.env4<-col.inv.env3%>%
          plot.end.y2 = end.y - start.y,
          lsize = ifelse(duplicated(vlength)&duplicated(angle),2,1))
 
+col.inv.env4$treatment <- as.factor(col.inv.env4$treatment)
+
+
 # Look at differences in vector length between treatments
-col.inv.vl.aov<-aov(vlength~treatment,data=col.inv.env4)
+col.inv.vl.aov<-lm(vlength~treatment,data=col.inv.env4%>%
+                     mutate(treatment = relevel(treatment, ref = "real")))
 summary(col.inv.vl.aov)
 
-col.inv.angle.aov<-aov(angle~treatment,data=col.inv.env4)
+#Checking residuals 
+par(mfrow=c(2,2))
+plot(col.inv.vl.aov)
+
+#checking the distributions
+par(mfrow=c(1,1))
+hist(col.inv.env4$vlength)
+
+#Look at differences in vector angle between treatments
+col.inv.angle.aov<-lm(angle~treatment,data=col.inv.env4%>%
+                        mutate(treatment = relevel(treatment, ref = "real")))
 summary(col.inv.angle.aov)
+
+#Checking residuals 
+par(mfrow=c(2,2))
+plot(col.inv.angle.aov)
+
+#checking the distributions
+par(mfrow=c(1,1))
+hist(col.inv.env4$angle)
+
+
+#to reference in manuscript
+(col.inv.vl.aov.sum<-anova(col.inv.vl.aov))
+
+(col.inv.angle.aov.sum<-anova(col.inv.angle.aov))
+
+(col.inv.vl.aov.sum<-col.inv.vl.aov)
+
+(col.inv.angle.aov.sum<-col.inv.angle.aov)
 
 # make plot
 (col.inv.plot<-ggplot(data=col.inv.env4%>%
                         filter(abs(plot.end.y)>0.000001 | abs(plot.end.x) >0.000001))+
     geom_segment(aes(x = plot.start, y = plot.start,
                      xend = plot.end.x, yend = plot.end.y,color=treatment,size = lsize,alpha=lsize),
-                     # xend = plot.end.x2, yend = plot.end.y2,color=treatment,size = lsize,alpha=lsize),
+                 # xend = plot.end.x2, yend = plot.end.y2,color=treatment,size = lsize,alpha=lsize),
                  arrow = arrow(length = unit(0.3, "cm")))+
     geom_path(data = circ, aes(x, y), lty = 2, alpha = 0.7) +
     theme_bw()+
@@ -269,7 +355,7 @@ summary(col.inv.angle.aov)
     scale_color_viridis_d(option="A", begin=0, end=0.65)+
     scale_size_continuous(range=c(1,1.75))+
     scale_alpha_continuous(range=c(0.75,1))+
-#    geom_text(aes(x=-1,y=1),label="c",size=10)+
+    #    geom_text(aes(x=-1,y=1),label="c",size=10)+
     add_phylopic(clonalpng,x=-.8,y=.9,ysize=.25,alpha=1))
 
 col.inv.mid<-col.inv.env3%>%
@@ -320,7 +406,7 @@ ggplot(data=fsp)+
 
 # keep grunt, damselfish, slippery dick, and green blotch and rescale to vector length 1
 
-  
+
 
 fsp2<-filter(fsp,sp %in% c("grunt", "damselfish", "slippery dick", "green blotch"))%>%
   mutate(vlength = sqrt(PC1^2 +PC2^2),
@@ -332,24 +418,24 @@ fsp2<-filter(fsp,sp %in% c("grunt", "damselfish", "slippery dick", "green blotch
 
 #now make pretty graph
 (fish.spp<-ggplot(data=fsp2)+
-  # geom_vline(aes(xintercept=0),linetype="dashed",alpha=.5)+
-  # geom_hline(aes(yintercept=0),linetype="dashed",alpha=.5)+
-  geom_segment(aes(x=0,xend=PC1,y=0,yend=PC2),
-               arrow = arrow(length = unit(0.3, "cm")))+
-  coord_fixed(xlim=c(-1.5,1.5),ylim=c(-1.5,1.5))+
-  #geom_path(data = circ, aes(x, y), lty = 2, alpha = 0.5)+
-  theme(panel.grid = element_blank(),
-        panel.background = element_blank(),
-        axis.text = element_blank(),
-        axis.ticks = element_blank(),
-        axis.title = element_blank())+
-  # ylab("PC2")+
-  # xlab("PC1")+
-  geom_text(aes(x=PC1,y=PC2,
-                label=c("Slippery dick","Green blotch parrotfish","Damselfish","Grunts")),
-            nudge_x = c(.4,.2,.6,-.3),
-            nudge_y = c(-.15,-.1,.1,.1)))#+
-  #add_phylopic(fishpng,x=-.8,y=.9,ysize=.25,alpha=1))
+    # geom_vline(aes(xintercept=0),linetype="dashed",alpha=.5)+
+    # geom_hline(aes(yintercept=0),linetype="dashed",alpha=.5)+
+    geom_segment(aes(x=0,xend=PC1,y=0,yend=PC2),
+                 arrow = arrow(length = unit(0.3, "cm")))+
+    coord_fixed(xlim=c(-1.5,1.5),ylim=c(-1.5,1.5))+
+    #geom_path(data = circ, aes(x, y), lty = 2, alpha = 0.5)+
+    theme(panel.grid = element_blank(),
+          panel.background = element_blank(),
+          axis.text = element_blank(),
+          axis.ticks = element_blank(),
+          axis.title = element_blank())+
+    # ylab("PC2")+
+    # xlab("PC1")+
+    geom_text(aes(x=PC1,y=PC2,
+                  label=c("Slippery dick","Green blotch parrotfish","Damselfish","Grunts")),
+              nudge_x = c(.4,.2,.6,-.3),
+              nudge_y = c(-.15,-.1,.1,.1)))#+
+#add_phylopic(fishpng,x=-.8,y=.9,ysize=.25,alpha=1))
 
 
 #inverts
@@ -397,7 +483,7 @@ isp2<-filter(isp,sp %in% c("cerith", "little white snail", "ground tunicate"))%>
     geom_text(aes(x=PC1,y=PC2,
                   label=c("Ceriths","Whelk","Sea squirt")),
               nudge_y = c(.1,-.1,-.1)))#+
-    #add_phylopic(crabpng,x=-.8,y=.9,ysize=.25,alpha=1))
+#add_phylopic(crabpng,x=-.8,y=.9,ysize=.25,alpha=1))
 
 #colonial inverts
 cisp<-scores(ci.pca,choices=c(1,2),display = "species")
@@ -444,7 +530,7 @@ cisp2<-filter(cisp,sp %in% c("black and orange tunicate", "pinkish brown tunicat
                   label=c("Tunicate-white","Tunicate-pink","Tunciate-black + orange")),
               nudge_x = c(-.57,0,.1),
               nudge_y = c(.18,.15,-.15)))#+
-    #add_phylopic(clonalpng,x=-.8,y=.9,ysize=.25,alpha=1))
+#add_phylopic(clonalpng,x=-.8,y=.9,ysize=.25,alpha=1))
 
 
 (fish.vplot +fish.spp) / (inv.plot +invrt.spp) / (col.inv.plot + cinvrt.spp)+ plot_layout(guides="collect")
