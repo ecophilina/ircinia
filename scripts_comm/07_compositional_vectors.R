@@ -539,8 +539,9 @@ ggsave("figures/community_vector_plots_withspp.jpg",dpi=300,width=6,height=9)
 
 
 # Plot vector traits where amount of change (vector length) vs. direction of change (vector angle)
-# comment on how more sponge plots change more than many of the controle and structure plots
-# and all sponge plots change in much more similar ways
+# all sponge plots change in much more similar ways for fish and non-clonal inverts
+# comment on how for fish sponge plots change more than many of the control and structure plots
+
 
 (by1 <- ggplot(fish.env4, aes(angle, vlength, colour=treatment)) + 
   geom_jitter(size = 4, alpha = 0.6, width = 0.4, height = 0.0) + 
