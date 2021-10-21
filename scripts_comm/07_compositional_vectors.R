@@ -57,10 +57,12 @@ fish.env4<-fish.env3%>%
 fish.env4$treatment <- as.factor(fish.env4$treatment)
 
 
-# Look at differences in vector length between treatments
-fish.vl.aov<-lm(vlength~treatment,data=fish.env4%>%
+# Look at just differences in vector length between treatments
+fish.vl.aov<-aov(vlength~treatment,data=fish.env4%>%
                   mutate(treatment = relevel(treatment, ref = "real")))
 summary(fish.vl.aov)
+TukeyHSD(fish.vl.aov)
+
 #Checking residuals 
 par(mfrow=c(2,2))
 plot(fish.vl.aov)
@@ -69,10 +71,11 @@ plot(fish.vl.aov)
 par(mfrow=c(1,1))
 hist(fish.env4$vlength)
 
-#Look at differences in vector length between treatments
-fish.angle.aov<-lm(angle~treatment,data=fish.env4%>%
+#Look at just differences in vector angle between treatments
+fish.angle.aov<-aov(angle~treatment,data=fish.env4%>%
                      mutate(treatment = relevel(treatment, ref = "real")))
 summary(fish.angle.aov)
+TukeyHSD(fish.angle.aov)
 
 #Checking residuals 
 par(mfrow=c(2,2))
@@ -85,12 +88,11 @@ hist(fish.env4$angle)
 
 #to reference in manuscript
 (fish.vl.aov.sum<-anova(fish.vl.aov))
-
+(fish.vl.aov.tuk<-TukeyHSD(fish.vl.aov)$treatment)
+  
 (fish.angle.aov.sum<-anova(fish.angle.aov))
+(fish.angle.aov.tuk<-TukeyHSD(fish.angle.aov)$treatment)
 
-(fish.vl.aov.sum<-fish.vl.aov)
-
-(fish.angle.aov.sum<-fish.angle.aov)
 
 # function to make a circle to put on plots
 circleFun <- function(center = c(0, 0), diameter = 1, npoints = 100) {
@@ -183,9 +185,10 @@ inv.env4<-inv.env3%>%
 inv.env4$treatment <- as.factor(inv.env4$treatment)
 
 # Look at differences in vector length between treatments
-inv.vl.aov<-lm(vlength~treatment,data=inv.env4%>%
+inv.vl.aov<-aov(vlength~treatment,data=inv.env4%>%
                  mutate(treatment = relevel(treatment, ref = "real")))
 summary(inv.vl.aov)
+# TukeyHSD(inv.vl.aov)# not sig above so not needed
 
 #Checking residuals 
 par(mfrow=c(2,2))
@@ -196,9 +199,10 @@ par(mfrow=c(1,1))
 hist(inv.env4$vlength)
 
 #Look at differences in vector length between treatments
-inv.angle.aov<-lm(angle~treatment,data=inv.env4%>%
+inv.angle.aov<-aov(angle~treatment,data=inv.env4%>%
                     mutate(treatment = relevel(treatment, ref = "real")))
 summary(inv.angle.aov)
+# TukeyHSD(inv.angle.aov) # not sig above so not needed
 
 #Checking residuals 
 par(mfrow=c(2,2))
@@ -214,9 +218,6 @@ hist(inv.env4$angle)
 
 (inv.angle.aov.sum<-anova(inv.angle.aov))
 
-(inv.vl.aov.sum<-inv.vl.aov)
-
-(inv.angle.aov.sum<-inv.angle.aov)
 
 # make plot
 (inv.plot<-ggplot(data=inv.env4%>%
@@ -300,9 +301,10 @@ col.inv.env4$treatment <- as.factor(col.inv.env4$treatment)
 
 
 # Look at differences in vector length between treatments
-col.inv.vl.aov<-lm(vlength~treatment,data=col.inv.env4%>%
+col.inv.vl.aov<-aov(vlength~treatment,data=col.inv.env4%>%
                      mutate(treatment = relevel(treatment, ref = "real")))
 summary(col.inv.vl.aov)
+# TukeyHSD(col.inv.vl.aov) # not sig above so not needed
 
 #Checking residuals 
 par(mfrow=c(2,2))
@@ -313,9 +315,10 @@ par(mfrow=c(1,1))
 hist(col.inv.env4$vlength)
 
 #Look at differences in vector angle between treatments
-col.inv.angle.aov<-lm(angle~treatment,data=col.inv.env4%>%
+col.inv.angle.aov<-aov(angle~treatment,data=col.inv.env4%>%
                         mutate(treatment = relevel(treatment, ref = "real")))
 summary(col.inv.angle.aov)
+# TukeyHSD(col.inv.angle.aov) # not sig above so not needed
 
 #Checking residuals 
 par(mfrow=c(2,2))
@@ -331,9 +334,6 @@ hist(col.inv.env4$angle)
 
 (col.inv.angle.aov.sum<-anova(col.inv.angle.aov))
 
-(col.inv.vl.aov.sum<-col.inv.vl.aov)
-
-(col.inv.angle.aov.sum<-col.inv.angle.aov)
 
 # make plot
 (col.inv.plot<-ggplot(data=col.inv.env4%>%
@@ -536,3 +536,36 @@ cisp2<-filter(cisp,sp %in% c("black and orange tunicate", "pinkish brown tunicat
 (fish.vplot +fish.spp) / (inv.plot +invrt.spp) / (col.inv.plot + cinvrt.spp)+ plot_layout(guides="collect")
 
 ggsave("figures/community_vector_plots_withspp.jpg",dpi=300,width=6,height=9)
+
+
+# Plot vector traits where amount of change (vector length) vs. direction of change (vector angle)
+# comment on how more sponge plots change more than many of the controle and structure plots
+# and all sponge plots change in much more similar ways
+
+(by1 <- ggplot(fish.env4, aes(angle, vlength, colour=treatment)) + 
+  geom_jitter(size = 4, alpha = 0.6, width = 0.4, height = 0.0) + 
+  ylab(" ") + xlab(" ") +
+  scale_color_viridis_d(option="A", begin=0, end=0.65,name="Treatment",labels=c("Control","Structure","Sponge"))+
+  ggsidekick::theme_sleek()+theme(axis.title.x = element_blank()) +
+  add_phylopic(fishpng,x=-2.4,y=.8,ysize=.45,alpha=1))
+
+(by2 <- ggplot(inv.env4, aes(angle, vlength, colour=treatment)) + 
+  geom_jitter(size = 4, alpha = 0.6, width = 0.1, height = 0.0) + 
+  ylab("Vector length") + xlab(" ") +
+  scale_color_viridis_d(option="A", begin=0, end=0.65,name="Treatment",labels=c("Control","Structure","Sponge"))+
+  ggsidekick::theme_sleek()+ theme(axis.title.x = element_blank()) +
+  add_phylopic(crabpng,x=-1.9,y=.95,ysize=.75,alpha=1))
+
+(by3 <- ggplot(col.inv.env4, aes(angle, vlength, colour=treatment)) + 
+  geom_jitter(size = 4, alpha = 0.6, width = 0.2, height = 0.0) + 
+  ylab(" ") + 
+  xlab("Vector angle") +
+  scale_color_viridis_d(option="A", begin=0, end=0.65,name="Treatment",labels=c("Control","Structure","Sponge"))+
+  ggsidekick::theme_sleek()+
+  add_phylopic(clonalpng,x=-2.6,y=1.2,ysize=.65,alpha=1))
+
+
+(by1 / by2 / by3)+ plot_layout(guides="collect")
+
+ggsave("figures/vect-length-by-angle-plot.jpg", dpi=300, width = 4, height = 8)
+
