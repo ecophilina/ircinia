@@ -470,3 +470,87 @@ wrap_elements(grid::textGrob("Species Richness",rot=90,vjust =2,gp=gpar(fontsize
 
 ggsave("figures/Species_Richness_Turnover_A_B.jpg",dpi=300,width=8,height=9.5)
 
+#Figure for abundance of fish and non clonal inverts----
+#Plot abundance vs time 
+
+fab.sum<-fish.uni%>%
+  group_by(treatment,sampling)%>%
+  summarize(abund.m=mean(f.abund),
+            abund.sd=sd(f.abund))%>%
+  filter(sampling %in% c(0,1,12))
+
+iab.sum<-inv.uni%>%
+  group_by(treatment,sampling)%>%
+  summarize(abund.m=mean(i.abund),
+            abund.sd=sd(i.abund))%>%
+  filter(sampling %in% c(0,1,12))
+
+
+
+(fab<-ggplot()+
+    geom_point(data=fish.uni%>%filter(sampling %in% c(0,1,12)),
+               aes(x=as.factor(sampling),y=f.abund,color=treatment),alpha=.3,position=position_dodge(0.3))+
+    geom_point(data=fab.sum,
+               aes(x=as.factor(sampling),y=abund.m,color=treatment),alpha=.7,size=5,position=position_dodge(0.3))+
+    geom_errorbar(data=fab.sum,
+                  aes(x=as.factor(sampling),ymin=abund.m-abund.sd,ymax=abund.m+abund.sd,color=treatment),alpha=.7,width=.3,position=position_dodge(0.3))+ 
+    scale_color_viridis_d(option="A", begin=0, end=0.65,name="Treatment",labels=c("Control","Structure","Sponge"))+
+    # theme_bw()+
+    ggsidekick::theme_sleek(base_size = 16) +
+    theme(
+      axis.title.x = element_blank(), axis.title.y = element_blank(),
+      legend.position = "none",
+      # panel.grid = element_blank(),
+      # plot.margin=margin(t=5,r=1,b=1,l=5),
+      axis.ticks.x = element_blank(),
+      axis.text.x = element_blank())+
+    add_phylopic(fishpng,x=.75,y=6,ysize = 1.5,alpha=1))
+
+
+(iab<-ggplot()+
+    geom_point(data=inv.uni%>%filter(sampling %in% c(0,1,12)),
+               aes(x=as.factor(sampling),y=i.abund,color=treatment),alpha=.3,position=position_dodge(0.3))+
+    geom_point(data=iab.sum,
+               aes(x=as.factor(sampling),y=abund.m,color=treatment),alpha=.7,size=5,position=position_dodge(0.3))+
+    geom_errorbar(data=iab.sum,
+                  aes(x=as.factor(sampling),ymin=abund.m-abund.sd,ymax=abund.m+abund.sd,color=treatment),alpha=.7,width=.3,position=position_dodge(0.3))+ 
+    scale_color_viridis_d(option="A", begin=0, end=0.65,name="Treatment",labels=c("Control","Structure","Sponge"))+
+    # theme_bw()+
+    ggsidekick::theme_sleek(base_size = 16) +
+    theme(axis.title.x = element_blank(),axis.title.y = element_blank(),
+          legend.position = "none",
+          # panel.grid = element_blank(),
+          # plot.margin=margin(t=1,r=1,b=5,l=5)
+    )+
+    add_phylopic(crabpng,x=0.75,y=11,ysize = 4,alpha = 1)+
+    #    ggtitle("Invertebrates")+
+    ylab(""))
+
+
+
+# make separate legend for placement using patchwork
+l1 <- ggpubr::get_legend(iab + theme(legend.position = c(0.5,0.5)))
+
+
+
+
+## layout
+layouta <- c(
+  area(t=2,b=13,l=1,r=1),# y label
+  area(t=1, b=7, l=2, r=8), #fish abundance
+  area(t=8, b=14, l=2, r=8), #non-clonal invert abundance
+  area(t=15,b=15,l=2,r=8), # x label
+  area(t=7, b=7, l=9, r=10) #legend
+)
+
+
+plot(layouta)
+
+wrap_elements(grid::textGrob("Abundance",rot=90,gp=gpar(fontsize=16))) +
+  fab+
+  iab+
+  wrap_elements(grid::textGrob("Months into the Experiment",vjust =0,gp=gpar(fontsize=16))) +
+  l1+
+  plot_layout(design=layouta)
+
+ggsave("figures/fish_ncinvert_abundance figure.png", width = 12.5, height = 6)
