@@ -232,7 +232,7 @@ The lack of differences in species turnover among treatments coincides with lack
 ```{r fish.env4 , include=FALSE}
 source("scripts_comm/07_compositional_vectors.R")
 ```  
-At the end of the 12 months, the rate of change in the fish community from the beginning of the experiment (i.e. vector length) was largest in the sponge treatment plots ( $\beta$ = `r efsize(fish.vl.aov.sum,1)`).
+At the end of the 12 months, the rate of change in the fish community from the beginning of the experiment (i.e. vector length) was largest in the sponge treatment plots ($\beta$ = `r efsize(fish.vl.aov.sum,1)`).
 This was significantly more than the rate of change in the fish communities within the control and structure treatment plots ( $\beta$ = `r efsize(fish.vl.aov.sum,2)`; $\beta$ = `r efsize(fish.vl.aov.sum,3)` respectively, Fig. \@ref(fig:vector-plots)).
 The change in direction that the fish communities shifted from the start of the experiment (i.e. vector angle) in the structure treatment plots was significantly different from the sponge treatment plots ($\beta$ = `r efsize(fish.angle.aov.sum,3)`, Fig. \@ref(fig:vector-plots)).
 However, the change in fish community direction in the control plots was not significant, and may be due the the small rate of change in the community (see figure). 
