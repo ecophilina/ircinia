@@ -86,15 +86,15 @@ It was only within the first month of the experiment that 3 live sponges needed 
 
 ## Community Assessment
 
-The response of the fish and epibenthic macroinvertebrate communities were monitored throughout the course of the experiment. 
-Three sampling events occured in the summer: one in June (0 months into the experiment) and two in July (1 and 12 months into the experiment). 
+The response of the fish and epibenthic macroinvertebrate communities were monitored throughout the course of the experiment.
+Three sampling events occured in the summer: one in June (0 months into the experiment) and two in July (1 and 12 months into the experiment).
 These latter experimental sampling times were designated as year 1 and year 2 of the experiment, respectively.
-On each occassion, all fish observed within each plot during a 5 min observation period were counted and recorded. 
-However, small silvery pelagic fishes which form large schools (e.g. fishes in the families Atherinopsidae and Clupeidae) were excluded from analyses following @peters2015. 
-The macroinvertebrate community were quantified within a 3 m x 1 m band extending from the center of the plot. 
-All macroinvertebrates were identified to genus and recorded. 
+On each occassion, all fish observed within each plot during a 5 min observation period were counted and recorded.
+However, small silvery pelagic fishes which form large schools (e.g. fishes in the families Atherinopsidae and Clupeidae) were excluded from analyses following @peters2015.
+The macroinvertebrate community were quantified within a 3 m x 1 m band extending from the center of the plot.
+All macroinvertebrates were identified to genus and recorded.
 If identification was not possible in situ, a representative sample was photographed and subsequently collected.
-For clonal tunicates an accurate count of individuals was not feasible; therefore species of tunicate were assessed simply as present/absent and analyzed separately from non-clonal invertebrates.\par 
+For clonal tunicates an accurate count of individuals was not feasible; therefore species of tunicate were assessed simply as present/absent and analyzed separately from non-clonal invertebrates.\par
 
 
 ## Statistical Analyses
@@ -102,25 +102,32 @@ For clonal tunicates an accurate count of individuals was not feasible; therefor
 #Univariate analysis
 
 Univariate analyses were performed on three community groups: fish, non-clonal invertebrates, and clonal invertebrates. 
-The groups were assessed for differences among treatment types using a generalized linear mixed model, with the sponge treatment plots as the reference level .
+The groups were assessed for differences among treatment types using a generalized linear mixed model, with the sponge treatment plots as the reference level.
 All groups were fit with a Conway–Maxwell–Poisson distribution performed through the glmmTMB package and parametrized via the mean and a log link [@brooks2017; @Huan2017].
 We chose candidate model configurations that represented different biological hypotheses and used the package AICcmodavg [@Mazerolle2020] to create a model selection tables based on Akaike Infromation Criterion scores (AICc). 
 We used treatment, seagrass productivity, seagrass structure, and algal abundance as explanatory variables.
 Plot (as a random variable) and sampling event were always included in the model as explanatory variables. 
 When treatment and sampling event were both in a model, there was an interaction between the two. 
-The model with the lowest AICc value was selected in the final analyses, however, models that were within two delta AICc's away from this model was further analyzed for thoroughness (see discussion).
+The model with the lowest AICc value was selected in the final analyses, however, models that were within two delta AICc's away from this model was further analyzed for thoroughness (see discussion and supplement).
 
 # Taxa Turnover
 
-To visualize changes in taxa richness over time (i.e. taxa gained or lost relative to the total number of taxa observed across the two sampling events in July), we used the turnover function in codyn package [@Hallett2020] to visualize the proportion of species lost by the proportion of species gained. Taxa turnover was performed on the community data for each plot and compared among treatments at 1 month into the experiment and 12 months into the experiment.
+To visualize changes in taxa richness over time (i.e. taxa gained or lost relative to the total number of taxa observed across the two sampling events in July), we used the turnover function in codyn package [@Hallett2020] to visualize the proportion of species lost by the proportion of species gained. Taxa turnover was performed on the fish, non-clonal invertebrate, and clonal invertebrate community data for each plot and compared among treatments at 1 and 12 months into the experiment.
 
 # Compositional Vectors
 
-In order to assess community changes among the three treatment groups, we created compositional vectors, where each treatment plot represented a single vector. 
-We separately analyzed fish, non-clonal invertebrate, and clonal invertebrate differences in compositional vector's angle (direction) and length across species space. 
-To analyze vector length (differences in rate of change across species space) we used an linear model to test for differences among treatments, with the sponge treatment plots as the reference level through the stats package[@RCoreTeam2021]. 
-The same analysis was performed for vector angle (differences in directional change) across species space. 
-For visual purposes, all vectors were translated to a common origin to simultaneously view the rate of change in both direction and rate across species space. 
+To assess community changes in treatments across time (from 0 to 12 months into the experiment), compositional vectors were calculated for each plot in the fish, non-clonal invertebrate, and clonal invertebrate communities.
+First, for each type of community data, a Hellinger's transformation was performed followed by an RDA using the ___ package(CITATION).
+The scores from the RDA analysis were then used to calculate a vector length and angle for each plot as per Mccune. 
+An analysis of variance was performed on each community's vector length and angle to test significant difference in treatments with real as the reference using the ____ package.
+When significance occurred, a post-hoc analysis via a Tukey test was then performed to look at the differences in vector length and angle among treatments(CITATION).
+For visual purposed, all vectors were standardized to the same initial position and then plotted across species space to show how much a community changed over time (i.e. vector length) and in which direction across species space the community shifted towards (i.e. vector angle).
+
+<!-- In order to assess community changes among the three treatment groups, we created compositional vectors, where each treatment plot represented a single vector.  -->
+<!-- Fish, non-clonal invertebrate, and clonal invertebrate community data were differences in compositional vector's angle (direction) and length across species space.  -->
+<!-- To analyze vector length (differences in rate of change across species space) we used an linear model to test for differences among treatments, with the sponge treatment plots as the reference level through the stats package[@RCoreTeam2021].  -->
+<!-- The same analysis was performed for vector angle (differences in directional change) across species space.  -->
+<!-- For visual purposes, all vectors were translated to a common origin to simultaneously view the rate of change in both direction and rate across species space.  -->
 
 # Results  
 ```{r results function,include=FALSE}
