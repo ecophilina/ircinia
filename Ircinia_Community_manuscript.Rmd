@@ -242,19 +242,19 @@ The lack of differences in species turnover among treatments coincides with lack
 ```{r fish.env4 , include=FALSE}
 source("scripts_comm/07_compositional_vectors.R")
 ```  
-At the end of the 12 months, the change in the fish community from the beginning of the experiment (i.e. vector length) was largest in the sponge treatment plots ($\beta$ = `r efsize(fish.vl.aov.sum,1)`).
-This was significantly greater than the change in the fish communities within the control and structure treatment plots ( $\beta$ = `r efsize(fish.vl.aov.sum,2)`; $\beta$ = `r efsize(fish.vl.aov.sum,3)` respectively, Fig. \@ref(fig:vector-plots)).
-The direction that the fish community shifted from the start of the experiment (i.e. vector angle) in the structure treatment plots was significantly different from the sponge treatment plots ($\beta$ = `r efsize(fish.angle.aov.sum,3)`, Fig. \@ref(fig:vector-plots)).
-However, the change in fish community direction in the control plots was not significant, and may be due the the small rate of change in the community (Fig. \@ref(fig:vector-plots)). 
-The most prevalent fish species contributing to the differences among treatment plots were grunts, damselfish, slippery dicks, and green blotch parrotfish (Fig. \@ref(fig:vector-plots)).\par 
+<!-- At the end of the 12 months, the change in the fish community from the beginning of the experiment (i.e. vector length) was largest in the sponge treatment plots ($\beta$ = `r efsize(fish.vl.aov.sum,1)`). -->
+<!-- This was significantly greater than the change in the fish communities within the control and structure treatment plots ( $\beta$ = `r efsize(fish.vl.aov.sum,2)`; $\beta$ = `r efsize(fish.vl.aov.sum,3)` respectively, Fig. \@ref(fig:vector-plots)). -->
+<!-- The direction that the fish community shifted from the start of the experiment (i.e. vector angle) in the structure treatment plots was significantly different from the sponge treatment plots ($\beta$ = `r efsize(fish.angle.aov.sum,3)`, Fig. \@ref(fig:vector-plots)). -->
+<!-- However, the change in fish community direction in the control plots was not significant, and may be due the the small rate of change in the community (Fig. \@ref(fig:vector-plots)).  -->
+<!-- The most prevalent fish species contributing to the differences among treatment plots were grunts, damselfish, slippery dicks, and green blotch parrotfish (Fig. \@ref(fig:vector-plots)).\par  -->
 
 
 
-Fish species were significantly difference among treatments in vector length and angle ( $\beta$ = `r aov.res(fish.vl.aov.sum,1)`; $\beta$ = `r aov.res(fish.angle.aov.sum,1)` respectively, Fig. \@ref(fig:vector-plots)). 
-Sponge treatment vectors appear to relatively be pointing in the same direction and have similar long vector lengths compared to other treatments in the fish community(Fig. \@ref(fig:vector-plots)).
-The most prevalent fish species contributing to the differences among treatment plots were grunts, damselfish, slippery dicks, and green blotch parrotfish (Fig. \@ref(fig:vector-plots)).\par 
-For clonal and non-clonal invertebrates, there were no significant differences among treatments in vector length nor angle.
-However, the most prevalent non-clonal invertebrate species contributing the communities within the treatment plots were ceriths, welks, and sea squirts and the  clonal invertebrate species were pink tunicates, white tunicates, and black and orange tunicates (Fig. \@ref(fig:vector-plots)).
+<!-- Fish species were significantly difference among treatments in vector length and angle ( $\beta$ = `r aov.res(fish.vl.aov.sum,1)`; $\beta$ = `r aov.res(fish.angle.aov.sum,1)` respectively, Fig. \@ref(fig:vector-plots)).  -->
+<!-- Sponge treatment vectors appear to relatively be pointing in the same direction and have similar long vector lengths compared to other treatments in the fish community(Fig. \@ref(fig:vector-plots)). -->
+<!-- The most prevalent fish species contributing to the differences among treatment plots were grunts, damselfish, slippery dicks, and green blotch parrotfish (Fig. \@ref(fig:vector-plots)).\par  -->
+<!-- For clonal and non-clonal invertebrates, there were no significant differences among treatments in vector length nor angle. -->
+<!-- However, the most prevalent non-clonal invertebrate species contributing the communities within the treatment plots were ceriths, welks, and sea squirts and the  clonal invertebrate species were pink tunicates, white tunicates, and black and orange tunicates (Fig. \@ref(fig:vector-plots)). -->
 
 
 ##### break  
