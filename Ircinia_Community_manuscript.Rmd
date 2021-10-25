@@ -108,11 +108,11 @@ We chose candidate model configurations that represented different biological hy
 We used treatment, seagrass productivity, seagrass structure, and algal abundance as explanatory variables.
 Plot (as a random variable) and sampling event were always included in the model as explanatory variables. 
 When treatment and sampling event were both in a model, there was an interaction between the two. 
-The model with the lowest AICc value was selected in the final analyses, however, models that were within two delta AICc's away from this model was further analyzed for thoroughness (see discussion and supplement).
+The model with the lowest AICc value was selected in the final analyses, however, models that were within two delta AICc's away from this model was further analyzed for thoroughness (see discussion and supplement).\par
 
 # Taxa Turnover
 
-To visualize changes in taxa richness over time (i.e. taxa gained or lost relative to the total number of taxa observed across the two sampling events in July), we used the turnover function in codyn package [@Hallett2020] to visualize the proportion of species lost by the proportion of species gained. Taxa turnover was performed on the fish, non-clonal invertebrate, and clonal invertebrate community data for each plot and compared among treatments at 1 and 12 months into the experiment.
+To visualize changes in taxa richness over time (i.e. taxa gained or lost relative to the total number of taxa observed across the two sampling events in July), we used the turnover function in codyn package [@Hallett2020] to visualize the proportion of species lost by the proportion of species gained. Taxa turnover was performed on the fish, non-clonal invertebrate, and clonal invertebrate community data for each plot and compared among treatments at 1 and 12 months into the experiment.\par
 
 # Compositional Vectors
 
@@ -121,7 +121,10 @@ First, for each type of community data, a Hellinger's transformation was perform
 The scores from the RDA analysis were then used to calculate a vector length and angle for each plot as per Mccune. 
 An analysis of variance was performed on each community's vector length and angle to test significant difference in treatments with real as the reference using the ____ package.
 When significance occurred, a post-hoc analysis via a Tukey test was then performed to look at the differences in vector length and angle among treatments(CITATION).
-For visual purposed, all vectors were standardized to the same initial position and then plotted across species space to show how much a community changed over time (i.e. vector length) and in which direction across species space the community shifted towards (i.e. vector angle).
+For visual purposed, all vectors were standardized to the same initial position and then plotted across species space to show how much a community changed over time (i.e. vector length) and in which direction across species space the community shifted towards (i.e. vector angle).\par
+
+Throughout the results, we present effect sizes and 95% confidence intervals rather than test statistics and p-values. All test statistics and p-values can be found in the supplemental material.\par
+
 
 <!-- In order to assess community changes among the three treatment groups, we created compositional vectors, where each treatment plot represented a single vector.  -->
 <!-- Fish, non-clonal invertebrate, and clonal invertebrate community data were differences in compositional vector's angle (direction) and length across species space.  -->
@@ -201,7 +204,6 @@ tmb.res<-function(rtable,row){
 
 ```
   
-Throughout the results, we present effect sizes and 95% confidence intervals rather than test statistics and p-values. All test statistics and p-values can be found in the supplemental material.  ***need to make different?***
 
 ##Univariate Results
 ##Fish
@@ -211,7 +213,7 @@ source("scripts_comm/05_fish_univariate_poisson.R")
 
 In the sponge treatment, fish species richness and abundance increased at 1 and 12 months into the experiment (species richness: $\beta$ = `r efsize.tmb(fspr.treat.sum,4)`; $\beta$ = `r efsize.tmb(fspr.treat.sum,5)`; species abundance: $\beta$ = `r efsize.tmb(fa.treat.sum,4)`; $\beta$ = `r efsize.tmb(fa.treat.sum,5)` respectively, Fig. \@ref(fig:turnover-plots), Fig. \@ref(fig:ab-plot)).
 In the structure treatment, species richness and abundance increased at 1 month and decreased at 12 months, but neither changes were significant ( Fig. \@ref(fig:turnover-plots), Fig. \@ref(fig:ab-plot)).
-After 1 and 12 months into the experiment, species richness and abundance in control plots decreased, though the change was only significant after 12 months (species richness: $\beta$ = `r efsize.tmb(fspr.treat.sum,8)`; species abundance: $\beta$ = `r efsize.tmb(fa.treat.sum,8)`, Fig. \@ref(fig:turnover-plots), Fig. \@ref(fig:ab-plot)).
+After 1 and 12 months into the experiment, species richness and abundance in control plots decreased, though the change was only significant after 12 months (species richness: $\beta$ = `r efsize.tmb(fspr.treat.sum,8)`; species abundance: $\beta$ = `r efsize.tmb(fa.treat.sum,8)`, Fig. \@ref(fig:turnover-plots), Fig. \@ref(fig:ab-plot)).\par
 
 ##Non-clonal Invertebrates
 ```{r inv.uni , include=FALSE}
@@ -221,11 +223,11 @@ source("scripts_comm/04_invert_univariate_poisson.R")
 In the sponge treatment, non-clonal invertebrate species richness and abundance significantly increased at 1 and 12 months into the experiment (species richness: $\beta$ = `r efsize.tmb(ispr.treat.sum,4)`; $\beta$ = `r efsize.tmb(ispr.treat.sum,5)`; species abundance: $\beta$ = `r efsize.tmb(ia.treat.sum,4)`; $\beta$ = `r efsize.tmb(ia.treat.sum,5)` respectively, Fig. \@ref(fig:turnover-plots), Fig. \@ref(fig:ab-plot)).
 In the structure treatment, species richness and abundance  decrease at 1 and 12 months into the experiment, though species richness at 1 month was not significant (species richness: 12 months- $\beta$ = `r efsize.tmb(ispr.treat.sum,9)`; species abundance: 1 month- $\beta$ = `r efsize.tmb(ia.treat.sum,7)`; 12 months- $\beta$ = `r efsize.tmb(ia.treat.sum,9)`, Fig. \@ref(fig:turnover-plots), Fig. \@ref(fig:ab-plot)).
 At 1 month into the experiment, species richness increased while species abundance decreased in control plots, though neither changes were significant( Fig. \@ref(fig:turnover-plots), Fig. \@ref(fig:ab-plot)).
-Then, at 12 months into the experiment, both species richness and abundance in control plots decreased, but only species abundance was significant ( $\beta$ = `r efsize.tmb(ia.treat.sum,8)`, Fig. \@ref(fig:turnover-plots), Fig. \@ref(fig:ab-plot)).
+Then, at 12 months into the experiment, both species richness and abundance in control plots decreased, but only species abundance was significant ( $\beta$ = `r efsize.tmb(ia.treat.sum,8)`, Fig. \@ref(fig:turnover-plots), Fig. \@ref(fig:ab-plot)).\par
 
 ##Clonal Invertebrates
 
-There were no significant differences between treatments for species richness of clonal invertebrates ( Fig. \@ref(fig:turnover-plots)). Species abundance could not be analyzed because an accurate count of individuals was not feasible.
+There were no significant differences between treatments for species richness of clonal invertebrates ( Fig. \@ref(fig:turnover-plots)). Species abundance could not be analyzed because an accurate count of individuals was not feasible.\par
 
 
 ##Species Turnover
@@ -234,16 +236,17 @@ When comparing species turnover from 1 month to 12 months in sponge treatment pl
 In structure and control plots there appears to be a decrease in species gained and increase in species lost for both fish and non-clonal invertebrates, also supporting the results from th univariate analyses (Fig. \@ref(fig:turnover-plots). \par
 
 For clonal invertebrates, species turnover from 1 to 12 months did not show differences in treatment plots for species gained or lost (Fig. S2). 
-The lack of differences in species turnover among treatments coincides with lack of change in species richness at 1 on 12 months into the experiment. 
+The lack of differences in species turnover among treatments coincides with lack of change in species richness at 1 on 12 months into the experiment. \par
 
 ## Compositional Vectors
 ```{r fish.env4 , include=FALSE}
 source("scripts_comm/07_compositional_vectors.R")
 ```  
-At the end of the 12 months, the rate of change in the fish community from the beginning of the experiment (i.e. vector length) was largest in the sponge treatment plots ($\beta$ = `r efsize(fish.vl.aov.sum,1)`).
-This was significantly more than the rate of change in the fish communities within the control and structure treatment plots ( $\beta$ = `r efsize(fish.vl.aov.sum,2)`; $\beta$ = `r efsize(fish.vl.aov.sum,3)` respectively, Fig. \@ref(fig:vector-plots)).
-The change in direction that the fish communities shifted from the start of the experiment (i.e. vector angle) in the structure treatment plots was significantly different from the sponge treatment plots ($\beta$ = `r efsize(fish.angle.aov.sum,3)`, Fig. \@ref(fig:vector-plots)).
-However, the change in fish community direction in the control plots was not significant, and may be due the the small rate of change in the community (see figure). 
+At the end of the 12 months, the change in the fish community from the beginning of the experiment (i.e. vector length) was largest in the sponge treatment plots ($\beta$ = `r efsize(fish.vl.aov.sum,1)`).
+This was significantly greater than the change in the fish communities within the control and structure treatment plots ( $\beta$ = `r efsize(fish.vl.aov.sum,2)`; $\beta$ = `r efsize(fish.vl.aov.sum,3)` respectively, Fig. \@ref(fig:vector-plots)).
+The direction that the fish community shifted from the start of the experiment (i.e. vector angle) in the structure treatment plots was significantly different from the sponge treatment plots ($\beta$ = `r efsize(fish.angle.aov.sum,3)`, Fig. \@ref(fig:vector-plots)).
+However, the change in fish community direction in the control plots was not significant, and may be due the the small rate of change in the community (Fig. \@ref(fig:vector-plots)). 
+The most prevalent fish species contributing to the differences among treatment plots were grunts, damselfish, slippery dicks, and green blotch parrotfish (Fig. \@ref(fig:vector-plots)).\par 
 
 
 
