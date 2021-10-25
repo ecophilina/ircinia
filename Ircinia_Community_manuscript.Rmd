@@ -62,9 +62,10 @@ Our goal is to further Archer et al.’s [2021] findings by viewing *I. felix* a
 
 In the present study, we investigated the impact of a moderately large sponge, [*I.felix*], on seagrass bed associated communities. 
 Using a 1.5 yr field-based experiment, we examined how sponge presence influenced fish and invertebrate species richness, abundance, turnover, and community compositional vectors. 
-Because *I. felix* was found to enhance primary producers in seagrass beds [@Archer2021], we hypothesize that the ecosystem engineer will affect the community as well. 
-Specifically, we hypothesize that seagrass beds with *I. felix* will have higher species richness and abundance over time than seagrass beds without *Ircinia felix* present. 
-We also hypothesize that species turnover in treatments with *I. felix* will have a greater appearance of species over time, while treatments without a sponge will have more species disappear over time. \par
+Because *I. felix* was found to affect primary producers in seagrass beds [@Archer2021], we hypothesize that the ecosystem engineer will affect the community as well. 
+Specifically, we predict seagrass beds with *I. felix* will have higher species richness and abundance over time than seagrass beds without *Ircinia felix* present. 
+We also hypothesize that species turnover in treatments with *I. felix* will have a fewer losses and more gains in the number of species over time when compared to treatments without the sponge present.
+Finally, we predict that the presence of *I.felix* will change the community composition over time.\par
 
 ##### break
 # Methods  
