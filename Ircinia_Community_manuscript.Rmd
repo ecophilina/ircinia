@@ -117,20 +117,13 @@ To visualize changes in taxa richness over time (i.e. taxa gained or lost relati
 # Compositional Vectors
 
 To assess community changes in treatments across time (from 0 to 12 months into the experiment), compositional vectors were calculated for each plot in the fish, non-clonal invertebrate, and clonal invertebrate communities.
-First, for each type of community data, a Hellinger's transformation was performed followed by an RDA using the ___ package(CITATION).
+First, for each type of community data, a Hellinger's transformation was performed followed by an RDA using the "vegan" package(@oksanen2020).
 The scores from the RDA analysis were then used to calculate a vector length and angle for each plot as per Mccune. 
-An analysis of variance was performed on each community's vector length and angle to test significant difference in treatments with real as the reference using the ____ package.
-When significance occurred, a post-hoc analysis via a Tukey test was then performed to look at the differences in vector length and angle among treatments(CITATION).
+An analysis of variance was performed on each community's vector length and angle to test significant difference in treatments with real as the reference using the "stats" package.
+When significance occurred, a post-hoc analysis via a Tukey test was then performed to look at the differences in vector length and angle among treatments also in the "stats" package (@RCoreTeam2021).
 For visual purposed, all vectors were standardized to the same initial position and then plotted across species space to show how much a community changed over time (i.e. vector length) and in which direction across species space the community shifted towards (i.e. vector angle).\par
 
 Throughout the results, we present effect sizes and 95% confidence intervals rather than test statistics and p-values. All test statistics and p-values can be found in the supplemental material.\par
-
-
-<!-- In order to assess community changes among the three treatment groups, we created compositional vectors, where each treatment plot represented a single vector.  -->
-<!-- Fish, non-clonal invertebrate, and clonal invertebrate community data were differences in compositional vector's angle (direction) and length across species space.  -->
-<!-- To analyze vector length (differences in rate of change across species space) we used an linear model to test for differences among treatments, with the sponge treatment plots as the reference level through the stats package[@RCoreTeam2021].  -->
-<!-- The same analysis was performed for vector angle (differences in directional change) across species space.  -->
-<!-- For visual purposes, all vectors were translated to a common origin to simultaneously view the rate of change in both direction and rate across species space.  -->
 
 # Results  
 ```{r results function,include=FALSE}
@@ -242,14 +235,21 @@ The lack of differences in species turnover among treatments coincides with lack
 ```{r fish.env4 , include=FALSE}
 source("scripts_comm/07_compositional_vectors.R")
 ```  
-<!-- At the end of the 12 months, the change in the fish community from the beginning of the experiment (i.e. vector length) was largest in the sponge treatment plots ($\beta$ = `r efsize(fish.vl.aov.sum,1)`). -->
-<!-- This was significantly greater than the change in the fish communities within the control and structure treatment plots ( $\beta$ = `r efsize(fish.vl.aov.sum,2)`; $\beta$ = `r efsize(fish.vl.aov.sum,3)` respectively, Fig. \@ref(fig:vector-plots)). -->
-<!-- The direction that the fish community shifted from the start of the experiment (i.e. vector angle) in the structure treatment plots was significantly different from the sponge treatment plots ($\beta$ = `r efsize(fish.angle.aov.sum,3)`, Fig. \@ref(fig:vector-plots)). -->
-<!-- However, the change in fish community direction in the control plots was not significant, and may be due the the small rate of change in the community (Fig. \@ref(fig:vector-plots)).  -->
+
+By 12 months into the experiment, the fish communities differed significantly by treatment for both vector length and angle, meaning they differed in the how much they changed over time and in direction of change across species space (vector length: $\beta$ = `r efsize(fish.vl.aov.sum,1)`; vector angle: $\beta$ = `r efsize(fish.angle.aov.sum,1)`). 
+The post-hoc analysis of vector lengths showed a significant difference in how much the fish communities changed over time between the control and sponge treatments and between the structure and sponge treatments, with control and structure both having less change in community over time when compared to the sponge treatment plots (control-sponge: $\beta$ = `r efsize(fish.vl.aov.tuk,1)` ; structure-sponge $\beta$ = `r efsize(fish.vl.aov.tuk,2)’). 
+However, there was no difference in the amount of change in the fish community between structure and control treatments ($\beta$ = `r efsize(fish.vl.aov.tuk,3)`). 
+The post-hoc analysis of the vector angles showed no significant difference in the direction in which the fish communities shifted across species space between the control and sponge treatments, which may be due to the small change in the control plot communities over time (control-sponge: $\beta$ = `r efsize(fish.angle.aov.tuk,1)` ; Fig. \@ref(fig:vector-plots)`). 
+Contrastingly, there were differences in the direction of the communities across species space between the structure and sponge as well as between the structure and control, with structure plots having less change in communities across species space than both sponge or control (structure-sponge: $\beta$ = `r efsize(fish.vl.aov.tuk,2)` ; structure-control $\beta$ = `r efsize(fish.vl.aov.tuk,3)’). \par
+
+By 12 months into the experiment, the non-clonal invertebrate communities per plot had no differences across treatments for vector length and angle, meaning they did not differ in the amount of change over time nor in direction of change across species space (vector length: $\beta$ = `r efsize(inv.vl.aov.sum,1)`; vector angle: $\beta$ = `r efsize(inv.angle.aov.sum,1)`). 
+Because there were no statistical differences, post-hoc analysis was not performed on the non-clonal invertebrates. \par
+
+Like the non-clonal invertebrates, the clonal invertebrate communities did not differ among treatments in the amount of change over time nor in the direction of change across species space (vector length: $\beta$ = `r efsize(col.inv.vl.aov.sum,1)`; vector angle: $\beta$ = `r efsize(col.inv.angle.aov.sum,1)`). 
+Thus, no post-hoc analysis was performed on this group. \par
+
+
 <!-- The most prevalent fish species contributing to the differences among treatment plots were grunts, damselfish, slippery dicks, and green blotch parrotfish (Fig. \@ref(fig:vector-plots)).\par  -->
-
-
-
 <!-- Fish species were significantly difference among treatments in vector length and angle ( $\beta$ = `r aov.res(fish.vl.aov.sum,1)`; $\beta$ = `r aov.res(fish.angle.aov.sum,1)` respectively, Fig. \@ref(fig:vector-plots)).  -->
 <!-- Sponge treatment vectors appear to relatively be pointing in the same direction and have similar long vector lengths compared to other treatments in the fish community(Fig. \@ref(fig:vector-plots)). -->
 <!-- The most prevalent fish species contributing to the differences among treatment plots were grunts, damselfish, slippery dicks, and green blotch parrotfish (Fig. \@ref(fig:vector-plots)).\par  -->
