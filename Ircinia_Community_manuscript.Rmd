@@ -10,7 +10,7 @@ bibliography: Paper2.bib
 csl: estuaries-and-coasts.csl
 ---
 
-Stephanie K. Archer^1^*, Philina A. English^2^, Finella Campanino^1^, Craig A. Layman^3^   
+Finella Campanino^1^, Philina A. English^2^, Craig A. Layman^3^, Stephanie K. Archer^1^*
   
 1. Louisiana Universities Marine Consortium, Chauvin, Louisiana, USA
 2. Pacific Biological Station, Fisheries and Oceans Canada, Nanaimo, British Columbia, Canada
@@ -26,17 +26,17 @@ Stephanie K. Archer^1^*, Philina A. English^2^, Finella Campanino^1^, Craig A. L
 # Introduction 
 
 Ecosystem engineers [*sensu* @Jones1994] are organisms that impact an ecosystem's structure and function more so than their abundance would suggest.
-They can create, change, or destroy entire habitats and have significant effects on the distribution, diversity, and abundance of other organisms within their community [@Jones1994].
-The ecosystem engineering concept is still a relatively new term and, thus, researchers are continuously identifying which species are acting as ecosystem engineers in many systems[Byers2006].
-Consequently, it is important that we continue to identify ecosystem engineers and their cascading effects on associated communities, especially due to the overexploitation of many marine ecosystem engineers [@Coleman2002].\par
+They can create, change, or destroy entire habitats and have significant effects on the distribution, diversity, and abundance of other organisms within their community [@Jones1994]. *suggest removing destroy - I get where you're going but destroy is a loaded word and because nothing is a blank slate if the ecosystem engineer creates a habitat they has to destroy another one. Up to you though.*
+The ecosystem engineering concept is still a relatively new term and, thus, researchers are continuously identifying which species are acting as ecosystem engineers in many systems[Byers2006]. *I'm not sure I agree with this sentence - Jones coined the term 27 years ago... that's older than you :) Perhaps using biodiversity loss as a motivator here would work? Something along the lines of: Although Jones (1994) coined the term "ecosystem engineer" nearly 30 yeras ago we still don't have a thorough understanding of which species fulfill this roll in many systems [Byers2006]. As human influence grows and species loss intensifies it is becoming increasing important to identify potential ecosystem engineers ...blah blah blah :) *
+Consequently, it is important that we continue to identify ecosystem engineers and their cascading effects on associated communities, especially due to the overexploitation of many marine ecosystem engineers [@Coleman2002]. *While this is true this particular sponge isn't at risk of overexploitation (nobody wants to use a sponge that smells like sulfer and garlic) so I'd think about using this motivation a bit.*\par
 
-Seagrasses, important habitat-forming (foundation) species, support a wide range of biodiversity[@Hori2009]. 
-This is because they provide shelter[@James1994] to numerous species and at multiple life stages [@Nakamura2012], act as a food source [@Vincente1980], play a key role in nutrient cycling [@Hemminga1991], etc.
-Of the many organisms seagrass beds support are sponges, which have the potential to act as ecosystem engineers within these systems.
+Seagrasses, important habitat-forming *or foundation* ~~(foundation)~~ species, *form beds that* support a wide range of biodiversity[@Hori2009]. 
+~~This is because t~~*T*hey provide shelter[@James1994] to numerous species and at multiple life stages [@Nakamura2012], act as a food source [@Vincente1980], *and* play a key role in nutrient cycling [@Hemminga1991]*.*~~, etc.~~
+*Sponges are among*~~Of~~ the many organisms seagrass beds support ~~are sponges~~, *and*~~which~~ have the potential to act as ecosystem engineers within these systems.
 However, the effects of marine sponges on seagrass communities have long been underrepresented and underappreciated in marine systems [@Bell2008]. 
-We believe that marine sponges have the potential to act as ecosystem engineers in seagrass beds because of the functions they provide as autogenic and allogenic ecosystem engineers while also significantly affecting other organism within their community. \par
+We ~~believe~~ *hypothesize* that marine sponges have the potential to act as ecosystem engineers in seagrass beds because of the functions they provide as autogenic and allogenic ecosystem engineers while also significantly affecting other organism within their community. *You haven't introduced the autogenic vs allogenic engineers, if this is important later you should add a sentence or two explaining those terms. Also - this sentence basically says we think they're engineers because they're engineers. I don't think that's the point you're trying to make *\par
 
-One of the main contributions by marine sponges that categorize them as ecosystem engineers is their addition to the structural complexity of seagrass habitats. 
+One of the main contributions by marine sponges that categorize them as ecosystem engineers is their addition to the structural complexity of seagrass habitats. *this is where I start to get a little lost. What is the story we're telling here and why is talking about identifying ecosystem engineers useful if we're going to assert that sponges are ecosystem engineers before we present any of our findings. I'm going to read through the intro from here on out but not make a lot of comments.Let's chat about this at our meeting*
 Structural complexity of a habitat, or rugosity, is one of the main habitat characteristics influencing biodiversity in fish and invertebrates in subtropical marine systems, including seagrass beds [Gratwicke & Speight 2005; Fuchs 2013].
 Through the addition of structural complexity, sponges have been shown to alter local-scale water flow[@Bell2008] and stabilize substrate [@Wulff1984], alleviating some of the physical pressures put on seagrass beds and associated fauna.
 Not only can they alleviate abiotic stressors, the increased structural complexity can provide settlement substrate, creating more opportunities for a range of sessile organisms [@Bell2008].
@@ -55,7 +55,7 @@ The multiple interactions marine sponges have with other organisms and their abi
 
 Through the wide variety of ecosystem functions by marine sponges, as ecosystem engineers in seagrass systems, we predict a single sponge has the potential to affect an entire community. 
 A prime example is *I. felix*, a high microbial abundant sponge common to reefs and seagrass beds throughout the sub-tropical Atlantic and Caribbean [@Diaz2005; @Loh2014]. 
-This sponge, like many found in The Bahamas, hosts a dense and diverse microbiome [@Weisz2008] which facilitates complex nutrient transformations, having indirect effects on ambient nutrient and energy availability [@Archer2017]. 
+This sponge, like many found in The Bahamas, hosts a dense and diverse microbiome [@Weisz2008] which facilitates complex nutrient transformations, having indirect effects on ambient nutrient and energy availability [@Archer2017].*This text is verbatim from our other paper, unfortunately we can't do that and this will need to be reworded* 
 *I. felix* is a moderately large sponge, which is likely to influence the surrounding environment because of its size and filtration rates.
 Because marine sponges are being threatened by anthropogenic stressors that may change the composition and stability of the sponge's microbiome, it is important that we study how these ecosystem engineers affect organisms within their community in a low-impact environment [@Pita2018].  
 Our goal is to further Archer et al.’s [2021] findings by viewing *I. felix* as an ecosystem engineer in seagrass ecosystems, and how it affects the fish and macroinvertebrate community. \par
@@ -67,7 +67,8 @@ Specifically, we predict seagrass beds with *I. felix* will have higher species 
 We also hypothesize that species turnover in treatments with *I. felix* will have a fewer losses and more gains in the number of species over time when compared to treatments without the sponge present.
 Finally, we predict that the presence of *I.felix* will change the community composition over time.\par
 
-##### break
+*another bigger picture thought for the intro - this doesn't set up why we tested models that included seagrass productivity and seagrass and algal structure I think, when we chat about clarifying the focus of the intro that needs to be a part of it*
+
 # Methods  
 
 ## Study site and experimental design  
@@ -78,33 +79,38 @@ Within the seagrass bed, fifteen 5 x 5 m plots were delineated on June 9, 2013 b
 All plots were separated >2 m. 
 The fish and epibenthic macroinvertebrate communities, as well as all explanatory variables (see below), were sampled once before the beginning of the experiment and again at 1 and 12 months after the treatments were established. 
 Control (n=5), structure (n=5), and sponge (n=5) treatments were randomly assigned to plots. 
-The control plots were unaltered sections within the seagrass bed.
-The structure treatment had, at the center of each plot, a polypropylene model of a sponge within a cage to keep the model stationary.
-At the center of each sponge treatment plot, we placed one living sponge (*I. felix*, average volume ± standard deviation, 2.5 ± 0.75 L) within a cage to keep the sponge stationary.
-It was only within the first month of the experiment that 3 live sponges needed to and were replaced. \par
+The control plots were unaltered ~~sections within the seagrass bed~~.
+The structure treatment had ~~, at the center of each plot, ~~a polypropylene model of a sponge *at the center of each plot*~~within a cage to keep the model stationary~~.
+At the center of each sponge treatment plot, we placed one living sponge (*I. felix*, average volume ± standard deviation, 2.5 ± 0.75 L).
+Both live and model sponges were placed within a cage to keep the sponge stationary.
+~~It was only within the first month of the experiment that 3~~ *Three live sponges were replaced as they showed signs of dying within the first month of the experiment.
+Live sponges were monitored throughout the rest of the experiment but no additional replacements were necessary* ~~live sponges needed to and were replaced.~~ \par
 **Likely need to cite the first paper and mention that effects on primary production were assessed in it?** 
+*yes we should, but we can do it down where we talk about how the predictor variables were measured*
 
 ## Community Assessment
 
 The response of the fish and epibenthic macroinvertebrate communities were monitored throughout the course of the experiment.
 Three sampling events occured in the summer: one in June (0 months into the experiment) and two in July (1 and 12 months into the experiment).
 These latter experimental sampling times were designated as year 1 and year 2 of the experiment, respectively.
-On each occassion, all fish observed within each plot during a 5 min observation period were counted and recorded.
-However, small silvery pelagic fishes which form large schools (e.g. fishes in the families Atherinopsidae and Clupeidae) were excluded from analyses following @peters2015.
+On each occasion, all fish observed within each plot during a 5 min observation period were counted and recorded.
+However, small silvery pelagic fishes which form large schools (e.g. fishes in the families Atherinopsidae and Clupeidae) were excluded from analyses following [@peters2015].
 The macroinvertebrate community were quantified within a 3 m x 1 m band extending from the center of the plot.
 All macroinvertebrates were identified to genus and recorded.
-If identification was not possible in situ, a representative sample was photographed and subsequently collected.
+If identification was not possible *in situ*, a representative sample was photographed and subsequently collected.
 For clonal tunicates an accurate count of individuals was not feasible; therefore species of tunicate were assessed simply as present/absent and analyzed separately from non-clonal invertebrates.\par
 
+## Predictor variables
+*need to add text here describing which predictor variables we included, refer the reader to our previous paper, and give a brief description of how each was calculated* 
 
 ## Statistical Analyses
 
 #Univariate analysis
 
 Univariate analyses were performed on three community groups: fish, non-clonal invertebrates, and clonal invertebrates. 
-The groups were assessed for differences among treatment types using a generalized linear mixed model, with the sponge treatment plots as the reference level.
+The groups were assessed for differences among treatment types using a generalized linear mixed model, with the sponge treatment plots as the reference level.*This is where the lack of set-up about seagrass productivity/structure vs sponge presence as competing hypotheses makes the manuscript a bit tricky*
 All groups were fit with a Conway–Maxwell–Poisson distribution performed through the glmmTMB package and parametrized via the mean and a log link [@brooks2017; @Huan2017].
-We chose candidate model configurations that represented different biological hypotheses and used the package AICcmodavg [@Mazerolle2020] to create a model selection tables based on Akaike Infromation Criterion scores (AICc). 
+We chose candidate model configurations that represented different biological hypotheses and used the package AICcmodavg [@Mazerolle2020] to create a model selection tables based on Akaike Infromation Criterion scores (AICc). *Same concept different comment. These hypotheses need to be set up and clearly defined by the end of the intro When these hypotheses are clearly articulated and instroduced we can explicitly state which model tested which hypothesis. Then this section from here on out becomes much easier to write and interpret*
 We used treatment, seagrass productivity, seagrass structure, and algal abundance as explanatory variables.
 Plot (as a random variable) and sampling event were always included in the model as explanatory variables. 
 When treatment and sampling event were both in a model, there was an interaction between the two. 
