@@ -10,33 +10,33 @@ library(tidyverse)
 source("scripts_comm/02_community_data_org.R")
 
 # visualize data
-ggplot(col.inv.uni) +
-  geom_jitter(aes(
-    x = sampling,
-    y = spr,
-    color = treatment,
-    group = treatment))
-
-ggplot(col.inv.uni) +
-  geom_jitter(aes(
-    x = sampling,
-    y = i.abund,
-    color = treatment,
-    group = treatment))
-
-ggplot(col.inv.uni) +
-  geom_jitter(aes(
-    x = sampling,
-    y = j,
-    color = treatment,
-    group = treatment))
-
-ggplot(col.inv.uni) +
-  geom_jitter(aes(
-    x = sampling,
-    y = div,
-    color = treatment,
-    group = treatment))
+# ggplot(col.inv.uni) +
+#   geom_jitter(aes(
+#     x = sampling,
+#     y = spr,
+#     color = treatment,
+#     group = treatment))
+# 
+# ggplot(col.inv.uni) +
+#   geom_jitter(aes(
+#     x = sampling,
+#     y = i.abund,
+#     color = treatment,
+#     group = treatment))
+# 
+# ggplot(col.inv.uni) +
+#   geom_jitter(aes(
+#     x = sampling,
+#     y = j,
+#     color = treatment,
+#     group = treatment))
+# 
+# ggplot(col.inv.uni) +
+#   geom_jitter(aes(
+#     x = sampling,
+#     y = div,
+#     color = treatment,
+#     group = treatment))
 
 # organize data to use offset
 
@@ -268,14 +268,19 @@ for(i in 1:length(spr.cand.mod.names)) {
   spr.cand.mods[[i]] <- get(spr.cand.mod.names[i]) }
 
 # Function aictab does the AICc-based model comparison
-print(aictab(cand.set = spr.cand.mods, 
+col.aic<-data.frame(aictab(cand.set = spr.cand.mods, 
              modnames = spr.cand.mod.names))
 
+write_rds(col.aic,"working_data/ColInvAIC_Results.rds")
 
 # top models of clonal invert spr is structure, alg, and productivity all within 2 delta AICcfrom each other
-summary(cispr.struct)
-summary(cispr.prod)
-summary(cispr.alg)
+(cispr.struct.sum<-summary(cispr.struct))
+(cispr.prod.sum<-summary(cispr.prod))
+(cispr.alg.sum<-summary(cispr.alg))
+
+write_rds(cispr.struct.sum,"working_data/cispr_struct_sum.rds")
+write_rds(cispr.prod.sum,"working_data/cispr_prod_sum.rds")
+write_rds(cispr.alg.sum,"working_data/cispr_alg_sum.rds")
 
 #nothing is significant
 

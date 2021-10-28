@@ -93,6 +93,11 @@ hist(fish.env4$angle)
 (fish.angle.aov.sum<-anova(fish.angle.aov))
 (fish.angle.aov.tuk<-TukeyHSD(fish.angle.aov)$treatment)
 
+write_rds(fish.vl.aov.sum,"working_data/FishVLSum.rds")
+write_rds(fish.vl.aov.tuk,"working_data/FishVLTuk.rds")
+write_rds(fish.angle.aov.sum,"working_data/FishAngleSum.rds")
+write_rds(fish.angle.aov.tuk,"working_data/FishAngleTuk.rds")
+
 
 # function to make a circle to put on plots
 circleFun <- function(center = c(0, 0), diameter = 1, npoints = 100) {
@@ -218,6 +223,10 @@ hist(inv.env4$angle)
 
 (inv.angle.aov.sum<-anova(inv.angle.aov))
 
+write_rds(inv.vl.aov.sum,"working_data/InvVLSum.rds")
+write_rds(inv.angle.aov.sum,"working_data/InvAngleSum.rds")
+
+
 
 # make plot
 (inv.plot<-ggplot(data=inv.env4%>%
@@ -334,7 +343,8 @@ hist(col.inv.env4$angle)
 
 (col.inv.angle.aov.sum<-anova(col.inv.angle.aov))
 
-
+write_rds(col.inv.vl.aov.sum,"working_data/ColInvVLSum.rds")
+write_rds(col.inv.angle.aov.sum,"working_data/ColInvAngleSum.rds")
 # make plot
 (col.inv.plot<-ggplot(data=col.inv.env4%>%
                         filter(abs(plot.end.y)>0.000001 | abs(plot.end.x) >0.000001))+

@@ -269,17 +269,16 @@ for (i in 1:length(spr.cand.mod.names)) {
 }
 
 # Function aictab does the AICc-based model comparison
-print(aictab(
+(fspr.aic<-data.frame(aictab(
   cand.set = spr.cand.mods,
   modnames = spr.cand.mod.names
-))
-
+)))
+write_rds(fspr.aic,"working_data/FishSprAIC.rds")
 
 # top model: I'm a bit confused as to which groups differ when, but only real interacts with sampling 
-summary(fspr.treat)
-
 #to reference in manuscript
 (fspr.treat.sum<-summary(fspr.treat))
+write_rds(fspr.treat.sum,"working_data/FishSprTreatSum.rds")
 
 # confirm that the control plots don't change sig with time
 fspr.treat.f <- glmmTMB(spr ~ treatment * as.factor(sampling) +
@@ -565,17 +564,16 @@ for (i in 1:length(abund.cand.mod.names)) {
 }
 
 # Function aictab does the AICc-based model comparison
-print(aictab(
+(fabund.aic<-data.frame(aictab(
   cand.set = abund.cand.mods,
   modnames = abund.cand.mod.names
-))
-
+)))
+write_rds(fabund.aic,"working_data/FishAbundAIC.rds")
 # treatment only is the best model?
-
-summary(fa.treat)
 
 #to reference in the manuscript
 (fa.treat.sum<-summary(fa.treat))
+write_rds(fa.treat.sum,"working_data/FishAbundTreatSum.rds")
 
 # confirm that the control plots don't change sig with time
 fa.treat.f <- glmmTMB(f.abund ~ treatment * as.factor(sampling) +

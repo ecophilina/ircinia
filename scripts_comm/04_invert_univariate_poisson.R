@@ -267,21 +267,21 @@ for(i in 1:length(spr.cand.mod.names)) {
   spr.cand.mods[[i]] <- get(spr.cand.mod.names[i]) }
 
 # Function aictab does the AICc-based model comparison
-print(aictab(cand.set = spr.cand.mods, 
-             modnames = spr.cand.mod.names))
+(inv.spraic<-data.frame(aictab(cand.set = spr.cand.mods, 
+             modnames = spr.cand.mod.names)))
 
+write_rds(inv.spraic,"working_data/InvSprAIC_Results.rds")
 
 # top models of invert spr ####
-summary(ispr.treat)
-
-#to reference in manuscript
 (ispr.treat.sum<-summary(ispr.treat))
+(ispr.alg.sum<-summary(ispr.alg))
 
-# top model is algae
-summary(ispr.alg)
-
+write_rds(ispr.treat.sum,"working_data/InvSprTreatSum.rds")
+write_rds(ispr.alg.sum,"working_data/InvSprAlgSum.rds")
 
 # treatment is less than 2 delta AIC better than the algae model, this suggest that algae 
+
+
 #algal abundance model for richness
 ispr.alg2 <- glmmTMB(spr ~ a.abund.c + 
     (1 | plot),
@@ -502,17 +502,23 @@ for(i in 1:length(abund.cand.mod.names)) {
   abund.cand.mods[[i]] <- get(abund.cand.mod.names[i]) }
 
 # Function aictab does the AICc-based model comparison
-print(aictab(cand.set = abund.cand.mods, 
-             modnames = abund.cand.mod.names))
+(inv.abund.aic<-data.frame(aictab(cand.set = abund.cand.mods, 
+             modnames = abund.cand.mod.names)))
+
+write_rds(inv.abund.aic,"working_data/InvAbundAIC_Results.rds")
 
 # we have three models at the top - treat * sg prod, treat, treat * sg struct
 
-summary(ia.treat)
-summary(ia.treat.prod)
-summary(ia.treat.struct)
+(ia.treat.sum<-summary(ia.treat))
+(ia.treat.prod.sum<-summary(ia.treat.prod))
+(ia.treat.struct.sum<-summary(ia.treat.struct))
+
+write_rds(ia.treat.sum,"working_data/InvAbundTreatSum.rds")
+write_rds(ia.treat.prod.sum,"working_data/InvAbundTreatProdSum.rds")
+write_rds(ia.treat.struct.sum,"working_data/InvAbundTreatStructSum.rds")
 
 #to reference in manuscript
-(ia.treat.sum<-summary(ia.treat))
+
 # confirm that the control plots don't change sig with time
 ia.treat.prod.f <- glmmTMB(i.abund ~ treatment * as.factor(sampling) +
     sg.prod.c + (1 | plot),
