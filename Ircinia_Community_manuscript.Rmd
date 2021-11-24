@@ -35,7 +35,7 @@ They provide shelter[@James1994] to numerous species and at multiple life stages
 Marine sponges are among the many organisms seagrass beds support, and have the potential to act as ecosystem engineers within these systems. \par
 
 Marine sponges have been shown to add to the structural complexity of a habitat by altering local-scale water flow [@Bell2008], stabilizing substrate [@Wulff1984], and acting as settlement substrate for a range of sessile organisms [@Bell2008].
-They act as a source of bioavailable forms of phosphorus and nitrogen in seagrass beds under oligotrophic conditions [@Archer2017]
+They also act as a source of bioavailable forms of phosphorus and nitrogen in seagrass beds under oligotrophic conditions [@Archer2017].
 In addition, some marine sponges have numerous microbes and macrofauna living within them[@Wulff2996; @Taylor2007; @Bell2003] and can provide camouflage and protection to other prey organisms [@McClay1983; @Martin1992]. 
 Finally, a marine sponge has also been shown to facilitate primary production in low-impact, sub-tropical seagrass beds [@Archer2021],which would pose suitable conditions for enhancing biodiversity. \par
 
@@ -44,13 +44,14 @@ However, the effects of marine sponges on seagrass communities have long been un
 To the best of our knowledge, no research has investigated the affects of a marine sponge on the biodiversity in seagrass beds. 
 Because marine sponges are being threatened by anthropogenic stressors that may change the composition and stability of the sponge's microbiome, it is important that we study this ecosystem engineers' affect on the community in a low-impact environment [@Pita2018].
 Therefore, we investigated the affects of sponge presence on biodiversity within seagrass ecosystems.
-Furthermore, if the presence of a marine sponge did affect biodiversity in seagrass beds, then we further explored if the affect is due to the enhancement to the primary producers (i.e. other ecosystem engineers within the system) as Archer et al. [2021] has shown, the presence of the sponge alone, or a combination of both. \par
+Furthermore, if the presence of a marine sponge did affect biodiversity in seagrass beds, then we further explored if the affect is due to the enhancement to the primary producers (i.e. other ecosystem engineers within the system as Archer et al. [2021] has shown), the presence of the sponge alone, or a combination of both. \par
 
 
 In the present study, we investigated the impact of a moderately large sponge, [*Ircinia felix*], on seagrass bed associated communities. 
 Using a 1.5 yr field-based experiment, we examined how sponge presence influenced fish and invertebrate species richness, abundance, turnover, and community compositional vectors. 
 Because *I. felix* was found to affect primary producers in seagrass beds [@Archer2021], we hypothesize that the ecosystem engineer will affect the community as well. 
-Specifically, we predict seagrass beds with *I. felix* will have higher species richness and abundance over time than seagrass beds without *Ircinia felix* present. 
+Specifically, we predict seagrass beds with *I. felix* will have higher species richness and abundance over time than seagrass beds without *I felix* present.
+We hypothesize that, if an affect is detected, the affect would be best explained by the sponge enhancement to the primary producers in the seagrass bed [@Archer2021]
 We also hypothesize that species turnover in treatments with *I. felix* will have a fewer losses and more gains in the number of species over time when compared to treatments without the sponge present.
 Finally, we predict that the presence of *I.felix* will change the community composition over time.\par
 
@@ -64,14 +65,12 @@ Within the seagrass bed, fifteen 5 x 5 m plots were delineated on June 9, 2013 b
 All plots were separated >2 m. 
 The fish and epibenthic macroinvertebrate communities, as well as all explanatory variables (see below), were sampled once before the beginning of the experiment and again at 1 and 12 months after the treatments were established. 
 Control (n=5), structure (n=5), and sponge (n=5) treatments were randomly assigned to plots. 
-The control plots were unaltered ~~sections within the seagrass bed~~.
-The structure treatment had ~~, at the center of each plot, ~~a polypropylene model of a sponge *at the center of each plot*~~within a cage to keep the model stationary~~.
+The control plots were unaltered sections within the seagrass bed.
+The structure treatment had a polypropylene model of a sponge at the center of each plot.
 At the center of each sponge treatment plot, we placed one living sponge (*I. felix*, average volume ± standard deviation, 2.5 ± 0.75 L).
 Both live and model sponges were placed within a cage to keep the sponge stationary.
-~~It was only within the first month of the experiment that 3~~ *Three live sponges were replaced as they showed signs of dying within the first month of the experiment.
-Live sponges were monitored throughout the rest of the experiment but no additional replacements were necessary* ~~live sponges needed to and were replaced.~~ \par
-**Likely need to cite the first paper and mention that effects on primary production were assessed in it?** 
-*yes we should, but we can do it down where we talk about how the predictor variables were measured*
+It was only within the first month of the experiment that 3 live sponges were replaced as they showed signs of dying.
+Live sponges were monitored throughout the rest of the experiment but no additional replacements were necessary.\par
 
 ## Community Assessment
 
@@ -79,26 +78,39 @@ The response of the fish and epibenthic macroinvertebrate communities were monit
 Three sampling events occured in the summer: one in June (0 months into the experiment) and two in July (1 and 12 months into the experiment).
 These latter experimental sampling times were designated as year 1 and year 2 of the experiment, respectively.
 On each occasion, all fish observed within each plot during a 5 min observation period were counted and recorded.
-However, small silvery pelagic fishes which form large schools (e.g. fishes in the families Atherinopsidae and Clupeidae) were excluded from analyses following [@peters2015].
+However, small silvery pelagic fishes which form large schools (e.g. fishes in the families Atherinopsidae and Clupeidae) were excluded from analyses following [@Peters2015].
 The macroinvertebrate community were quantified within a 3 m x 1 m band extending from the center of the plot.
 All macroinvertebrates were identified to genus and recorded.
-If identification was not possible *in situ*, a representative sample was photographed and subsequently collected.
-For clonal tunicates an accurate count of individuals was not feasible; therefore species of tunicate were assessed simply as present/absent and analyzed separately from non-clonal invertebrates.\par
+If identification was not possible in situ, a representative sample was photographed and subsequently collected.
+For clonal tunicates an accurate count of individuals was not feasible; therefore clonal species of tunicate were assessed simply as present/absent and analyzed separately from non-clonal invertebrates.\par
 
 ## Predictor variables
-*need to add text here describing which predictor variables we included, refer the reader to our previous paper, and give a brief description of how each was calculated* 
+
+In order to explore (if an affect by treatment was detected) what best explained the affect (i.e enhancement of primary producers, sponge alone, or combination of both) additional predictor variables needed to be accounted for.
+Archer et al. [2021] recently showed that *I. felix* can enhance primary producers in seagrass beds in the same system we collected community data and thus we use their data and methods of collection of those variables to perform our analyis.\par
+
+All predictor variables included in our model investigation were: treatment, sampling, plot, productivity, structure, and algae. 
+Treatment was called either sponge, structure, or control and was pre-assigned to individual plots prior to the experiment.
+Sampling event was the months into the experiment the community data was collected at each plot (either 0, 1, or 12 months into the experiment).
+Plot was a number 1-15 pre-assigned to sampling units prior to the experiment.
+Seagrass productivity was calculated at 1 and 12 months by the amount of growth per shoot from the initial sampling event.
+Seagrass structure was calculated as the number of seagrass shoots (i.e. shoot density) in 20 × 20  cm “sub-quadrats”.
+Algae was calculated as the raw attached algal abundance of each genus.
+Drift algae was not measured. 
+Productivity, structure, and algae were standardized and centered by two standard deviations as per Schielzeth [2011]. \par
 
 ## Statistical Analyses
 
 #Univariate analysis
 
 Univariate analyses were performed on three community groups: fish, non-clonal invertebrates, and clonal invertebrates. 
-The groups were assessed for differences among treatment types using a generalized linear mixed model, with the sponge treatment plots as the reference level.*This is where the lack of set-up about seagrass productivity/structure vs sponge presence as competing hypotheses makes the manuscript a bit tricky*
+The groups were assessed for differences among treatment types using a generalized linear mixed model, with the sponge treatment plots as the reference level.
 All groups were fit with a Conway–Maxwell–Poisson distribution performed through the glmmTMB package and parametrized via the mean and a log link [@brooks2017; @Huan2017].
-We chose candidate model configurations that represented different biological hypotheses and used the package AICcmodavg [@Mazerolle2020] to create a model selection tables based on Akaike Infromation Criterion scores (AICc). *Same concept different comment. These hypotheses need to be set up and clearly defined by the end of the intro When these hypotheses are clearly articulated and instroduced we can explicitly state which model tested which hypothesis. Then this section from here on out becomes much easier to write and interpret*
-We used treatment, seagrass productivity, seagrass structure, and algal abundance as explanatory variables.
-Plot (as a random variable) and sampling event were always included in the model as explanatory variables. 
-When treatment and sampling event were both in a model, there was an interaction between the two. 
+We chose multiple model configurations to represent the biological hypotheses that could best explain community changes within treatment plots.
+We created models with the predictor variables treatment, productivity, structure, and algae separately and with every possible combination of any/all of the predictor variables to determine if significant differences in communities among treatments was best explained by enhancement of primary producers, sponge presence alone, or combination of both.
+Plot (as a random variable) and sampling were included in every model as predictor variables.
+When treatment and sampling event were both in a model, an interaction was accounted for. 
+We used the package AICcmodavg [@Mazerolle2020] to create a model selection tables based on Akaike Infromation Criterion scores (AICc).
 The model with the lowest AICc value was selected in the final analyses, however, models that were within two delta AICc's away from this model was further analyzed for thoroughness (see discussion and supplement).\par
 
 # Taxa Turnover
@@ -109,10 +121,10 @@ To visualize changes in taxa richness over time (i.e. taxa gained or lost relati
 
 To assess community changes in treatments across time (from 0 to 12 months into the experiment), compositional vectors were calculated for each plot in the fish, non-clonal invertebrate, and clonal invertebrate communities.
 First, for each type of community data, a Hellinger's transformation was performed followed by an RDA using the "vegan" package(@oksanen2020).
-The scores from the RDA analysis were then used to calculate a vector length and angle for each plot as per Mccune. 
-An analysis of variance was performed on each community's vector length and angle to test significant difference in treatments with real as the reference using the "stats" package.
-When significance occurred, a post-hoc analysis via a Tukey test was then performed to look at the differences in vector length and angle among treatments also in the "stats" package (@RCoreTeam2021).
-For visual purposed, all vectors were standardized to the same initial position and then plotted across species space to show how much a community changed over time (i.e. vector length) and in which direction across species space the community shifted towards (i.e. vector angle).\par
+The scores from the RDA analysis were then used to calculate a vector length and angle for each plot as per Mccune[]. 
+An analysis of variance was performed on each community's vector length and angle to test significant difference in treatments with sponge treatment as the reference using the "stats" package.
+When significance occurred, a post-hoc analysis via a Tukey test was then performed to look at the differences in vector length and angle among treatments also in the "stats" package [@RCoreTeam2021].
+For visual purposes, all vectors were standardized to the same initial position and then plotted across species space to show how much a community changed over time (i.e. vector length) and in which direction across species space the community shifted towards (i.e. vector angle).\par
 
 Throughout the results, we present effect sizes and 95% confidence intervals rather than test statistics and p-values. All test statistics and p-values can be found in the supplemental material.\par
 
