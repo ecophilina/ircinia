@@ -95,7 +95,7 @@ Sampling event was the months into the experiment the community data was collect
 Plot was a number 1-15 pre-assigned to sampling units prior to the experiment.
 Seagrass productivity was calculated at 1 and 12 months by the amount of growth per shoot from the initial sampling event.
 Seagrass structure was calculated as the number of seagrass shoots (i.e. shoot density) in 20 × 20  cm “sub-quadrats”.
-Algae was calculated as the raw attached algal abundance of each genus.
+Algae was calculated as the attached algal abundance of each genus.
 Drift algae was not measured. 
 Productivity, structure, and algae were standardized and centered by two standard deviations as per Schielzeth [2011]. \par
 
