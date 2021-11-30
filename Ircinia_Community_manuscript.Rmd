@@ -225,13 +225,14 @@ After 1 and 12 months into the experiment, species richness and abundance in con
 ##Non-clonal Invertebrates  
 
 In the sponge treatment, non-clonal invertebrate species richness and abundance significantly increased at 1 and 12 months into the experiment (species richness: $\beta$ = `r efsize.tmb(ispr.treat.sum,4)`; $\beta$ = `r efsize.tmb(ispr.treat.sum,5)`; species abundance: $\beta$ = `r efsize.tmb(ia.treat.sum,4)`; $\beta$ = `r efsize.tmb(ia.treat.sum,5)` respectively, Fig. \@ref(fig:turnover-plots), Fig. \@ref(fig:ab-plot)).
-In the structure treatment, species richness and abundance  decrease at 1 and 12 months into the experiment, though species richness at 1 month was not significant (species richness: 12 months- $\beta$ = `r efsize.tmb(ispr.treat.sum,9)`; species abundance: 1 month- $\beta$ = `r efsize.tmb(ia.treat.sum,7)`; 12 months- $\beta$ = `r efsize.tmb(ia.treat.sum,9)`, Fig. \@ref(fig:turnover-plots), Fig. \@ref(fig:ab-plot)).
+In the structure treatment, species richness and abundance  decrease at 1 and 12 months into the experiment, though change in species richness at 1 month was not significant (species richness: 12 months- $\beta$ = `r efsize.tmb(ispr.treat.sum,9)`; species abundance: 1 month- $\beta$ = `r efsize.tmb(ia.treat.sum,7)`; 12 months- $\beta$ = `r efsize.tmb(ia.treat.sum,9)`, Fig. \@ref(fig:turnover-plots), Fig. \@ref(fig:ab-plot)).
 At 1 month into the experiment, species richness increased while species abundance decreased in control plots, though neither changes were significant( Fig. \@ref(fig:turnover-plots), Fig. \@ref(fig:ab-plot)).
 Then, at 12 months into the experiment, both species richness and abundance in control plots decreased, but only species abundance was significant ( $\beta$ = `r efsize.tmb(ia.treat.sum,8)`, Fig. \@ref(fig:turnover-plots), Fig. \@ref(fig:ab-plot)).\par
 
 ##Clonal Invertebrates  
 
-There were no significant differences between treatments for species richness of clonal invertebrates ( Fig. \@ref(fig:turnover-plots)). Species abundance could not be analyzed because an accurate count of individuals was not feasible.\par
+There were no significant differences between treatments for species richness of clonal invertebrates ( Fig. \@ref(fig:turnover-plots)).
+Species abundance could not be analyzed because an accurate count of individuals was not feasible.\par
 
 
 ##Species Turnover  
@@ -269,11 +270,17 @@ Thus, no post-hoc analysis was performed on this group. \par
 
 # Discussion  
 
-Ecosystem engineers can affect many aspects of an ecosystem including habitat structure, resource availability and location, and community structure and dynamics [@Jones1994; @Anderson1992; @Byers2006].
-Here we present, to the best of our knowledge, the first in situ experiment to test the effects of the presence of *I. felix* on species richness, abundance, species turnover, and community compositional vectors as an ecosystem engineer in a subtropical seagrass ecosystem over a 1.5 year experiment.
-We found that, in fish and non-clonal invertebrates, species richness and abundance increased  after 1 month and 1 year in the presence of *I. felix* while decreasing or remaining the same without the sponge presence in seagrass ecosystems. \par
+Ecosystem engineers can affect habitat structure, resource availability and location, and community structure and dynamics [@Jones1994; @Anderson1992; @Byers2006].
+Here we present, to the best of our knowledge, the first in situ experiment to test the affects of the presence of *I. felix* on species richness, abundance, species turnover, and community compositional vectors as an ecosystem engineer in a subtropical seagrass ecosystem over a 1.5 year experiment.
+We found that sponge presence alone explained the more variance in fish, non-clonal invertebrate, and clonal invertebrate communities when compared to sponge enhancement of primary production or both sponge presences and enhancement of primary production.
+In fish and non-clonal invertebrates, species richness and abundance increased over time with the presence of *I. felix* while decreasing or remaining the non-significantly changed without the sponge presence in seagrass ecosystems. 
+Overtime, sponge presence increased species gained for fish and non-clonal invertebrates, while showing little to no change in species turnover for clonal invertebrates.
+Finally, we found that sponge presence shifted the entire fish community over time and across species space. \par
 
-This study presents an ecosystem engineer that can affect community structure in terms of species richness, abundance, and turnover, but the mechanism of this interaction is unclear.
+This study presents the marine sponge, *I. felix*, as a single organism capable of affecting an ecosystem's community structure.
+We prove that sponge presence alone is most likely the driver in community changes because the model selection table showed treatment to explain the most variance among communities in both species richness and abundance for both fish and non-clonal invertebrates. 
+For clonal invertebrates, it is possible that all the seagrass plots originally had a high species richness, and an affect on abundance occured from the sponge presence. 
+However, our research lacked a measurement for clonal invertebrate abundance and more research is needed to test this hypothesis. 
 The change in community structure could be due to the indirect effects of *I. felix* releasing bioavailable forms of nitrogen and phosphorus into the environment [@Southwell2008; Archer2017] which has been shown to increase primary production in seagrass beds [@Archer2021].
 This increase in primary producers could bring in more organisms that use them for food and shelter. 
 However, it is possible that *I. felix* acts as a food source in itself, attracting specific species that eat sponges [@Wulff1997].
