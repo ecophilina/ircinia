@@ -21,14 +21,14 @@ Finella Campanino^1^, Philina A. English^2^, Craig A. Layman^3^, Stephanie K. Ar
 # Abstract  
 
 Ecosystem engineers are organisms that can have significant effects on biodiversity and community structure. 
-Thus, it is important to identify which organisms act as ecosystem engineers within a system and how they interact with other ecosystem engineers and affect the community surrounding them.
+Thus, it is important to identify which organisms act as ecosystem engineers,how they interact with other ecosystem engineers, and how they affect the community surrounding them.
 Seagrasses are ecosystem engineers supporting a wide range of organisms. 
-Marine sponges also have the potential to act as ecosystem engineers in seagrass beds, yet we know little about how they affect the seagrass community.
-This study explores the affects of the marine sponge, *I. felix*, and seagrass primary producers on species richness, abundance, species turnover, and community composition in a sub-tropical seagrass bed through a 1.5 year field experiment performed in The Bahamas.
-We recorded the fish, non-clonal invertebrate, and clonal invertebrate communities present in 5 x 5 m plots containing either a live sponge, a polypropylene sponge replicate, or no sponge (control). 
+Within seagrasses, marine sponges also have the potential to act as ecosystem engineers, yet we know little about how they affect the seagrass community.
+This study explores the affects of the marine sponge, *I. felix*, on species richness, abundance, species turnover, and community composition in a sub-tropical seagrass bed through a 1.5 year field experiment performed in The Bahamas.
+We recorded the fish, non-clonal invertebrate, and clonal invertebrate communities present in 5 x 5 m plots containing either a live sponge, a polypropylene sponge replica, or no sponge (control). 
 Sponge presence alone explained the most variance in fish and non-clonal invertebrate communities, while no change in the clonal invertebrate community was detected.
-Fish and non-clonal invertebrate species richness and abundance increased over time with the presence of *I. felix* while decreasing or remaining the non-significantly changed without the sponge presence in seagrass ecosystems.
-Sponge presence increased species gained for fish and non-clonal invertebrates, while showing little to no change in species turnover for clonal invertebrates.
+Fish and non-clonal invertebrate species richness and abundance significantly increased over time with the presence of *I. felix* while decreasing or remaining the non-significantly different without the sponge presence in the seagrass plots.
+Sponge presence maintained or slow turnover rates for fish and non-clonal invertebrates, while showing little to no change in species turnover for clonal invertebrates.
 Finally, we found that sponge presence shifted the entire fish community over time and across species space.
 This experiment was conducted in a low anthropogenic impact environment, thus, further research is needed to understand how the sponge affects seagrass communities in high impact environments.\par
 
@@ -42,12 +42,12 @@ Jones (1994) coined the term "ecosystem engineer" almost 30 years ago, however, 
 Even more so, we lack an understanding of the multitude of ecosystem engineers residing in one habitat, and their potential to affect the ecosystem biodiversity on their own and/or together. \par 
 
 Seagrasses are well-known, important ecosystem engineers that form beds supporting a wide range of biodiversity [@Hori2009]. 
-They provide shelter [@James1994] to numerous species and at multiple life stages [@Nakamura2012], act as a food source [@Vincente1980], and play a key role in nutrient cycling [@Hemminga1991].
+They provide shelter [@James1994] to numerous species and at multiple life stages [@Nakamura2012], act as a food source [@Vicente1980], and play a key role in nutrient cycling [@Hemminga1991].
 Marine sponges are among the many organisms seagrass beds support, and have the potential to act as ecosystem engineers within these systems. \par
 
 Marine sponges have been shown to add to the structural complexity of a habitat by altering local-scale water flow [@Bell2008], stabilizing substrate [@Wulff1984], and acting as settlement substrate for a range of sessile organisms [@Bell2008].
 They also act as a source of bioavailable forms of phosphorus and nitrogen in seagrass beds under oligotrophic conditions [@Archer2017].
-In addition, some marine sponges have numerous microbes and macrofauna living within them [@Wulff2996; @Taylor2007; @Bell2003] and can provide camouflage and protection to other prey organisms [@McClay1983; @Martin1992]. 
+In addition, some marine sponges have numerous microbes and macrofauna living within them [@Wulff2006; @Taylor2007; @Bell2008] and can provide camouflage and protection to other prey organisms [@McClay1983; @Martin1992]. 
 Finally, a marine sponge has also been shown to facilitate primary production in low-impact, sub-tropical seagrass beds [@Archer2021], which would pose suitable conditions for enhancing biodiversity. \par
 
 The multiple interactions marine sponges have with other fauna and their ability to transform nutrients alludes to their potential to significantly affect the distribution, diversity, and abundance of other organisms within their community. 
@@ -117,7 +117,7 @@ Seagrass productivity, seagrass structure, and macroalgal structure were standar
 
 Univariate analysis was performed on three community groups: fish, non-clonal invertebrates, and clonal invertebrates. 
 The groups were assessed for differences among treatment types using a generalized linear mixed model, with the sponge treatment plots as the reference level.
-All groups were fit with a Conway–Maxwell–Poisson distribution performed through the glmmTMB package and parametrized via the mean and a log link [@brooks2017; @Huan2017].
+All groups were fit with a Conway–Maxwell–Poisson distribution performed through the glmmTMB package and parametrized via the mean and a log link [@Brooks2017; @Huang2017].
 We chose multiple model configurations to represent the biological hypotheses that could best explain community changes within treatment plots **TABLE 1**.
 Specifically, predictor variables treatment (i.e. sponge presence), seagrass productivity, seagrass structure, and macroalgal structure were modeled separately and additively to represent sponge presence alone, three parts of primary production within the seagrass system, and combinations of both aspects **Table 1**
 Plot (as a random variable) and sampling were included in every model as predictor variables.
@@ -132,7 +132,7 @@ To visualize changes in taxa richness over time (i.e. taxa gained or lost relati
 # Compositional Vectors
 
 To assess community changes in treatments across time (from 0 to 12 months into the experiment), compositional vectors were calculated for each plot in the fish, non-clonal invertebrate, and clonal invertebrate communities.
-First, for each type of community data, a Hellinger's transformation was performed followed by an RDA using the "vegan" package(@oksanen2020).
+First, for each type of community data, a Hellinger's transformation was performed followed by an RDA using the vegan package(@Oksanen2020).
 The scores from the RDA analysis were then used to calculate a vector length and angle for each plot as per Mccune[]. 
 An analysis of variance was performed on each community's vector length and angle to test significant differences in treatments with sponge treatment as the reference using the "stats" package.
 When significance occurred, a post-hoc analysis via a Tukey test was then performed to look at the differences in vector length and angle among treatments also in the "stats" package [@RCoreTeam2021].
