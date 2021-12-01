@@ -257,57 +257,49 @@ Because there were no statistical differences, post-hoc analysis was not perform
 Like the non-clonal invertebrates, the clonal invertebrate communities did not differ among treatments in the amount of change over time nor in the direction of change across species space (vector length:  F~`r aov.df2(col.inv.vl.aov.sum,1)`~ `r aov.res(col.inv.vl.aov.sum,1)`; vector angle: F~`r aov.df2(col.inv.angle.aov.sum,1)`~ `r aov.res(col.inv.angle.aov.sum,1)`). 
 Thus, no post-hoc analysis was performed on this group. \par
 
-
-<!-- The most prevalent fish species contributing to the differences among treatment plots were grunts, damselfish, slippery dicks, and green blotch parrotfish (Fig. \@ref(fig:vector-plots)).\par  -->
-<!-- Fish species were significantly difference among treatments in vector length and angle ( $\beta$ = `r aov.res(fish.vl.aov.sum,1)`; $\beta$ = `r aov.res(fish.angle.aov.sum,1)` respectively, Fig. \@ref(fig:vector-plots)).  -->
-<!-- Sponge treatment vectors appear to relatively be pointing in the same direction and have similar long vector lengths compared to other treatments in the fish community(Fig. \@ref(fig:vector-plots)). -->
-<!-- The most prevalent fish species contributing to the differences among treatment plots were grunts, damselfish, slippery dicks, and green blotch parrotfish (Fig. \@ref(fig:vector-plots)).\par  -->
-<!-- For clonal and non-clonal invertebrates, there were no significant differences among treatments in vector length nor angle. -->
-<!-- However, the most prevalent non-clonal invertebrate species contributing the communities within the treatment plots were ceriths, welks, and sea squirts and the  clonal invertebrate species were pink tunicates, white tunicates, and black and orange tunicates (Fig. \@ref(fig:vector-plots)). -->
-
-
 ##### break  
 
 # Discussion  
 
 Ecosystem engineers can affect habitat structure, resource availability and location, and community structure and dynamics [@Jones1994; @Anderson1992; @Byers2006].
-Here we present, to the best of our knowledge, the first in situ experiment to test the affects of the presence of *I. felix* on species richness, abundance, species turnover, and community compositional vectors as an ecosystem engineer in a subtropical seagrass ecosystem over a 1.5 year experiment.
-We found that sponge presence alone explained the more variance in fish, non-clonal invertebrate, and clonal invertebrate communities when compared to sponge enhancement of primary production or both sponge presences and enhancement of primary production.
+Here we present, to the best of our knowledge, the first in situ experiment testing the affect of the presence of *I. felix* on species richness, abundance, species turnover, and community compositional vectors as an ecosystem engineer in a subtropical seagrass ecosystem over a 1.5 year experiment.
+We found that sponge presence alone explained the most variance in fish and non-clonal invertebrate communities while no affect in the clonal invertebrate community was detected.
 In fish and non-clonal invertebrates, species richness and abundance increased over time with the presence of *I. felix* while decreasing or remaining the non-significantly changed without the sponge presence in seagrass ecosystems. 
 Overtime, sponge presence increased species gained for fish and non-clonal invertebrates, while showing little to no change in species turnover for clonal invertebrates.
 Finally, we found that sponge presence shifted the entire fish community over time and across species space. \par
 
 This study presents the marine sponge, *I. felix*, as a single organism capable of affecting an ecosystem's community structure.
-We prove that sponge presence alone is most likely the driver in community changes because the model selection table showed treatment to explain the most variance among communities in both species richness and abundance for both fish and non-clonal invertebrates. 
-For clonal invertebrates, it is possible that all the seagrass plots originally had a high species richness, and an affect on abundance occured from the sponge presence. 
-However, our research lacked a measurement for clonal invertebrate abundance and more research is needed to test this hypothesis. 
-The change in community structure could be due to the indirect effects of *I. felix* releasing bioavailable forms of nitrogen and phosphorus into the environment [@Southwell2008; Archer2017] which has been shown to increase primary production in seagrass beds [@Archer2021].
-This increase in primary producers could bring in more organisms that use them for food and shelter. 
-However, it is possible that *I. felix* acts as a food source in itself, attracting specific species that eat sponges [@Wulff1997].
-It is important to note that, for this experiment, the *I. felix* sponge within the plots were encased in a cage, which would restrict fish and macroinvertebrates from consuming it.
-More research is still needed to show the exact mechanism for how this ecosystem engineer changes the community structure in seagrass ecosystems. \par
+Although the sponge presence model explained the most variance among species richness and abundance in fish and non-clonal invertebrates, there were several models that fell within less than 2 delta AICc values for non-clonal invertebrates that cannot be ruled out **Table 1**.
+First, for non-clonal invertebrate abundance, the sponge presence model had two closely competing models: sponge presence + seagrass productivity and sponge presence + seagrass structure.
+Both of the models contained sponge presence as a predictor variable.
+Also, it is worth noting that the model including all three variables (sponge presence + seagrass productivity + seagrass structure) did not fall within 2 delta AICc of the top model.
+Further examination of the results of the sponge presence + seagrass productivity and sponge presence + seagrass structure showed non-clonal invertebrate abundance significantly increasing in the “sponge” treatment plots and either significantly decreasing or no significant changes in abundance in the “structure” and “control” treatment plots over time (SX). 
+These results parallel the results in the sponge presence model. 
+For non-clonal invertebrate species richness examination, only one other model was within 2 delta AICc of the sponge presence model: macroalgal structure. 
+The macroalgal structure model showed that non-clonal invertebrate species richness increased over time as macroalgal structure increased, regardless of the treatment the plot was given.
+Notably, in Archer et al.[2021], macroalgal abundance (i.e. macroalgal structure) significantly increased over time in the presence of *I. felix*. \par
+For clonal invertebrate species richness the top three models were seagrass structure, macroalgal structure, and seagrass productivity, respectively.
+All three models showed no significant changes in clonal invertebrate species richness across time or treatment plots. 
+For clonal invertebrates, it is possible that all the seagrass plots originally had a high species richness, and an effect on abundance occurred from the sponge presence. 
+However, our research lacked a measurement for clonal invertebrate abundance and more research is needed to test this hypothesis. \par
+For fish and non-clonal invertebrates alike, we saw a maintenance and/or a shift towards species gained after 12 months (Fig). Although there was little change in the sponge plots in terms of proportion of species lost, the number of species within the plots increased (indicated by the enlargement of the plot points) (FIG)
+Univariate analysis of the clonal invertebrates showed no significant change in time or across treatments.
+However, comparing 1 month to 12 months into the experiment, the sponge treatment plots shifted slightly away from species lost and towards/ non changing species gained.
+Control and structure plots showed increase in both species gain and lost after 12 months. \par
 
-Two major fishes observed in treatments with *I. felix* present were grunts and damselfish.
-The grunts and damselfish were highly abundant in sponge treatments and less in control and stucture control.
-Other research has shown grunts to be sponge associated and they are associated because….
-It is possible the grunts in our experiment were highly abundant in sponge treatments because …, causing a significant shift in the fish community.
-However, more researcher on sponge-grunt interactions is needed to fully understand this mechanism.\par
-
-When selecting the statistical model that would explain the most variance, there were a few models that were not >2 delta aicc away from top model to our treatment model for invertebrate species richness and abundance.
-Algal community, seagrass structure, and seagrass productivity, individually, were all close top models to treatment.
-However, treatment always had the lowest AIC value and therefore the model we chose for analysis.
-We further explored those models (which can be found in the supplement) to find that they showed similar results of species richness and abundance being higher in sponge treatments after 1 and 12 months into the experiment with no change or decrease in species richness and abundance in control and structure  plots.
-This provides further support to our findings that the ecosystem engineer, I felix, has cascading effects on seagrass communities. \par
-
-<!-- Many sponges have been shown to act as a habitat structure to invertebrates. -->
-<!-- Specifically, _____ found invertebrates using a sponge as a habitat and structure to hide from predators. -->
-<!-- However, we did not find these species present in our experiment. -->
-<!-- More research should be performed on I. felix as a habitat structure. \par -->
-
-	It is important to understand ecosystem engineers (e.g. *I. felix*) effects on the organisms around them because it can result in changes in the community structure and dynamics, therefore indirectly influencing ecosystem functions and services provided by the community.
-We studied the effect of the presence of an ecosystem engineer, *I felix*, on species richness, abundance, and turnover in low impact seagrass beds and found that sponge presence can increase species richness and abundance and maintain turnover rates.
-Thus, this study is another in situ example of how one organism, an ecosystem engineer, can affect an entire community.
-Additional research is needed to find the mechanism through which *I. felix* influences seagrass bed community, and if the influence direction changes in impacted systems. \par
+Deciphering communal shifts over time through compositional vectors was statistically significant for fish only. 
+For the most part, control treatment plots did not change over time in the fish communities and can be portrayed by the lack of control arrows present in Fig X()
+Two major fishes contributing to the shift across species space in the sponge treatment plots were grunts and damselfish.
+Other research has shown grunts to be sponge associated****Steph do you have a citation for this?****.\par
+Non-clonal invertebrate communities across treatments did not have significant differences.
+There was a wide range of change throughout time and across species space in the control treatment plots for non-clonal invertebrates.
+The sponge treatment plots similarly shifted throughout time and species space, with Ceriths being a dominant species contributing to that shift (FIG).
+Similarly, clonal invertebrate communities across treatments did not have significant differences and a wide range of change in the control plots.
+However, sponge treatment plots clonal invertebrate communities shifted in similar direction and angle (i.e. over time and across species space), with black and orange tunicates being a high contributor to this shift. \par
+	It is important to understand ecosystem engineers affects on the organisms around them because it can result in changes in the community structure and dynamics, therefore indirectly influencing ecosystem functions and services provided by the community.
+We studied the effect of the presence of an ecosystem engineer, *I felix*, on species richness, abundance, turnover, and community composition in low impact seagrass beds and found that sponge presence can increase species richness and abundance, maintain turnover rates, and shift fish communities.
+Thus, this study is another in situ example of how an ecosystem engineer can affect an entire community while other ecosystem engineers exist within that system.
+Additional research is needed to explore which aspects of *I. felix* influences seagrass bed communities, and if the affectchanges in impacted systems. \par
 
 
 
