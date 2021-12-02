@@ -21,51 +21,61 @@ Finella Campanino^1^, Philina A. English^2^, Craig A. Layman^3^, Stephanie K. Ar
 # Abstract  
 
 Ecosystem engineers are organisms that can have significant effects on biodiversity and community structure. 
-Thus, it is important to identify which organisms act as ecosystem engineers,how they interact with other ecosystem engineers, and how they affect the community surrounding them.
-Seagrasses are ecosystem engineers supporting a wide range of organisms. 
-Within seagrasses, marine sponges also have the potential to act as ecosystem engineers, yet we know little about how they affect the seagrass community.
+<!-- rather than significant, what about profound or dramatic? -->
+Thus, it is important to identify which organisms act as ecosystem engineers, how they interact with other ecosystem engineers, and how they affect the community surrounding them.
+Along marine coastlines at all latitudes, seagrass meadows support a wide variety of organisms. 
+Within these habitats, marine sponges also have the potential to act as ecosystem engineers, yet we know little about how they affect the seagrass community.
 This study explores the affects of the marine sponge, *I. felix*, on species richness, abundance, species turnover, and community composition in a sub-tropical seagrass bed through a 1.5 year field experiment performed in The Bahamas.
-We recorded the fish, non-clonal invertebrate, and clonal invertebrate communities present in 5 x 5 m plots containing either a live sponge, a polypropylene sponge replica, or no sponge (control). 
+We recorded the fish, non-clonal invertebrate, and clonal invertebrate communities present in 5 x 5 m plots with the addition of either a live sponge, a polypropylene sponge replica (structure), or no additional structures (control). 
 Sponge presence alone explained the most variance in fish and non-clonal invertebrate communities, while no change in the clonal invertebrate community was detected.
-Fish and non-clonal invertebrate species richness and abundance significantly increased over time with the presence of *I. felix* while decreasing or remaining the non-significantly different without the sponge presence in the seagrass plots.
-Sponge presence maintained or slow turnover rates for fish and non-clonal invertebrates, while showing little to no change in species turnover for clonal invertebrates.
+Fish and non-clonal invertebrate species richness and abundance significantly increased over time in the presence of *I. felix*, but decreased or remained stable in other plot types.
+Sponge presence slowed species turnover rates for fish and non-clonal invertebrates, while showing little to no change in species turnover for clonal invertebrates.
+<!-- OR: Sponge presence increased the number of new species gained and reduced the number lost for both fish and non-clonal invertebrates, but showed no impact on species turnover for clonal invertebrates. -->
 Finally, we found that sponge presence shifted the entire fish community over time and across species space.
-This experiment was conducted in a low anthropogenic impact environment, thus, further research is needed to understand how the sponge affects seagrass communities in high impact environments.\par
+This experiment was conducted in a low anthropogenic impact environment; thus, further research is needed to understand how the sponge affects seagrass communities in high impact environments.\par
 
-##### break  
+<!-- ##### break   -->
 
 # Introduction 
 
 Ecosystem engineers [*sensu* @Jones1994] are organisms that impact an ecosystem's structure and function more so than their abundance would suggest.
-They can create or change entire habitats and have significant effects on the distribution, diversity, and abundance of other organisms within their community, which is important to preserve in a changing world [@Jones1994]. 
-Jones (1994) coined the term "ecosystem engineer" almost 30 years ago, however, we still lack a thorough understanding of which species fulfill this role in many systems [@Byers2006].
-Even more so, we lack an understanding of the multitude of ecosystem engineers residing in one habitat, and their potential to affect the ecosystem biodiversity on their own and/or together. \par 
+They can create, or modify entire habitats, ultimately influencing the distribution, diversity, and abundance of other organisms within their community (REF?).
+<!-- , which is important to preserve in a changing world [@Jones1994]. -->
+Although, Jones (1994) coined the term "ecosystem engineer" almost 30 years ago, we still lack a thorough understanding of which species fulfill this role in many systems [@Byers2006].
+<!-- Even more so, we lack an understanding of the multitude of ecosystem engineers residing in one habitat, and their potential to affect the ecosystem biodiversity on their own and together. -->
+Furthermore, we rarely appreciate the extent to which multiple ecosystem engineers residing in one habitat may interact to affect that ecosystem's biodiversity.
+\par 
 
-Seagrasses are well-known, important ecosystem engineers that form beds supporting a wide range of biodiversity [@Hori2009]. 
+Seagrasses are well-known, important ecosystem engineers that form beds supporting a wide range of organisms [@Hori2009]. 
 They provide shelter [@James1994] to numerous species and at multiple life stages [@Nakamura2012], act as a food source [@Vicente1980], and play a key role in nutrient cycling [@Hemminga1991].
-Marine sponges are among the many organisms seagrass beds support, and have the potential to act as ecosystem engineers within these systems. \par
+Marine sponges are among the many organisms seagrass beds support, but also have the potential to act as ecosystem engineers within these systems. \par
 
-Marine sponges have been shown to add to the structural complexity of a habitat by altering local-scale water flow [@Bell2008], stabilizing substrate [@Wulff1984], and acting as settlement substrate for a range of sessile organisms [@Bell2008].
-They also act as a source of bioavailable forms of phosphorus and nitrogen in seagrass beds under oligotrophic conditions [@Archer2017].
-In addition, some marine sponges have numerous microbes and macrofauna living within them [@Wulff2006; @Taylor2007; @Bell2008] and can provide camouflage and protection to other prey organisms [@McClay1983; @Martin1992]. 
-Finally, a marine sponge has also been shown to facilitate primary production in low-impact, sub-tropical seagrass beds [@Archer2021], which would pose suitable conditions for enhancing biodiversity. \par
+Marine sponges have been shown to add to the structural complexity of a habitat by altering local-scale water flow [@Bell2008], stabilizing the substrate [@Wulff1984], and acting as a settlement substrate for a range of sessile organisms [@Bell2008].
+Some marine sponges also have numerous microbes and macrofauna living within them [@Wulff2006; @Taylor2007; @Bell2008] and can provide camouflage and protection to other organisms [@McClay1983; @Martin1992]. 
+These microbial communities can also act as a source of bioavailable forms of phosphorus and nitrogen in seagrass beds under oligotrophic conditions [@Archer2017].
+Likely as a result of the this nutrient cycling, at least one species of sponge has been experimentally shown to facilitate primary production in low-impact, sub-tropical seagrass beds [@Archer2021].
+Combined, these mechanisms suggest sponges have considerable potential to enhance the biodiversity of seagrass communities. \par
 
-The multiple interactions marine sponges have with other fauna and their ability to transform nutrients alludes to their potential to significantly affect the distribution, diversity, and abundance of other organisms within their community. 
-However, the effects of marine sponges on seagrass communities have long been underrepresented and underappreciated in marine systems [@Bell2008]. 
+<!-- The multiple interactions marine sponges have with other fauna and their ability to transform nutrients alludes to their potential to significantly affect the distribution, diversity, and abundance of other organisms within their community. -->
+<!-- However, the effects of marine sponges on seagrass communities have long been underrepresented and underappreciated in marine systems [@Bell2008].  -->
+<!-- Replace above 2 sentences with? -->
+Despite this obvious potential to significantly affect the distribution, diversity, and abundance of other organisms within their community, the effects of marine sponges on communities have long been underappreciated [@Bell2008].
 To the best of our knowledge, no research has investigated the affects of a marine sponge on the biodiversity in seagrass beds. 
-Because marine sponges are being threatened by anthropogenic stressors that may change the composition and stability of the sponge's microbiome, it is important that we study this ecosystem engineers' affect on the community in a low-impact environment [@Pita2018].
-Therefore, we investigated the affects of sponge presence on biodiversity within seagrass ecosystems.
-Furthermore, if the presence of a marine sponge did affect biodiversity in seagrass beds, then we further explored if the affect is due to the enhancement to the primary producers (i.e. other ecosystem engineers within the system as Archer et al. [2021] has shown), the presence of the sponge alone, or a combination of both. \par
+Because marine sponges are being threatened by anthropogenic stressors that may change the composition and stability of the sponge's microbiome, it is important that we study this ecosystem engineers' effect on the community in a low-impact environment [@Pita2018].
+Therefore, we investigated the effect of sponge presence on biodiversity within a relatively undisturbed seagrass ecosystem.
+<!-- Furthermore, we also tested whether any observed effect of sponge presence could be better explained by the enhancement to the primary producers (i.e. other ecosystem engineers within the system as shown by Archer et al. [2021]), the presence of the sponge alone, or a combination of both.  -->
+<!-- This is currently repeated in the para below. I think it is more necessary there? -->
+\par
 
-
-In the present study, we investigated the impact of a moderately large sponge, [*Ircinia felix*], on seagrass bed associated communities. 
-Using a 1.5 yr field-based experiment, we examined how sponge presence influenced fish and invertebrate species richness, abundance, turnover, and community compositional vectors in seagrass beds.
-If an affect was detected, we further explored if the affect was most likely due to enhancement of primary producers, sponge presence, or a combination of both.
-Because *I. felix* was found to affect primary producers in seagrass beds [@Archer2021], we hypothesize that the ecosystem engineer will affect the community as well. 
-Specifically, we predict seagrass beds with *I. felix* will have higher species richness and abundance over time than seagrass beds without *I felix* present.
-We hypothesize that, if an affect is detected, the affect would be best explained by the sponge presence in the seagrass bed [@Archer2021].
-We also hypothesize that species turnover in treatments with *I. felix* will have a fewer losses and more gains in the number of species over time when compared to treatments without the sponge present.
-Finally, we predict that the presence of *I.felix* will change the community composition over time.\par
+<!-- I changed the para below to the past tense. Not sure if that's what we want? But Sean changes all my writing to past tense so I'm assuming that's still the current convention even for active voice? -->
+Specifically, we investigated the impact of a moderately large sponge, [*Ircinia felix*], on seagrass bed associated communities. 
+Using a 1.5 yr field-based experiment, we examined how sponge presence influenced fish and invertebrate species richness, abundance, turnover, and community compositional vectors.
+<!-- If an affect was detected, we further explored if the affect was most likely due to enhancement of primary producers, sponge presence, or a combination of both. -->
+If an affect was detected, we tested whether it was better explained by the enhancement to the dominant primary producers (macroalgae and seagrasses as shown by Archer et al. [2021]), the presence of the sponge alone, or a combination of both.
+We predicted that seagrass beds with *I. felix* would have higher species richness and abundance over time than seagrass beds without *I felix* present.
+Because a moderately large sponge can provide substantial structural complexity and nutrients to species other than macroalgae and seagrasses, we hypothesized that the presence of *I. felix* would affect the community more than can be simply explained by changes in the abundance of the dominant primary producers.
+We also hypothesized that species turnover in treatments with *I. felix* would have a fewer losses and more gains in the number of species over time when compared to treatments without the sponge present.
+As a result of the above predictions, we also expected that the presence of *I.felix* would ultimately result in a change to the community composition over time.\par
 
 # Methods  
 
@@ -268,7 +278,7 @@ Because there were no statistical differences, post-hoc analysis was not perform
 Like the non-clonal invertebrates, the clonal invertebrate communities did not differ among treatments in the amount of change over time nor in the direction of change across species space (vector length:  F~`r aov.df2(col.inv.vl.aov.sum,1)`~ `r aov.res(col.inv.vl.aov.sum,1)`; vector angle: F~`r aov.df2(col.inv.angle.aov.sum,1)`~ `r aov.res(col.inv.angle.aov.sum,1)`). 
 Thus, no post-hoc analysis was performed on this group. \par
 
-##### break  
+<!-- ##### break   -->
 
 # Discussion  
 
@@ -325,41 +335,19 @@ We would like to thank Friends of the Environment (NGO, Abaco, The Bahamas), Dia
 
 ##### break  
 
-***This can be split off later.***
-
-# Supplementary Materials 
-
-# ```{r expdes, echo=FALSE, fig.align='center', out.width="95%", message=FALSE, warning=FALSE}
-# knitr::include_graphics("figures/Experimental design.pdf")
-# 
-# ```
-  
-Figure S1. Experimental design and sampling scheme  
-***This probably needs modifying (or remaking?) to include only summer sampling periods, the plots with their assigned treatment, and the outline of the total area in which inverts, algae, and sea grass density were sampled. Also, we may want to remove the notes about fish and inverts from the version of this to go in the productivity manuscript.***
-
-```{r turnover-clonal, echo=FALSE, fig.align='center', out.width="95%", message=FALSE, warning=FALSE}
-
-knitr::include_graphics("figures/turnover-plots-tunicates2.jpg")
-```
-
-Figure S2. Change in clonal invertebrate species richness and the components of species turnover from start of experiment to the first experimental sample (1 month into experiment), and between that first experimental sample and one year later (12 months into experiment). All species encountered were tunicates.   
-
-##### break  
-
 Figures
-
 
 ```{r turnover-plots, fig.align='center', out.width="85%", echo=FALSE, message=FALSE, fig.cap="Change in species richness (A) and the components of species turnover (B) for fish (upper panel of A and fish shapes in B) and non-clonal invertebrates (lower panel of A and crab shapes in B) from start of experiment to the first experimental sample (1 month into experiment and left panel of B), and between that first experimental sample and one year later (12 months into experiment and right panel of B)."}
 
 knitr::include_graphics("figures/Species_Richness_Turnover_A_B.jpg")
 ```
+
 ##### break  
 
 ```{r ab-plots, fig.align='center', out.width="85%", echo=FALSE, message=FALSE, fig.cap="Change in abundance for fish (top plot with fish shape) and non-clonal invertebrates (bottom plot with crab shape) at 0, 1, and 12 months into experiment."}
 
 knitr::include_graphics("figures/fish_ncinvert_abundance figure.png")
 ```
-
 
 ##### break  
 
@@ -370,9 +358,29 @@ knitr::include_graphics("figures/invert_spr_by_algae.jpg")
 
 ##### break  
 
-
 ```{r vector-plots, fig.align='center', out.width="55%", echo=FALSE, message=FALSE, fig.cap="NEEDS CAPTION"}
 
 knitr::include_graphics("figures/community_vector_plots.jpg")
 ```
 
+##### break  
+
+***This can be split off later.***
+
+# Supplementary Materials 
+
+```{r expdes, echo=FALSE, fig.align='center', out.width="95%", message=FALSE, warning=FALSE}
+#knitr::include_graphics("figures/Experimental design.pdf")
+```
+
+***This probably needs modifying (or remaking?) to include only summer sampling periods, the plots with their assigned treatment, and the outline of the total area in which inverts, algae, and sea grass density were sampled. Also, we may want to remove the notes about fish and inverts from the version of this to go in the productivity manuscript.***
+
+Figure S1. Experimental design and sampling scheme  
+
+
+```{r turnover-clonal, echo=FALSE, fig.align='center', out.width="105%", message=FALSE, warning=FALSE}
+
+knitr::include_graphics("figures/turnover-plots-tunicates2.jpg")
+```
+
+Figure S2. Change in clonal invertebrate species richness and the components of species turnover from start of experiment to the first experimental sample (1 month into experiment), and between that first experimental sample and one year later (12 months into experiment). All species encountered were tunicates.   
