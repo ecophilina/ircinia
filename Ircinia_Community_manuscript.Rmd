@@ -95,10 +95,11 @@ The control plots remained unaltered.
 Within the first month of the experiment 3 live sponges were replaced when they showed signs of dying.
 Live sponges were monitored throughout the rest of the experiment, but no additional replacements were necessary.\par
 
-## Community Assessment
+## Faunal community
 
+<!-- Still in passive voice... -->
 The response of the fish and epibenthic macroinvertebrate communities were monitored throughout the course of the experiment.
-Three sampling events occured in the summer: one in June (0 months into the experiment) and two in July (1 and 12 months into the experiment).
+Three sampling events occurred in the summer: one in June (0 months into the experiment) and two in July (1 and 12 months into the experiment).
 These latter experimental sampling times were designated as year 1 and year 2 of the experiment, respectively.
 On each occasion, all fish observed within each plot during a 5 min observation period were counted and recorded.
 However, small silvery pelagic fishes which form large schools (e.g. fishes in the families Atherinopsidae and Clupeidae) were excluded from analyses following Peters et al. [2015].
@@ -107,16 +108,17 @@ All macroinvertebrates were identified to genus and recorded.
 If identification was not possible in situ, a representative sample was photographed and subsequently collected.
 For clonal tunicates an accurate count of individuals was not feasible; therefore clonal species of tunicate were assessed simply as present/absent and analyzed separately from non-clonal invertebrates.\par
 
-## Predictor variables
+## Primary producers covariates
 
-In order to explore (if an affect by treatment was detected) what best explained the affect (i.e enhancement of primary producers, sponge alone, or combination of both) additional predictor variables needed to be accounted for.
-Archer et al. [2021] recently showed that *I. felix* can enhance primary producers in seagrass beds in the same system we collected community data. Thus, we use their data and methods of collection for the primary producer variables seagrass stucture, seagrass productivity, and macroalgal structure to use in our analysis [@Archer2021].\par
-
-All predictor variables included in our model investigation were: treatment, sampling event, plot, seagrass productivity, seagrass structure, and macroalgal structure. 
-Treatment (indicating sponge presence) was either sponge, structure, or control and was pre-assigned to individual plots prior to the experiment.
-Sampling event was the months into the experiment the community data was collected at each plot (either 0, 1, or 12 months into the experiment).
-Plot was a number 1-15 pre-assigned to sampling units prior to the experiment.
-Seagrass productivity was calculated at 1 and 12 months by the amount of growth per shoot from the initial sampling event.
+<!-- In order to explore (if an affect by treatment was detected) what best explained the affect (i.e enhancement of primary producers, sponge alone, or combination of both) additional predictor variables needed to be accounted for. -->
+Archer et al. [2021] recently showed that *I. felix* can enhance primary producers in seagrass beds using this same experimental design. 
+Thus, we use this data for the primary producer variables seagrass stucture, seagrass productivity, and macroalgal structure to use in our analysis [@Archer2021].\par
+<!-- I think these next pieces are already included elsewhere. -->
+<!-- All predictor variables included in our model investigation were: treatment, sampling event, plot, seagrass productivity, seagrass structure, and macroalgal structure.  -->
+<!-- Treatment (indicating sponge presence) was either sponge, structure, or control and was pre-assigned to individual plots prior to the experiment. -->
+<!-- Sampling event was the months into the experiment the community data was collected at each plot (either 0, 1, or 12 months into the experiment). -->
+<!-- Plot was a number 1-15 pre-assigned to sampling units prior to the experiment. -->
+Seagrass productivity was calculated at 1 and 12 months by the average amount of new growth per shoot relative to the initial sampling event multiplied by the total shoot density.
 Seagrass structure was calculated as the number of seagrass shoots (i.e. shoot density) in 20 × 20  cm “sub-quadrats” at each sampling event.
 Macroalgal structure was calculated as the total macroalgal abundance at each sampling event.
 Drift algae was not measured. 
@@ -124,17 +126,22 @@ Seagrass productivity, seagrass structure, and macroalgal structure were standar
 
 ## Statistical Analyses
 
-#Univariate analysis
+# Species richness and abundance
 
-Univariate analysis was performed on three community groups: fish, non-clonal invertebrates, and clonal invertebrates. 
-The groups were assessed for differences among treatment types using a generalized linear mixed model, with the sponge treatment plots as the reference level.
-All groups were fit with a Conway–Maxwell–Poisson distribution performed through the glmmTMB package and parametrized via the mean and a log link [@Brooks2017; @Huang2017].
+All statistical analyses were conducted in R version 4.1.0 [@rcoreteam2021]. 
+<!-- We need to start with a clear statement of what the variables being analyzed here are...  -->
+We tested for differences in species richness and overall abundance of fish, non-clonal invertebrates, and clonal invertebrates among treatments using univariate Generalized Linear Mixed Models (GLMMs), with the sponge treatment plots as the reference level.
+<!-- Univariate analysis was performed on three community groups: fish, non-clonal invertebrates, and clonal invertebrates.  -->
+<!-- The groups were assessed for differences among treatment types using a generalized linear mixed model, with the sponge treatment plots as the reference level. -->
 We chose multiple model configurations to represent the biological hypotheses that could best explain community changes within treatment plots **TABLE 1**.
-Specifically, predictor variables treatment (i.e. sponge presence), seagrass productivity, seagrass structure, and macroalgal structure were modeled separately and additively to represent sponge presence alone, three parts of primary production within the seagrass system, and combinations of both aspects **Table 1**
-Plot (as a random variable) and sampling were included in every model as predictor variables.
-When treatment and sampling event were both in a model, an interaction was accounted for. 
-We used the package AICcmodavg [@Mazerolle2020] to create a model selection tables based on Akaike Infromation Criterion scores (AICc).
-The model with the lowest AICc value was selected in the final analyses **Table 1**, however, models that were within two delta AICc's away from this model were further analyzed for thoroughness (see discussion and S1).\par
+Specifically, treatment (i.e. sponge presence), seagrass productivity, seagrass structure, and macroalgal structure were each modeled separately and additively to represent sponge presence alone, three parts of primary production within the seagrass system, and the combined effects of changes in primary production and other influences from the presence of the sponge **Table 1**.
+Models also included a random effect for plot, sampling month as a factor, and for models including treatment an interaction between treatment and time.
+<!-- Plot (as a random variable) and sampling were included in every model as predictor variables. -->
+<!-- When treatment and sampling event were both in a model, an interaction was accounted for.  -->
+All models were fit with a Conway–Maxwell–Poisson distribution, parametrized via the mean and a log link, and implemented using the glmmTMB package [@Brooks2017; @Huang2017].
+We used the package AICcmodavg [@Mazerolle2020] to create a model selection tables based on Akaike Information Criterion scores (AICc).
+All models within two delta AICc of the best supported model are considered to be well-supported.\par
+<!-- The model with the lowest AICc value was selected in the final analyses **Table 1**, however, models that were within two delta AICc's away from this model were further analyzed for thoroughness (see discussion and S1).\par -->
 
 # Taxa Turnover
 
