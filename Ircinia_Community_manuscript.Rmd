@@ -80,18 +80,19 @@ As a result of the above predictions, we also expected that the presence of *I.f
 # Methods  
 
 ## Study site and experimental design  
- 
+
+<!-- The methods are mostly in passive voice, so probably needs changing? I took a stab at the first para... -->
 This study was conducted in a continuous subtidal seagrass bed (1.1 m low tide depth) on Southern Great Abaco Island, The Bahamas (26.02610 N, 77.37408 W). 
 Depth, temperature, and salinity were consistent across the seagrass bed.
-Within the seagrass bed, fifteen 5 x 5 m plots were delineated on June 9, 2013 by placing wooden stakes at the corners and center of each plot. 
+Within the seagrass bed, we delineated fifteen 5 x 5 m plots by placing wooden stakes at the corners and center of each plot on June 9, 2013. 
 All plots were separated >2 m. 
-The fish and epibenthic macroinvertebrate communities, as well as all explanatory variables (see below), were sampled once before the beginning of the experiment and again at 1 and 12 months after the treatments were established. 
-Control (n=5), structure (n=5), and sponge (n=5) treatments were randomly assigned to plots. 
-The control plots were unaltered sections within the seagrass bed.
-The structure treatment had a polypropylene model of a sponge at the center of each plot.
+We sampled the fish and epibenthic macroinvertebrate communities, as well as all explanatory variables (see below), once before the beginning of the experiment and again at 1 and 12 months after the treatments were established. 
+Sponge (n=5), structure (n=5), and control (n=5) treatments were randomly assigned to plots. 
 At the center of each sponge treatment plot, we placed one living sponge (*I. felix*, average volume ± standard deviation, 2.5 ± 0.75 L).
-Both live and model sponges were placed within a cage to keep the sponge stationary.
-It was only within the first month of the experiment that 3 live sponges were replaced as they showed signs of dying.
+The structure treatment received a polypropylene model of a sponge, also placed at the center of each plot.
+Both live and model sponges were contained within a cage to keep the sponge stationary.
+The control plots remained unaltered.
+Within the first month of the experiment 3 live sponges were replaced when they showed signs of dying.
 Live sponges were monitored throughout the rest of the experiment, but no additional replacements were necessary.\par
 
 ## Community Assessment
