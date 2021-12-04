@@ -1,6 +1,6 @@
 ---
 title: "Sponges presence increases diversity and abundance of fish and invertebrates in subtropical seagrass beds"
-output: 
+output:   
   bookdown::word_document2:
     number_sections: false
     reference_docx: "template.docx"
@@ -9,6 +9,10 @@ editor_options:
 bibliography: Paper2.bib
 csl: estuaries-and-coasts.csl
 ---
+```{r setup, include=FALSE}
+source("scripts_comm/08_import_results.R")
+if(!require(kableExtra))install.packages("kableExtra");library(kableExtra)
+```
 
 Finella Campanino^1^, Philina A. English^2^, Craig A. Layman^3^, Stephanie K. Archer^1^*
   
@@ -128,16 +132,17 @@ Seagrass productivity, seagrass structure, and macroalgal structure were standar
 
 ## Statistical Analyses
 
-# Species richness and abundance
+*Total abundance and species richness*
 
 <!-- Not sure if this sentence works better here or at the end? -->
 All statistical analyses were conducted in R version 4.1.0 [@rcoreteam2021]. 
+First we used analysis of variance (ANOVA) to confirm that none of the faunal groups differ in total abundance or species richness between the treatment groups at the start of the experiment (sampling month = 0).
 <!-- We need to start with a clear statement of what the variables being analyzed here are...  -->
-We tested for differences in species richness and overall abundance of fish, non-clonal invertebrates, and clonal invertebrates among treatments using univariate Generalized Linear Mixed Models (GLMMs), with the sponge treatment plots as the reference level.
+Next, we tested for differences in overall abundance and species richness of fish, non-clonal invertebrates, and clonal invertebrates among treatments using univariate Generalized Linear Mixed Models (GLMMs), with the sponge treatment plots as the reference level.
 <!-- Univariate analysis was performed on three community groups: fish, non-clonal invertebrates, and clonal invertebrates.  -->
 <!-- The groups were assessed for differences among treatment types using a generalized linear mixed model, with the sponge treatment plots as the reference level. -->
-We chose multiple model configurations to represent the biological hypotheses that could best explain community changes within treatment plots **TABLE 1**.
-Specifically, treatment (i.e. sponge presence), seagrass productivity, seagrass structure, and macroalgal structure were each modeled separately and additively to represent sponge presence alone, three parts of primary production within the seagrass system, and the combined effects of changes in primary production and other influences from the presence of the sponge **Table 1**.
+We chose multiple model configurations to represent the biological hypotheses that could best explain community changes within treatment plots (Table \@ref(tab:table)).
+Specifically, treatment (i.e. sponge presence), seagrass productivity, seagrass structure, and macroalgal structure were each modeled separately and additively to represent sponge presence alone, three parts of primary production within the seagrass system, and the combined effects of changes in primary production and other influences from the presence of the sponge (Table \@ref(tab:table)).
 Models also included a random effect for plot, sampling month as a factor, and for models including treatment an interaction between treatment and time.
 <!-- Plot (as a random variable) and sampling were included in every model as predictor variables. -->
 <!-- When treatment and sampling event were both in a model, an interaction was accounted for.  -->
@@ -146,13 +151,13 @@ We used the package AICcmodavg [@Mazerolle2020] to create a model selection tabl
 All models within two delta AICc of the best supported model are considered to be well-supported.\par
 <!-- The model with the lowest AICc value was selected in the final analyses **Table 1**, however, models that were within two delta AICc's away from this model were further analyzed for thoroughness (see discussion and S1).\par -->
 
-# Taxa Turnover
+*Taxa Turnover*
 
 Increases in species richness through time can result from either increases in colonization rates, or a reduction in the loss of species. 
 To assess the relative rates at which taxa were gained or lost between sampling events, we used the turnover function in codyn package [@Hallett2020]. 
 We assessed both components of taxa turnover separately for each faunal group in each plot, and compared patterns of turnover among treatments at 1 and 12 months into the experiment.\par
 
-# Compositional Vectors
+*Compositional Vectors*
 
 To assess community changes in a way that simultaneously accounts for changes in species richness and abundance, we calculated compositional vectors for each faunal group in each plot. 
 <!-- To assess community changes in treatments across time (from 0 to 12 months into the experiment), compositional vectors were calculated for each plot in the fish, non-clonal invertebrate, and clonal invertebrate communities. -->
@@ -160,7 +165,7 @@ We used Hellinger's transformation to help minimize the effect of vast differenc
 We then conducted a principal components analysis (unconstrained by environmental predictors) using the `rda()` function in the vegan package [@Oksanen2020].
 <!-- First, for each type of community data, a Hellinger's transformation was performed followed by an RDA using the vegan package(@Oksanen2020). -->
 The scores from this analysis were used to calculate a vector length and angle for each plot as per *Mccune[]*. 
-An analysis of variance (ANOVA) was performed on each community's vector length and angle to test significant differences among treatments (sponge treatment as the reference level).
+An ANOVA was performed on each community's vector length and angle to test significant differences among treatments (sponge treatment as the reference level).
 <!-- Do you think we need to cite base R package, stats, separately if we have already stated that all analyses were conducted in R? -->
 When significance occurred, a post-hoc analysis via a Tukey test was then performed to look at the differences in vector length and angle among treatments.
 <!-- Is species space meaningful here, when we don't display species? If so, could it be explained a bit more? -->
@@ -246,36 +251,47 @@ tukey.res<-function(rtable,row){
                signif(rtable[row,3],2),", p =",
                ifelse(rtable[row,4]<0.001,0.001,signif(rtable[row,4],2))))
 }
-
 ```
   
 
-##Univariate Results  
-```{r load all results, include=FALSE,echo=FALSE,message=FALSE}
-source("scripts_comm/08_import_results.R")
-```
+## Total abundance and species richness 
 
-##Fish  
-  
-
-In the sponge treatment, fish species richness and abundance increased at 1 and 12 months into the experiment (species richness: $\beta$ = `r efsize.tmb(fspr.treat.sum,4)`; $\beta$ = `r efsize.tmb(fspr.treat.sum,5)`; species abundance: $\beta$ = `r efsize.tmb(fa.treat.sum,4)`; $\beta$ = `r efsize.tmb(fa.treat.sum,5)` respectively, Fig. \@ref(fig:turnover-plots), Fig. \@ref(fig:ab-plot)).
-In the structure treatment, species richness and abundance increased at 1 month and decreased at 12 months, but neither changes were significant ( Fig. \@ref(fig:turnover-plots), Fig. \@ref(fig:ab-plot)).
-After 1 and 12 months into the experiment, species richness and abundance in control plots decreased, though the change was only significant after 12 months (species richness: $\beta$ = `r efsize.tmb(fspr.treat.sum,8)`; species abundance: $\beta$ = `r efsize.tmb(fa.treat.sum,8)`, Fig. \@ref(fig:turnover-plots), Fig. \@ref(fig:ab-plot)).\par
-
-##Non-clonal Invertebrates  
-
-In the sponge treatment, non-clonal invertebrate species richness and abundance significantly increased at 1 and 12 months into the experiment (species richness: $\beta$ = `r efsize.tmb(ispr.treat.sum,4)`; $\beta$ = `r efsize.tmb(ispr.treat.sum,5)`; species abundance: $\beta$ = `r efsize.tmb(ia.treat.sum,4)`; $\beta$ = `r efsize.tmb(ia.treat.sum,5)` respectively, Fig. \@ref(fig:turnover-plots), Fig. \@ref(fig:ab-plot)).
-In the structure treatment, species richness and abundance  decrease at 1 and 12 months into the experiment, though change in species richness at 1 month was not significant (species richness: 12 months- $\beta$ = `r efsize.tmb(ispr.treat.sum,9)`; species abundance: 1 month- $\beta$ = `r efsize.tmb(ia.treat.sum,7)`; 12 months- $\beta$ = `r efsize.tmb(ia.treat.sum,9)`, Fig. \@ref(fig:turnover-plots), Fig. \@ref(fig:ab-plot)).
-At 1 month into the experiment, species richness increased while species abundance decreased in control plots, though neither changes were significant( Fig. \@ref(fig:turnover-plots), Fig. \@ref(fig:ab-plot)).
-Then, at 12 months into the experiment, both species richness and abundance in control plots decreased, but only species abundance was significant ( $\beta$ = `r efsize.tmb(ia.treat.sum,8)`, Fig. \@ref(fig:turnover-plots), Fig. \@ref(fig:ab-plot)).\par
-
-##Clonal Invertebrates  
-
-There were no significant differences between treatments for species richness of clonal invertebrates ( Fig. \@ref(fig:turnover-plots)).
-Species abundance could not be analyzed because an accurate count of individuals was not feasible.\par
+*Fish*  
 
 
-##Species Turnover  
+<!-- I think maybe we need to add the overall anova significance here for treatment before unpacking which levels differ and how? -->
+Fish abundance and species richness both differed significantly between experimental treatments ()
+
+<!-- (Table \@ref(tab:table)) -->
+
+In the sponge treatment, fish abundance and species richness increased throughout the experiment (total abundance: $\beta$ = `r efsize.tmb(fa.treat.sum,4)` and $\beta$ = `r efsize.tmb(fa.treat.sum,5)` at 1 and 12 months respectively, Fig. \@ref(fig:ab-plots); species richness: $\beta$ = `r efsize.tmb(fspr.treat.sum,4)` and $\beta$ = `r efsize.tmb(fspr.treat.sum,5)` at 1 and 12 months respectively, Fig. \@ref(fig:turnover-plots)A).
+In the structure treatment, abundance and richness both increased slightly at 1 month and decreased at 12 months, but no changes were significant.
+Meanwhile in control plots, both abundance and richness decreased but this change was only significant after 12 months (total abundance: $\beta$ = `r efsize.tmb(fa.treat.sum,8)`, Fig. \@ref(fig:ab-plots); species richness: $\beta$ = `r efsize.tmb(fspr.treat.sum,8)`, Fig. \@ref(fig:turnover-plots)).\par
+(Table \@ref(tab:table))
+
+*Invertebrates*
+
+
+Species richness of clonal invertebrates did not differ between treatments (Fig. \@ref(fig:turnover-plots)).
+
+In the sponge treatment, non-clonal invertebrate species richness and abundance significantly increased at 1 and 12 months into the experiment (species richness: $\beta$ = `r efsize.tmb(ispr.treat.sum,4)`; $\beta$ = `r efsize.tmb(ispr.treat.sum,5)`; species abundance: $\beta$ = `r efsize.tmb(ia.treat.sum,4)`; $\beta$ = `r efsize.tmb(ia.treat.sum,5)` respectively, Fig. \@ref(fig:turnover-plots), Fig. \@ref(fig:ab-plots)).
+In the structure treatment, species richness and abundance  decrease at 1 and 12 months into the experiment, though change in species richness at 1 month was not significant (species richness: 12 months- $\beta$ = `r efsize.tmb(ispr.treat.sum,9)`; species abundance: 1 month- $\beta$ = `r efsize.tmb(ia.treat.sum,7)`; 12 months- $\beta$ = `r efsize.tmb(ia.treat.sum,9)`, Fig. \@ref(fig:turnover-plots), Fig. \@ref(fig:ab-plots)).
+At 1 month into the experiment, species richness increased while species abundance decreased in control plots, though neither changes were significant( Fig. \@ref(fig:turnover-plots), Fig. \@ref(fig:ab-plots)).
+Then, at 12 months into the experiment, both species richness and abundance in control plots decreased, but only species abundance was significant ( $\beta$ = `r efsize.tmb(ia.treat.sum,8)`, Fig. \@ref(fig:turnover-plots), Fig. \@ref(fig:ab-plots)).\par
+
+
+<!-- Still need to explain the alternate model with algae... -->
+Non-clonal invertebrate species richness can be explained by algae abundance almost as well as by experimental treatment (Fig. \@ref(fig:inverts-by-algae))
+
+
+<!-- *Clonal Invertebrates* -->
+
+<!-- There were no significant differences between treatments for species richness of clonal invertebrates ( Fig. \@ref(fig:turnover-plots)). -->
+<!-- Species abundance could not be analyzed because an accurate count of individuals was not feasible.\par -->
+<!-- I think this repeats what's already in the methods? And therefore the first sentence might reasonably be added to the previous paragraph? -->
+
+
+## Species Turnover  
 
 When comparing species turnover from 1 month to 12 months in sponge treatment plots, the overall turnover rates show an increase in species gained for fish and non-clonal invertebrates, which parallels the results from the univariate analysis (Fig. \@ref(fig:turnover-plots).
 In structure and control plots there appears to be a decrease in species gained and increase in species lost for both fish and non-clonal invertebrates, also supporting the results from th univariate analyses (Fig. \@ref(fig:turnover-plots). \par
@@ -354,14 +370,34 @@ We would like to thank Friends of the Environment (NGO, Abaco, The Bahamas), Dia
 
 ##### break  
 
-Figures
+Table 1: Best supported models (those within two *∆ AICc* of the top model) of changes in abundance and species richness.
 
-```{r turnover-plots, fig.align='center', out.width="85%", echo=FALSE, message=FALSE, fig.cap="Change in species richness (A) and the components of species turnover (B) for fish (upper panel of A and fish shapes in B) and non-clonal invertebrates (lower panel of A and crab shapes in B) from start of experiment to the first experimental sample (1 month into experiment and left panel of B), and between that first experimental sample and one year later (12 months into experiment and right panel of B)."}
-
-knitr::include_graphics("figures/Species_Richness_Turnover_A_B.jpg")
+```{r table, echo=FALSE, message=F, warning=FALSE, results='asis'}
+kbl(best.models[,c(-1:-2,-7,-10)],
+                          format = "latex",
+    booktabs=T,
+    escape = FALSE,
+    col.names = c("","$k$","$AIC_c$","$\\Delta AIC_c$",
+                  "$Akaike$ $Weight$","$LL$")#,
+    # caption="Best models, i.e., those within two
+    # $\\Delta AIC_c$ of the top model, explaining changes in fish
+    # and non-clonal invertebrate abundance and species richness as well
+    # as clonal invertebrate species richness."
+    )%>%
+  # kableExtra::kable_styling(latex_options = "scale_down",font_size=11)%>%
+  kableExtra::pack_rows("Abundance",1,4,bold=T)%>%
+  kableExtra::pack_rows("Fish",1,1,bold=F,italic=TRUE)%>%
+  kableExtra::pack_rows("Non-clonal Invertebrates",2,4,bold=F,italic=TRUE)%>%
+  kableExtra::pack_rows("Species Richness",5,10,bold=T)%>%
+  kableExtra::pack_rows("Fish",5,5,bold=F,italic=TRUE)%>%
+  kableExtra::pack_rows("Non-clonal Invertebrate",6,7,bold=F,italic=TRUE)%>%
+  kableExtra::pack_rows("Clonal Invertebrates",8,10,bold=F,italic=TRUE)%>%
+  as_image()
 ```
 
 ##### break  
+
+<!-- Figures -->
 
 ```{r ab-plots, fig.align='center', out.width="85%", echo=FALSE, message=FALSE, fig.cap="Change in abundance for fish (top plot with fish shape) and non-clonal invertebrates (bottom plot with crab shape) at 0, 1, and 12 months into experiment."}
 
@@ -370,7 +406,14 @@ knitr::include_graphics("figures/fish_ncinvert_abundance figure.png")
 
 ##### break  
 
-```{r covariate-plots, fig.align='center', out.width="75%", echo=FALSE, message=FALSE, fig.cap="Non-clonal invertebrate species richness can be explained by algae abundance almost as well as by experimental treatment. Line and shading represent the predicted relationship at 12 months after initiation of experiment from a GLMM with only algae abundance and time as fixed effects."}
+```{r turnover-plots, fig.align='center', out.width="85%", echo=FALSE, message=FALSE, fig.cap="Change in species richness (A) and the components of species turnover (B) for fish (upper panel of A and fish shapes in B) and non-clonal invertebrates (lower panel of A and crab shapes in B) from start of experiment to the first experimental sample (1 month into experiment and left panel of B), and between that first experimental sample and one year later (12 months into experiment and right panel of B)."}
+
+knitr::include_graphics("figures/Species_Richness_Turnover_A_B.jpg")
+```
+
+##### break  
+
+```{r inverts-by-algae, fig.align='center', out.width="75%", echo=FALSE, message=FALSE, fig.cap="Non-clonal invertebrate species richness can be explained by algae abundance almost as well as by experimental treatment. Line and shading represent the predicted relationship at 12 months after initiation of experiment from a GLMM with only algae abundance and time as fixed effects."}
 
 knitr::include_graphics("figures/invert_spr_by_algae.jpg")
 ```
