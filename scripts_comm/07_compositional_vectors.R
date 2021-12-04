@@ -22,11 +22,11 @@ fish.com2<-fish.com[fish.env$sampling %in% c(0,1,12),]
 fish.env2<-fish.env[fish.env$sampling %in% c(0,1,12),]
 
 # do hellinger transformation then RDA
-
+# normally RDA is used for “constrained ordination” (ordination w/covariates or predictor)
+# without predictors, RDA is the same as PCA
 f.com.hel<-decostand(fish.com2,"hellinger")
 
 f.pca<-rda(f.com.hel)
-
 # now extract coordinates for each row in the dataset and join this to environmental data
 
 fish.env3<-bind_cols(fish.env2,data.frame(scores(f.pca,choices=c(1,2),display ="sites")))%>%

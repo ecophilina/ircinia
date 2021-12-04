@@ -98,6 +98,7 @@ Live sponges were monitored throughout the rest of the experiment, but no additi
 ## Faunal community
 
 <!-- Still in passive voice... -->
+<!-- Do we need to add any additional comments about the taxonomic levels to which any species groups were identified? -->
 The response of the fish and epibenthic macroinvertebrate communities were monitored throughout the course of the experiment.
 Three sampling events occurred in the summer: one in June (0 months into the experiment) and two in July (1 and 12 months into the experiment).
 These latter experimental sampling times were designated as year 1 and year 2 of the experiment, respectively.
@@ -107,6 +108,7 @@ The macroinvertebrate community were quantified within a 3 m x 1 m band extendin
 All macroinvertebrates were identified to genus and recorded.
 If identification was not possible in situ, a representative sample was photographed and subsequently collected.
 For clonal tunicates an accurate count of individuals was not feasible; therefore clonal species of tunicate were assessed simply as present/absent and analyzed separately from non-clonal invertebrates.\par
+<!-- Maybe add a sentence here that states that "Fish, non-clonal invertebrates, and clonal invertebrates were therefore considered separately in all analyses." So we don't need to repeat this fact in all the following paras? -->
 
 ## Primary producers covariates
 
@@ -128,6 +130,7 @@ Seagrass productivity, seagrass structure, and macroalgal structure were standar
 
 # Species richness and abundance
 
+<!-- Not sure if this sentence works better here or at the end? -->
 All statistical analyses were conducted in R version 4.1.0 [@rcoreteam2021]. 
 <!-- We need to start with a clear statement of what the variables being analyzed here are...  -->
 We tested for differences in species richness and overall abundance of fish, non-clonal invertebrates, and clonal invertebrates among treatments using univariate Generalized Linear Mixed Models (GLMMs), with the sponge treatment plots as the reference level.
@@ -145,18 +148,26 @@ All models within two delta AICc of the best supported model are considered to b
 
 # Taxa Turnover
 
-To visualize changes in taxa richness over time (i.e. taxa gained or lost relative to the total number of taxa observed across the two sampling events in July), we used the turnover function in codyn package [@Hallett2020] to visualize the proportion of species lost by the proportion of species gained. Taxa turnover was performed on the fish, non-clonal invertebrate, and clonal invertebrate community data for each plot and compared among treatments at 1 and 12 months into the experiment.\par
+Increases in species richness through time can result from either increases in colonization rates, or a reduction in the loss of species. 
+To assess the relative rates at which taxa were gained or lost between sampling events, we used the turnover function in codyn package [@Hallett2020]. 
+We assessed both components of taxa turnover separately for each faunal group in each plot, and compared patterns of turnover among treatments at 1 and 12 months into the experiment.\par
 
 # Compositional Vectors
 
-To assess community changes in treatments across time (from 0 to 12 months into the experiment), compositional vectors were calculated for each plot in the fish, non-clonal invertebrate, and clonal invertebrate communities.
-First, for each type of community data, a Hellinger's transformation was performed followed by an RDA using the vegan package(@Oksanen2020).
-The scores from the RDA analysis were then used to calculate a vector length and angle for each plot as per Mccune[]. 
-An analysis of variance was performed on each community's vector length and angle to test significant differences in treatments with sponge treatment as the reference using the "stats" package.
-When significance occurred, a post-hoc analysis via a Tukey test was then performed to look at the differences in vector length and angle among treatments also in the "stats" package [@RCoreTeam2021].
+To assess community changes in a way that simultaneously accounts for changes in species richness and abundance, we calculated compositional vectors for each faunal group in each plot. 
+<!-- To assess community changes in treatments across time (from 0 to 12 months into the experiment), compositional vectors were calculated for each plot in the fish, non-clonal invertebrate, and clonal invertebrate communities. -->
+We used Hellinger's transformation to help minimize the effect of vast differences in abundance between taxa *(Legendre & Gallagher 2001)*.
+We then conducted a principal components analysis (unconstrained by environmental predictors) using the `rda()` function in the vegan package [@Oksanen2020].
+<!-- First, for each type of community data, a Hellinger's transformation was performed followed by an RDA using the vegan package(@Oksanen2020). -->
+The scores from this analysis were used to calculate a vector length and angle for each plot as per *Mccune[]*. 
+An analysis of variance (ANOVA) was performed on each community's vector length and angle to test significant differences among treatments (sponge treatment as the reference level).
+<!-- Do you think we need to cite base R package, stats, separately if we have already stated that all analyses were conducted in R? -->
+When significance occurred, a post-hoc analysis via a Tukey test was then performed to look at the differences in vector length and angle among treatments.
+<!-- Is species space meaningful here, when we don't display species? If so, could it be explained a bit more? -->
 For visual purposes, all vectors were standardized to the same initial position and then plotted across species space to show how much a community changed over time (i.e. vector length) and in which direction across species space the community shifted towards (i.e. vector angle).\par
 
-Throughout the results, we present effect sizes and 95% confidence intervals rather than test statistics and p-values. All test statistics and p-values can be found in the supplemental material.\par
+Throughout the results we present effect sizes and 95% confidence intervals. 
+All test statistics and p-values can be found in the supplemental material.\par
 
 # Results  
 ```{r results function,include=FALSE}
