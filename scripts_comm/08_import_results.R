@@ -50,3 +50,127 @@ fish.vl.aov.tuk<-read_rds("working_data/FishVLTuk.rds")
 fish.angle.aov.sum<-read_rds("working_data/FishAngleSum.rds")
 fish.angle.aov.tuk<-read_rds("working_data/FishAngleTuk.rds")
 
+ls(pattern=".aic")
+# fish models
+fabund<-fabund.aic%>%
+  separate(Modnames,into=c("cr","model"),sep=3)%>%
+  mutate(Community="Fish",
+         Response="Abundance",
+         Model=case_when(
+           model=="treat"~"Sponge Presence",
+           model=="treat.prod"~"Sponge Presence + Seagrass Productivity",
+           model=="treat.struct"~"Sponge Presence + Seagrass Structure",
+           model=="treat.alg"~"Sponge Presence + Macroalgal Structure",
+           model=="alg"~"Macroalgal Structure",
+           model=="treat.prod.struct"~"Sponge Presence + Seagrass Productivity & Structure",
+           model=="treat.prod.alg"~"Sponge Presence + Seagrass Productivity + Macroalgal Structure",
+           model=="struct.alg"~"Seagrass & Macroalgal Structure",
+           model=="treat.struct.alg"~"Sponge Presence + Seagrass & Macroalgal Structure",
+           model=="prod.alg"~"Seagrass Productivity + Macroalgal Structure",
+           model=="struct"~"Seagrass Structure",
+           model=="prod"~"Seagrass Productivity",
+           model=="prod.struct"~"Seagrass Productivity & Structure",
+           model=="full"~"Sponge Presence + Seagrass Productivity & Structure + Macroalgal Structure"),
+         across(AICc:Cum.Wt,round,2))%>%
+  select(Community,Response,Model,K:Cum.Wt)
+
+fspr<-fspr.aic%>%
+  separate(Modnames,into=c("cr","model"),sep=5)%>%
+  mutate(Community="Fish",
+         Response="Species Richness",
+         Model=case_when(
+           model=="treat"~"Sponge Presence",
+           model=="treat.prod"~"Sponge Presence + Seagrass Productivity",
+           model=="treat.struct"~"Sponge Presence + Seagrass Structure",
+           model=="treat.alg"~"Sponge Presence + Macroalgal Structure",
+           model=="alg"~"Macroalgal Structure",
+           model=="treat.prod.struct"~"Sponge Presence + Seagrass Productivity & Structure",
+           model=="treat.prod.alg"~"Sponge Presence + Seagrass Productivity + Macroalgal Structure",
+           model=="struct.alg"~"Seagrass & Macroalgal Structure",
+           model=="treat.struct.alg"~"Sponge Presence + Seagrass & Macroalgal Structure",
+           model=="prod.alg"~"Seagrass Productivity + Macroalgal Structure",
+           model=="struct"~"Seagrass Structure",
+           model=="prod"~"Seagrass Productivity",
+           model=="prod.struct"~"Seagrass Productivity & Structure",
+           model=="full"~"Sponge Presence + Seagrass Productivity & Structure + Macroalgal Structure"),
+         across(AICc:Cum.Wt,round,2))%>%
+  select(Community,Response,Model,K:Cum.Wt)
+
+fish.models<-bind_rows(fabund,fspr)
+
+# non-clonal invert models
+ia<-inv.abund.aic%>%
+  separate(Modnames,into=c("cr","model"),sep=3)%>%
+  mutate(Community="Non-clonal Invertebrates",
+         Response="Abundance",
+         Model=case_when(
+           model=="treat"~"Sponge Presence",
+           model=="treat.prod"~"Sponge Presence + Seagrass Productivity",
+           model=="treat.struct"~"Sponge Presence + Seagrass Structure",
+           model=="treat.alg"~"Sponge Presence + Macroalgal Structure",
+           model=="alg"~"Macroalgal Structure",
+           model=="treat.prod.struct"~"Sponge Presence + Seagrass Productivity & Structure",
+           model=="treat.prod.alg"~"Sponge Presence + Seagrass Productivity + Macroalgal Structure",
+           model=="struct.alg"~"Seagrass & Macroalgal Structure",
+           model=="treat.struct.alg"~"Sponge Presence + Seagrass & Macroalgal Structure",
+           model=="prod.alg"~"Seagrass Productivity + Macroalgal Structure",
+           model=="struct"~"Seagrass Structure",
+           model=="prod"~"Seagrass Productivity",
+           model=="prod.struct"~"Seagrass Productivity & Structure",
+           model=="full"~"Sponge Presence + Seagrass Productivity & Structure + Macroalgal Structure"),
+         across(AICc:Cum.Wt,round,2))%>%
+  select(Community,Response,Model,K:Cum.Wt)
+
+ispr<-inv.aic%>%
+  separate(Modnames,into=c("cr","model"),sep=5)%>%
+  mutate(Community="Non-clonal Invertebrates",
+         Response="Species Richness",
+         Model=case_when(
+           model=="treat"~"Sponge Presence",
+           model=="treat.prod"~"Sponge Presence + Seagrass Productivity",
+           model=="treat.struct"~"Sponge Presence + Seagrass Structure",
+           model=="treat.alg"~"Sponge Presence + Macroalgal Structure",
+           model=="alg"~"Macroalgal Structure",
+           model=="treat.prod.struct"~"Sponge Presence + Seagrass Productivity & Structure",
+           model=="treat.prod.alg"~"Sponge Presence + Seagrass Productivity + Macroalgal Structure",
+           model=="struct.alg"~"Seagrass & Macroalgal Structure",
+           model=="treat.struct.alg"~"Sponge Presence + Seagrass & Macroalgal Structure",
+           model=="prod.alg"~"Seagrass Productivity + Macroalgal Structure",
+           model=="struct"~"Seagrass Structure",
+           model=="prod"~"Seagrass Productivity",
+           model=="prod.struct"~"Seagrass Productivity & Structure",
+           model=="full"~"Sponge Presence + Seagrass Productivity & Structure + Macroalgal Structure"),
+         across(AICc:Cum.Wt,round,2))%>%
+  select(Community,Response,Model,K:Cum.Wt)
+
+
+invert.models<-bind_rows(ia,ispr)
+# clonal invertebrates
+cispr<-col.aic%>%
+  separate(Modnames,into=c("cr","model"),sep=6)%>%
+  mutate(Community="Clonal Invertebrates",
+         Response="Species Richness",
+         Model=case_when(
+           model=="treat"~"Sponge Presence",
+           model=="treat.prod"~"Sponge Presence + Seagrass Productivity",
+           model=="treat.struct"~"Sponge Presence + Seagrass Structure",
+           model=="treat.alg"~"Sponge Presence + Macroalgal Structure",
+           model=="alg"~"Macroalgal Structure",
+           model=="treat.prod.struct"~"Sponge Presence + Seagrass Productivity & Structure",
+           model=="treat.prod.alg"~"Sponge Presence + Seagrass Productivity + Macroalgal Structure",
+           model=="struct.alg"~"Seagrass & Macroalgal Structure",
+           model=="treat.struct.alg"~"Sponge Presence + Seagrass & Macroalgal Structure",
+           model=="prod.alg"~"Seagrass Productivity + Macroalgal Structure",
+           model=="struct"~"Seagrass Structure",
+           model=="prod"~"Seagrass Productivity",
+           model=="prod.struct"~"Seagrass Productivity & Structure",
+           model=="full"~"Sponge Presence + Seagrass Productivity & Structure + Macroalgal Structure"),
+         across(AICc:Cum.Wt,round,2))%>%
+  select(Community,Response,Model,K:Cum.Wt)
+# table of best models for the results
+
+best.models<-bind_rows(fish.models,invert.models,cispr)%>%
+  filter(Delta_AICc<=2)%>%
+  arrange(Response)
+
+
