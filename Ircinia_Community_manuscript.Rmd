@@ -259,6 +259,7 @@ tukey.res<-function(rtable,row){
 
 *Fish*  
 
+<!-- I think we need to start with some descriptive statistics, but not sure if this works  -->
 At the start of the experiment between 0 and 2 individual fish, never of the same species, were found in each plot (mean = `r mean(fish.uni[fish.uni$sampling == 0, ]$f.abund)`). 
 Slippery Dick (**relpace with scientific name**) were the most common species. 
 One month later, the maximum number of individuals or species was up to 4 (mean abundance = `r mean(fish.uni[fish.uni$sampling == 1, ]$f.abund)` and mean richness = `r mean(fish.uni[fish.uni$sampling == 1, ]$spr)`) with Slippery Dick (**relpace with scientific name**) remaining most abundant species.
