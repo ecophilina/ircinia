@@ -128,7 +128,7 @@ Seagrass productivity was calculated at 1 and 12 months by the average amount of
 Seagrass structure was calculated as the number of seagrass shoots (i.e. shoot density) in 20 × 20  cm “sub-quadrats” at each sampling event.
 Macroalgal structure was calculated as the total macroalgal abundance at each sampling event.
 Drift algae was not measured. 
-Seagrass productivity, seagrass structure, and macroalgal structure were standardized and centered by two standard deviations as per Schielzeth [2011]. \par
+Seagrass productivity, seagrass structure, and macroalgal structure were centred and standardized by two standard deviations in order to allow effect size comparisons between continuous and factor covariates within models [@Schielzeth2011]. \par
 
 ## Statistical Analyses
 
@@ -141,8 +141,8 @@ First we used analysis of variance (ANOVA) to confirm that none of the faunal gr
 Next, we tested for differences in overall abundance and species richness of fish, non-clonal invertebrates, and clonal invertebrates among treatments using univariate Generalized Linear Mixed Models (GLMMs), with the sponge treatment plots as the reference level.
 <!-- Univariate analysis was performed on three community groups: fish, non-clonal invertebrates, and clonal invertebrates.  -->
 <!-- The groups were assessed for differences among treatment types using a generalized linear mixed model, with the sponge treatment plots as the reference level. -->
-We chose multiple model configurations to represent the biological hypotheses that could best explain community changes within treatment plots (Table \@ref(tab:table)).
-Specifically, treatment (i.e. sponge presence), seagrass productivity, seagrass structure, and macroalgal structure were each modeled separately and additively to represent sponge presence alone, three parts of primary production within the seagrass system, and the combined effects of changes in primary production and other influences from the presence of the sponge (Table \@ref(tab:table)).
+We chose multiple model configurations to represent the biological hypotheses that could best explain community changes within treatment plots.
+Specifically, treatment (i.e. sponge presence), seagrass productivity, seagrass structure, and macroalgal structure were each modeled separately and additively to represent sponge presence alone, three parts of primary production within the seagrass system, and the combined effects of changes in primary production and other influences from the presence of the sponge (Table S1-3).
 Models also included a random effect for plot, sampling month as a factor, and for models including treatment an interaction between treatment and time.
 <!-- Plot (as a random variable) and sampling were included in every model as predictor variables. -->
 <!-- When treatment and sampling event were both in a model, an interaction was accounted for.  -->
@@ -258,30 +258,35 @@ tukey.res<-function(rtable,row){
 
 *Fish*  
 
+<!-- I've added the overall model results first ... -->
+Fish abundance and species richness were best explained by the treatment effect of sponge presence (Table \@ref(tab:table)), such that in the presence of a sponge fish abundance and species richness increased throughout the experiment (total abundance: $\beta$ = `r efsize.tmb(fa.treat.sum,4)` and $\beta$ = `r efsize.tmb(fa.treat.sum,5)` at 1 and 12 months respectively, Fig. \@ref(fig:ab-plots); species richness: $\beta$ = `r efsize.tmb(fspr.treat.sum,4)` and $\beta$ = `r efsize.tmb(fspr.treat.sum,5)` at 1 and 12 months respectively, Fig. \@ref(fig:turnover-plots)A).
+<!-- Because we seem to have saved only the summary with sponge as reference, these coefficients aren't described correctly. These betas and CI represent the difference between month 12 in the real plots and month 12 in the control plots. I think it means this? -->
+In contrast, changes were non-significant for both control and structure plots (**we could add stats here by saving models with different reference treatments**, Figs. \@ref(fig:ab-plots) and \@ref(fig:turnover-plots)A).
+Only control plots ultimately differed significantly from sponge plots and this was not until the 12 month sample (total abundance: $\beta$ = `r efsize.tmb(fa.treat.sum,8)`; species richness: $\beta$ = `r efsize.tmb(fspr.treat.sum,8)`).\par
 
-<!-- I think maybe we need to add the overall anova significance here for treatment before unpacking which levels differ and how? -->
-Fish abundance and species richness both differed significantly between experimental treatments ()
+<!-- For reference, this was how it was worded before. These models are total mind-benders every time! -->
+<!-- In the structure treatment, species richness and abundance increased at 1 month and decreased at 12 months, but neither changes were significant ( Fig. \@ref(fig:turnover-plots), Fig. \@ref(fig:ab-plot)). -->
+<!-- After 1 and 12 months into the experiment, species richness and abundance in control plots decreased, though the change was only significant after 12 months (species richness: $\beta$ = `r efsize.tmb(fspr.treat.sum,8)`; species abundance: $\beta$ = `r efsize.tmb(fa.treat.sum,8)`, Fig. \@ref(fig:turnover-plots), Fig. \@ref(fig:ab-plot)).\par -->
 
-<!-- (Table \@ref(tab:table)) -->
-
-In the sponge treatment, fish abundance and species richness increased throughout the experiment (total abundance: $\beta$ = `r efsize.tmb(fa.treat.sum,4)` and $\beta$ = `r efsize.tmb(fa.treat.sum,5)` at 1 and 12 months respectively, Fig. \@ref(fig:ab-plots); species richness: $\beta$ = `r efsize.tmb(fspr.treat.sum,4)` and $\beta$ = `r efsize.tmb(fspr.treat.sum,5)` at 1 and 12 months respectively, Fig. \@ref(fig:turnover-plots)A).
-In the structure treatment, abundance and richness both increased slightly at 1 month and decreased at 12 months, but no changes were significant.
-Meanwhile in control plots, both abundance and richness decreased but this change was only significant after 12 months (total abundance: $\beta$ = `r efsize.tmb(fa.treat.sum,8)`, Fig. \@ref(fig:ab-plots); species richness: $\beta$ = `r efsize.tmb(fspr.treat.sum,8)`, Fig. \@ref(fig:turnover-plots)).\par
-(Table \@ref(tab:table))
 
 *Invertebrates*
 
+Non-clonal invertebrate abundance and species richness were also best explained by the treatment effect of sponge presence, but in both cases other models were equally well-supported (Table \@ref(tab:table)).
+Abundance of non-clonal invertebrates significantly increased after 1 and 12 months in the presence of a sponge ($\beta$ = `r efsize.tmb(ia.treat.sum,4)` and $\beta$ = `r efsize.tmb(ia.treat.sum,5)` respectively, Fig. \@ref(fig:ab-plots)), but only after 12 months were abundances significantly lower in both control and structure plots than in sponge plots ($\beta$ = `r efsize.tmb(ia.treat.sum,8)` and $\beta$ = `r efsize.tmb(ia.treat.sum,9)` respectively).
+Seagrass productivity appears to explain some of this change ($\beta$ = `r efsize.tmb(ia.treat.prod.sum,6)`), but there was still a significant difference between structure and live sponge treatments after accounting for the differences in seagrass productivity ($\beta$ = `r efsize.tmb(ia.treat.prod.sum,10)`).
+Likewise, the model included seagrass structure was well-supported (Table \@ref(tab:table)); however, it's contribution does not quite reach significance ($\beta$ = `r efsize.tmb(ia.treat.struct.sum,6)`) suggesting that new growth has some impact on the non-clonal invertebrate abundance beyond changes in stem density alone. 
 
-Species richness of clonal invertebrates did not differ between treatments (Fig. \@ref(fig:turnover-plots)).
-
-In the sponge treatment, non-clonal invertebrate species richness and abundance significantly increased at 1 and 12 months into the experiment (species richness: $\beta$ = `r efsize.tmb(ispr.treat.sum,4)`; $\beta$ = `r efsize.tmb(ispr.treat.sum,5)`; species abundance: $\beta$ = `r efsize.tmb(ia.treat.sum,4)`; $\beta$ = `r efsize.tmb(ia.treat.sum,5)` respectively, Fig. \@ref(fig:turnover-plots), Fig. \@ref(fig:ab-plots)).
-In the structure treatment, species richness and abundance  decrease at 1 and 12 months into the experiment, though change in species richness at 1 month was not significant (species richness: 12 months- $\beta$ = `r efsize.tmb(ispr.treat.sum,9)`; species abundance: 1 month- $\beta$ = `r efsize.tmb(ia.treat.sum,7)`; 12 months- $\beta$ = `r efsize.tmb(ia.treat.sum,9)`, Fig. \@ref(fig:turnover-plots), Fig. \@ref(fig:ab-plots)).
-At 1 month into the experiment, species richness increased while species abundance decreased in control plots, though neither changes were significant( Fig. \@ref(fig:turnover-plots), Fig. \@ref(fig:ab-plots)).
-Then, at 12 months into the experiment, both species richness and abundance in control plots decreased, but only species abundance was significant ( $\beta$ = `r efsize.tmb(ia.treat.sum,8)`, Fig. \@ref(fig:turnover-plots), Fig. \@ref(fig:ab-plots)).\par
+Species richness also increased over time ($\beta$ = `r efsize.tmb(ispr.treat.sum,4)` at 1 month and $\beta$ = `r efsize.tmb(ispr.treat.sum,5)` at 12 months, Fig. \@ref(fig:turnover-plots)).
+After 12 months richness tended to be lower in both control and structure plots, although only significantly so for the latter (control: $\beta$ = `r efsize.tmb(ispr.treat.sum,8)`; structure: $\beta$ = `r efsize.tmb(ispr.treat.sum,9)`).
+However, this time the other well-supported model did not include a treatment effect suggesting that much of the effect of sponge might be accounted for by through differences in macroalgal structure facilitated by the presence of a sponge ($\beta$ = `r efsize.tmb(ispr.alg.sum,4)`; Fig. \@ref(fig:inverts-by-algae)).
+Species richness of clonal invertebrates did not differ between treatments and no covariates should significant relationships in any or our candidate models (Table \@ref(tab:table) and Fig. \@ref(fig:turnover-plots)).
 
 
-<!-- Still need to explain the alternate model with algae... -->
-Non-clonal invertebrate species richness can be explained by algae abundance almost as well as by experimental treatment (Fig. \@ref(fig:inverts-by-algae))
+<!-- In the structure treatment, species richness and abundance  decrease at 1 and 12 months into the experiment, though change in species richness at 1 month was not significant (species richness: 12 months- $\beta$ = `r efsize.tmb(ispr.treat.sum,9)`; species abundance: 1 month- $\beta$ = `r efsize.tmb(ia.treat.sum,7)`; 12 months- $\beta$ = `r efsize.tmb(ia.treat.sum,9)`, Fig. \@ref(fig:turnover-plots), Fig. \@ref(fig:ab-plots)). -->
+<!-- At 1 month into the experiment, species richness increased while species abundance decreased in control plots, though neither changes were significant( Fig. \@ref(fig:turnover-plots), Fig. \@ref(fig:ab-plots)). -->
+<!-- Then, at 12 months into the experiment, both species richness and abundance in control plots decreased, but only species abundance was significant ( $\beta$ = `r efsize.tmb(ia.treat.sum,8)`, Fig. \@ref(fig:turnover-plots), Fig. \@ref(fig:ab-plots)).\par -->
+
+
 
 
 <!-- *Clonal Invertebrates* -->
@@ -427,22 +432,22 @@ knitr::include_graphics("figures/community_vector_plots.jpg")
 
 ##### break  
 
-***This can be split off later.***
+<!-- ***Moved this to supplement draft*** -->
 
-# Supplementary Materials 
+<!-- # Supplementary Materials  -->
 
-```{r expdes, echo=FALSE, fig.align='center', out.width="95%", message=FALSE, warning=FALSE}
-#knitr::include_graphics("figures/Experimental design.pdf")
-```
+<!-- ```{r expdes, echo=FALSE, fig.align='center', out.width="95%", message=FALSE, warning=FALSE} -->
+<!-- #knitr::include_graphics("figures/Experimental design.pdf") -->
+<!-- ``` -->
 
-***This probably needs modifying (or remaking?) to include only summer sampling periods, the plots with their assigned treatment, and the outline of the total area in which inverts, algae, and sea grass density were sampled. Also, we may want to remove the notes about fish and inverts from the version of this to go in the productivity manuscript.***
+<!-- ***This probably needs modifying (or remaking?) to include only summer sampling periods, the plots with their assigned treatment, and the outline of the total area in which inverts, algae, and sea grass density were sampled. Also, we may want to remove the notes about fish and inverts from the version of this to go in the productivity manuscript.*** -->
 
-Figure S1. Experimental design and sampling scheme  
+<!-- Figure S1. Experimental design and sampling scheme   -->
 
 
-```{r turnover-clonal, echo=FALSE, fig.align='center', out.width="105%", message=FALSE, warning=FALSE}
+<!-- ```{r turnover-clonal, echo=FALSE, fig.align='center', out.width="105%", message=FALSE, warning=FALSE} -->
 
-knitr::include_graphics("figures/turnover-plots-tunicates2.jpg")
-```
+<!-- knitr::include_graphics("figures/turnover-plots-tunicates2.jpg") -->
+<!-- ``` -->
 
-Figure S2. Change in clonal invertebrate species richness and the components of species turnover from start of experiment to the first experimental sample (1 month into experiment), and between that first experimental sample and one year later (12 months into experiment). All species encountered were tunicates.   
+<!-- Figure S2. Change in clonal invertebrate species richness and the components of species turnover from start of experiment to the first experimental sample (1 month into experiment), and between that first experimental sample and one year later (12 months into experiment). All species encountered were tunicates.    -->
