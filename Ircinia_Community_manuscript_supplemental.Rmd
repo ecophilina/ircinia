@@ -1,32 +1,90 @@
 ---
-title: "Sponges presence increases diversity and abundance of fish and invertebrates in subtropical seagrass beds"
-author: "Finella M. Campanino, Philina A. English, Craig A. Layman, Stephanie K. Archer,"
-output: 
-  pdf_document:
-    includes:
-      in_header: "preamble.tex"
+title: "Supplemental Materials" 
+# subtitle: "For *Sponges presence increases diversity and abundance of fish and invertebrates in subtropical seagrass beds*"
+# author: "Finella M. Campanino, Philina A. English, Craig A. Layman, Stephanie K. Archer,"
+output:
+  bookdown::pdf_document2:
+      toc: false
+header-includes:
+    \usepackage{caption}
+editor_options:
+  markdown:
+    wrap: sentence
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+options(tinytex.verbose = TRUE)
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE,
+  collapse = TRUE,
+  comment = "#>"
+)
+source("scripts_comm/08_import_results.R")
+if(!require(kableExtra))install.packages("kableExtra");library(kableExtra)
 ```
 
-## R Markdown
+***Any supplemental text including paper title?***
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+***This first figure needs modifying to include only summer sampling periods, the plots with their assigned treatment, and the outline of the total area in which inverts, algae, and sea grass density were sampled. Also, we may want to remove the notes about fish and inverts from the version of this to go in the productivity manuscript.***
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+```{r expdes, echo=FALSE, fig.align='center', out.width="95%", message=FALSE, warning=FALSE}
+knitr::include_graphics("figures/Experimental design.pdf")
 ```
 
-## Including Plots
+Figure S1. Experimental design and sampling scheme  
 
-You can also embed plots, for example:
+\clearpage
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+```{r turnover-clonal, echo=FALSE, fig.align='center', out.width="105%", message=FALSE, warning=FALSE}
+
+knitr::include_graphics("figures/turnover-plots-tunicates2.jpg")
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+Figure S2. Change in clonal invertebrate species richness and the components of species turnover from start of experiment to the first experimental sample (1 month into experiment), and between that first experimental sample and one year later (12 months into experiment). All species encountered were tunicates.   
+
+\clearpage
+
+\captionsetup[table]{labelformat=empty}
+
+```{r fishtab}
+knitr::kable(fish.models[,c(-1:-2,-7,-10)],
+             # format = "latex",
+             booktabs=T,
+             # escape = FALSE,
+    col.names = c("","k","AICc","Delta AICc",
+                  "Akaike Weight","LL"),
+    caption="Table S1. All models tested evaluating competing hypotheses of the drivers of fish abundance and species richness.")%>%
+  kableExtra::kable_styling(latex_options = "scale_down",font_size=11)%>%
+  kableExtra::pack_rows("Abundance",1,14)%>%
+  kableExtra::pack_rows("Species Richness",15,28)
+```
+
+\clearpage
+
+```{r inverttab}
+knitr::kable(invert.models[,c(-1:-2,-7,-10)],
+             # format = "latex",
+             booktabs=T,
+             # escape = FALSE,
+    col.names = c("","k","AICc","Delta AICc",
+                  "Akaike Weight","LL"),
+    caption="Table S2. All models tested evaluating competing hypotheses of the drivers of non-clonal invertebrate abundance and species richness.")%>%
+  kable_styling(latex_options = "scale_down",font_size=11)%>%
+  pack_rows("Abundance",1,14)%>%
+  pack_rows("Species Richness",15,28)
+```
+
+\clearpage
+
+```{r clonaltab}
+knitr::kable(cispr[,c(-1:-2,-7,-10)],
+             booktabs=T,
+             # escape = FALSE,
+    col.names = c("","k","AICc","Delta AIC_c",
+                  "Akaike Weight","LL"),
+    caption="Table S3. All models tested evaluating competing hypotheses of the drivers of clonal invertebrate species richness.")%>%
+  kable_styling(latex_options = "scale_down",font_size=11)
+```
+
