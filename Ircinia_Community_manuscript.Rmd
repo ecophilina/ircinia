@@ -10,6 +10,7 @@ bibliography: Paper2.bib
 csl: estuaries-and-coasts.csl
 ---
 ```{r setup, include=FALSE}
+source("scripts_comm/02_community_data_org.R")
 source("scripts_comm/08_import_results.R")
 if(!require(kableExtra))install.packages("kableExtra");library(kableExtra)
 ```
@@ -136,7 +137,7 @@ Seagrass productivity, seagrass structure, and macroalgal structure were centred
 
 <!-- Not sure if this sentence works better here or at the end? -->
 All statistical analyses were conducted in R version 4.1.0 [@rcoreteam2021]. 
-First we used analysis of variance (ANOVA) to confirm that none of the faunal groups differ in total abundance or species richness between the treatment groups at the start of the experiment (sampling month = 0).
+First we used analysis of variance (ANOVA) to confirm that none of the faunal groups differed in total abundance or species richness between the treatment groups at the start of the experiment (sampling month = 0).
 <!-- We need to start with a clear statement of what the variables being analyzed here are...  -->
 Next, we tested for differences in overall abundance and species richness of fish, non-clonal invertebrates, and clonal invertebrates among treatments using univariate Generalized Linear Mixed Models (GLMMs), with the sponge treatment plots as the reference level.
 <!-- Univariate analysis was performed on three community groups: fish, non-clonal invertebrates, and clonal invertebrates.  -->
@@ -258,8 +259,13 @@ tukey.res<-function(rtable,row){
 
 *Fish*  
 
+At the start of the experiment between 0 and 2 individual fish, never of the same species, were found in each plot (mean = `r mean(fish.uni[fish.uni$sampling == 0, ]$f.abund)`). 
+Slippery Dick (**relpace with scientific name**) were the most common species. 
+One month later, the maximum number of individuals or species was up to 4 (mean abundance = `r mean(fish.uni[fish.uni$sampling == 1, ]$f.abund)` and mean richness = `r mean(fish.uni[fish.uni$sampling == 1, ]$spr)`) with Slippery Dick (**relpace with scientific name**) remaining most abundant species.
+By the second summer of the experiment, the maximum number of individuals had increased to 7, belonging as many as 6 different species (mean abundance = `r mean(fish.uni[fish.uni$sampling == 12, ]$f.abund)` and mean richness = `r mean(fish.uni[fish.uni$sampling == 12, ]$spr)`) and Grunts (**relpace with scientific name**) were slightly more abundant than Slippery Dicks (**relpace with scientific name**). 
+
 <!-- I've added the overall model results first ... -->
-Fish abundance and species richness were best explained by the treatment effect of sponge presence (Table \@ref(tab:table)), such that in the presence of a sponge fish abundance and species richness increased throughout the experiment (total abundance: $\beta$ = `r efsize.tmb(fa.treat.sum,4)` and $\beta$ = `r efsize.tmb(fa.treat.sum,5)` at 1 and 12 months respectively, Fig. \@ref(fig:ab-plots); species richness: $\beta$ = `r efsize.tmb(fspr.treat.sum,4)` and $\beta$ = `r efsize.tmb(fspr.treat.sum,5)` at 1 and 12 months respectively, Fig. \@ref(fig:turnover-plots)A).
+These changes in fish abundance and species richness were best explained by the treatment effect of sponge presence (Table \@ref(tab:table)), such that in the presence of a sponge fish abundance and species richness increased throughout the experiment (total abundance: $\beta$ = `r efsize.tmb(fa.treat.sum,4)` and $\beta$ = `r efsize.tmb(fa.treat.sum,5)` at 1 and 12 months respectively, Fig. \@ref(fig:ab-plots); species richness: $\beta$ = `r efsize.tmb(fspr.treat.sum,4)` and $\beta$ = `r efsize.tmb(fspr.treat.sum,5)` at 1 and 12 months respectively, Fig. \@ref(fig:turnover-plots)A).
 <!-- Because we seem to have saved only the summary with sponge as reference, these coefficients aren't described correctly. These betas and CI represent the difference between month 12 in the real plots and month 12 in the control plots. I think it means this? -->
 In contrast, changes were non-significant for both control and structure plots (**we could add stats here by saving models with different reference treatments**, Figs. \@ref(fig:ab-plots) and \@ref(fig:turnover-plots)A).
 Only control plots ultimately differed significantly from sponge plots and this was not until the 12 month sample (total abundance: $\beta$ = `r efsize.tmb(fa.treat.sum,8)`; species richness: $\beta$ = `r efsize.tmb(fspr.treat.sum,8)`).\par
@@ -271,22 +277,27 @@ Only control plots ultimately differed significantly from sponge plots and this 
 
 *Invertebrates*
 
-Non-clonal invertebrate abundance and species richness were also best explained by the treatment effect of sponge presence, but in both cases other models were equally well-supported (Table \@ref(tab:table)).
+<!-- I noticed something called ground tunicate in the non-clonal dataframe. Is it supposed to be there? -->
+At the start of the experiment between 0 and 4 individuals of non-clonal invertebrates from up to 3 species were found in each plot (mean abundance = `r mean(inv.uni[inv.uni$sampling == 0, ]$i.abund)` and mean richness = `r mean(inv.uni[inv.uni$sampling == 0, ]$spr)`). 
+Snails were the most abundant taxa. 
+One month later, the maximum number of individuals was up to `r range(inv.uni[inv.uni$sampling == 1, ]$i.abund)[2]` of up to `r range(inv.uni[inv.uni$sampling == 1, ]$spr)[2]` different species (mean abundance = `r mean(inv.uni[inv.uni$sampling == 1, ]$i.abund)` and mean richness = `r mean(inv.uni[inv.uni$sampling == 1, ]$spr)`) with more anemones and ceriths recorded than snails.
+By the second summer of the experiment, the maximum number of individuals was `r range(inv.uni[inv.uni$sampling == 12, ]$i.abund)[2]`, belonging as many as `r range(inv.uni[inv.uni$sampling == 12, ]$spr)[2]` different species (mean abundance = `r mean(inv.uni[inv.uni$sampling == 12, ]$i.abund)` and mean richness = `r mean(inv.uni[inv.uni$sampling == 12, ]$spr)`) and snails were back to being most abundant, followed by Blue crabs (**relpace with scientific name**). 
+
+Changes in non-clonal invertebrate abundance and species richness were also best explained by the treatment effect of sponge presence, but in both cases other models were equally well-supported (Table \@ref(table)).
 Abundance of non-clonal invertebrates significantly increased after 1 and 12 months in the presence of a sponge ($\beta$ = `r efsize.tmb(ia.treat.sum,4)` and $\beta$ = `r efsize.tmb(ia.treat.sum,5)` respectively, Fig. \@ref(fig:ab-plots)), but only after 12 months were abundances significantly lower in both control and structure plots than in sponge plots ($\beta$ = `r efsize.tmb(ia.treat.sum,8)` and $\beta$ = `r efsize.tmb(ia.treat.sum,9)` respectively).
 Seagrass productivity appears to explain some of this change ($\beta$ = `r efsize.tmb(ia.treat.prod.sum,6)`), but there was still a significant difference between structure and live sponge treatments after accounting for the differences in seagrass productivity ($\beta$ = `r efsize.tmb(ia.treat.prod.sum,10)`).
 Likewise, the model included seagrass structure was well-supported (Table \@ref(tab:table)); however, it's contribution does not quite reach significance ($\beta$ = `r efsize.tmb(ia.treat.struct.sum,6)`) suggesting that new growth has some impact on the non-clonal invertebrate abundance beyond changes in stem density alone. 
-
-Species richness also increased over time ($\beta$ = `r efsize.tmb(ispr.treat.sum,4)` at 1 month and $\beta$ = `r efsize.tmb(ispr.treat.sum,5)` at 12 months, Fig. \@ref(fig:turnover-plots)).
-After 12 months richness tended to be lower in both control and structure plots, although only significantly so for the latter (control: $\beta$ = `r efsize.tmb(ispr.treat.sum,8)`; structure: $\beta$ = `r efsize.tmb(ispr.treat.sum,9)`).
+Species richness also increased over time in the presence of a sponge ($\beta$ = `r efsize.tmb(ispr.treat.sum,4)` at 1 month and $\beta$ = `r efsize.tmb(ispr.treat.sum,5)` at 12 months, Fig. \@ref(fig:turnover-plots)).
+After 12 months richness was found to be lower in both control and structure plots than in the sponge plots, although only significantly so for the latter (control: $\beta$ = `r efsize.tmb(ispr.treat.sum,8)`; structure: $\beta$ = `r efsize.tmb(ispr.treat.sum,9)`).
 However, this time the other well-supported model did not include a treatment effect suggesting that much of the effect of sponge might be accounted for by through differences in macroalgal structure facilitated by the presence of a sponge ($\beta$ = `r efsize.tmb(ispr.alg.sum,4)`; Fig. \@ref(fig:inverts-by-algae)).
-Species richness of clonal invertebrates did not differ between treatments and no covariates should significant relationships in any or our candidate models (Table \@ref(tab:table) and Fig. \@ref(fig:turnover-plots)).
+
+We observed a maximum of 3 species of tunicate (they only type of clonal invertebrate found) in any plot at any one time. 
+Tunicate species richness did not change over time for any of the treatments and no covariates showed significant relationships in any of our candidate models (Table \@ref(tab:table) and Fig. S2).
 
 
 <!-- In the structure treatment, species richness and abundance  decrease at 1 and 12 months into the experiment, though change in species richness at 1 month was not significant (species richness: 12 months- $\beta$ = `r efsize.tmb(ispr.treat.sum,9)`; species abundance: 1 month- $\beta$ = `r efsize.tmb(ia.treat.sum,7)`; 12 months- $\beta$ = `r efsize.tmb(ia.treat.sum,9)`, Fig. \@ref(fig:turnover-plots), Fig. \@ref(fig:ab-plots)). -->
 <!-- At 1 month into the experiment, species richness increased while species abundance decreased in control plots, though neither changes were significant( Fig. \@ref(fig:turnover-plots), Fig. \@ref(fig:ab-plots)). -->
 <!-- Then, at 12 months into the experiment, both species richness and abundance in control plots decreased, but only species abundance was significant ( $\beta$ = `r efsize.tmb(ia.treat.sum,8)`, Fig. \@ref(fig:turnover-plots), Fig. \@ref(fig:ab-plots)).\par -->
-
-
 
 
 <!-- *Clonal Invertebrates* -->
@@ -298,11 +309,13 @@ Species richness of clonal invertebrates did not differ between treatments and n
 
 ## Species Turnover  
 
-When comparing species turnover from 1 month to 12 months in sponge treatment plots, the overall turnover rates show an increase in species gained for fish and non-clonal invertebrates, which parallels the results from the univariate analysis (Fig. \@ref(fig:turnover-plots).
-In structure and control plots there appears to be a decrease in species gained and increase in species lost for both fish and non-clonal invertebrates, also supporting the results from th univariate analyses (Fig. \@ref(fig:turnover-plots). \par
-
-For clonal invertebrates, species turnover from 1 to 12 months did not show differences in treatment plots for species gained or lost (Fig. S2). 
-The lack of differences in species turnover among treatments coincides with lack of change in species richness at 1 on 12 months into the experiment. \par
+Between the start of experiment and the first experimental sample most plots in the all treatments gained more species than they lost (Fig. \@ref(fig:turnover-plots B left panel).
+After a full year, however, sponge plots tended to gain the most new species while also still retaining more of the species they started with than either of the other plot types (plots high on the proportion gained y-axis and low on the proportion lost x-axis, Fig. \@ref(fig:turnover-plots B right panel).
+This pattern is similar for both fish and non-clonal invertebrates, although overall a lower proportion of fish than invertebrate species tended to be lost.
+<!-- When comparing species turnover from 1 month to 12 months in sponge treatment plots, the overall turnover rates show an increase in species gained for fish and non-clonal invertebrates, which parallels the results from the univariate analysis (Fig. \@ref(fig:turnover-plots). -->
+<!-- In structure and control plots there appears to be a decrease in species gained and increase in species lost for both fish and non-clonal invertebrates, also supporting the results from th univariate analyses (Fig. \@ref(fig:turnover-plots). \par -->
+For clonal invertebrates, species turnover from 1 to 12 months did not show differences between treatment types in the proportion of species gained or lost (Fig. S2). 
+The lack of differences in species turnover among treatments coincides with lack of change in species richness during the experiment. \par
 
 ## Compositional Vectors
 
