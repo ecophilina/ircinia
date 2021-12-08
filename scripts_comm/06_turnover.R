@@ -485,7 +485,7 @@ layout2c<-c(
   area(t=2,b=5,l=1,r=1),# A - y axis label
   area(t=7,b=11,l=1,r=1),# B - y axis label
   area(t=12,b=12,l=2,r=7), # B - y axis label
-  area(t=1,b=6,l=2,r=5),# clonal richness plot
+  area(t=1,b=5,l=2,r=5),# clonal richness plot
   area(t=7,b=11,l=2,r=4), # 1 month turnover
   area(t=7,b=11,l=5,r=7), # 12 months turnover
   area(t=2,b=3,l=6,r=7), # treatment legend
