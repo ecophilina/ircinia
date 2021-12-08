@@ -25,12 +25,15 @@ source("scripts_comm/08_import_results.R")
 if(!require(kableExtra))install.packages("kableExtra");library(kableExtra)
 ```
 
+```{r, include=FALSE}
+options(tinytex.verbose = TRUE)
+```
 ***Any supplemental text including paper title?***
 
 ***This first figure needs modifying to include only summer sampling periods, the plots with their assigned treatment, and the outline of the total area in which inverts, algae, and sea grass density were sampled. Also, we may want to remove the notes about fish and inverts from the version of this to go in the productivity manuscript.***
 
 ```{r expdes, echo=FALSE, fig.align='center', out.width="95%", message=FALSE, warning=FALSE}
-knitr::include_graphics("figures/Experimental design.pdf")
+#knitr::include_graphics("figures/Experimental design.pdf")
 ```
 
 Figure S1. Experimental design and sampling scheme  

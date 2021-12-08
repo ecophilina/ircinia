@@ -1,0 +1,242 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Supplemental Materials},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+\usepackage{caption}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+\usepackage{xcolor}
+\ifluatex
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\title{Supplemental Materials}
+\author{}
+\date{\vspace{-2.5em}}
+
+\begin{document}
+\maketitle
+
+\textbf{\emph{Any supplemental text including paper title?}}
+
+\textbf{\emph{This first figure needs modifying to include only summer sampling periods, the plots with their assigned treatment, and the outline of the total area in which inverts, algae, and sea grass density were sampled. Also, we may want to remove the notes about fish and inverts from the version of this to go in the productivity manuscript.}}
+
+\hypertarget{r-expdes-echofalse-fig.aligncenter-out.width95-messagefalse-warningfalse-knitrinclude_graphicsfiguresexperimental-design.pdf}{%
+\section{\texorpdfstring{\texttt{\{r\ expdes,\ echo=FALSE,\ fig.align=\textquotesingle{}center\textquotesingle{},\ out.width="95\%",\ message=FALSE,\ warning=FALSE\}\ \#\ knitr::include\_graphics("figures/Experimental\ design.pdf")\ \#}}{\{r expdes, echo=FALSE, fig.align='center', out.width="95\%", message=FALSE, warning=FALSE\} \# knitr::include\_graphics("figures/Experimental design.pdf") \#}}\label{r-expdes-echofalse-fig.aligncenter-out.width95-messagefalse-warningfalse-knitrinclude_graphicsfiguresexperimental-design.pdf}}
+
+Figure S1. Experimental design and sampling scheme
+
+\clearpage
+
+\begin{center}\includegraphics[width=1.05\linewidth]{figures/turnover-plots-tunicates2} \end{center}
+
+Figure S2. Change in clonal invertebrate species richness and the components of species turnover from start of experiment to the first experimental sample (1 month into experiment), and between that first experimental sample and one year later (12 months into experiment). All species encountered were tunicates.
+
+\clearpage
+
+\captionsetup[table]{labelformat=empty}
+
+\begin{table}
+
+\caption{\label{tab:fishtab}Table S1. All models tested evaluating competing hypotheses of the drivers of fish abundance and species richness.}
+\centering
+\resizebox{\linewidth}{!}{
+\fontsize{11}{13}\selectfont
+\begin{tabular}[t]{lrrrrr}
+\toprule
+ & k & AICc & Delta AICc & Akaike Weight & LL\\
+\midrule
+\addlinespace[0.3em]
+\multicolumn{6}{l}{\textbf{Abundance}}\\
+\hspace{1em}Sponge Presence & 11 & 133.27 & 0.00 & 0.54 & -51.63\\
+\hspace{1em}Sponge Presence + Seagrass Productivity & 12 & 136.06 & 2.79 & 0.13 & -51.15\\
+\hspace{1em}Sponge Presence + Seagrass Structure & 12 & 136.62 & 3.36 & 0.10 & -51.44\\
+\hspace{1em}Sponge Presence + Macroalgal Structure & 12 & 137.00 & 3.74 & 0.08 & -51.63\\
+\hspace{1em}Macroalgal Structure & 6 & 138.38 & 5.12 & 0.04 & -62.09\\
+\hspace{1em}Sponge Presence + Seagrass Productivity \& Structure & 13 & 139.81 & 6.55 & 0.02 & -51.04\\
+\hspace{1em}Sponge Presence + Seagrass Productivity + Macroalgal Structure & 13 & 140.04 & 6.77 & 0.02 & -51.15\\
+\hspace{1em}Seagrass \& Macroalgal Structure & 7 & 140.57 & 7.31 & 0.01 & -61.77\\
+\hspace{1em}Sponge Presence + Seagrass \& Macroalgal Structure & 13 & 140.60 & 7.33 & 0.01 & -51.43\\
+\hspace{1em}Seagrass Productivity + Macroalgal Structure & 7 & 141.20 & 7.93 & 0.01 & -62.08\\
+\hspace{1em}Seagrass Structure & 6 & 142.60 & 9.34 & 0.01 & -64.20\\
+\hspace{1em}Seagrass Productivity & 6 & 142.83 & 9.56 & 0.00 & -64.31\\
+\hspace{1em}Seagrass Productivity \& Structure & 7 & 143.74 & 10.47 & 0.00 & -63.35\\
+\hspace{1em}Sponge Presence + Seagrass Productivity \& Structure + Macroalgal Structure & 14 & 144.07 & 10.80 & 0.00 & -51.03\\
+\addlinespace[0.3em]
+\multicolumn{6}{l}{\textbf{Species Richness}}\\
+\hspace{1em}Sponge Presence & 11 & 115.98 & 0.00 & 0.61 & -42.99\\
+\hspace{1em}Sponge Presence + Seagrass Structure & 12 & 118.71 & 2.73 & 0.16 & -42.48\\
+\hspace{1em}Sponge Presence + Macroalgal Structure & 12 & 119.52 & 3.54 & 0.10 & -42.88\\
+\hspace{1em}Sponge Presence + Seagrass Productivity \& Structure & 13 & 120.65 & 4.67 & 0.06 & -41.45\\
+\hspace{1em}Sponge Presence + Seagrass Productivity + Macroalgal Structure & 13 & 121.19 & 5.21 & 0.04 & -41.72\\
+\hspace{1em}Sponge Presence + Seagrass \& Macroalgal Structure & 13 & 122.68 & 6.70 & 0.02 & -42.47\\
+\hspace{1em}Sponge Presence + Seagrass Productivity \& Structure + Macroalgal Structure & 14 & 124.90 & 8.92 & 0.01 & -41.45\\
+\hspace{1em}Macroalgal Structure & 6 & 128.08 & 12.10 & 0.00 & -56.94\\
+\hspace{1em}Seagrass \& Macroalgal Structure & 7 & 130.05 & 14.07 & 0.00 & -56.51\\
+\hspace{1em}Seagrass Productivity + Macroalgal Structure & 7 & 130.90 & 14.92 & 0.00 & -56.94\\
+\hspace{1em}Sponge Presence + Seagrass Productivity & 12 & 132.96 & 16.98 & 0.00 & -49.60\\
+\hspace{1em}Seagrass Productivity & 6 & 133.71 & 17.73 & 0.00 & -59.75\\
+\hspace{1em}Seagrass Structure & 6 & 134.03 & 18.05 & 0.00 & -59.91\\
+\hspace{1em}Seagrass Productivity \& Structure & 7 & 134.81 & 18.83 & 0.00 & -58.89\\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\clearpage
+
+\begin{table}
+
+\caption{\label{tab:inverttab}Table S2. All models tested evaluating competing hypotheses of the drivers of non-clonal invertebrate abundance and species richness.}
+\centering
+\resizebox{\linewidth}{!}{
+\fontsize{11}{13}\selectfont
+\begin{tabular}[t]{lrrrrr}
+\toprule
+ & k & AICc & Delta AICc & Akaike Weight & LL\\
+\midrule
+\addlinespace[0.3em]
+\multicolumn{6}{l}{\textbf{Abundance}}\\
+\hspace{1em}Sponge Presence & 11 & 190.38 & 0.00 & 0.32 & -80.19\\
+\hspace{1em}Sponge Presence + Seagrass Productivity & 12 & 190.50 & 0.12 & 0.30 & -78.38\\
+\hspace{1em}Sponge Presence + Seagrass Structure & 12 & 191.98 & 1.60 & 0.14 & -79.11\\
+\hspace{1em}Sponge Presence + Macroalgal Structure & 12 & 194.05 & 3.67 & 0.05 & -80.15\\
+\hspace{1em}Sponge Presence + Seagrass Productivity + Macroalgal Structure & 13 & 194.38 & 4.00 & 0.04 & -78.32\\
+\hspace{1em}Sponge Presence + Seagrass Productivity \& Structure & 13 & 194.47 & 4.09 & 0.04 & -78.36\\
+\hspace{1em}Macroalgal Structure & 6 & 194.77 & 4.39 & 0.04 & -90.28\\
+\hspace{1em}Sponge Presence + Seagrass \& Macroalgal Structure & 13 & 195.93 & 5.55 & 0.02 & -79.10\\
+\hspace{1em}Seagrass Productivity + Macroalgal Structure & 7 & 196.78 & 6.40 & 0.01 & -89.87\\
+\hspace{1em}Seagrass \& Macroalgal Structure & 7 & 197.47 & 7.09 & 0.01 & -90.22\\
+\hspace{1em}Seagrass Productivity & 6 & 198.40 & 8.02 & 0.01 & -92.10\\
+\hspace{1em}Sponge Presence + Seagrass Productivity \& Structure + Macroalgal Structure & 14 & 198.63 & 8.25 & 0.01 & -78.32\\
+\hspace{1em}Seagrass Structure & 6 & 199.20 & 8.82 & 0.00 & -92.50\\
+\hspace{1em}Seagrass Productivity \& Structure & 7 & 228.80 & 38.42 & 0.00 & -105.89\\
+\addlinespace[0.3em]
+\multicolumn{6}{l}{\textbf{Species Richness}}\\
+\hspace{1em}Sponge Presence & 11 & 155.64 & 0.00 & 0.36 & -62.82\\
+\hspace{1em}Macroalgal Structure & 6 & 156.67 & 1.04 & 0.22 & -71.23\\
+\hspace{1em}Sponge Presence + Macroalgal Structure & 12 & 158.22 & 2.58 & 0.10 & -62.23\\
+\hspace{1em}Sponge Presence + Seagrass Productivity & 12 & 158.74 & 3.10 & 0.08 & -62.49\\
+\hspace{1em}Sponge Presence + Seagrass Structure & 12 & 158.86 & 3.22 & 0.07 & -62.55\\
+\hspace{1em}Seagrass \& Macroalgal Structure & 7 & 159.22 & 3.58 & 0.06 & -71.10\\
+\hspace{1em}Seagrass Productivity + Macroalgal Structure & 7 & 159.40 & 3.76 & 0.06 & -71.18\\
+\hspace{1em}Sponge Presence + Seagrass Productivity + Macroalgal Structure & 13 & 161.78 & 6.15 & 0.02 & -62.02\\
+\hspace{1em}Sponge Presence + Seagrass \& Macroalgal Structure & 13 & 161.94 & 6.31 & 0.02 & -62.10\\
+\hspace{1em}Sponge Presence + Seagrass Productivity \& Structure & 13 & 162.71 & 7.08 & 0.01 & -62.49\\
+\hspace{1em}Seagrass Productivity & 6 & 165.08 & 9.44 & 0.00 & -75.43\\
+\hspace{1em}Seagrass Structure & 6 & 165.17 & 9.54 & 0.00 & -75.48\\
+\hspace{1em}Seagrass Productivity \& Structure & 7 & 165.69 & 10.05 & 0.00 & -74.33\\
+\hspace{1em}Sponge Presence + Seagrass Productivity \& Structure + Macroalgal Structure & 14 & 166.04 & 10.40 & 0.00 & -62.02\\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\clearpage
+
+\begin{table}
+
+\caption{\label{tab:clonaltab}Table S3. All models tested evaluating competing hypotheses of the drivers of clonal invertebrate species richness.}
+\centering
+\resizebox{\linewidth}{!}{
+\fontsize{11}{13}\selectfont
+\begin{tabular}[t]{llrrrrr}
+\toprule
+  &  & k & AICc & Delta AIC\_c & Akaike Weight & LL\\
+\midrule
+3 & Seagrass Structure & 6 & 114.81 & 0.00 & 0.33 & -50.30\\
+4 & Macroalgal Structure & 6 & 115.71 & 0.90 & 0.21 & -50.75\\
+2 & Seagrass Productivity & 6 & 115.77 & 0.96 & 0.20 & -50.78\\
+9 & Seagrass Productivity \& Structure & 7 & 116.97 & 2.16 & 0.11 & -49.97\\
+10 & Seagrass \& Macroalgal Structure & 7 & 117.28 & 2.47 & 0.10 & -50.13\\
+\addlinespace
+8 & Seagrass Productivity + Macroalgal Structure & 7 & 118.36 & 3.55 & 0.06 & -50.67\\
+1 & Sponge Presence & 11 & 129.40 & 14.59 & 0.00 & -49.70\\
+6 & Sponge Presence + Seagrass Structure & 12 & 131.99 & 17.18 & 0.00 & -49.12\\
+5 & Sponge Presence + Seagrass Productivity & 12 & 133.15 & 18.34 & 0.00 & -49.70\\
+7 & Sponge Presence + Macroalgal Structure & 12 & 133.15 & 18.34 & 0.00 & -49.70\\
+\addlinespace
+12 & Sponge Presence + Seagrass Productivity \& Structure & 13 & 134.19 & 19.38 & 0.00 & -48.22\\
+13 & Sponge Presence + Seagrass \& Macroalgal Structure & 13 & 135.98 & 21.17 & 0.00 & -49.12\\
+11 & Sponge Presence + Seagrass Productivity + Macroalgal Structure & 13 & 137.15 & 22.33 & 0.00 & -49.70\\
+14 & Sponge Presence + Seagrass Productivity \& Structure + Macroalgal Structure & 14 & 138.38 & 23.56 & 0.00 & -48.19\\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\end{document}
