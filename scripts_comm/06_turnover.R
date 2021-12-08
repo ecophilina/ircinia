@@ -469,6 +469,8 @@ wrap_elements(grid::textGrob("Species Richness",rot=90,vjust =2,gp=gpar(fontsize
   )
 
 ggsave("figures/Species_Richness_Turnover_A_B.jpg",dpi=300,width=8,height=9.5)
+ggsave("figures/Species_Richness_Turnover_A_B.png",dpi=300,width=8,height=9.5)
+ggsave("figures/Species_Richness_Turnover_A_B.pdf",dpi=300,width=8,height=9.5)
 
 #Figure for abundance of fish and non clonal inverts----
 #Plot abundance vs time 
@@ -546,11 +548,13 @@ layouta <- c(
 
 plot(layouta)
 
-wrap_elements(grid::textGrob("Abundance",rot=90,gp=gpar(fontsize=16))) +
+wrap_elements(grid::textGrob("Abundance",rot=90,vjust =1,gp=gpar(fontsize=16))) +
   fab+
   iab+
-  wrap_elements(grid::textGrob("Months into the Experiment",vjust =0,gp=gpar(fontsize=16))) +
+  wrap_elements(grid::textGrob("Months into the Experiment",
+                               gp=gpar(fontsize=16))) +
   l1+
   plot_layout(design=layouta)
 
-ggsave("figures/fish_ncinvert_abundance figure.png", width = 12.5, height = 6)
+ggsave("figures/fish_ncinvert_abundance figure.png", width = 7, height = 5)
+ggsave("figures/fish_ncinvert_abundance figure.pdf", width = 7, height = 5)

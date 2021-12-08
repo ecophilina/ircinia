@@ -387,7 +387,9 @@ col.inv.segments<-left_join(col.inv.env4,col.inv.mid)
 
 fish.vplot / inv.plot / col.inv.plot + plot_layout(guides="collect")
 
-ggsave("figures/community_vector_plots.jpg",dpi=300,width=4,height=9)
+ggsave("figures/community_vector_plots.jpg",dpi=300,width=4,height=7)
+ggsave("figures/community_vector_plots.png",dpi=300,width=4,height=7)
+ggsave("figures/community_vector_plots.pdf",dpi=300,width=4,height=7)
 
 # now making species association plots
 
