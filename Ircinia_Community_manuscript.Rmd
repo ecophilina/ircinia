@@ -422,7 +422,7 @@ Table 1: Best supported models (those within two *∆ AICc* of the top model) of
 #   kableExtra::pack_rows("Clonal Invertebrates",8,10,bold=F,italic=TRUE)%>%
 #   as_image()
 
-knitr::include_graphics("figures/Table1.pdf")
+knitr::include_graphics("figures/Table1.png")
 ```
 
 ##### break  
