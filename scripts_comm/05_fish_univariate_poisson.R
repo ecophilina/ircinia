@@ -19,12 +19,12 @@ ggplot(fish.uni) +
   ))
 
 ggplot(fish.uni) +
-  geom_jitter(aes(
+  geom_point(aes(
     x = sampling,
     y = f.abund,
     color = treatment,
     group = treatment
-  ))
+  ), alpha = 0.25)
 
 ggplot(fish.uni) +
   geom_jitter(aes(
@@ -403,6 +403,26 @@ data = fish.uni %>%
   filter(season == "summer") %>%
   mutate(treatment = relevel(treatment, ref = "real"))
 )
+
+fa.treat.b <- glmmTMB(f.abund ~ treatment * as.factor(sampling) +
+                      (1 | plot),
+                    family = compois(link = "log"),
+                    data = fish.uni %>%
+                      filter(season == "summer") %>%
+                      mutate(treatment = relevel(treatment, ref = "blank"))
+)
+fa.treat.b.sum <- summary(fa.treat.b)
+
+
+fa.treat.f <- glmmTMB(f.abund ~ treatment * as.factor(sampling) +
+                        (1 | plot),
+                      family = compois(link = "log"),
+                      data = fish.uni %>%
+                        filter(season == "summer") %>%
+                        mutate(treatment = relevel(treatment, ref = "fake"))
+)
+
+fa.treat.f.sum <- summary(fa.treat.f)
 
 # seagrass productivity model
 fa.prod <- glmmTMB(f.abund ~ sg.prod.c + as.factor(sampling) +
