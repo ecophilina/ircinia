@@ -401,26 +401,28 @@ We would like to thank Friends of the Environment (NGO, Abaco, The Bahamas), Dia
 Table 1: Best supported models (those within two *∆ AICc* of the top model) of changes in abundance and species richness.
 
 ```{r table, echo=FALSE, message=F, warning=FALSE, results='asis'}
-kbl(best.models[,c(-1:-2,-7,-10)],
-                          format = "html",
-    booktabs=T,
-    escape = FALSE,
-    col.names = c("","$k$","$AIC_c$","$\\Delta AIC_c$",
-                  "$Akaike$ $Weight$","$LL$")#,
-    # caption="Best models, i.e., those within two
-    # $\\Delta AIC_c$ of the top model, explaining changes in fish
-    # and non-clonal invertebrate abundance and species richness as well
-    # as clonal invertebrate species richness."
-    )%>%
-  # kableExtra::kable_styling(latex_options = "scale_down",font_size=11)%>%
-  kableExtra::pack_rows("Abundance",1,4,bold=T)%>%
-  kableExtra::pack_rows("Fish",1,1,bold=F,italic=TRUE)%>%
-  kableExtra::pack_rows("Non-clonal Invertebrates",2,4,bold=F,italic=TRUE)%>%
-  kableExtra::pack_rows("Species Richness",5,10,bold=T)%>%
-  kableExtra::pack_rows("Fish",5,5,bold=F,italic=TRUE)%>%
-  kableExtra::pack_rows("Non-clonal Invertebrate",6,7,bold=F,italic=TRUE)%>%
-  kableExtra::pack_rows("Clonal Invertebrates",8,10,bold=F,italic=TRUE)%>%
-  as_image()
+# kbl(best.models[,c(-1:-2,-7,-10)],
+#                           format = "latex",
+#     booktabs=T,
+#     escape = FALSE,
+#     col.names = c("","$k$","$AIC_c$","$\\Delta AIC_c$",
+#                   "$Akaike$ $Weight$","$LL$")#,
+#     # caption="Best models, i.e., those within two
+#     # $\\Delta AIC_c$ of the top model, explaining changes in fish
+#     # and non-clonal invertebrate abundance and species richness as well
+#     # as clonal invertebrate species richness."
+#     )%>%
+#   # kableExtra::kable_styling(latex_options = "scale_down",font_size=11)%>%
+#   kableExtra::pack_rows("Abundance",1,4,bold=T)%>%
+#   kableExtra::pack_rows("Fish",1,1,bold=F,italic=TRUE)%>%
+#   kableExtra::pack_rows("Non-clonal Invertebrates",2,4,bold=F,italic=TRUE)%>%
+#   kableExtra::pack_rows("Species Richness",5,10,bold=T)%>%
+#   kableExtra::pack_rows("Fish",5,5,bold=F,italic=TRUE)%>%
+#   kableExtra::pack_rows("Non-clonal Invertebrate",6,7,bold=F,italic=TRUE)%>%
+#   kableExtra::pack_rows("Clonal Invertebrates",8,10,bold=F,italic=TRUE)%>%
+#   as_image()
+
+knitr::include_graphics("figures/Table1.pdf")
 ```
 
 ##### break  
@@ -436,21 +438,20 @@ knitr::include_graphics("figures/fish_ncinvert_abundance figure.png")
 
 ```{r turnover-plots, fig.align='center', out.width="85%", echo=FALSE, message=FALSE, fig.cap="Change in species richness (A) and the components of species turnover (B) for fish (upper panel of A and fish shapes in B) and non-clonal invertebrates (lower panel of A and crab shapes in B) from start of experiment to the first experimental sample (1 month into experiment and left panel of B), and between that first experimental sample and one year later (12 months into experiment and right panel of B)."}
 
-knitr::include_graphics("figures/Species_Richness_Turnover_A_B.jpg")
+knitr::include_graphics("figures/Species_Richness_Turnover_A_B.png")
 ```
 
 ##### break  
 
 ```{r inverts-by-algae, fig.align='center', out.width="75%", echo=FALSE, message=FALSE, fig.cap="Non-clonal invertebrate species richness can be explained by algae abundance almost as well as by experimental treatment. Line and shading represent the predicted relationship at 12 months after initiation of experiment from a GLMM with only algae abundance and time as fixed effects."}
 
-knitr::include_graphics("figures/invert_spr_by_algae.jpg")
+knitr::include_graphics("figures/invert_spr_by_algae.png")
 ```
 
 ##### break  
 
 ```{r vector-plots, fig.align='center', out.width="55%", echo=FALSE, message=FALSE, fig.cap="NEEDS CAPTION"}
-
-knitr::include_graphics("figures/community_vector_plots.jpg")
+knitr::include_graphics("figures/community_vector_plots.png")
 ```
 
 ##### break  
