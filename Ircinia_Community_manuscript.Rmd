@@ -138,14 +138,14 @@ Seagrass productivity was calculated by multiplying the average  growth per shoo
 Seagrass structure was calculated as the number of seagrass shoots (i.e. shoot density) for all seagrass species (*Halodule wrightii, Syringodium filiforme, and T. testudinum*) in 20 × 20  cm “sub-quadrats” at each sampling event.
 Macroalgal structure was calculated as the total macroalgal abundance across all taxa at each sampling event.
 Drift algae was not included. 
-Seagrass productivity, seagrass structure, and macroalgal structure were centred and standardized by two standard deviations in order to allow effect size comparisons between continuous and factor covariates within models [@Schielzeth2011]. \par
+Seagrass productivity, seagrass structure, and macroalgal structure were centred and standardized by two standard deviations in order to allow effect size comparisons between continuous and factor covariates within models [@Schielzeth2010]. \par
 
 ## Statistical Analyses
 
 *Total abundance and species richness*
 
 <!-- Not sure if this sentence works better here or at the end? -->
-All statistical analyses were conducted in R version 4.1.0 [@rcoreteam2021]. 
+All statistical analyses were conducted in R version 4.1.0 [@RCoreTeam2021]. 
 First we used analysis of variance (ANOVA) to confirm that none of the faunal groups differed in total abundance or species richness between the treatment groups at the start of the experiment (sampling month = 0).
 <!-- We need to start with a clear statement of what the variables being analyzed here are...  -->
 Next, we tested for differences in overall abundance and species richness of fish, non-clonal invertebrates, and clonal invertebrates among treatments using univariate Generalized Linear Mixed Models (GLMMs), with the sponge treatment plots as the reference level.
