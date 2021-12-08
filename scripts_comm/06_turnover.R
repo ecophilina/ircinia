@@ -431,7 +431,8 @@ layout2b <- c(
 
 cspr + l1 + p1c + p12c + l3 + plot_layout(design=layout2b)
 ggsave("figures/turnover-plots-tunicates2.jpg", width = 10, height = 9)
-
+ggsave("figures/turnover-plots-tunicates2.png", width = 10, height = 9)
+ggsave("figures/turnover-plots-tunicates2.pdf", width = 10, height = 9)
 
 #### make combined plot for fish and inverts only ####
 
