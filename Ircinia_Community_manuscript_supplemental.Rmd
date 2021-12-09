@@ -44,7 +44,7 @@ Figure S1. Illustrates the experimental design and sampling scheme. Data was col
 knitr::include_graphics("figures/turnover-plots-tunicates2.jpg")
 ```
 
-Figure S2. Change in clonal invertebrate species richness and the components of species turnover from start of experiment to the first experimental sample (1 month into experiment), and between that first experimental sample and one year later (12 months into experiment). All species encountered were tunicates.   
+Figure S2. Change in clonal invertebrate taxa richness and the components of species turnover from start of experiment to the first experimental sample (1 month into experiment), and between that first experimental sample and one year later (12 months into experiment). All species encountered were tunicates.   
 
 \clearpage
 
@@ -57,10 +57,10 @@ knitr::kable(fish.models[,c(-1:-2,-7,-10)],
              # escape = FALSE,
     col.names = c("","k","AICc","Delta AICc",
                   "Akaike Weight","LL"),
-    caption="Table S1. All models tested evaluating competing hypotheses of the drivers of fish abundance and species richness.")%>%
+    caption="Table S1. All models tested evaluating competing hypotheses of the drivers of fish abundance and taxa richness.")%>%
   kableExtra::kable_styling(latex_options = "scale_down",font_size=11)%>%
   kableExtra::pack_rows("Abundance",1,14)%>%
-  kableExtra::pack_rows("Species Richness",15,28)
+  kableExtra::pack_rows("Taxa Richness",15,28)
 ```
 
 \clearpage
@@ -72,21 +72,24 @@ knitr::kable(invert.models[,c(-1:-2,-7,-10)],
              # escape = FALSE,
     col.names = c("","k","AICc","Delta AICc",
                   "Akaike Weight","LL"),
-    caption="Table S2. All models tested evaluating competing hypotheses of the drivers of non-clonal invertebrate abundance and species richness.")%>%
+    caption="Table S2. All models tested evaluating competing hypotheses of the drivers of non-clonal invertebrate abundance and taxa richness.")%>%
   kable_styling(latex_options = "scale_down",font_size=11)%>%
   pack_rows("Abundance",1,14)%>%
-  pack_rows("Species Richness",15,28)
+  pack_rows("Taxa Richness",15,28)
 ```
 
 \clearpage
 
 ```{r clonaltab}
-knitr::kable(cispr[,c(-1:-2,-7,-10)],
+cispr2<-cispr[,c(-1:-2,-7,-10)]
+rownames(cispr2)<-NULL
+knitr::kable(cispr2,
              booktabs=T,
              # escape = FALSE,
     col.names = c("","k","AICc","Delta AIC_c",
                   "Akaike Weight","LL"),
-    caption="Table S3. All models tested evaluating competing hypotheses of the drivers of clonal invertebrate species richness.")%>%
-  kable_styling(latex_options = "scale_down",font_size=11)
+    caption="Table S3. All models tested evaluating competing hypotheses of the drivers of clonal invertebrate taxa richness.")%>%
+  kable_styling(latex_options = "scale_down",font_size=11)%>%
+  pack_rows("Taxa Richness",1,14)
 ```
 
