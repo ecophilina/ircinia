@@ -152,11 +152,13 @@ Next, we tested for differences in overall abundance and species richness of fis
 <!-- Univariate analysis was performed on three community groups: fish, non-clonal invertebrates, and clonal invertebrates.  -->
 <!-- The groups were assessed for differences among treatment types using a generalized linear mixed model, with the sponge treatment plots as the reference level. -->
 We chose multiple model configurations to represent the biological hypotheses that could best explain community changes within treatment plots.
-Specifically, treatment (i.e. sponge presence), seagrass productivity, seagrass structure, and macroalgal structure were each modeled separately and additively to represent sponge presence alone, three parts of primary production within the seagrass system, and the combined effects of changes in primary production and other influences from the presence of the sponge (Table S1-3).
-Models also included a random effect for plot, sampling month as a factor, and for models including treatment an interaction between treatment and time.
+Specifically, treatment (i.e. sponge presence), seagrass productivity, seagrass structure, and macroalgal structure were each modeled separately and additively to represent sponge presence alone, three parts of primary production within the seagrass system, and the combined effects of changes in primary production and ~~other influences from~~ the presence of the sponge (Table S1-3).
+<!-- When we are close to finalizing the text I think it will be a good idea to go through the manuscript and review where we refer to treatment vs sponge presence. I am not sure exactly where it should happen but I think we should at some point transition into calling it sponge presence (to remind people what it is we're actually trying to test there) and then be consistent from there on out. -->
+Additionally, all models included a random effect for plot, sampling month as a factor, and for models including treatment an interaction between treatment and time.
 <!-- Plot (as a random variable) and sampling were included in every model as predictor variables. -->
 <!-- When treatment and sampling event were both in a model, an interaction was accounted for.  -->
 All models were fit with a Conway–Maxwell–Poisson distribution, parametrized via the mean and a log link, and implemented using the glmmTMB package [@Brooks2017; @Huang2017].
+<!-- Add statement about reviewing residuals-->
 We used the package AICcmodavg [@Mazerolle2020] to create a model selection tables based on Akaike Information Criterion scores (AICc).
 All models within two delta AICc of the best supported model are considered to be well-supported.\par
 <!-- The model with the lowest AICc value was selected in the final analyses **Table 1**, however, models that were within two delta AICc's away from this model were further analyzed for thoroughness (see discussion and S1).\par -->
@@ -169,17 +171,18 @@ We assessed both components of taxa turnover separately for each faunal group in
 
 *Compositional Vectors*
 
-To assess community changes in a way that simultaneously accounts for changes in species richness and abundance, we calculated compositional vectors for each faunal group in each plot. 
+To assess community changes in a way that simultaneously accounts for changes in species richness and abundance, we calculated compositional vectors for each faunal group in each plot. <!-- reference the McCune book here-->
 <!-- To assess community changes in treatments across time (from 0 to 12 months into the experiment), compositional vectors were calculated for each plot in the fish, non-clonal invertebrate, and clonal invertebrate communities. -->
 We used Hellinger's transformation to help minimize the effect of vast differences in abundance between taxa *(Legendre & Gallagher 2001)*.
 We then conducted a principal components analysis (unconstrained by environmental predictors) using the `rda()` function in the vegan package [@Oksanen2020].
 <!-- First, for each type of community data, a Hellinger's transformation was performed followed by an RDA using the vegan package(@Oksanen2020). -->
-The scores from this analysis were used to calculate a vector length and angle for each plot as per *Mccune[]*. 
-An ANOVA was performed on each community's vector length and angle to test significant differences among treatments (sponge treatment as the reference level).
-<!-- Do you think we need to cite base R package, stats, separately if we have already stated that all analyses were conducted in R? -->
-When significance occurred, a post-hoc analysis via a Tukey test was then performed to look at the differences in vector length and angle among treatments.
+The scores from this analysis were used to calculate a vector length and angle **from 0 to 12 months into the experiment** for each plot as per *Mccune[]*. 
+<!-- not sure if this is the best wording, but I think its important to make it clear the what the vectors are - they are the line from sampling point 0 to 12 for each plot-->
+An ANOVA was performed on each community's <!-- need to be consistent here, each community or faunal group - I think I've seen faunal group more and don't mind that at all -->vector length and angle to test significant differences among treatments (sponge treatment as the reference level).
+<!-- Do you think we need to cite base R package, stats, separately if we have already stated that all analyses were conducted in R? --> <!-- Nope I think you're good.-->
+When significance occurred <!-- This wording is a bit awkard - maybe "When there were significant differences..."? -->, a post-hoc analysis via a Tukey *Honest Significant Difference* test was then performed to look at the differences in vector length and angle among treatments.
 <!-- Is species space meaningful here, when we don't display species? If so, could it be explained a bit more? -->
-For visual purposes, all vectors were standardized to the same initial position and then plotted across species space to show how much a community changed over time (i.e. vector length) and in which direction across species space the community shifted towards (i.e. vector angle).\par
+For visualization purposes, all vectors were standardized to the same initial position and then plotted ~~across species space~~ <!-- These vectors aren't actually in species space anymore, that's why it was impossible to add the species onto these plots like we initially invisioned-->to show how much a community changed over time (i.e. vector length) and in which direction across species space <!-- I think its fine to leave species space here, because the angle was calculated in species space, its just that the final visualization isn't in species space--> the community shifted (i.e. vector angle).\par
 
 Throughout the results we present effect sizes and 95% confidence intervals. 
 All test statistics and p-values can be found in the supplemental material.\par
@@ -268,15 +271,15 @@ tukey.res<-function(rtable,row){
 
 *Fish*  
 
-<!-- I think we need to start with some descriptive statistics, but not sure if this works  -->
+<!-- I think we need to start with some descriptive statistics, but not sure if this works  --> <!-- yes, we could add the total number of fish species seen across the study if we want. -->
 At the start of the experiment between 0 and 2 individual fish, never of the same species, were found in each plot (mean = `r round(mean(fish.uni[fish.uni$sampling == 0, ]$f.abund),1)`). 
 Slippery Dick (**relpace with scientific name**) were the most common species. 
-One month later, the maximum number of individuals or species was up to 4 (mean abundance = `r round(mean(fish.uni[fish.uni$sampling == 1, ]$f.abund),1)` and mean richness = `r round(mean(fish.uni[fish.uni$sampling == 1, ]$spr),1)`) with Slippery Dick (**relpace with scientific name**) remaining most abundant species.
-By the second summer of the experiment, the maximum number of individuals had increased to 7, belonging as many as 6 different species (mean abundance = `r round(mean(fish.uni[fish.uni$sampling == 12, ]$f.abund),1)` and mean richness = `r round(mean(fish.uni[fish.uni$sampling == 12, ]$spr),1)`) and Grunts (**relpace with scientific name**) were slightly more abundant than Slippery Dicks (**relpace with scientific name**). 
+One month later, the maximum number of individuals or species <!-- what? this is confusing me, I think separating out talking about abundance and richness might work better here. -->was up to 4 (mean abundance = `r round(mean(fish.uni[fish.uni$sampling == 1, ]$f.abund),1)` and mean richness = `r round(mean(fish.uni[fish.uni$sampling == 1, ]$spr),1)`) with Slippery Dick (**relpace with scientific name**) remaining most abundant species <!-- across treatment types?-->.
+By the second summer of the experiment, the maximum number of individuals had increased to 7, belonging as many as 6 different species (mean abundance = `r round(mean(fish.uni[fish.uni$sampling == 12, ]$f.abund),1)` and mean richness = `r round(mean(fish.uni[fish.uni$sampling == 12, ]$spr),1)`) and Grunts (**relpace with scientific name**) were slightly more abundant than Slippery Dicks (**relpace with scientific name**). <!-- you typically see means discussed with ranges and variance in the parentheticals -->
 
 <!-- I've added the overall model results first ... -->
-These changes in fish abundance and species richness were best explained by the treatment effect of sponge presence (Table 1), such that in the presence of a sponge fish abundance and species richness increased throughout the experiment (total abundance: $\beta$ = `r efsize.tmb(fa.treat.sum,4)` and $\beta$ = `r efsize.tmb(fa.treat.sum,5)` at 1 and 12 months respectively, Fig. \@ref(fig:ab-plots); species richness: $\beta$ = `r efsize.tmb(fspr.treat.sum,4)` and $\beta$ = `r efsize.tmb(fspr.treat.sum,5)` at 1 and 12 months respectively, Fig. \@ref(fig:turnover-plots)A).
-<!-- Because we seem to have saved only the summary with sponge as reference, these coefficients aren't described correctly. These betas and CI represent the difference between month 12 in the real plots and month 12 in the control plots. I think it means this? -->
+These changes in fish abundance and species richness were best explained by the treatment effect of sponge presence (Table 1 <!-- Add reference to supplemental tables here too-->), such that in the presence of a sponge fish abundance and species richness increased throughout the experiment (total abundance: $\beta$ = `r efsize.tmb(fa.treat.sum,4)` and $\beta$ = `r efsize.tmb(fa.treat.sum,5)` at 1 and 12 months respectively, Fig. \@ref(fig:ab-plots); species richness: $\beta$ = `r efsize.tmb(fspr.treat.sum,4)` and $\beta$ = `r efsize.tmb(fspr.treat.sum,5)` at 1 and 12 months respectively, Fig. \@ref(fig:turnover-plots)A).
+<!-- Because we seem to have saved only the summary with sponge as reference, these coefficients aren't described correctly. These betas and CI represent the difference between month 12 in the real plots and month 12 in the control plots. I think it means this? --> <!-- what?-->
 In contrast, changes were non-significant for both control and structure plots (**we could add stats here by saving models with different reference treatments**, Figs. \@ref(fig:ab-plots) and \@ref(fig:turnover-plots)A).
 Only control plots ultimately differed significantly from sponge plots and this was not until the 12 month sample (total abundance: $\beta$ = `r efsize.tmb(fa.treat.sum,8)`; species richness: $\beta$ = `r efsize.tmb(fspr.treat.sum,8)`).\par
 
@@ -287,7 +290,7 @@ Only control plots ultimately differed significantly from sponge plots and this 
 
 *Invertebrates*
 
-<!-- I noticed something called ground tunicate in the non-clonal dataframe. Is it supposed to be there? -->
+<!-- I noticed something called ground tunicate in the non-clonal dataframe. Is it supposed to be there? --> <!-- yes, its a solitary tunicate-->
 At the start of the experiment between 0 and 4 individuals of non-clonal invertebrates from up to 3 species were found in each plot (mean abundance = `r round(mean(inv.uni[inv.uni$sampling == 0, ]$i.abund),1)` and mean richness = `r round(mean(inv.uni[inv.uni$sampling == 0, ]$spr),1)`). 
 Snails were the most abundant taxa. 
 One month later, the maximum number of individuals was up to `r range(inv.uni[inv.uni$sampling == 1, ]$i.abund)[2]` of up to `r range(inv.uni[inv.uni$sampling == 1, ]$spr)[2]` different species (mean abundance = `r round(mean(inv.uni[inv.uni$sampling == 1, ]$i.abund),1)` and mean richness = `r round(mean(inv.uni[inv.uni$sampling == 1, ]$spr),1)`) with more anemones and ceriths recorded than snails.
