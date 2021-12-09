@@ -299,12 +299,12 @@ By the second summer of the experiment, the maximum number of individuals was `r
 Changes in non-clonal invertebrate abundance and species richness were also best explained by the treatment effect of sponge presence, but in both cases other models were equally well-supported (Table \@ref(table)).
 Abundance of non-clonal invertebrates significantly increased after 1 and 12 months in the presence of a sponge ($\beta$ = `r efsize.tmb(ia.treat.sum,4)` and $\beta$ = `r efsize.tmb(ia.treat.sum,5)` respectively, Fig. \@ref(fig:ab-plots)), but only after 12 months were abundances significantly lower in both control and structure plots than in sponge plots ($\beta$ = `r efsize.tmb(ia.treat.sum,8)` and $\beta$ = `r efsize.tmb(ia.treat.sum,9)` respectively).
 Seagrass productivity appears to explain some of this change ($\beta$ = `r efsize.tmb(ia.treat.prod.sum,6)`), but there was still a significant difference between structure and live sponge treatments after accounting for the differences in seagrass productivity ($\beta$ = `r efsize.tmb(ia.treat.prod.sum,10)`).
-Likewise, the model included seagrass structure was well-supported (Table 1); however, it's contribution does not quite reach significance ($\beta$ = `r efsize.tmb(ia.treat.struct.sum,6)`) suggesting that new growth has some impact on the non-clonal invertebrate abundance beyond changes in stem density alone. 
+Likewise, the model including seagrass structure was well-supported (Table 1); however, it's contribution does not reach significance ($\beta$ = `r efsize.tmb(ia.treat.struct.sum,6)`) suggesting that new growth <!-- suggest changing this to productivity and ending the sentence after abundance.--> has some impact on the non-clonal invertebrate abundance beyond changes in stem density alone. 
 Species richness also increased over time in the presence of a sponge ($\beta$ = `r efsize.tmb(ispr.treat.sum,4)` at 1 month and $\beta$ = `r efsize.tmb(ispr.treat.sum,5)` at 12 months, Fig. \@ref(fig:turnover-plots)).
 After 12 months richness was found to be lower in both control and structure plots than in the sponge plots, although only significantly so for the latter (control: $\beta$ = `r efsize.tmb(ispr.treat.sum,8)`; structure: $\beta$ = `r efsize.tmb(ispr.treat.sum,9)`).
-However, this time the other well-supported model did not include a treatment effect suggesting that much of the effect of sponge might be accounted for by through differences in macroalgal structure facilitated by the presence of a sponge ($\beta$ = `r efsize.tmb(ispr.alg.sum,4)`; Fig. \@ref(fig:inverts-by-algae)).
+However, this time the other well-supported model did not include a treatment effect suggesting that much of the effect of sponge might be accounted for by through differences in macroalgal structure facilitated by the presence of a sponge ($\beta$ = `r efsize.tmb(ispr.alg.sum,4)`; Fig. \@ref(fig:inverts-by-algae)).<!-- reference our other paper here-->
 
-We observed a maximum of 3 species of tunicate (they only type of clonal invertebrate found) in any plot at any one time. 
+We observed a maximum of 3 species of colonial tunicates (they only type of clonal invertebrate found) in any plot at any one time. 
 Tunicate species richness did not change over time for any of the treatments and no covariates showed significant relationships in any of our candidate models (Table 1 and Fig. S2).
 
 
@@ -339,18 +339,18 @@ The post-hoc analysis of the vector angles showed no significant difference in t
 Contrastingly, there were differences in the direction of the communities across species space between the structure and sponge as well as between the structure and control, with structure plots having less change in communities across species space than both sponge or control (structure-sponge: `r tukey.res(fish.vl.aov.tuk,2)` ; structure-control `r tukey.res(fish.vl.aov.tuk,3)`). \par
 
 By 12 months into the experiment, the non-clonal invertebrate communities per plot had no differences across treatments for vector length and angle, meaning they did not differ in the amount of change over time nor in direction of change across species space (vector length:  F~`r aov.df2(inv.vl.aov.sum,1)`~ `r aov.res(inv.vl.aov.sum,1)`; vector angle: F~`r aov.df2(inv.angle.aov.sum,1)`~ `r aov.res(inv.angle.aov.sum,1)`). 
-Because there were no statistical differences, post-hoc analysis was not performed on the non-clonal invertebrates. \par
+~~Because there were no statistical differences, post-hoc analysis was not performed on the non-clonal invertebrates.~~ \par
 
 Like the non-clonal invertebrates, the clonal invertebrate communities did not differ among treatments in the amount of change over time nor in the direction of change across species space (vector length:  F~`r aov.df2(col.inv.vl.aov.sum,1)`~ `r aov.res(col.inv.vl.aov.sum,1)`; vector angle: F~`r aov.df2(col.inv.angle.aov.sum,1)`~ `r aov.res(col.inv.angle.aov.sum,1)`). 
-Thus, no post-hoc analysis was performed on this group. \par
+~~Thus, no post-hoc analysis was performed on this group.~~ \par
 
 <!-- ##### break   -->
 
 # Discussion  
 
 Ecosystem engineers can affect habitat structure, resource availability and location, and community structure and dynamics [@Jones1994; @Anderson1992; @Byers2006].
-Here we present, to the best of our knowledge, the first in situ experiment testing the affect of the presence of *I. felix* on species richness, abundance, species turnover, and community compositional vectors as an ecosystem engineer in a subtropical seagrass ecosystem over a 1.5 year experiment.
-We found that sponge presence alone explained the most variance in fish and non-clonal invertebrate communities, while no changes in the clonal invertebrate community was detected.
+Here we present, to the best of our knowledge, the first *in situ* experiment testing the affect of the presence of *I. felix* on species richness, abundance, species turnover, and community compositional vectors as an ecosystem engineer in a subtropical seagrass ecosystem over a 1.5 year experiment.<!-- Extremely specific. I'd say break into two sentences, first about what we tested overall and second about how we did that i.e., we tested whether sponges act as ecosystem engineers in seagrass beds. We did this by examining the effect of I. felix on...-->
+We found that sponge presence alone explained the most variance in fish and non-clonal invertebrate communities, while no changes in the clonal invertebrate community were detected.
 In fish and non-clonal invertebrates, species richness and abundance increased over time with the presence of *I. felix* while decreasing or remaining the non-significantly changed without the sponge presence in seagrass ecosystems. 
 Overtime, sponge presence increased species gained for fish and non-clonal invertebrates, while showing little to no change in species turnover for clonal invertebrates.
 Finally, we found that sponge presence shifted the entire fish community over time and across species space. \par
@@ -359,12 +359,12 @@ This study presents the marine sponge, *I. felix*, as a single organism capable 
 Although the sponge presence model explained the most variance among species richness and abundance in fish and non-clonal invertebrates, there were several models that fell within less than 2 delta AICc values for non-clonal invertebrates that cannot be ruled out **Table 1**.
 First, for non-clonal invertebrate abundance, the sponge presence model had two closely competing models: sponge presence + seagrass productivity and sponge presence + seagrass structure.
 Both of the models contained sponge presence as a predictor variable.
-Also, it is worth noting that the model including all three variables (sponge presence + seagrass productivity + seagrass structure) did not fall within 2 delta AICc of the top model.
+Also, it is worth noting that the model including all three variables (sponge presence + seagrass productivity + seagrass structure) did not fall within 2 delta AICc of the top model. <!-- Explain why that is worth noting-->
 Further examination of the results of the sponge presence + seagrass productivity and sponge presence + seagrass structure showed non-clonal invertebrate abundance significantly increasing in the “sponge” treatment plots and either significantly decreasing or no significant changes in abundance in the “structure” and “control” treatment plots over time (SX). 
 These results parallel the results in the sponge presence model. 
 For non-clonal invertebrate species richness examination, only one other model was within 2 delta AICc of the sponge presence model: macroalgal structure. 
-The macroalgal structure model showed that non-clonal invertebrate species richness increased over time as macroalgal structure increased, regardless of the treatment the plot was given.
-Notably, in Archer et al.[2021], macroalgal abundance (i.e. macroalgal structure) significantly increased over time in the presence of *I. felix*. \par
+The macroalgal structure model showed that non-clonal invertebrate species richness increased over time as macroalgal structure increased, regardless of the treatment the plot was given. 
+Notably, in Archer et al.[2021], macroalgal structure significantly increased over time in the presence of *I. felix*. \par
 
 For clonal invertebrate species richness the top three models were seagrass structure, macroalgal structure, and seagrass productivity, respectively.
 All three models showed no significant changes in clonal invertebrate species richness across time or treatment plots. 
@@ -390,7 +390,7 @@ However, sponge treatment plots clonal invertebrate communities shifted in simil
 We studied the effect of the presence of an ecosystem engineer, *I felix*, on species richness, abundance, turnover, and community composition in low impact seagrass beds and found that sponge presence can increase species richness and abundance, maintain turnover rates, and shift fish communities.
 Thus, this study is another in situ example of how an ecosystem engineer can affect an entire community while other ecosystem engineers exist within that system.
 Additional research is needed to explore which aspects of *I. felix* influences seagrass bed communities, and if the affect changes in impacted systems. \par
-
+<!-- Need to add in comparisons to what is known about how other ecosystem engineers (particularly structure forming ones) contribute to biodiversity. And bring in any other literature about sponge effects on biodiversity in other systems-->
 
 # Acknowledgements  
 We would like to thank Friends of the Environment (NGO, Abaco, The Bahamas), Diane Claridge and Charlotte Dunn for their logistical support, Erik Archer, Elizabeth Whitman, and Ryann Rossi for their assistance in the field, and Katie Lewia and Jillian Tucker for their assistance in the lab, and the reviewers for their help improving this manuscript. This work was supported by donations from Win and Tana Archer, North Carolina State University, and NSF OCE 1405198.\par
