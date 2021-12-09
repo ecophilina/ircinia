@@ -460,7 +460,7 @@ ldat3$appearance <- c(0.66, 0.72, 0.79)
 #### make combined plot for fish and inverts only ####
 
 # remove axes so I can add global ones
-(p1 <- p1 + theme(axis.title.x = element_blank(),axis.title.y = element_blank()))
+(p1 <- p1 + theme(axis.title.x = element_blank(), axis.title.y = element_blank()))
 (p12 <- p12 + theme(axis.title.x = element_blank()))
 
 layout<-c(
@@ -491,11 +491,11 @@ wrap_elements(grid::textGrob("Taxa Richness",rot=90,vjust =2,gp=gpar(fontsize=16
   plot_annotation( # using to add tag that wouldn't cooperate otherwise
     title = '    A.', theme = theme(plot.title = element_text(size = 16, vjust = -3))
   )
-
-ggsave("figures/Species_Richness_Turnover_A_B.jpg",dpi=300,width=8,height=9.5)
-ggsave("figures/Species_Richness_Turnover_A_B.png",dpi=300,width=8,height=9.5)
-ggsave("figures/Species_Richness_Turnover_A_B.pdf",dpi=300,width=8,height=9.5)
-
+# 
+# ggsave("figures/Species_Richness_Turnover_A_B.jpg",dpi=300,width=8,height=9.5)
+# ggsave("figures/Species_Richness_Turnover_A_B.png",dpi=300,width=8,height=9.5)
+# ggsave("figures/Species_Richness_Turnover_A_B.pdf",dpi=300,width=8,height=9.5)
+# 
 
 
 # update tunicates to match layout of Fish and Inverts
@@ -511,8 +511,8 @@ layout2c<-c(
   area(t=1,b=5,l=2,r=5),# clonal richness plot
   area(t=7,b=11,l=2,r=4), # 1 month turnover
   area(t=7,b=11,l=5,r=7), # 12 months turnover
-  area(t=2,b=3,l=6,r=7), # treatment legend
-  area(t=5,b=7,l=6,r=7), # animal richness legend
+  area(t=2,b=3,l=5,r=6), # treatment legend
+  area(t=4,b=7,l=6,r=7), # animal richness legend
   # area(t=0,b=1,l=1,r=1),# A. tag (but positioning didn't work so use title option in plot_annotation to add this)
   area(t=6,b=7,l=1,r=1)# B. tag
 )
@@ -530,10 +530,10 @@ wrap_elements(grid::textGrob("Taxa Richness",rot=90,vjust =2,gp=gpar(fontsize=16
     title = '    A.', theme = theme(plot.title = element_text(size = 16, vjust = -3))
   )
 
-
-ggsave("figures/turnover-plots-tunicates2.jpg",dpi=300,width=8,height=9.5)
-ggsave("figures/turnover-plots-tunicates2.png",dpi=300,width=8,height=9.5)
-ggsave("figures/turnover-plots-tunicates2.pdf",dpi=300,width=8,height=9.5)
+# 
+# ggsave("figures/turnover-plots-tunicates2.jpg",dpi=300,width=8,height=9.5)
+# ggsave("figures/turnover-plots-tunicates2.png",dpi=300,width=8,height=9.5)
+# ggsave("figures/turnover-plots-tunicates2.pdf",dpi=300,width=8,height=9.5)
 
 
 
@@ -620,6 +620,6 @@ wrap_elements(grid::textGrob("Abundance",rot=90,vjust =1,gp=gpar(fontsize=16))) 
                                gp=gpar(fontsize=16))) +
   l1+
   plot_layout(design=layouta)
-
-ggsave("figures/fish_ncinvert_abundance figure.png", width = 7, height = 5)
-ggsave("figures/fish_ncinvert_abundance figure.pdf", width = 7, height = 5)
+# 
+# ggsave("figures/fish_ncinvert_abundance figure.png", width = 7, height = 5)
+# ggsave("figures/fish_ncinvert_abundance figure.pdf", width = 7, height = 5)
