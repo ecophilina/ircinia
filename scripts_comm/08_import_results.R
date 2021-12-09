@@ -32,11 +32,11 @@ ia.treat.prod.sum<-read_rds("working_data/InvAbundTreatProdSum.rds")
 ia.treat.struct.sum<-read_rds("working_data/InvAbundTreatStructSum.rds")
 
 #turnover
-invgain1<-read_rds("wdata/invgain1.rds")
-invgain12<-read_rds("wdata/invgain12.rds")
-invloss1<-read_rds("wdata/invloss1.rds")
-invloss12<-read_rds("wdata/invloss12.rds")
-invgain12.tuk<-read_rds("wdata/invgain12_tukey.rds")
+invgain1<-read_rds("working_data/invgain1.rds")
+invgain12<-read_rds("working_data/invgain12.rds")
+invloss1<-read_rds("working_data/invloss1.rds")
+invloss12<-read_rds("working_data/invloss12.rds")
+invgain12.tuk<-read_rds("working_data/invgain12_tukey.rds")
 
 
 #compositional vectors
@@ -54,12 +54,12 @@ fabund.aic<-read_rds("working_data/FishAbundAIC.rds")
 fa.treat.sum<-read_rds("working_data/FishAbundTreatSum.rds")
 
 # turnover
-fishgain1<-read_rds("wdata/fishgain1.rds")
-fishgain12<-read_rds("wdata/fishgain12.rds")
-fishloss1<-read_rds("wdata/fishloss1.rds")
-fishloss12<-read_rds("wdata/fishloss12.rds")
-fishgain12.tuk<-read_rds("wdata/fishgain12_tukey.rds")
-fishloss12.tuk<-read_rds("wdata/fishloss12_tukey.rds")
+fishgain1<-read_rds("working_data/fishgain1.rds")
+fishgain12<-read_rds("working_data/fishgain12.rds")
+fishloss1<-read_rds("working_data/fishloss1.rds")
+fishloss12<-read_rds("working_data/fishloss12.rds")
+fishgain12.tuk<-read_rds("working_data/fishgain12_tukey.rds")
+fishloss12.tuk<-read_rds("working_data/fishloss12_tukey.rds")
 
 #compositional vectors
 fish.vl.aov.sum<-read_rds("working_data/FishVLSum.rds")
