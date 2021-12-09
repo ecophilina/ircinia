@@ -192,7 +192,7 @@ clonalpng <- image_data("dbbf1325-10e5-4880-a27b-2d9afb5dc55c", size = 256)[[1]]
 # library(png)
 # fishpng <- readPNG("scripts_comm/Hyperprosopon_argenteum.png")
 
-#### plot species richness vs time ####
+#### plot Taxa Richness vs time ####
 
 fspr.sum<-fish.uni%>%
   group_by(treatment,sampling)%>%
@@ -267,7 +267,7 @@ cspr.sum<-col.inv.uni%>%
       legend.position = "none"
     )+
     add_phylopic(crabpng,x=0.75,y=5,ysize = 3,alpha = 1)+
-    ylab("Species Richness")+
+    ylab("Taxa Richness")+
     ggtitle("Months into the Experiment"))
 
 
@@ -357,19 +357,19 @@ png_list <- list(crabpng, fishpng)
 
 # each jitter is random, so just rerun plot code if points are falling on edge of plot area
 (p1 <- plot_png(filter(turnoverdat, sampling == 1), png_list, scal_fac = c(80, 100)) +
-    ylab("Proportion of Species Gained") + xlab("Proportion of Species Lost") +
+    ylab("Proportion of Taxa Gained") + xlab("Proportion of Taxa Lost") +
     # theme(axis.title.x = element_blank(),axis.title.y = element_blank()) + # turn off if not add global axes
     theme(plot.title=element_text(hjust=0.5))+
     ggtitle("1 month"))
 
 (p12 <- plot_png(filter(turnoverdat, sampling == 12), png_list, scal_fac = c(80, 100)) + 
-    ylab("Proportion of Species Gained") +  xlab("Proportion of Species Lost") +
+    ylab("Proportion of Taxa Gained") +  xlab("Proportion of Taxa Lost") +
     # theme(axis.title.x = element_blank()) + # turn off if not add global axes
     theme(plot.title=element_text(hjust=0.5), axis.title.y = element_blank(), 
       axis.text.y = element_blank(), axis.ticks.y = element_blank())+
     ggtitle("12 months"))
 
-# create legend of sizes of shapes based on species richness 
+# create legend of sizes of shapes based on Taxa Richness 
 ldatmin <- turnoverdat %>% 
   select(group, disappearance, appearance, spr) %>%   
   mutate(disappearance = ifelse(group=="fish", 0.15, 0.44), appearance = 0.56, 
@@ -393,7 +393,7 @@ ldat <- bind_rows(ldatmin, ldatmid, ldatmax)
     geom_text( aes( x=0.3, y=ldatmid$appearance[1], label= ldatmid$spr[1])) +
     geom_text( aes( x=0.3, y=ldatmin$appearance[1], label= ldatmin$spr[1])) +
     theme_void()+ theme(plot.title = element_text(hjust = 0.5)) +
-    ggtitle("Species Richness"))
+    ggtitle("Taxa Richness"))
 
 # ## if wanting just turnover by themselves... 
 layout1 <- c(
@@ -409,12 +409,12 @@ ggsave("figures/turnover-plots-legend.png", width = 12.5, height = 6)
 
 # since tunicates show a different pattern, I'm putting them on different panels
 (p1c <- plot_png(filter(col.inv.turnover, sampling == 1), png_list = list(clonalpng), scal_fac = c(80)) +
-    ylab("Proportion of Species Gained") + xlab("Proportion of Species Lost")+
+    ylab("Proportion of Taxa Gained") + xlab("Proportion of Taxa Lost")+
     # theme(axis.title.x = element_blank(),axis.title.y = element_blank()) +
     ggtitle("1 month into experiment"))
 
 (p12c <- plot_png(filter(col.inv.turnover, sampling == 12), png_list = list(clonalpng), scal_fac = c(80)) + 
-    ylab("") + xlab("Proportion of Species Lost") +
+    ylab("") + xlab("Proportion of Taxa Lost") +
     # theme(axis.title.x = element_blank(),axis.title.y = element_blank()) +
     ggtitle("12 months into experiment") + 
     theme(axis.text.y = element_blank(),axis.ticks.y = element_blank()))
@@ -432,7 +432,7 @@ ldat3$appearance <- c(0.66, 0.72, 0.79)
     geom_text( aes( x=0.2, y=0.72, label= round(max(col.inv.turnover$spr)/2)-1)) +
     geom_text( aes( x=0.2, y=0.66, label= "0")) +
     theme_void()+ theme(plot.title = element_text(hjust = 0.5)) +
-    ggtitle("Species Richness"))
+    ggtitle("Taxa Richness"))
 
 # layout2 <- c(
 #   area(t=1, b=14, l=1, r=6),
@@ -479,7 +479,7 @@ layout<-c(
 
 plot(layout)
 
-wrap_elements(grid::textGrob("Species Richness",rot=90,vjust =2,gp=gpar(fontsize=16))) +
+wrap_elements(grid::textGrob("Taxa Richness",rot=90,vjust =2,gp=gpar(fontsize=16))) +
   wrap_elements(grid::textGrob("Proportion Gained",rot=90,vjust =2,gp=gpar(fontsize=16))) +
   wrap_elements(grid::textGrob("Proportion Lost",vjust =0,gp=gpar(fontsize=16))) +
   fspr + ispr + # richness plots
@@ -517,7 +517,7 @@ layout2c<-c(
   area(t=6,b=7,l=1,r=1)# B. tag
 )
 
-wrap_elements(grid::textGrob("Species Richness",rot=90,vjust =2,gp=gpar(fontsize=16))) +
+wrap_elements(grid::textGrob("Taxa Richness",rot=90,vjust =2,gp=gpar(fontsize=16))) +
   wrap_elements(grid::textGrob("Proportion Gained",rot=90,vjust =2,gp=gpar(fontsize=16))) +
   wrap_elements(grid::textGrob("Proportion Lost",vjust =0,gp=gpar(fontsize=16))) +
   cspr + # richness plot
