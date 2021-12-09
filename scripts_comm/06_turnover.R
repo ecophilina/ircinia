@@ -46,6 +46,18 @@ inv.turnover <- turnover(df=inv.turn,
   left_join(inv.dis)%>%
   left_join(inv.uni)
 
+inv.gain1<-aov(appearance~treatment,data=inv.appear%>%filter(sampling==1))
+inv.gain12<-aov(appearance~treatment,data=inv.appear%>%filter(sampling==12))
+inv.loss1<-aov(disappearance~treatment,data=inv.dis%>%filter(sampling==1))
+inv.loss12<-aov(disappearance~treatment,data=inv.dis%>%filter(sampling==12))
+write_rds(summary(inv.gain1),"wdata/invgain1.rds")
+write_rds(summary(inv.gain12),"wdata/invgain12.rds")
+write_rds(TukeyHSD(inv.gain12),"wdata/invgain12_tukey.rds")
+write_rds(summary(inv.loss1),"wdata/invloss1.rds")
+write_rds(summary(inv.loss12),"wdata/invloss12.rds")
+
+
+
 
 ggplot(inv.turnover)+
 #  geom_line(aes(x=sampling, y=appearance,color=treatment,group=plot))
@@ -89,6 +101,17 @@ fish.turnover <- turnover(df=fish.turn,
   mutate(plot=as.numeric(plot))%>%
   left_join(fish.dis)%>%
   left_join(fish.uni)
+
+fish.gain1<-aov(appearance~treatment,data=fish.appear%>%filter(sampling==1))
+fish.gain12<-aov(appearance~treatment,data=fish.appear%>%filter(sampling==12))
+fish.loss1<-aov(disappearance~treatment,data=fish.dis%>%filter(sampling==1))
+fish.loss12<-aov(disappearance~treatment,data=fish.dis%>%filter(sampling==12))
+write_rds(summary(fish.gain1),"wdata/fishgain1.rds")
+write_rds(summary(fish.gain12),"wdata/fishgain12.rds")
+write_rds(TukeyHSD(fish.gain12),"wdata/fishgain12_tukey.rds")
+write_rds(summary(fish.loss1),"wdata/fishloss1.rds")
+write_rds(summary(fish.loss12),"wdata/fishloss12.rds")
+write_rds(TukeyHSD(fish.loss12),"wdata/fishloss12_tukey.rds")
 
 #colonial inverts
 col.inv.turn<-col.inv.com.full%>%
