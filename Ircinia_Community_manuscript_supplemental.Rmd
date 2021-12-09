@@ -30,13 +30,12 @@ options(tinytex.verbose = TRUE)
 ```
 ***Any supplemental text including paper title?***
 
-***This first figure needs modifying to include only summer sampling periods, the plots with their assigned treatment, and the outline of the total area in which inverts, algae, and sea grass density were sampled. Also, we may want to remove the notes about fish and inverts from the version of this to go in the productivity manuscript.***
 
-```{r expdes, echo=FALSE, fig.align='center', out.width="95%", message=FALSE, warning=FALSE}
-#knitr::include_graphics("figures/Experimental design.pdf")
+```{r expdes, echo=FALSE, fig.align='left', out.width="100%", message=FALSE, warning=FALSE}
+knitr::include_graphics("figures/Experimental_design_2.pdf")
 ```
 
-Figure S1. Experimental design and sampling scheme  
+Figure S1. Illustrates the experimental design and sampling scheme. Data was collected prior to treatment establishment, and 1 and 12 months after treatments were established. Fish abundance and taxa richness were counted for whole plots. Other taxonomic groups and seagrass measurements were made in the locations indicated. 
 
 \clearpage
 
