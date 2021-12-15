@@ -25,24 +25,19 @@ Finella Campanino^1^, Philina A. English^2^, Craig A. Layman^3^, Stephanie K. Ar
 
 # Abstract  
 
-Ecosystem engineers are organisms that can have significant effects on biodiversity and community structure. 
-<!-- rather than significant, what about profound or dramatic? --> 
-<!-- I vote for profound. We can probably get by without saying "are organisms than can have" and just say "Ecosystem engineers can have profound...--> 
+Ecosystem engineers can have profound effects on biodiversity and community structure. 
 Thus, it is important to identify which organisms act as ecosystem engineers, how they interact with other ecosystem engineers, and how they affect the community surrounding them.
-Along marine coastlines at all latitudes, seagrass meadows support a wide variety of organisms. 
-<!-- Instead of "Along marine coastlines at all latitudes" we could just say "Globally" --> 
-Within these habitats, marine sponges also have the potential to act as ecosystem engineers, yet we know little about how they affect the seagrass community.
-<!-- because there are multiple taxa of seagrass saying "the seagrass community" makes it sound like we are focusing on seagrass. You've already said "within these habitats" so that makes it clear you're talking about in seagrass beds, so I would vote for changing this to "how they affect fish and invertebrate communities" --> 
-This study explores the affects of the marine sponge, *I. felix*, on **fish and invertebrate** taxa richness, abundance, ~~taxa~~ turnover, and community composition in a sub-tropical seagrass bed through a 1.5 year field experiment performed in The Bahamas.
+Globally, seagrass meadows support a wide variety of organisms. 
+Within these habitats, marine sponges also have the potential to act as ecosystem engineers, yet we know little about how they affect fish and invertebrate communities community.
+This study explores the affects of the marine sponge, *I. felix*, on fish and invertebrate taxa richness, abundance, taxa turnover, and community composition in a sub-tropical seagrass bed through a 1.5 year field experiment performed in The Bahamas.
 We recorded the fish, non-clonal invertebrate, and clonal invertebrate communities present in 5 x 5 m plots with the addition of either a live sponge, a polypropylene sponge replica (structure), or no additional structures (control). 
 Sponge presence alone explained the most variance in fish and non-clonal invertebrate communities, while no change in the clonal invertebrate community was detected.
 Fish and non-clonal invertebrate taxa richness and abundance significantly increased over time in the presence of *I. felix*, but decreased or remained stable in other plot types.
-Sponge presence slowed taxa turnover rates for fish and non-clonal invertebrates, while showing little to no change in taxa turnover for clonal invertebrates.
-<!-- OR: Sponge presence increased the number of new taxa gained and reduced the number lost for both fish and non-clonal invertebrates, but showed no impact on taxa turnover for clonal invertebrates. --> <!-- yep this version -->
+Sponge presence increased the number of new taxa gained and reduced the number lost for both fish and non-clonal invertebrates, but showed no impact on taxa turnover for clonal invertebrates.
 Finally, we found that sponge presence shifted the entire fish community over time and across taxa space.
 This experiment was conducted in a low anthropogenic impact environment; thus, further research is needed to understand how the sponge affects seagrass communities in high impact environments.\par
 
-<!-- ##### break   -->
+##### break
 
 # Introduction 
 
