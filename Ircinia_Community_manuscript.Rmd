@@ -61,14 +61,13 @@ Combined, these mechanisms suggest sponges have considerable potential to enhanc
 
 Despite their potential to significantly affect the distribution, diversity, and abundance of other organisms within their community, the effects of marine sponges on communities have long been underappreciated [@Bell2008].
 To the best of our knowledge, no research has investigated the affects of a marine sponge on the biodiversity in seagrass beds.
-Seagrass beds, along with many other biogenic habitats, are being influened by anthropogenic factors that threaten biodiversity world wide [CITATIONS]. Therefore, its important to understand what drives diversity in these systems so that we can facilitate management and restoration. To this end, we investigated the effect of sponge presence on biodiversity within a relatively undisturbed seagrass ecosystem.
+Seagrass beds, along with many other biogenic habitats, are being influened by anthropogenic factors that threaten biodiversity world wide [CITATIONS]. Therefore, its important to understand what drives diversity in these systems so that we can facilitate management and restoration. To this end, we investigated the effect of sponge presence on biodiversity within a relatively undisturbed seagrass ecosystem.\par
 ***save for later maybe: Furthermore, we also tested whether any observed effect of sponge presence could be better explained by the enhancement to the primary producers (i.e. other ecosystem engineers within the system as shown by Archer et al. [2021]), the presence of the sponge alone, or a combination of both.***
 
-\par
 
 Specifically, we investigated the impact of a moderately large sponge, *Ircinia felix*, on seagrass bed associated communities. 
 Using a 1.5 yr field-based experiment, we examined how sponge presence influenced fish and invertebrate taxa richness, abundance, taxa turnover, and community compositional vectors.
-Because seagrass bed characteristics have previously been shown to affect fish and invertebrate communities, we wanted to explore if an affect from the sponge sponge presence occured, if it was direct to the community or indirect bythe enhancement to the dominant primary producers (macroalgae and seagrasses as shown by Archer et al. [2021]).
+Because seagrass bed characteristics have previously been shown to affect fish and invertebrate communities, we explored if an affect from the sponge sponge presence occured, if it was direct to the community or indirect bythe enhancement to the dominant primary producers (macroalgae and seagrasses as shown by Archer et al. [2021]).
 If an affect on the community variables was detected, we tested whether it was better explained by the enhancement to the dominant primary producers, the presence of the sponge alone, or a combination of both.
 We predicted that seagrass beds with *I. felix* would have higher taxa richness and abundance over time than seagrass beds without *I felix* present.
 We hypothesized, if an affect was detected, that the presence of *I. felix* would affect the community more than sponge presences positice influence on the abundance of the dominant primary producers [@Archer2021].
@@ -94,34 +93,24 @@ Live sponges were monitored throughout the rest of the experiment, but no additi
 
 ## Faunal community
 
-<!-- Still in passive voice... -->
-<!-- Do we need to add any additional comments about the taxonomic levels to which any taxa groups were identified? --> <!-- should probably specify lowest possible taxanomic level and change taxa to taxa throughout -->
 <!-- Did I ever finish going through and changing taxa names to actual names and not my IDs?  remind me about this if I keep forgetting...-->
 We monitored the response of the fish and epibenthic macroinvertebrate communities throughout the course of the experiment.
 We performed three summer sampling events: one in June (0 months into the experiment) and two in July (1 and 12 months into the experiment).
 These latter experimental sampling times were designated as year 1 and year 2 of the experiment, respectively.
-On each occasion, all fish observed within each plot during a 5 min observation period were counted and recorded.
+On each occasion, all fish observed within each plot during a 5 min observation period were identified to lowest practicable taxonomic unit, counted and recorded.
 However, small silvery pelagic fishes which form large schools (e.g. fishes in the families Atherinopsidae and Clupeidae) were excluded from analyses following @Peters2015.
 The macroinvertebrate community were quantified within a 3 m x 1 m band extending from the center of the plot.
-All macroinvertebrates were identified to ~~genus~~ the lowest possible taxanomic level and recorded.
-If identification was not possible *in situ*, a representative sample was photographed and subsequently collected.
-For clonal tunicates an accurate count of individuals was not feasible; therefore clonal taxa of tunicate were assessed simply as present/absent and analyzed separately from non-clonal invertebrates.\par
-<!-- Maybe add a sentence here that states that "Fish, non-clonal invertebrates, and clonal invertebrates were therefore considered separately in all analyses." So we don't need to repeat this fact in all the following paras? --> <!-- like it -->
+All macroinvertebrates were identified to genus and recorded.
+If identification was not possible in situ, a representative sample was photographed and subsequently collected.
+For clonal tunicates an accurate count of individuals was not feasible and we recorded them as present/absent within plots. 
+Fish, non-clonal invertebrates, and clonal invertebrates were therefore considered separately in all analyses. \par
 
 ## Primary producers covariates
 
-<!-- In order to explore (if an affect by treatment was detected) what best explained the affect (i.e enhancement of primary producers, sponge alone, or combination of both) additional predictor variables needed to be accounted for. --> <!-- I find this suggested sentence a bit awkward. To me the sentence below sets up the paragraph better-->
-Archer et al. [2021] recently showed that *I. felix* can enhance primary producers in seagrass beds using this same experimental design. <!-- This should be (and is for the most part) covered above. So I suggest combining these two sentences to read something like:
-Data from Archer et al. 2021 (paper and dryad citations here) were used to calculate seagrass structure and productivity and macroalgal structure. These variables were calculated from seagrass growth and seagrass and macroalgal abundance in the same plots measured at the same time as the community variables presented here. 
+@Archer2021 recently showed that *I. felix* can enhance primary producers in seagrass beds using this same experimental design.
+Data from @Archer2021 (dryad citations) were used to calculate seagrass structure and productivity and macroalgal structure. These variables were calculated from seagrass growth and seagrass and macroalgal abundance in the same plots measured at the same time as the community variables presented here. We use this data for the primary producer variables seagrass stucture, seagrass productivity, and macroalgal structure to use in our analysis [@Archer2021].\par
 
-Then you can go into how productivity and structure variables were calculated from this data. -->
-Thus, we use this data for the primary producer variables seagrass stucture, seagrass productivity, and macroalgal structure to use in our analysis [@Archer2021].\par
-<!-- I think these next pieces are already included elsewhere. --> <!-- Agreed, 133-136 aren't needed-->
-<!-- All predictor variables included in our model investigation were: treatment, sampling event, plot, seagrass productivity, seagrass structure, and macroalgal structure.  -->
-<!-- Treatment (indicating sponge presence) was either sponge, structure, or control and was pre-assigned to individual plots prior to the experiment. -->
-<!-- Sampling event was the months into the experiment the community data was collected at each plot (either 0, 1, or 12 months into the experiment). -->
-<!-- Plot was a number 1-15 pre-assigned to sampling units prior to the experiment. -->
-Seagrass productivity was calculated by multiplying the average  growth per shoot by the total shoot density for *Thalassia testudinum*.
+Seagrass productivity was calculated by multiplying the average growth per shoot by the total shoot density for *Thalassia testudinum*.
 Seagrass structure was calculated as the number of seagrass shoots (i.e. shoot density) for all seagrass species (*Halodule wrightii, Syringodium filiforme, and T. testudinum*) in 20 × 20  cm “sub-quadrats” at each sampling event.
 Macroalgal structure was calculated as the total macroalgal abundance across all taxa at each sampling event.
 Drift algae was not included. 
