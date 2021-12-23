@@ -124,9 +124,9 @@ All statistical analyses were conducted in R version 4.1.0 [@RCoreTeam2021].
 
 *Total abundance and taxa richness*
 
-We analyzed total abundance and taxa richness on three faunal community: fish, non-clonal invertebrates, and clonal invertebrates.
-First, we used analysis of variance (ANOVA) to confirm that none of the faunal community differed in total abundance or taxa richness between the treatment plot types at the start of the experiment (sampling month = 0).
-Next, we tested for differences in overall abundance and taxa richness of each faunal community among treatments using univariate Generalized Linear Mixed Models (GLMMs), with the sponge presence as the reference level.
+We analyzed total abundance and taxa richness on three faunal communities: fish, non-clonal invertebrates, and clonal invertebrates.
+First, we used analysis of variance (ANOVA) to confirm that none of the faunal communities differed in total abundance or taxa richness between the treatment plot types at the start of the experiment (sampling month = 0).
+Next, we tested for differences in overall abundance and taxa richness of each faunal community among treatments using univariate Generalized Linear Mixed Models (GLMMs), with sponge presence as the reference level.
 We chose multiple model configurations to represent the biological hypotheses that could best explain community changes within seagrass plots.
 Specifically, sponge presence, seagrass productivity, seagrass structure, and macroalgal structure were each modeled separately and additively to represent sponge presence alone, three parts of primary production within the seagrass system, and the combined effects of changes in primary production and the presence of the sponge (Table S1-3).
 Additionally, all models included a random effect for plot, sampling month as a factor, and for models including treatment an interaction between treatment and time.
@@ -143,7 +143,7 @@ We assessed both components of taxa turnover separately for each faunal communit
 
 *Compositional Vectors*
 
-To assess community changes in a way that simultaneously accounts for changes in taxa richness and abundance, we calculated compositional vectors for each faunal community in each plot [@Mccune2002].
+To assess community changes in a way that simultaneously accounts for changes in taxa richness, taxa identity, and (when available) abundance, we calculated compositional vectors for each faunal community in each plot [@Mccune2002].
 We used Hellinger's transformation to help minimize the effect of vast differences in abundance between taxa [@Legendre2001].
 We then conducted a principal components analysis (unconstrained by environmental predictors) using the `rda()` function in the vegan package [@Oksanen2020].
 The scores from this analysis were used to calculate a vector length and angle from 0 to 12 months into the experiment for each plot as per @Mccune2002. 
@@ -238,34 +238,30 @@ tukey.res<-function(rtable,row){
 
 *Fish*  
 
-<!-- I think we need to start with some descriptive statistics, but not sure if this works  --> <!-- yes, we could add the total number of fish taxa seen across the study if we want. -->
+Throughout the experiment, a total of ____ fish taxa were seen.
 At the start of the experiment between 0 and 2 individual fish, never of the same taxa, were found in each plot (mean = `r round(mean(fish.uni[fish.uni$sampling == 0, ]$f.abund),1)`). 
 Slippery Dick (**relpace with scientific name**) were the most common taxa. 
-One month later, the maximum number of individuals or taxa <!-- what? this is confusing me, I think separating out talking about abundance and richness might work better here. -->was up to 4 (mean abundance = `r round(mean(fish.uni[fish.uni$sampling == 1, ]$f.abund),1)` and mean richness = `r round(mean(fish.uni[fish.uni$sampling == 1, ]$spr),1)`) with Slippery Dick (**relpace with scientific name**) remaining most abundant taxa <!-- across treatment types?-->.
-By the second summer of the experiment, the maximum number of individuals had increased to 7, belonging as many as 6 different taxa (mean abundance = `r round(mean(fish.uni[fish.uni$sampling == 12, ]$f.abund),1)` and mean richness = `r round(mean(fish.uni[fish.uni$sampling == 12, ]$spr),1)`) and Grunts (**relpace with scientific name**) were slightly more abundant than Slippery Dicks (**relpace with scientific name**). <!-- you typically see means discussed with ranges and variance in the parentheticals -->
+One month later, the maximum number of individuals was 4, belonging as many as 4 different taxa (mean abundance = `r round(mean(fish.uni[fish.uni$sampling == 1, ]$f.abund),1)` and mean richness = `r round(mean(fish.uni[fish.uni$sampling == 1, ]$spr),1)`) with Slippery Dick (**relpace with scientific name**) remaining most abundant taxa <!-- across treatment types?-->.
+By the second summer of the experiment, the maximum number of individuals had increased to 7, belonging to as many as 6 different taxa (mean abundance = `r round(mean(fish.uni[fish.uni$sampling == 12, ]$f.abund),1)` and mean richness = `r round(mean(fish.uni[fish.uni$sampling == 12, ]$spr),1)`).
+Grunts (**relpace with scientific name**) were slightly more abundant than Slippery Dicks (**relpace with scientific name**). <!-- you typically see means discussed with ranges and variance in the parentheticals --> \par
 
-<!-- I've added the overall model results first ... -->
-These changes in fish abundance and taxa richness were best explained by the treatment effect of sponge presence (Table 1 <!-- Add reference to supplemental tables here too-->), such that in the presence of a sponge fish abundance and taxa richness increased throughout the experiment (total abundance: $\beta$ = `r efsize.tmb(fa.treat.sum,4)` and $\beta$ = `r efsize.tmb(fa.treat.sum,5)` at 1 and 12 months respectively, Fig. \@ref(fig:ab-plots); taxa richness: $\beta$ = `r efsize.tmb(fspr.treat.sum,4)` and $\beta$ = `r efsize.tmb(fspr.treat.sum,5)` at 1 and 12 months respectively, Fig. \@ref(fig:turnover-plots)A).
-<!-- Because we seem to have saved only the summary with sponge as reference, these coefficients aren't described correctly. These betas and CI represent the difference between month 12 in the real plots and month 12 in the control plots. I think it means this? --> <!-- what?-->
+The changes in fish abundance and taxa richness were best explained by the sponge presence (Table 1, S1-3), such that in the presence of a sponge fish abundance and taxa richness increased throughout the experiment (total abundance: $\beta$ = `r efsize.tmb(fa.treat.sum,4)` and $\beta$ = `r efsize.tmb(fa.treat.sum,5)` at 1 and 12 months respectively, Fig. \@ref(fig:ab-plots); taxa richness: $\beta$ = `r efsize.tmb(fspr.treat.sum,4)` and $\beta$ = `r efsize.tmb(fspr.treat.sum,5)` at 1 and 12 months respectively, Fig. \@ref(fig:turnover-plots)A).
+<!-- Because we seem to have saved only the summary with sponge as reference, these coefficients aren't described correctly. These betas and CI represent the difference between month 12 in the real plots and month 12 in the control plots. I think it means this? --> 
 In contrast, changes were non-significant for both control and structure plots (**we could add stats here by saving models with different reference treatments**, Figs. \@ref(fig:ab-plots) and \@ref(fig:turnover-plots)A).
-Only control plots ultimately differed significantly from sponge plots and this was not until the 12 month sample (total abundance: $\beta$ = `r efsize.tmb(fa.treat.sum,8)`; taxa richness: $\beta$ = `r efsize.tmb(fspr.treat.sum,8)`).\par
+Only control plots differed significantly from sponge plots after 12 months into the experiment (total abundance: $\beta$ = `r efsize.tmb(fa.treat.sum,8)`; taxa richness: $\beta$ = `r efsize.tmb(fspr.treat.sum,8)`).\par
 
-<!-- For reference, this was how it was worded before. These models are total mind-benders every time! -->
-<!-- In the structure treatment, taxa richness and abundance increased at 1 month and decreased at 12 months, but neither changes were significant ( Fig. \@ref(fig:turnover-plots), Fig. \@ref(fig:ab-plot)). -->
-<!-- After 1 and 12 months into the experiment, taxa richness and abundance in control plots decreased, though the change was only significant after 12 months (taxa richness: $\beta$ = `r efsize.tmb(fspr.treat.sum,8)`; taxa abundance: $\beta$ = `r efsize.tmb(fa.treat.sum,8)`, Fig. \@ref(fig:turnover-plots), Fig. \@ref(fig:ab-plot)).\par -->
+*Non-clonal invertebrates*
 
+Throughout the experiment, a total of ____ non-clonal invertebrate taxa were seen.
+At the start of the experiment, between 0 and 4 individuals of non-clonal invertebrates from up to 3 taxa were found in each plot (mean abundance = `r round(mean(inv.uni[inv.uni$sampling == 0, ]$i.abund),1)` and mean richness = `r round(mean(inv.uni[inv.uni$sampling == 0, ]$spr),1)`).
+Snails *Scientific name* were the most abundant taxa. 
+One month later, the maximum number of individuals per plot was up to `r range(inv.uni[inv.uni$sampling == 1, ]$i.abund)[2]` individuals belonging to up to `r range(inv.uni[inv.uni$sampling == 1, ]$spr)[2]` different taxa (mean abundance = `r round(mean(inv.uni[inv.uni$sampling == 1, ]$i.abund),1)` and mean richness = `r round(mean(inv.uni[inv.uni$sampling == 1, ]$spr),1)`) with more anemones and ceriths recorded than snails *scientific names*.
+By the second summer of the experiment, the maximum number of individuals was `r range(inv.uni[inv.uni$sampling == 12, ]$i.abund)[2]`, belonging to as many as `r range(inv.uni[inv.uni$sampling == 12, ]$spr)[2]` different taxa (mean abundance = `r round(mean(inv.uni[inv.uni$sampling == 12, ]$i.abund),1)` and mean richness = `r round(mean(inv.uni[inv.uni$sampling == 12, ]$spr),1)`) and snails were once again the most abundant taxa per plot, followed by Blue crabs (**relpace with scientific name**). \par
 
-*Invertebrates*
-
-<!-- I noticed something called ground tunicate in the non-clonal dataframe. Is it supposed to be there? --> <!-- yes, its a solitary tunicate-->
-At the start of the experiment between 0 and 4 individuals of non-clonal invertebrates from up to 3 taxa were found in each plot (mean abundance = `r round(mean(inv.uni[inv.uni$sampling == 0, ]$i.abund),1)` and mean richness = `r round(mean(inv.uni[inv.uni$sampling == 0, ]$spr),1)`). 
-Snails were the most abundant taxa. 
-One month later, the maximum number of individuals was up to `r range(inv.uni[inv.uni$sampling == 1, ]$i.abund)[2]` of up to `r range(inv.uni[inv.uni$sampling == 1, ]$spr)[2]` different taxa (mean abundance = `r round(mean(inv.uni[inv.uni$sampling == 1, ]$i.abund),1)` and mean richness = `r round(mean(inv.uni[inv.uni$sampling == 1, ]$spr),1)`) with more anemones and ceriths recorded than snails.
-By the second summer of the experiment, the maximum number of individuals was `r range(inv.uni[inv.uni$sampling == 12, ]$i.abund)[2]`, belonging as many as `r range(inv.uni[inv.uni$sampling == 12, ]$spr)[2]` different taxa (mean abundance = `r round(mean(inv.uni[inv.uni$sampling == 12, ]$i.abund),1)` and mean richness = `r round(mean(inv.uni[inv.uni$sampling == 12, ]$spr),1)`) and snails were back to being most abundant, followed by Blue crabs (**relpace with scientific name**). 
-
-Changes in non-clonal invertebrate abundance and taxa richness were also best explained by the treatment effect of sponge presence, but in both cases other models were equally well-supported (Table \@ref(table)).
-Abundance of non-clonal invertebrates significantly increased after 1 and 12 months in the presence of a sponge ($\beta$ = `r efsize.tmb(ia.treat.sum,4)` and $\beta$ = `r efsize.tmb(ia.treat.sum,5)` respectively, Fig. \@ref(fig:ab-plots)), but only after 12 months were abundances significantly lower in both control and structure plots than in sponge plots ($\beta$ = `r efsize.tmb(ia.treat.sum,8)` and $\beta$ = `r efsize.tmb(ia.treat.sum,9)` respectively).
-Seagrass productivity appears to explain some of this change ($\beta$ = `r efsize.tmb(ia.treat.prod.sum,6)`), but there was still a significant difference between structure and live sponge treatments after accounting for the differences in seagrass productivity ($\beta$ = `r efsize.tmb(ia.treat.prod.sum,10)`).
+Changes in non-clonal invertebrate abundance and taxa richness were also best explained by sponge presence (Table 1), but other models were equally well-supported for both abundance and taxa richness  (Table \@ref(table); S1).
+Abundance of non-clonal invertebrates significantly increased after 1 and 12 months in the presence of a sponge ($\beta$ = `r efsize.tmb(ia.treat.sum,4)` and $\beta$ = `r efsize.tmb(ia.treat.sum,5)` respectively, Fig. \@ref(fig:ab-plots)).
+Only after 12 months were abundances significantly lower in both control and structure plots than in sponge plots ($\beta$ = `r efsize.tmb(ia.treat.sum,8)` and $\beta$ = `r efsize.tmb(ia.treat.sum,9)` respectively).
+Seagrass productivity appears to explain some of this change ($\beta$ = `r efsize.tmb(ia.treat.prod.sum,6)`), but there was still a significant difference between structure plots and sponge plots after accounting for the differences in seagrass productivity ($\beta$ = `r efsize.tmb(ia.treat.prod.sum,10)`).
 Likewise, the model including seagrass structure was well-supported (Table 1); however, it's contribution does not reach significance ($\beta$ = `r efsize.tmb(ia.treat.struct.sum,6)`) suggesting that new growth <!-- suggest changing this to productivity and ending the sentence after abundance.--> has some impact on the non-clonal invertebrate abundance beyond changes in stem density alone. 
 taxa richness also increased over time in the presence of a sponge ($\beta$ = `r efsize.tmb(ispr.treat.sum,4)` at 1 month and $\beta$ = `r efsize.tmb(ispr.treat.sum,5)` at 12 months, Fig. \@ref(fig:turnover-plots)).
 After 12 months richness was found to be lower in both control and structure plots than in the sponge plots, although only significantly so for the latter (control: $\beta$ = `r efsize.tmb(ispr.treat.sum,8)`; structure: $\beta$ = `r efsize.tmb(ispr.treat.sum,9)`).
@@ -274,22 +270,9 @@ However, this time the other well-supported model did not include a treatment ef
 We observed a maximum of 3 taxa of colonial tunicates (they only type of clonal invertebrate found) in any plot at any one time. 
 Tunicate taxa richness did not change over time for any of the treatments and no covariates showed significant relationships in any of our candidate models (Table 1 and Fig. S2).
 
-
-<!-- In the structure treatment, taxa richness and abundance  decrease at 1 and 12 months into the experiment, though change in taxa richness at 1 month was not significant (taxa richness: 12 months- $\beta$ = `r efsize.tmb(ispr.treat.sum,9)`; taxa abundance: 1 month- $\beta$ = `r efsize.tmb(ia.treat.sum,7)`; 12 months- $\beta$ = `r efsize.tmb(ia.treat.sum,9)`, Fig. \@ref(fig:turnover-plots), Fig. \@ref(fig:ab-plots)). -->
-<!-- At 1 month into the experiment, taxa richness increased while taxa abundance decreased in control plots, though neither changes were significant( Fig. \@ref(fig:turnover-plots), Fig. \@ref(fig:ab-plots)). -->
-<!-- Then, at 12 months into the experiment, both taxa richness and abundance in control plots decreased, but only taxa abundance was significant ( $\beta$ = `r efsize.tmb(ia.treat.sum,8)`, Fig. \@ref(fig:turnover-plots), Fig. \@ref(fig:ab-plots)).\par -->
-
-
-<!-- *Clonal Invertebrates* -->
-
-<!-- There were no significant differences between treatments for taxa richness of clonal invertebrates ( Fig. \@ref(fig:turnover-plots)). -->
-<!-- taxa abundance could not be analyzed because an accurate count of individuals was not feasible.\par -->
-<!-- I think this repeats what's already in the methods? And therefore the first sentence might reasonably be added to the previous paragraph? -->
-
-
 ## taxa turnover  
 
-Between the start of experiment and the first experimental sample most plots in the all treatments gained more taxa than they lost (Fig. \@ref(fig:turnover-plots B left panel).
+Between the start of experiment and the first month sampling event most plots across treatment types gained more taxa than they lost (Fig. \@ref(fig:turnover-plots B left panel).
 After a full year, however, sponge plots tended to gain the most new taxa while also still retaining more of the taxa they started with than either of the other plot types (plots high on the proportion gained y-axis and low on the proportion lost x-axis, Fig. \@ref(fig:turnover-plots B right panel).
 This pattern is similar for both fish and non-clonal invertebrates, although overall a lower proportion of fish than invertebrate taxa tended to be lost.
 <!-- When comparing taxa turnover from 1 month to 12 months in sponge treatment plots, the overall turnover rates show an increase in taxa gained for fish and non-clonal invertebrates, which parallels the results from the univariate analysis (Fig. \@ref(fig:turnover-plots). -->
@@ -300,33 +283,33 @@ The lack of differences in taxa turnover among treatments coincides with lack of
 ## Compositional Vectors
 
 By 12 months into the experiment, the fish communities differed significantly by treatment for both vector length and angle, meaning they differed in the how much they changed over time and in direction of change across taxa space (vector length:  F~`r aov.df2(fish.vl.aov.sum,1)`~ `r aov.res(fish.vl.aov.sum,1)`; vector angle: F~`r aov.df2(fish.angle.aov.sum,1)`~ `r aov.res(fish.angle.aov.sum,1)`). 
-The post-hoc analysis of vector lengths showed a significant difference in how much the fish communities changed over time between the control and sponge treatments and between the structure and sponge treatments, with control and structure both having less change in community over time when compared to the sponge treatment plots (control-sponge: `r tukey.res(fish.vl.aov.tuk,1)` ; structure-sponge `r tukey.res(fish.vl.aov.tuk,2)`). 
-However, there was no difference in the amount of change in the fish community between structure and control treatments (`r tukey.res(fish.vl.aov.tuk,3)`). 
-The post-hoc analysis of the vector angles showed no significant difference in the direction in which the fish communities shifted across taxa space between the control and sponge treatments, which may be due to the small change in the control plot communities over time (control-sponge: `r tukey.res(fish.angle.aov.tuk,1)` ; Fig. \@ref(fig:vector-plots)`). 
-Contrastingly, there were differences in the direction of the communities across taxa space between the structure and sponge as well as between the structure and control, with structure plots having less change in communities across taxa space than both sponge or control (structure-sponge: `r tukey.res(fish.vl.aov.tuk,2)` ; structure-control `r tukey.res(fish.vl.aov.tuk,3)`). \par
+The post-hoc analysis of vector lengths showed a significant difference in how much the fish communities changed over time between the control and sponge treatment plots and between the structure and sponge treatment plots, with control and structure treatment plots both having less change in community over time when compared to the sponge treatment plots (control-sponge: `r tukey.res(fish.vl.aov.tuk,1)` ; structure-sponge `r tukey.res(fish.vl.aov.tuk,2)`). 
+However, there was no difference in the amount of change in the fish community between structure and control treatment plots (`r tukey.res(fish.vl.aov.tuk,3)`). 
+The post-hoc analysis of the vector angles showed no significant difference in the direction in which the fish communities shifted across taxa space between the control and sponge treatment plots, which may be due to the small change in the control plot communities over time (control-sponge: `r tukey.res(fish.angle.aov.tuk,1)` ; Fig. \@ref(fig:vector-plots)`). 
+Contrastingly, there were differences in the direction of the communities across taxa space between the structure and sponge treatment plots as well as between the structure and control treatment plots, with structure treatment plots having less change in communities across taxa space than both sponge or control (structure-sponge: `r tukey.res(fish.vl.aov.tuk,2)` ; structure-control `r tukey.res(fish.vl.aov.tuk,3)`). \par
 
-By 12 months into the experiment, the non-clonal invertebrate communities per plot had no differences across treatments for vector length and angle, meaning they did not differ in the amount of change over time nor in direction of change across taxa space (vector length:  F~`r aov.df2(inv.vl.aov.sum,1)`~ `r aov.res(inv.vl.aov.sum,1)`; vector angle: F~`r aov.df2(inv.angle.aov.sum,1)`~ `r aov.res(inv.angle.aov.sum,1)`). 
-~~Because there were no statistical differences, post-hoc analysis was not performed on the non-clonal invertebrates.~~ \par
+By 12 months into the experiment, the non-clonal invertebrate communities had no differences across treatment plot types for vector length and angle, meaning they did not differ in the amount of change over time nor in direction of change across taxa space (vector length:  F~`r aov.df2(inv.vl.aov.sum,1)`~ `r aov.res(inv.vl.aov.sum,1)`; vector angle: F~`r aov.df2(inv.angle.aov.sum,1)`~ `r aov.res(inv.angle.aov.sum,1)`).\par
 
-Like the non-clonal invertebrates, the clonal invertebrate communities did not differ among treatments in the amount of change over time nor in the direction of change across taxa space (vector length:  F~`r aov.df2(col.inv.vl.aov.sum,1)`~ `r aov.res(col.inv.vl.aov.sum,1)`; vector angle: F~`r aov.df2(col.inv.angle.aov.sum,1)`~ `r aov.res(col.inv.angle.aov.sum,1)`). 
-~~Thus, no post-hoc analysis was performed on this group.~~ \par
+Like the non-clonal invertebrates, the clonal invertebrate communities did not differ across treatment plot types in the amount of change over time nor in the direction of change across taxa space (vector length:  F~`r aov.df2(col.inv.vl.aov.sum,1)`~ `r aov.res(col.inv.vl.aov.sum,1)`; vector angle: F~`r aov.df2(col.inv.angle.aov.sum,1)`~ `r aov.res(col.inv.angle.aov.sum,1)`). \par
 
-<!-- ##### break   -->
+##### break
 
 # Discussion  
 
 Ecosystem engineers can affect habitat structure, resource availability and location, and community structure and dynamics [@Jones1994; @Anderson1992; @Byers2006].
-Here we present, to the best of our knowledge, the first *in situ* experiment testing the affect of the presence of *I. felix* on taxa richness, abundance, taxa turnover, and community compositional vectors as an ecosystem engineer in a subtropical seagrass ecosystem over a 1.5 year experiment.<!-- Extremely specific. I'd say break into two sentences, first about what we tested overall and second about how we did that i.e., we tested whether sponges act as ecosystem engineers in seagrass beds. We did this by examining the effect of I. felix on...-->
+Here we present, to the best of our knowledge, the first *in situ* experiment examining if sponges act as ecosystem engineers in seagrass beds.
+We did this by testing the affect *I. felix* presence in subtropical seagrass beds on taxa richness, abundance, taxa turnover, and community compositional vectors over a 1.5 year experiment.
 We found that sponge presence alone explained the most variance in fish and non-clonal invertebrate communities, while no changes in the clonal invertebrate community were detected.
 In fish and non-clonal invertebrates, taxa richness and abundance increased over time with the presence of *I. felix* while decreasing or remaining the non-significantly changed without the sponge presence in seagrass ecosystems. 
 Overtime, sponge presence increased taxa gained for fish and non-clonal invertebrates, while showing little to no change in taxa turnover for clonal invertebrates.
 Finally, we found that sponge presence shifted the entire fish community over time and across taxa space. \par
 
 This study presents the marine sponge, *I. felix*, as a single organism capable of affecting an ecosystem's community structure.
-Although the sponge presence model explained the most variance among taxa richness and abundance in fish and non-clonal invertebrates, there were several models that fell within less than 2 delta AICc values for non-clonal invertebrates that cannot be ruled out **Table 1**.
+Although the sponge presence model explained the most variance among taxa richness and abundance in fish and non-clonal invertebrates, there were several models that fell within less than 2 delta AICc values for non-clonal invertebrates that cannot be ruled out (**Table 1**).
 First, for non-clonal invertebrate abundance, the sponge presence model had two closely competing models: sponge presence + seagrass productivity and sponge presence + seagrass structure.
 Both of the models contained sponge presence as a predictor variable.
-Also, it is worth noting that the model including all three variables (sponge presence + seagrass productivity + seagrass structure) did not fall within 2 delta AICc of the top model. <!-- Explain why that is worth noting-->
+Also, it is worth noting that the model including all three variables (sponge presence + seagrass productivity + seagrass structure) did not fall within 2 delta AICc of the top model.
+The model including all three variables <!-- Explain why that is worth noting-->
 Further examination of the results of the sponge presence + seagrass productivity and sponge presence + seagrass structure showed non-clonal invertebrate abundance significantly increasing in the “sponge” treatment plots and either significantly decreasing or no significant changes in abundance in the “structure” and “control” treatment plots over time (SX). 
 These results parallel the results in the sponge presence model. 
 For non-clonal invertebrate taxa richness examination, only one other model was within 2 delta AICc of the sponge presence model: macroalgal structure. 
