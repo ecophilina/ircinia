@@ -60,7 +60,7 @@ Likely as a result of the this nutrient cycling, at least one species of sponge 
 Combined, these mechanisms suggest sponges have considerable potential to enhance the biodiversity of seagrass communities. \par
 
 Despite their potential to significantly affect the distribution, diversity, and abundance of other organisms within their community, the effects of marine sponges on communities have long been underappreciated [@Bell2008].
-To the best of our knowledge, only one other research team has investigated the affects of a marine sponge on biodiversity in seagrass beds [@Ismet2020].
+To the best of our knowledge, no research has investigated the affects of a marine sponge on biodiversity in seagrass beds.
 Seagrass beds, along with many other biogenic habitats, are being influened by anthropogenic factors that threaten biodiversity world wide [@Tin2021]. 
 Therefore, its important to understand what drives diversity in these systems so that we can facilitate management and restoration. 
 To this end, we investigated the effect of sponge presence on biodiversity within a relatively undisturbed seagrass ecosystem.\par
@@ -105,12 +105,12 @@ If identification was not possible in situ, a representative sample was photogra
 For clonal tunicates an accurate count of individuals was not feasible and we recorded them as present/absent within plots. 
 Fish, non-clonal invertebrates, and clonal invertebrates were therefore considered separately in all analyses. \par
 
-## Primary producers covariates
+## Primary producer covariates
 
 @Archer2021 recently showed that *I. felix* can enhance primary producers in a seagrass bed using this same experimental design we performed.
 Data from @Archer2021 (https://doi.org/10.5061/dryad.qfttdz0gw) were used to calculate seagrass structure and productivity, and macroalgal structure. These variables were calculated from seagrass growth, and seagrass and macroalgal abundance in the same plots measured at the same time as the community variables presented here. We use this data for the primary producer variables seagrass stucture, seagrass productivity, and macroalgal structure in our analysis [@Archer2021].\par
 
-Seagrass productivity was calculated by multiplying the average growth per shoot by the total shoot density for *Thalassia testudinum*.
+Seagrass productivity was calculated by multiplying the average growth per shoot by the total shoot density for *T. testudinum*.
 Seagrass structure was calculated as the number of seagrass shoots (i.e. shoot density) for all seagrass species (*Halodule wrightii, Syringodium filiforme, and T. testudinum*) in 20 × 20  cm “sub-quadrats” at each sampling event.
 Macroalgal structure was calculated as the total macroalgal abundance across all taxa at each sampling event.
 Drift algae was not included. 
@@ -128,22 +128,22 @@ Next, we tested for differences in overall abundance and taxa richness of each f
 We chose multiple model configurations to represent the biological hypotheses that could best explain community changes within seagrass plots.
 Specifically, sponge presence, seagrass productivity, seagrass structure, and macroalgal structure were each modeled separately and additively to represent sponge presence alone, three parts of primary production within the seagrass system, and the combined effects of changes in primary production and the presence of the sponge (Table S1-3).
 Additionally, all models included a random effect for plot, sampling month as a factor, and for models including treatment an interaction between treatment and time.
-All models were fit with a Conway–Maxwell–Poisson distribution, parametrized via the mean and a log link, and implemented using the glmmTMB package [@Brooks2017; @Huang2017].
+All models were fit with a Conway–Maxwell–Poisson distribution, parametrized via the mean and a log link, and implemented using the `glmmTMB` package [@Brooks2017; @Huang2017].
 We reviewed the residuals of all model configurations to confirm that GLMM assumptions were met.
-We used the package AICcmodavg [@Mazerolle2020] to create a model selection tables based on Akaike Information Criterion scores (AICc).
+We used the package `AICcmodavg` [@Mazerolle2020] to create a model selection tables based on Akaike Information Criterion scores (AICc).
 All models within two $\delta AICc of the best supported model are considered to be well-supported.\par
 
 *Taxa Turnover*
 
-Increases in taxa richness through time can result from either increases in colonization rates, or a reduction in the loss of taxa. 
-To assess the relative rates at which taxa were gained or lost between sampling events, we used the turnover function in codyn package [@Hallett2020]. 
+Increases in taxa richness through time can result from either increases in colonization **is this the right word here?** rates, or a reduction in the loss of taxa. 
+To assess the relative rates at which taxa were gained or lost between sampling events, we used the `turnover` function in `codyn` package [@Hallett2020]. 
 We assessed both components of taxa turnover separately for each faunal community in each plot type, and compared patterns of turnover among treatments at 1 and 12 months into the experiment.\par
 
 *Compositional Vectors*
 
 To assess community changes in a way that simultaneously accounts for changes in taxa richness, taxa identity, and (when available) abundance, we calculated compositional vectors for each faunal community in each plot [@Mccune2002].
 We used Hellinger's transformation to help minimize the effect of vast differences in abundance between taxa [@Legendre2001].
-We then conducted a principal components analysis (unconstrained by environmental predictors) using the `rda()` function in the vegan package [@Oksanen2020].
+We then conducted a principal components analysis (unconstrained by environmental predictors) using the `rda` function in the `vegan` package [@Oksanen2020].
 The scores from this analysis were used to calculate a vector length and angle from 0 to 12 months into the experiment for each plot as per @Mccune2002. 
 We performed an ANOVA on each faunal community's vector length and angle to test significant differences among treatment plot types with sponge presence as the reference level.
 When there were significant differences, we used a post-hoc analysis via a Tukey Honest Significant Difference test to look at the differences in vector length and angle among treatment plot types.
@@ -236,41 +236,41 @@ tukey.res<-function(rtable,row){
 
 *Fish*  
 
-Throughout the experiment, a total of ____ fish taxa were seen.
+Throughout the experiment, a total of 15 fish taxa were seen.
 At the start of the experiment between 0 and 2 individual fish, never of the same taxa, were found in each plot (mean = `r round(mean(fish.uni[fish.uni$sampling == 0, ]$f.abund),1)`). 
-Slippery Dick (**relpace with scientific name**) were the most common taxa. 
-One month later, the maximum number of individuals was 4, belonging as many as 4 different taxa (mean abundance = `r round(mean(fish.uni[fish.uni$sampling == 1, ]$f.abund),1)` and mean richness = `r round(mean(fish.uni[fish.uni$sampling == 1, ]$spr),1)`) with Slippery Dick (**relpace with scientific name**) remaining most abundant taxa across treatment types.
+Slippery Dick (**relpace with scientific name**) was the most common taxa. 
+One month later, the maximum number of individuals per plot was 4, belonging to as many as 4 different taxa (mean abundance = `r round(mean(fish.uni[fish.uni$sampling == 1, ]$f.abund),1)` and mean richness = `r round(mean(fish.uni[fish.uni$sampling == 1, ]$spr),1)`) with Slippery Dick (**relpace with scientific name**) remaining the most abundant taxa across treatment types.
 By the second summer of the experiment, the maximum number of individuals had increased to 7, belonging to as many as 6 different taxa (mean abundance = `r round(mean(fish.uni[fish.uni$sampling == 12, ]$f.abund),1)` and mean richness = `r round(mean(fish.uni[fish.uni$sampling == 12, ]$spr),1)`).
-Grunts (**relpace with scientific name**) were slightly more abundant than Slippery Dicks (**relpace with scientific name**). <!-- you typically see means discussed with ranges and variance in the parentheticals --> \par
+Grunt (**relpace with scientific name**) was slightly more abundant than Slippery Dicks (**relpace with scientific name**). <!-- you typically see means discussed with ranges and variance in the parentheticals --> \par
 
 The changes in fish abundance and taxa richness were best explained by the sponge presence (Table 1, S1-3), such that in the presence of a sponge, fish abundance and taxa richness increased throughout the experiment (total abundance: $\beta$ = `r efsize.tmb(fa.treat.sum,4)` and $\beta$ = `r efsize.tmb(fa.treat.sum,5)` at 1 and 12 months respectively, Fig. \@ref(fig:ab-plots); taxa richness: $\beta$ = `r efsize.tmb(fspr.treat.sum,4)` and $\beta$ = `r efsize.tmb(fspr.treat.sum,5)` at 1 and 12 months respectively, Fig. \@ref(fig:turnover-plots)A).
-In contrast, changes were non-significant for both control and structure plots (**we could add stats here by saving models with different reference treatments**, Figs. \@ref(fig:ab-plots) and \@ref(fig:turnover-plots)A).
+In contrast, changes were non-significant for both control and structure plots (Figs. \@ref(fig:ab-plots) and \@ref(fig:turnover-plots)A).
 Only control plots differed significantly from sponge plots after 12 months into the experiment (total abundance: $\beta$ = `r efsize.tmb(fa.treat.sum,8)`; taxa richness: $\beta$ = `r efsize.tmb(fspr.treat.sum,8)`).\par
 
-*Non-clonal invertebrates*
+*Invertebrates*
 
-Throughout the experiment, a total of ____ non-clonal invertebrate taxa were seen.
+Throughout the experiment, a total of 37 invertebrate taxa were observed.
 At the start of the experiment, between 0 and 4 individuals of non-clonal invertebrates from up to 3 taxa were found in each plot (mean abundance = `r round(mean(inv.uni[inv.uni$sampling == 0, ]$i.abund),1)` and mean richness = `r round(mean(inv.uni[inv.uni$sampling == 0, ]$spr),1)`).
 Snails *Scientific name* were the most abundant taxa. 
 One month later, the maximum number of individuals per plot was up to `r range(inv.uni[inv.uni$sampling == 1, ]$i.abund)[2]` individuals belonging to up to `r range(inv.uni[inv.uni$sampling == 1, ]$spr)[2]` different taxa (mean abundance = `r round(mean(inv.uni[inv.uni$sampling == 1, ]$i.abund),1)` and mean richness = `r round(mean(inv.uni[inv.uni$sampling == 1, ]$spr),1)`) with more anemones and ceriths recorded than snails *scientific names*.
 By the second summer of the experiment, the maximum number of individuals was `r range(inv.uni[inv.uni$sampling == 12, ]$i.abund)[2]`, belonging to as many as `r range(inv.uni[inv.uni$sampling == 12, ]$spr)[2]` different taxa (mean abundance = `r round(mean(inv.uni[inv.uni$sampling == 12, ]$i.abund),1)` and mean richness = `r round(mean(inv.uni[inv.uni$sampling == 12, ]$spr),1)`) and snails were once again the most abundant taxa per plot, followed by Blue crabs (**relpace with scientific name**). \par
 
-Changes in non-clonal invertebrate abundance and taxa richness were also best explained by sponge presence (Table 1), but other models were equally well-supported for both abundance and taxa richness  (Table \@ref(table); S1).
+Changes in non-clonal invertebrate abundance and taxa richness were also best explained by sponge presence (Table 1), but other models were equally well-supported for both abundance and taxa richness  (Table \@ref(table1); S1).
 Abundance of non-clonal invertebrates significantly increased after 1 and 12 months in the presence of a sponge ($\beta$ = `r efsize.tmb(ia.treat.sum,4)` and $\beta$ = `r efsize.tmb(ia.treat.sum,5)` respectively, Fig. \@ref(fig:ab-plots)).
 Only after 12 months were abundances significantly lower in both control and structure plots than in sponge plots ($\beta$ = `r efsize.tmb(ia.treat.sum,8)` and $\beta$ = `r efsize.tmb(ia.treat.sum,9)` respectively).
-Seagrass productivity appears to explain some of this change ($\beta$ = `r efsize.tmb(ia.treat.prod.sum,6)`), but there was still a significant difference between structure plots and sponge plots after accounting for the differences in seagrass productivity ($\beta$ = `r efsize.tmb(ia.treat.prod.sum,10)`).
-Likewise, the model including seagrass structure was well-supported (Table 1); however, it's contribution does not reach significance ($\beta$ = `r efsize.tmb(ia.treat.struct.sum,6)`) suggesting that new growth rather than shoot density alone has some impact on the non-clonal invertebrate abundance. 
+Seagrass productivity appeared to explain some of this change ($\beta$ = `r efsize.tmb(ia.treat.prod.sum,6)`), but there was still a significant difference between structure plots and sponge plots after accounting for the differences in seagrass productivity ($\beta$ = `r efsize.tmb(ia.treat.prod.sum,10)`).
+Likewise, the model including seagrass structure was well-supported (Table 1); however, it's contribution did not reach significance ($\beta$ = `r efsize.tmb(ia.treat.struct.sum,6)`) suggesting that new growth rather than shoot density alone had some impact on the non-clonal invertebrate abundance. 
 Taxa richness also increased over time in the presence of a sponge ($\beta$ = `r efsize.tmb(ispr.treat.sum,4)` at 1 month and $\beta$ = `r efsize.tmb(ispr.treat.sum,5)` at 12 months, Fig. \@ref(fig:turnover-plots)).
-After 12 months, taxa richness was found to be lower in both control and structure plots than in the sponge plots, although only significantly so for the latter (control: $\beta$ = `r efsize.tmb(ispr.treat.sum,8)`; structure: $\beta$ = `r efsize.tmb(ispr.treat.sum,9)`).
-However, the other well-supported model did not include a treatment effect suggesting that much of the effect of the sponge might be accounted for through differences in macroalgal structure facilitated by the presence of a sponge ($\beta$ = `r efsize.tmb(ispr.alg.sum,4)`; Fig. \@ref(fig:inverts-by-algae); @Archer2021).
+After 12 months, taxa richness was lower in both control and structure plots than in the sponge plots, although only significantly so for the latter (control: $\beta$ = `r efsize.tmb(ispr.treat.sum,8)`; structure: $\beta$ = `r efsize.tmb(ispr.treat.sum,9)`).
+However, the other well-supported model did not include a treatment effect, suggesting that the effect of the sponge might be accounted for through differences in macroalgal structure facilitated by the presence of a sponge ($\beta$ = `r efsize.tmb(ispr.alg.sum,4)`; Fig. \@ref(fig:inverts-by-algae); @Archer2021).
 
 We observed a maximum of 3 taxa of clonal tunicates (the only type of clonal invertebrate found) in any plot at any one time. 
 Tunicate taxa richness did not change over time for any of the treatments and no covariates showed significant relationships in any of our candidate models (Table 1 and Fig. S2).
 
-## taxa turnover  
+## Taxa Turnover  
 
-For fish and non-clonal invertebrates, between the start of experiment and the first month sampling event most plots across treatment types gained more taxa than they lost (Fig. \@ref(fig:turnover-plots B left panel).
-After 12 months, however, sponge treatment plots tended to gain the most new taxa while also still retaining more of the taxa they started with than either of the other plot types (plots high on the proportion gained y-axis and low on the proportion lost x-axis, Fig. \@ref(fig:turnover-plots B right panel).
+For fish and non-clonal invertebrates, between the start of experiment and the first month sampling event most plots across treatment types gained more taxa than they lost (Fig. \@ref(fig:turnover-plots) B left panel).
+After 12 months, however, sponge treatment plots tended to gain the most new taxa while also still retaining more of the taxa they started with than either of the other plot types (plots high on the proportion gained y-axis and low on the proportion lost x-axis, Fig. \@ref(fig:turnover-plots) B right panel).
 This pattern is similar for both fish and non-clonal invertebrates, although overall a lower proportion of fish than invertebrate taxa tended to be lost.\par
 
 For clonal invertebrates, taxa turnover from 1 to 12 months did not show differences between plots treatment types in the proportion of taxa gained or lost (Fig. S2). 
@@ -279,10 +279,10 @@ The lack of differences in taxa turnover among treatments coincides with lack of
 ## Compositional Vectors
 
 By 12 months into the experiment, the fish communities differed significantly by treatment for both vector length and angle, meaning they differed in the how much they changed over time and in direction of change across taxa space (vector length:  F~`r aov.df2(fish.vl.aov.sum,1)`~ `r aov.res(fish.vl.aov.sum,1)`; vector angle: F~`r aov.df2(fish.angle.aov.sum,1)`~ `r aov.res(fish.angle.aov.sum,1)`). 
-The post-hoc analysis of vector lengths showed a significant difference in how much the fish communities changed over time between the control and sponge treatment plots and between the structure and sponge treatment plots, with control and structure treatment plots both having less change in community over time when compared to the sponge treatment plots (control-sponge: `r tukey.res(fish.vl.aov.tuk,1)` ; structure-sponge `r tukey.res(fish.vl.aov.tuk,2)`). 
+The post-hoc analysis of vector lengths showed a significant difference in how much the fish communities changed over time between the control and sponge presence treatment plots and between the structure and sponge presence treatment plots, with control and structure treatment plots both having less change in community over time when compared to the sponge presence treatment plots (control-sponge: `r tukey.res(fish.vl.aov.tuk,1)` ; structure-sponge `r tukey.res(fish.vl.aov.tuk,2)`). 
 However, there was no difference in the amount of change in the fish community between structure and control treatment plots (`r tukey.res(fish.vl.aov.tuk,3)`). 
-The post-hoc analysis of the vector angles showed no significant difference in the direction in which the fish communities shifted across taxa space between the control and sponge treatment plots, which may be due to the small change in the control plot communities over time (control-sponge: `r tukey.res(fish.angle.aov.tuk,1)` ; Fig. \@ref(fig:vector-plots)`). 
-Contrastingly, there were differences in the direction of the communities across taxa space between the structure and sponge treatment plots as well as between the structure and control treatment plots, with structure treatment plots having less change in communities across taxa space than both sponge or control (structure-sponge: `r tukey.res(fish.vl.aov.tuk,2)` ; structure-control `r tukey.res(fish.vl.aov.tuk,3)`). \par
+The post-hoc analysis of the vector angles showed no significant difference in the direction in which the fish communities shifted across taxa space between the control and sponge presence treatment plots, which may be due to the small change in the control plot communities over time (control-sponge: `r tukey.res(fish.angle.aov.tuk,1)` ; Fig. \@ref(fig:vector-plots)`). 
+Contrastingly, there were differences in the direction of the communities across taxa space between the structure and sponge presence treatment plots as well as between the structure and control treatment plots, with structure treatment plots having less change in communities across taxa space than both sponge presence or control (structure-sponge: `r tukey.res(fish.vl.aov.tuk,2)` ; structure-control `r tukey.res(fish.vl.aov.tuk,3)`). \par
 
 By 12 months into the experiment, the non-clonal invertebrate communities had no differences across treatment plot types for vector length and angle, meaning they did not differ in the amount of change over time nor in direction of change across taxa space (vector length:  F~`r aov.df2(inv.vl.aov.sum,1)`~ `r aov.res(inv.vl.aov.sum,1)`; vector angle: F~`r aov.df2(inv.angle.aov.sum,1)`~ `r aov.res(inv.angle.aov.sum,1)`).\par
 
@@ -294,22 +294,22 @@ Like the non-clonal invertebrates, the clonal invertebrate communities did not d
 
 Ecosystem engineers can affect habitat structure, resource availability and location, and community structure and dynamics [@Jones1994; @Anderson1992; @Byers2006].
 Here we present, to the best of our knowledge, the first *in situ* experiment examining if sponges act as ecosystem engineers in seagrass beds.
-We did this by testing the affect *I. felix* presence in subtropical seagrass beds on taxa richness, abundance, taxa turnover, and community compositional vectors over a 1.5 year experiment.
+We did this by testing *I. felix* presence affect in subtropical seagrass beds on taxa richness, abundance, taxa turnover, and community compositional vectors over a 1.5 year experiment.
 We found that sponge presence alone explained the most variance in fish and non-clonal invertebrate communities, while no changes in the clonal invertebrate community were detected.
-In fish and non-clonal invertebrates, taxa richness and abundance increased over time with the presence of *I. felix* while decreasing or remaining the non-significantly changed without the sponge presence in seagrass ecosystems. 
+In fish and non-clonal invertebrates, taxa richness and abundance increased over time with the presence of *I. felix* while decreasing or remaining non-significantly changed without the sponge presence in seagrass ecosystems. 
 Overtime, sponge presence increased taxa gained for fish and non-clonal invertebrates, while showing little to no change in taxa turnover for clonal invertebrates.
 Finally, we found that sponge presence shifted the entire fish community over time and across taxa space. \par
 
 This study presents the marine sponge, *I. felix*, as a single organism capable of affecting an ecosystem's community structure.
-Although the sponge presence model explained the most variance among taxa richness and abundance in fish and non-clonal invertebrates, there were several models that fell within less than 2 $\delta AICc values for non-clonal invertebrates that cannot be ruled out (**Table 1**).
+Although the sponge presence model explained the most variance among taxa richness and abundance in fish and non-clonal invertebrates, there were several models that fell within less than 2 $\delta AICc values for non-clonal invertebrates that cannot be ruled out (Table 1).
 First, for non-clonal invertebrate abundance, the sponge presence model had two closely competing models: sponge presence + seagrass productivity and sponge presence + seagrass structure.
 Both of the models contained sponge presence as a predictor variable.
 Also, it is worth noting that the model including all three variables (sponge presence + seagrass productivity + seagrass structure) did not fall within 2 $\delta AICc of the top model.
-This suggests that sponge presence by enhancement primary producers may not impact the non-clonal invertebrate abundance as much as sponge presence alone.
-Further examination of the results of the sponge presence + seagrass productivity and sponge presence + seagrass structure showed non-clonal invertebrate abundance significantly increasing in the sponge treatment plots and either significantly decreasing or no significant changes in abundance in the structure and control treatment plots over time (SX). 
+This suggests that sponge presence by enhancement primary producers may impact the non-clonal invertebrate abundance, however, not as much as sponge presence alone.
+Further examination of the results of the sponge presence + seagrass productivity and sponge presence + seagrass structure models showed non-clonal invertebrate abundance significantly increasing in the sponge treatment plots and either significantly decreasing or no significant changes in abundance in the structure and control treatment plots over time (SX). 
 These results parallel the results in the sponge presence model. 
 For non-clonal invertebrate taxa richness examination, only one other model was within 2 $\delta AICc of the sponge presence model: macroalgal structure. 
-The macroalgal structure model showed that non-clonal invertebrate taxa richness increased over time as macroalgal structure increased, regardless of the treatment the plot was given. 
+The macroalgal structure model showed that non-clonal invertebrate taxa richness increased over time as macroalgal structure increased, regardless of the treatment plot type. 
 Notably, in @Archer2021, macroalgal structure significantly increased over time in the presence of *I. felix*. \par
 
 For clonal invertebrate taxa richness the top three models were seagrass structure, macroalgal structure, and seagrass productivity, respectively.
@@ -317,26 +317,29 @@ All three models showed no significant changes in clonal invertebrate taxa richn
 For clonal invertebrates, it is possible that all the seagrass plots originally had a high taxa richness, and an effect on abundance occurred from the sponge presence. 
 However, our research lacked a measurement for clonal invertebrate abundance and more research is needed to test this hypothesis. \par
 
-For fish and non-clonal invertebrates alike, we saw a maintenance and/or a shift towards taxa gained after 12 months (Fig). Although there was little change in the sponge plots in terms of proportion of taxa lost, the number of taxa within the plots increased (indicated by the enlargement of the plot points) (FIG).
+For fish and non-clonal invertebrates alike, we saw a maintenance and/or a shift towards taxa gained after 12 months (Fig. \@ref(fig:turnover-plots)). Although there was little change in the sponge presence plots in terms of proportion of taxa lost, the number of taxa within the plots increased (indicated by the enlargement of the plot points) (Fig. \@ref(fig:turnover-plots)).
 Univariate analysis of the clonal invertebrates showed no significant change in time or across treatments.
-However, comparing 1 month to 12 months into the experiment, the sponge treatment plots shifted slightly away from taxa lost and towards/ non changing taxa gained (FIG).
-Control and structure plots showed increase in both taxa gain and lost after 12 months. \par
+However, comparing 1 month to 12 months into the experiment, the non-clonal invertebrate community in sponge presence treatment plots shifted slightly away from taxa lost and towards non-changing/taxa gained (Fig. \@ref(fig:turnover-plots)).
+Control and structure treatment plots showed increase in both taxa gain and lost after 12 months(Fig. \@ref(fig:turnover-plots)). \par
 
 Deciphering communal shifts over time through compositional vectors was statistically significant for fish only. 
-For the most part, control treatment plots did not change over time in the fish communities and can be portrayed by the lack of control arrows present in Fig X()
-Two major fishes contributing to the shift across taxa space in the sponge treatment plots were grunts and damselfish.
-Other research has shown grunts to be sponge associated****Steph do you have a citation for this?****.\par
+For the most part, control treatment plots did not change over time in the fish communities and can be portrayed by the lack of control arrows present in \@ref(fig:turnover-plots).
+Two major fishes contributing to the shift across taxa space in the sponge presence treatment plots were grunts and damselfish.
+Other research has shown grunts to be associated with coral reefs and seagrass beds across the Caribbean[@Nagelkerken2008; @CocheretdelaMorinière2003].
+Also, *I.felix* has be commonly found on reefs throughout the Carrabean [@Diaz2005; @Loh2014).\par
 
 Non-clonal invertebrate communities across treatments did not have significant differences.
 There was a wide range of change throughout time and across taxa space in the control treatment plots for non-clonal invertebrates.
-The sponge treatment plots similarly shifted throughout time and taxa space, with Ceriths being a dominant taxa contributing to that shift (FIG).
-Similarly, clonal invertebrate communities across treatments did not have significant differences and a wide range of change in the control plots.
-However, sponge treatment plots clonal invertebrate communities shifted in similar direction and angle (i.e. over time and across taxa space), with black and orange tunicates being a high contributor to this shift. \par
+The sponge presence treatment plots similarly, though not significantly, shifted throughout time, with Ceriths being a dominant taxa contributing to that shift (Fig. \@ref(fig:vector-plots)).
+Likewise, clonal invertebrate communities across treatments did not have significant differences and a wide range of change in the control plots.
+However,in sponge presence treatment plots, clonal invertebrate communities shifted in a more similar direction and angle, with black and orange tunicates being a high contributor to this shift.\par
+
+<!-- Need to add in comparisons to what is known about how other ecosystem engineers (particularly structure forming ones) contribute to biodiversity. And bring in any other literature about sponge effects on biodiversity in other systems-->
+
 	It is important to understand ecosystem engineers affects on the organisms around them because it can result in changes in the community structure and dynamics, therefore indirectly influencing ecosystem functions and services provided by the community.
 We studied the effect of the presence of an ecosystem engineer, *I felix*, on taxa richness, abundance, turnover, and community composition in low impact seagrass beds and found that sponge presence can increase taxa richness and abundance, maintain turnover rates, and shift fish communities.
 Thus, this study is another in situ example of how an ecosystem engineer can affect an entire community while other ecosystem engineers exist within that system.
 Additional research is needed to explore which aspects of *I. felix* influences seagrass bed communities, and if the affect changes in impacted systems. \par
-<!-- Need to add in comparisons to what is known about how other ecosystem engineers (particularly structure forming ones) contribute to biodiversity. And bring in any other literature about sponge effects on biodiversity in other systems-->
 
 # Acknowledgements  
 We would like to thank Friends of the Environment (NGO, Abaco, The Bahamas), Diane Claridge and Charlotte Dunn for their logistical support, Erik Archer, Elizabeth Whitman, and Ryann Rossi for their assistance in the field, and Katie Lewia and Jillian Tucker for their assistance in the lab, and the reviewers for their help improving this manuscript. This work was supported by donations from Win and Tana Archer, North Carolina State University, and NSF OCE 1405198.\par
