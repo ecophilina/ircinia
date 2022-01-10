@@ -9,12 +9,12 @@ library(tidyverse)
 
 source("scripts_comm/02_community_data_org.R")
 
-#view total number of fish taxa observed in plots (15)
-fish %>% 
-  filter(abundance > 0) %>% 
-  select(taxa) %>% 
-  distinct() %>% 
-  View()
+# #view total number of fish taxa observed in plots (15)
+# fish %>% 
+#   filter(abundance > 0) %>% 
+#   select(taxa) %>% 
+#   distinct() %>% 
+#   View()
 
 # visualize data
 ggplot(fish.uni) +

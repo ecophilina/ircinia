@@ -9,6 +9,13 @@ library(tidyverse)
 
 source("scripts_comm/02_community_data_org.R")
 
+# #view total number of invert taxa observed in plots (15)
+# inverts %>% 
+#   filter(abundance > 0) %>% 
+#   select(taxa) %>% 
+#   distinct() %>% 
+#   View()
+
 # visualize data
 # ggplot(col.inv.uni) +
 #   geom_jitter(aes(
