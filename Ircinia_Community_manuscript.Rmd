@@ -42,7 +42,7 @@ This experiment was conducted in a low anthropogenic impact environment; thus, f
 # Introduction 
 
 Ecosystem engineers [*sensu* @Jones1994] are organisms that impact an ecosystem's structure and function more so than their abundance would suggest.
-They can create, or modify entire habitats, ultimately influencing the distribution, diversity, and abundance of other organisms within their community, which is important to preserve in a changing world [@Jones1994].
+They can create, or modify entire habitats, ultimately influencing the distribution, diversity, and abundance of other organisms within their community, which is important to preserve in a changing world [@Byers2006].
 @Jones1994 coined the term "ecosystem engineer" almost 30 years ago, however, we still lack a thorough understanding of which taxa fulfill this role in many systems [@Byers2006].
 Even more so, we lack an understanding of the multitude of ecosystem engineers residing in one habitat, and their potential to affect the ecosystem biodiversity on their own and together.
 \par 
@@ -53,26 +53,24 @@ They provide shelter [@James1994] to numerous species and at multiple life stage
 In addition, @Hori2009 suggests that fish diversity and abundance are influenced by the morphological components and structural complexity of seagrass beds.
 Marine sponges are among the many organisms seagrass beds support, but also have the potential to act as ecosystem engineers within these systems. \par
 
-Marine sponges can add to the structural complexity of a habitat by altering local-scale water flow [@Bell2008], stabilizing the substrate [@Wulff1984], and acting as a settlement substrate for a range of sessile organisms [@Bell2008].
+Marine sponges can add to the structural complexity of a habitat by altering local-scale water flow [@Bell2008], stabilizing the substrate [@Wulff1984], and acting as a settlement substrate for sessile organisms [@Bell2008].
 Some marine sponges also have numerous microbes and macrofauna living within them [@Wulff2006; @Taylor2007; @Bell2008] and can provide camouflage and protection to other organisms [@McClay1983; @Martin1992]. 
 Sponges' microbial communities can also act as a source of bioavailable forms of phosphorus and nitrogen in seagrass beds under oligotrophic conditions [@Archer2017].
 Likely as a result of the this nutrient cycling, at least one species of sponge has been experimentally shown to facilitate primary production in sub-tropical seagrass beds [@Archer2021].
 Combined, these mechanisms suggest sponges have considerable potential to enhance the biodiversity of seagrass communities. \par
 
 Despite their potential to significantly affect the distribution, diversity, and abundance of other organisms within their community, the effects of marine sponges on communities have long been underappreciated [@Bell2008].
-To the best of our knowledge, no research has investigated the affects of a marine sponge on biodiversity in seagrass beds.
-Seagrass beds, along with many other biogenic habitats, are being influened by anthropogenic factors that threaten biodiversity world wide [CITATIONS]. 
+To the best of our knowledge, only one other research team has investigated the affects of a marine sponge on biodiversity in seagrass beds [@Ismet2020].
+Seagrass beds, along with many other biogenic habitats, are being influened by anthropogenic factors that threaten biodiversity world wide [@Tin2021]. 
 Therefore, its important to understand what drives diversity in these systems so that we can facilitate management and restoration. 
 To this end, we investigated the effect of sponge presence on biodiversity within a relatively undisturbed seagrass ecosystem.\par
-***save for later maybe: Furthermore, we also tested whether any observed effect of sponge presence could be better explained by the enhancement to the primary producers (i.e. other ecosystem engineers within the system as shown by Archer et al. [2021]), the presence of the sponge alone, or a combination of both.***
-
 
 Specifically, we investigated the impact of a moderately large sponge, *Ircinia felix*, on seagrass bed associated communities. 
 Using a 1.5 yr field-based experiment, we examined how sponge presence influenced fish and invertebrate taxa richness, abundance, taxa turnover, and community compositional vectors.
-Because seagrass bed characteristics have previously been shown to affect fish and invertebrate communities, we explored if an affect from the sponge sponge presence occured, if it was direct to the community or indirect bythe enhancement to the dominant primary producers (macroalgae and seagrasses as shown by Archer et al. [2021]).
-If an affect on the community variables was detected, we tested whether it was better explained by the enhancement to the dominant primary producers, the presence of the sponge alone, or a combination of both.
+Because seagrass bed characteristics have previously been shown to affect fish and invertebrate communities, we further explored direct and indirect affects of sponge presence on the community.
+If an affect on the community variables was detected, we tested whether it was better explained by the presence of the sponge alone (i.e. direct), the enhancement to the dominant primary producers macroalgae and seagrasses as shown by @Archer2021 (i.e. indirect), or a combination of both.
 We predicted that seagrass beds with *I. felix* would have higher taxa richness and abundance over time than seagrass beds without *I felix* present.
-We hypothesized, if an affect was detected, that the presence of *I. felix* would affect the community more than sponge presences positice influence on the abundance of the dominant primary producers [@Archer2021].
+We hypothesized, if an affect was detected, that the presence of *I. felix* would affect the community more than sponge presences positive influence on the abundance of the dominant primary producers [@Archer2021].
 We also hypothesized that taxa pools in treatments with *I. felix* would have fewer losses and more gains in the number of taxa over time when compared to treatments without the sponge present, resulting in less taxa turnover.
 As a result of the above predictions, we also expected that the presence of *I.felix* would ultimately result in a change to the community composition over time.\par
 
