@@ -42,11 +42,9 @@ This experiment was conducted in a low anthropogenic impact environment; thus, f
 # Introduction 
 
 Ecosystem engineers [*sensu* @Jones1994] are organisms that impact an ecosystem's structure and function more so than their abundance would suggest.
-They can create, or modify entire habitats, ultimately influencing the distribution, diversity, and abundance of other organisms within their community, which is important to preserve in a changing world [@Byers2006].
-<!-- I would suggest ending this sentence with "within their community." because rith now its not clear what is important to preserve in a changing world -->
+They can create, or modify entire habitats, ultimately influencing the distribution, diversity, and abundance of other organisms within their community[@Byers2006].
 @Jones1994 coined the term "ecosystem engineer" almost 30 years ago, however, we still lack a thorough understanding of which taxa fulfill this role in many systems [@Byers2006].
 Even more so, we lack an understanding of the multitude of ecosystem engineers residing in one habitat, and their potential to affect the ecosystem biodiversity on their own and together.
-<!-- Yes! This sets up the multiple hypotheses we test really well.-->
 \par 
 
 Seagrasses are well-known, important ecosystem engineers that form beds supporting a wide range of organisms [@Hori2009]. 
@@ -54,8 +52,8 @@ They provide shelter [@James1994] to numerous species and at multiple life stage
 *Thalassia testudinum* has been shown to positively affect crustacean and fish abundance, species diversity, and species evenness when compared to bare-sand habitat off the coast of Guatemala [@Arrivillaga1999].
 <!--This has been shown in multiple places so I would say get rid of "off the coast of Guatemala" and add another citation or two -->
 In addition, @Hori2009 suggests that fish diversity and abundance are influenced by the morphological components and structural complexity of seagrass beds.
-Marine sponges are among the many organisms seagrass beds support, but also have the potential to act as ecosystem engineers within these systems. 
-<!-- I'm not loving the "but" transition here. It doesn't seem like the second part of the sentence is saying anything that would be contrary to the first part. Maybe divide it into two sentences with the first being the current sentence before the "," and the second being something along the lines of "Sponges also possess many traits (e.g., create complex structure) that suggest they may also act as ecosystem engineers in seagrass systems."-->\par
+Among the many organisms seagrass beds support are marine sponges.
+Sponges also possess many traits (e.g., create complex structure) that suggest they may also act as ecosystem engineers in seagrass systems.\par
 
 Marine sponges can add to the structural complexity of a habitat by altering local-scale water flow [@Bell2008], stabilizing the substrate [@Wulff1984], and acting as a settlement substrate for sessile organisms [@Bell2008].
 <!-- Marine sponges can add to the structural complexity of a habitat, alter local-scale water flow [@Bell2008], stabilize the substrate [@Wulff1984], and act as a settlement substrate for sessile organisms [@Bell2008].-->
