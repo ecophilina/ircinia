@@ -451,5 +451,6 @@ knitr::include_graphics("figures/invert_spr_by_algae.png")
 ##### break  
 
 ```{r vector-plots, fig.align='center', out.width="55%", echo=FALSE, message=FALSE, fig.cap="NEEDS CAPTION"}
-knitr::include_graphics("figures/community_vector_plots.png")
+# knitr::include_graphics("figures/community_vector_plots.png")
+knitr::include_graphics("figures/community_vector_plots_withspp.png")
 ```
