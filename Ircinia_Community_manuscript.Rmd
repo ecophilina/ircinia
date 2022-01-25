@@ -122,7 +122,7 @@ However, small silvery pelagic fishes which form large schools (e.g. fishes in t
 The macroinvertebrate community were quantified within a 3 m x 1 m band extending from the center of the plot.
 <!-- you could reference the experimental design figure in the supplement here.-->
 All macroinvertebrates were identified to lowest possible taxanomic level and recorded.
-If identification was not possible in situ, a representative sample was photographed and subsequently collected.
+If identification was not possible *in situ*, a representative sample was photographed and subsequently collected.
 For clonal tunicates an accurate count of individuals was not feasible and we recorded them as present/absent within plots. 
 Fish, non-clonal invertebrates, and clonal invertebrates were therefore considered separately in all analyses. 
 <!-- Fish, non-clonal invertebrates (i.e., all invertebrates other than clonal tunicates), and clonal invertebrates were therefore considered separately in all analyses.-->\par
@@ -332,9 +332,7 @@ Like the non-clonal invertebrates, the clonal invertebrate communities did not d
 
 Ecosystem engineers can affect habitat structure, resource availability and location, and community structure and dynamics [@Jones1994; @Anderson1992; @Byers2006].
 Here we present, to the best of our knowledge, the first *in situ* experiment examining if sponges act as ecosystem engineers in seagrass beds.
-<!-- need to make sure we're consistent on whether or not in situ is italicized-->
-We did this by testing *I. felix* presence affect in subtropical seagrass beds on taxa richness, abundance, taxa turnover, and community compositional vectors over a 1.5 year experiment.
-<!-- We did this by testing the affect of *I. felix* presence in subtropical seagrass beds on taxa richness, abundance, taxa turnover, and community compositional vectors over a 1.5 year experiment.-->
+We did this by testing the affect of *I. felix* presence in subtropical seagrass beds on taxa richness, abundance, taxa turnover, and community compositional vectors over a 1.5 year experiment.
 We found that sponge presence alone explained the most variance in fish and non-clonal invertebrate communities, while no changes in the clonal invertebrate community were detected.
 In fish and non-clonal invertebrates, taxa richness and abundance increased over time with the presence of *I. felix* while decreasing or remaining non-significantly changed without the sponge presence in seagrass ecosystems. 
 Overtime, sponge presence increased taxa gained for fish and non-clonal invertebrates, while showing little to no change in taxa turnover for clonal invertebrates.
@@ -378,7 +376,7 @@ However,in sponge presence treatment plots, clonal invertebrate communities shif
 
 	It is important to understand ecosystem engineers affects on the organisms around them because it can result in changes in the community structure and dynamics, therefore indirectly influencing ecosystem functions and services provided by the community.
 We studied the effect of the presence of an ecosystem engineer, *I felix*, on taxa richness, abundance, turnover, and community composition in low impact seagrass beds and found that sponge presence can increase taxa richness and abundance, maintain turnover rates, and shift fish communities.
-Thus, this study is another in situ example of how an ecosystem engineer can affect an entire community while other ecosystem engineers exist within that system.
+Thus, this study is another *in situ* example of how an ecosystem engineer can affect an entire community while other ecosystem engineers exist within that system.
 Additional research is needed to explore which aspects of *I. felix* influences seagrass bed communities, and if the affect changes in impacted systems. \par
 
 <!-- Overall the  discussion still needs to shift from rehashing the results to interpreting them. For each major result (i.e., not statistical test.. think about as if you made summary bullets of the key results what would you include) there should be a paragraph stating what we found, why that might be the case, how it fits within our body of knowledge about how that taxa's richness/abundance/community structure is controlled in seagrass beds, and what our results might mean for our understanding of these processes.
