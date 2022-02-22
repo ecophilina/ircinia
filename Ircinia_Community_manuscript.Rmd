@@ -174,11 +174,11 @@ We assessed both components of taxa turnover separately for each faunal communit
 
 *Compositional Vectors*
 
-To assess community changes in a way that simultaneously accounts for changes in taxa richness, taxa identity, and (when available) abundance, we calculated compositional vectors for each faunal community in each plot [@Mccune2002].
+To assess community changes in a way that simultaneously accounts for changes in taxa richness, taxa identity, and (when available) abundance, we calculated compositional vectors for each faunal community in each plot [@McCune2002].
 We used Hellinger's transformation to help minimize the effect of vast differences in abundance between taxa [@Legendre2001].
 <!-- We used Hellinger's transformation to help minimize the effect of large differences in abundance between taxa [@Legendre2001].-->
 We then conducted a principal components analysis (unconstrained by environmental predictors) using the `rda` function in the `vegan` package [@Oksanen2020].
-The scores from this analysis were used to calculate a vector length and angle from 0 to 12 months into the experiment for each plot as per @Mccune2002. 
+The scores from this analysis were used to calculate a vector length and angle from 0 to 12 months into the experiment for each plot as per @McCune2002. 
 We performed an ANOVA on each faunal community's vector length and angle to test for significant differences among treatments.
 When there were significant differences, we used a post-hoc analysis via a Tukey Honest Significant Difference test.
 For visualization purposes, all vectors were standardized to the same initial position and then plotted to show how much a community changed over time (i.e. vector length) and in which direction across taxa space the community shifted (i.e. vector angle).\par
@@ -344,16 +344,16 @@ It is possible that the added structural complexity from the sponge to the seagr
 @Gratwicke2005 also found similar results with fish species richness being positively correlated with rugosity and a variety of growth forms in multiple subtropical habitats, including seagrass beds.
 However, our results suggest *I.felix* effects on fish species richness and abundance exceed what would be expected from it’s structure alone
 In addition, there was an increase of non-clonal invertebrate species richness and abundance in the sponge presence plots, which could add more prey species available for fish to feed on. 
-@Brook2011 suggested that the fish population in *T. testudinum* dominant seagrass beds in Florida were limited by abundance of polychaetes and crustaceans. 
+@Brook1977 suggested that the fish population in *T. testudinum* dominant seagrass beds in Florida were limited by abundance of polychaetes and crustaceans. 
 The added structural complexity of the seagrass bed from the sponge along with the increase of food availability with sponge presence could be a reasonable hypothesis for the increase in fish richness and abundance.
  However, further research is needed to tease apart the relative importance of structural complexity and food availability via sponge presence. \par
  
 In addition to the increase in fish richness and abundance, we also saw a shift in the fish community. 
 We propose through anecdotal observations and collected species richness that fish communities found in the sponge presence, typically included more coral reef-associated fish like grunts, damselfish, and nassau grouper **scientific names needed***.
-Other research has shown grunts to be associated with coral reefs and seagrass beds across the Caribbean[@Nagelkerken2008; @CocheretdelaMorinière2003].
-Juvenile grunts have been well-documented for using seagrass as nursery habitat [@Arrivillange1999; @Yeager2012; CocheretdelaMoriniere2003], however little has been assessed about their relation to sponges. 
+Other research has shown grunts to be associated with coral reefs and seagrass beds across the Caribbean[@Nagelkerken2008; @CocheretdelaMoriniere2003].
+Juvenile grunts have been well-documented for using seagrass as nursery habitat [@Arrivillaga1999; @Yeager2012; @CocheretdelaMoriniere2003], however little has been assessed about their relation to sponges. 
 Again, it is reasonable to hypothesize that the increase of non-clonal invertebrate species richness and abundance in the sponge presence plots could add more prey species available for fish to feed on.
-Both juvenile grunts and beaugregory damselfish partially rely on invertebrates as a food source [@Cervigón1966] . 
+Both juvenile grunts and beaugregory damselfish partially rely on invertebrates as a food source [@Cervigon1966] . 
 Nassau groupers are also a well known coral reef predator and use seagrass beds as feeding grounds.
 @Eggleston1998 found that the small (i.e. juvenile) and midsize nassau groupers diet depended heavily on crustaceans compared to larger adult fish.
 It is a probable hypothesis that again the increased species richness and abundance of non-conal invertebrates with the sponge presence influenced the fish community and shifted it more towards predatory coral reef fish species.
@@ -378,7 +378,7 @@ Extensive research to test these hypotheses would be need *ex situ* and *in situ
 Overall, we found that sponge presence was correlated with taxa retention and taxa gain. 
 For fish and non-clonal invertebrates alike, we saw a maintenance and/or a shift towards taxa gained after 12 months (Fig. \@ref(fig:turnover-plots)), while control and structure treatment plots showed loss in taxa (Fig. \@ref(fig:turnover-plots)). 
 This alludes that sponges may alleviate conditions that lead to taxa loss in sub-tropical seagrass beds. 
-Sponge grounds have been described as key marine habitats and enhance diversity of the community around them [@Maldonado2017; @beazley2013].  
+Sponge grounds have been described as key marine habitats and enhance diversity of the community around them [@Maldonado2017; @Beazley2013].  
 Evenmoreso, their role in structural complexity, habitat contribution, enhancement to primary producers, and other functional roles support their potential ability to alleviate taxa loss in sub-tropical seagrass beds positive influences on taxa around them [@Ferrari2018;@Gratwicke2005;@Wulff2006; @Taylor2007; @Bell2008; @Archer2021].
 We suggest more *in situ* experiments of sponges on seagrass beds with the addition of stressors that could contribute to taxa loss. \par
 
