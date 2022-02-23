@@ -51,8 +51,11 @@ Seagrasses are well-known, important ecosystem engineers that form beds supporti
 They provide shelter [@James1994] to numerous species and at multiple life stages [@Nakamura2012], act as a food source [@Vicente1980], and play a key role in nutrient cycling [@Hemminga1991].
 *Thalassia testudinum* has been shown to positively affect crustacean and fish abundance, species diversity, and species evenness when compared to bare-sand habitat off the coast of Guatemala [@Arrivillaga1999].
 <!--This has been shown in multiple places so I would say get rid of "off the coast of Guatemala" and add another citation or two -->
+<!--Here and throughout replace phrases like "has been shown to" with more active wording. For example, here you could replace "has been shown to" with "can"-->
 In addition, @Hori2009 suggests that fish diversity and abundance are influenced by the morphological components and structural complexity of seagrass beds.
 Among the many organisms seagrass beds support are marine sponges.
+<!--Again, this has been shown by multiple papers so I would make this more general and move the reference to the end of the sentence. Perhaps,
+In addition, fish diversity and abundance are influenced by the morphological components and structural complexity of seagrass beds (@Hori2009)-->
 Sponges also possess many traits (e.g., create complex structure) that suggest they may also act as ecosystem engineers in seagrass systems.\par
 
 Marine sponges can add to the structural complexity of a habitat by altering local-scale water flow [@Bell2008], stabilizing the substrate [@Wulff1984], and acting as a settlement substrate for sessile organisms [@Bell2008].
@@ -86,6 +89,7 @@ Because seagrass bed characteristics have previously been shown to affect fish a
 If an affect on the community variables was detected, we tested whether it was better explained by the presence of the sponge alone (i.e. direct), the enhancement to the dominant primary producers macroalgae and seagrasses as shown by @Archer2021 (i.e. indirect), or a combination of both.
 We predicted that seagrass beds with *I. felix* would have higher taxa richness and abundance over time than seagrass beds without *I felix* present.
 We hypothesized, if an affect was detected, that the presence of *I. felix* would affect the community more than sponge presences positive influence on the abundance of the dominant primary producers [@Archer2021].
+<!-- This wording is a bit confusing, I think what you are saying is that you expect direct effects to be larger than indirect effects of sponge presence?-->
 We also hypothesized that taxa pools in treatments with *I. felix* would have fewer losses and more gains in the number of taxa over time when compared to treatments without the sponge present, resulting in less taxa turnover.
 <!-- taxa pools is an interesting phrase...perhaps:
 We also hypothesized that changes in taxa richness observed when *I. felix* is present would be explained by both fewer lost taxa and more taxa gained over time compared to other treatments, resulting in lower taxa turnover.-->
@@ -166,8 +170,7 @@ All models within two $\delta AICc of the best supported model are considered to
 
 *Taxa Turnover*
 
-Increases in taxa richness through time can result from either increases in colonization **is this the right word here?** rates, or a reduction in the loss of taxa. 
-<!-- yes I think colonization is fine-->
+Increases in taxa richness through time can result from either increases in colonization rates, or a reduction in the loss of taxa. 
 To assess the relative rates at which taxa were gained or lost between sampling events, we used the `turnover` function in `codyn` package [@Hallett2020]. 
 We assessed both components of taxa turnover separately for each faunal community in each plot type, and compared patterns of turnover among treatments at 1 and 12 months into the experiment.
 <!-- We added actual statistical analysis here right - simple anovas?-->\par
