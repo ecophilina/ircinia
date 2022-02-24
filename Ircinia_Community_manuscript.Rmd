@@ -313,12 +313,15 @@ Tunicate taxa richness did not change over time for any of the treatments and no
 <!-- These sections read REALLY well.-->
 ## Taxa Turnover  
 
-For fish and non-clonal invertebrates, between the start of experiment and the first month sampling event most plots across treatment types gained more taxa than they lost (Fig. \@ref(fig:turnover-plots) B left panel).
-After 12 months, however, sponge treatment plots tended to gain the most new taxa while also still retaining more of the taxa they started with than either of the other plot types (plots high on the proportion gained y-axis and low on the proportion lost x-axis, Fig. \@ref(fig:turnover-plots) B right panel).
-This pattern is similar for both fish and non-clonal invertebrates, although overall a lower proportion of fish than invertebrate taxa tended to be lost.\par
+Between the start and the first month of the experiment most plots gained more taxa than they lost (Fig. \@ref(fig:turnover-plots) B left panel), yet this resulted in no difference between treatments for both fish (gained: F~`r aov.df(fishgain1[[1]], 1)`~ `r aov.res(fishgain1[[1]], 1)`; fish lost: F~`r aov.df(fishloss1[[1]], 1)`~ `r aov.res(fishloss1[[1]], 1)`) and invertebrates (gained: F~`r aov.df(invgain1[[1]], 1)`~ `r aov.res(invgain1[[1]], 1)`; lost: F~`r aov.df(invloss1[[1]], 1)`~ `r aov.res(invloss1[[1]], 1)`).
+After 12 months, however, sponge treatment plots tended to gain the most new fish (F~`r aov.df(fishgain12[[1]], 1)`~ `r aov.res(fishgain12[[1]], 1)` with sponge-control = `r tukey.res(fishgain12.tuk[[1]], 2)` and sponge-structure = `r tukey.res(fishgain12.tuk[[1]], 3)` while structure-control = `r tukey.res(fishgain12.tuk[[1]], 1)`) and invertebrate (F~`r aov.df(invgain12[[1]], 1)`~ `r aov.res(invgain12[[1]], 1)` with sponge-control = `r tukey.res(invgain12.tuk[[1]], 2)` and sponge-structure = `r tukey.res(invgain12.tuk[[1]], 3)` while structure-control = `r tukey.res(invgain12.tuk[[1]], 1)`) taxa, while also still retaining more fish taxa (F~`r aov.df(fishloss12[[1]], 1)`~ `r aov.res(fishloss12[[1]], 1)` with sponge-control = `r tukey.res(fishloss12.tuk[[1]], 2)` and sponge-structure = `r tukey.res(fishloss12.tuk[[1]], 3)` while structure-control = `r tukey.res(fishloss12.tuk[[1]], 1)`); Fig. \@ref(fig:turnover-plots) B right panel).
+This pattern is similar for both fish and non-clonal invertebrates, although overall the proportion of invertebrates lost did not differ between treatments (F~`r aov.df(invloss12[[1]], 1)`~ `r aov.res(invloss12[[1]], 1)`). 
 
-For clonal invertebrates, taxa turnover from 1 to 12 months did not show differences between plots treatment types in the proportion of taxa gained or lost (Fig. S2). 
-The lack of differences in taxa turnover among treatments coincides with lack of change in taxa richness during the experiment. \par
+<!-- a lower proportion of fish than invertebrate taxa tended to be lost.\par -->
+<!-- plots high on the proportion gained y-axis and low on the proportion lost x-axis, -->
+
+<!-- For clonal invertebrates, taxa turnover from 1 to 12 months did not show differences between plots treatment types in the proportion of taxa gained or lost (Fig. S2).  -->
+<!-- The lack of differences in taxa turnover among treatments coincides with lack of change in taxa richness during the experiment. \par -->
 
 <!-- While this reads fine, I thought we had decided to add in statistical analysis here. If so I think we just need to add in effect sizes and confidence intervals assuming everything stated is supported by the results.-->
 
