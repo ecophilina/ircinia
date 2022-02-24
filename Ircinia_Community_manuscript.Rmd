@@ -36,6 +36,8 @@ Sponge presence alone explained the most variance in fish and non-clonal inverte
 Fish and non-clonal invertebrate taxa richness and abundance significantly increased over time in the presence of *I. felix*, but decreased or remained stable in other plot types.
 Sponge presence increased the number of new taxa gained and reduced the number lost for both fish and non-clonal invertebrates, but showed no impact on taxa turnover for clonal invertebrates.
 <!-- Maybe "but showed no impact on taxa turnover for clonal invertebrates". Could be removed here? The fact that no change was detected in this community (3 sentences prior) may be all we need to say? -->
+
+<!--Yes I (steph) agree that once we say there's no impact on clonal invertebrates we don't need to talk about them again. -->
 Finally, we found that sponge presence shifted the entire fish community over time and across taxa space.
 This experiment was conducted in a low anthropogenic impact environment; thus, further research is needed to understand how sponge presence affects seagrass communities in high impact environments.\par
 <!-- highly impacted environments? -->
@@ -120,7 +122,6 @@ Live sponges were monitored throughout the rest of the experiment, but no additi
 
 ## Faunal community
 
-<!-- Did I ever finish going through and changing taxa names to actual names and not my IDs?  remind me about this if I keep forgetting...--><!-- Just put doing this on my to-do list so maybe I'll actually remember...doh!-->
 We monitored the response of the fish and epibenthic macroinvertebrate communities throughout the course of the experiment.
 We performed three summer sampling events: one in June (0 months into the experiment) and two in July (1 and 12 months into the experiment).
 <!-- These first two sentences repeat information stated in the section above-->
@@ -280,10 +281,10 @@ tukey.res<-function(rtable,row){
 
 Throughout the experiment, a total of 15 fish taxa were seen.
 At the start of the experiment between 0 and 2 individual fish, never of the same taxa, were found in each plot (mean = `r round(mean(fish.uni[fish.uni$sampling == 0, ]$f.abund),1)`). 
-Slippery Dick (**relpace with scientific name**) was the most common taxa. 
-One month later, the maximum number of individuals per plot was 4, belonging to as many as 4 different taxa (mean abundance = `r round(mean(fish.uni[fish.uni$sampling == 1, ]$f.abund),1)` and mean richness = `r round(mean(fish.uni[fish.uni$sampling == 1, ]$spr),1)`) with Slippery Dick (**relpace with scientific name**) remaining the most abundant taxa across treatment types.
+*Halichoeres bivittatus* (Slippery Dick) was the most common taxa. 
+One month later, the maximum number of individuals per plot was 4, belonging to as many as 4 different taxa (mean abundance = `r round(mean(fish.uni[fish.uni$sampling == 1, ]$f.abund),1)` and mean richness = `r round(mean(fish.uni[fish.uni$sampling == 1, ]$spr),1)`) with *H. bivittatus* remaining the most abundant taxa across treatment types.
 By the second summer of the experiment, the maximum number of individuals had increased to 7, belonging to as many as 6 different taxa (mean abundance = `r round(mean(fish.uni[fish.uni$sampling == 12, ]$f.abund),1)` and mean richness = `r round(mean(fish.uni[fish.uni$sampling == 12, ]$spr),1)`).
-Grunt (**relpace with scientific name**) was slightly more abundant than Slippery Dicks (**relpace with scientific name**).\par
+Juvenile grunts (*Haemulidae* spp.) were slightly more abundant than *H. bivittatus*.\par
 
 The changes in <!-- both -->fish abundance and taxa richness were best explained by the sponge presence (Table 1, S1-3), such that in the presence of a sponge, fish abundance and taxa richness increased throughout the experiment (total abundance: $\beta$ = `r efsize.tmb(fa.treat.sum,4)` and $\beta$ = `r efsize.tmb(fa.treat.sum,5)` at 1 and 12 months respectively, Fig. \@ref(fig:ab-plots); taxa richness: $\beta$ = `r efsize.tmb(fspr.treat.sum,4)` and $\beta$ = `r efsize.tmb(fspr.treat.sum,5)` at 1 and 12 months respectively, Fig. \@ref(fig:turnover-plots)A).
 In contrast, changes were non-significant for both control and structure plots (Figs. \@ref(fig:ab-plots) and \@ref(fig:turnover-plots)A).
@@ -293,9 +294,9 @@ Only control plots differed significantly from sponge plots after 12 months into
 
 Throughout the experiment, a total of 37 invertebrate taxa were observed.
 At the start of the experiment, between 0 and 4 individuals of non-clonal invertebrates from up to 3 taxa were found in each plot (mean abundance = `r round(mean(inv.uni[inv.uni$sampling == 0, ]$i.abund),1)` and mean richness = `r round(mean(inv.uni[inv.uni$sampling == 0, ]$spr),1)`).
-Snails *Scientific name* were the most abundant taxa. 
-One month later, the maximum number of individuals per plot was up to `r range(inv.uni[inv.uni$sampling == 1, ]$i.abund)[2]` individuals belonging to up to `r range(inv.uni[inv.uni$sampling == 1, ]$spr)[2]` different taxa (mean abundance = `r round(mean(inv.uni[inv.uni$sampling == 1, ]$i.abund),1)` and mean richness = `r round(mean(inv.uni[inv.uni$sampling == 1, ]$spr),1)`) with more anemones and ceriths recorded than snails *scientific names*.
-By the second summer of the experiment, the maximum number of individuals was `r range(inv.uni[inv.uni$sampling == 12, ]$i.abund)[2]`, belonging to as many as `r range(inv.uni[inv.uni$sampling == 12, ]$spr)[2]` different taxa (mean abundance = `r round(mean(inv.uni[inv.uni$sampling == 12, ]$i.abund),1)` and mean richness = `r round(mean(inv.uni[inv.uni$sampling == 12, ]$spr),1)`) and snails were once again the most abundant taxa per plot, followed by Blue crabs (**relpace with scientific name**). \par
+Variable dog whelks *Phrontis alba* were the most abundant taxa. 
+One month later, the maximum number of individuals per plot was up to `r range(inv.uni[inv.uni$sampling == 1, ]$i.abund)[2]` individuals belonging to up to `r range(inv.uni[inv.uni$sampling == 1, ]$spr)[2]` different taxa (mean abundance = `r round(mean(inv.uni[inv.uni$sampling == 1, ]$i.abund),1)` and mean richness = `r round(mean(inv.uni[inv.uni$sampling == 1, ]$spr),1)`) with more turtle grass anemones (*Viatrix globulifera*) and ceriths (*Cerithium spp.*) recorded than *P. alba*.
+By the second summer of the experiment, the maximum number of individuals was `r range(inv.uni[inv.uni$sampling == 12, ]$i.abund)[2]`, belonging to as many as `r range(inv.uni[inv.uni$sampling == 12, ]$spr)[2]` different taxa (mean abundance = `r round(mean(inv.uni[inv.uni$sampling == 12, ]$i.abund),1)` and mean richness = `r round(mean(inv.uni[inv.uni$sampling == 12, ]$spr),1)`) and snails were once again the most abundant taxa per plot, followed by Blue crabs (*Callinectes sapidus*). \par
 
 Changes in non-clonal invertebrate abundance and taxa richness were also best explained by sponge presence (Table 1), but other models were equally well-supported for both abundance and taxa richness  (Table \@ref(table1); S1).
 Abundance of non-clonal invertebrates significantly increased after 1 and 12 months in the presence of a sponge ($\beta$ = `r efsize.tmb(ia.treat.sum,4)` and $\beta$ = `r efsize.tmb(ia.treat.sum,5)` respectively, Fig. \@ref(fig:ab-plots)).
