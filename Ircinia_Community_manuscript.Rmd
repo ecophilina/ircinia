@@ -1,5 +1,5 @@
 ---
-title: "Sponges presence increases diversity and abundance of fish and invertebrates in subtropical seagrass beds"
+title: "Sponge presence increases the diversity and abundance of fish and invertebrates in a subtropical seagrass bed"
 output:   
   bookdown::word_document2:
     number_sections: false
@@ -25,22 +25,17 @@ Finella Campanino^1^, Philina A. English^2^, Craig A. Layman^3^, Stephanie K. Ar
 
 # Abstract  
 
-Ecosystem engineers can have profound effects on biodiversity and community structure. 
-Thus, it is important to identify which organisms act as ecosystem engineers, how they interact with other ecosystem engineers, and how they affect the community surrounding them.
-Globally, seagrass meadows support a wide variety of organisms as ecosystem engineers. 
-<!-- Globally, seagrass meadows support a wide variety of organisms. NOT SURE what the "as ecosystem engineers" refers to here. Maybe it's an accidental holdover from past wording? -->
-Within these habitats, marine sponges also have the potential to act as ecosystem engineers, yet we know little about how they affect fish and invertebrate communities.
-This study explores the affects of the marine sponge, *I. felix*, on fish and invertebrate taxa richness, abundance, turnover, and community composition in a sub-tropical seagrass bed through a 1.5 year field experiment performed in The Bahamas.
-We recorded the fish, non-clonal invertebrate, and clonal invertebrate communities present in 5 x 5 m plots with the addition of either a live sponge, a polypropylene sponge replica (structure), or no additional structures (control). 
+Ecosystem engineers can have profound effects on biodiversity and community structure.
+Seagrass meadows act as ecosystem engineers and support a wide variety of organisms.
+Sponges are another possible example, but we know little about their relationships with fish and invertebrate communities in seagrass systems.
+This study explored the effects of the marine sponge, Ircinia felix, on fish and invertebrate taxa richness, abundance, turnover, and community composition in a subtropical seagrass bed through a 1.5-year field experiment performed in The Bahamas.
+We recorded the fish, non-clonal invertebrate, and clonal invertebrate communities present in 5 × 5 m plots with the addition of either a live sponge, a polypropylene sponge replica (structure), or no additional structure (control).
 Sponge presence alone explained the most variance in fish and non-clonal invertebrate communities, while no change in the clonal invertebrate community was detected.
-Fish and non-clonal invertebrate taxa richness and abundance significantly increased over time in the presence of *I. felix*, but decreased or remained stable in other plot types.
-Sponge presence increased the number of new taxa gained and reduced the number lost for both fish and non-clonal invertebrates, but showed no impact on taxa turnover for clonal invertebrates.
-<!-- Maybe "but showed no impact on taxa turnover for clonal invertebrates". Could be removed here? The fact that no change was detected in this community (3 sentences prior) may be all we need to say? -->
+Fish and non-clonal invertebrate taxa richness and abundance significantly increased over time in the presence of I. felix, but decreased or remained stable in the other plot types.
+Sponge presence increased the number of new taxa gained, and reduced the number lost, for both fish and non-clonal invertebrates.
+Finally, we found that sponge presence shifted the entire fish community over time and across taxa space. 
+Our study exemplifies sponges acting as ecosystem engineers in seagrass systems, however, repetition of our research is needed to support confirm our results.\par 
 
-<!--Yes I (steph) agree that once we say there's no impact on clonal invertebrates we don't need to talk about them again. -->
-Finally, we found that sponge presence shifted the entire fish community over time and across taxa space.
-This experiment was conducted in a low anthropogenic impact environment; thus, further research is needed to understand how sponge presence affects seagrass communities in high impact environments.\par
-<!-- highly impacted environments? -->
 ##### break
 
 # Introduction 
