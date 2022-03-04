@@ -80,9 +80,8 @@ As a result of these predicted changes, we expected that the presence of *I.feli
 
 ## Study site and experimental design  
 
-This study was conducted in a continuous subtidal seagrass bed (1.1 m low tide depth) on Southern Great Abaco Island, The Bahamas (26.02610 N, 77.37408 W). 
-Depth, temperature, and salinity were consistent across the seagrass bed.
-Within the seagrass bed, we delineated fifteen 5 x 5 m plots by placing wooden stakes at the corners and center of each plot on June 9, 2013. 
+This study was conducted in a continuous subtidal seagrass bed (~1 m low tide depth) on the southern region of Great Abaco Island, The Bahamas (26.02610 N, 77.37408 W). 
+Within the seagrass bed, we delineated fifteen 5 × 5 m plots by placing wooden stakes at the corners and center of each plot on June 9, 2013. 
 All plots were separated >2 m. 
 We sampled the fish and epibenthic macroinvertebrate communities, as well as all explanatory variables (see below), once before the beginning of the experiment and again at 1 and 12 months after the treatments were established. 
 Sponge (n=5), structure (n=5), and control (n=5) treatments were randomly assigned to plots. 
@@ -91,40 +90,26 @@ The structure treatment received a polypropylene model of a sponge, also placed 
 Both live and model sponges were contained within a cage to keep the sponge stationary.
 The control plots remained unaltered.
 Within the first month of the experiment, we replaced 3 live sponges when they showed signs of dying.
-Live sponges were monitored throughout the rest of the experiment, but no additional replacements were necessary.\par
+Live sponges were monitored throughout the rest of the experiment but no additional replacements were necessary.\par
 
 ## Faunal community
 
-We monitored the response of the fish and epibenthic macroinvertebrate communities throughout the course of the experiment.
-We performed three summer sampling events: one in June (0 months into the experiment) and two in July (1 and 12 months into the experiment).
-<!-- These first two sentences repeat information stated in the section above-->
-These latter experimental sampling times were designated as year 1 and year 2 of the experiment, respectively.
-<!-- If you take out the first two sentences (I recommend) this sentence will need to be reworded a bit-->
-On each <!-- sampling -->occasion, all fish observed within each plot during a 5 min observation period were identified to lowest practicable taxonomic unit, counted and recorded.
-However, small silvery pelagic fishes which form large schools (e.g. fishes in the families Atherinopsidae and Clupeidae) were excluded from analyses following @Peters2015.
-The macroinvertebrate community were quantified within a 3 m x 1 m band extending from the center of the plot.
-<!-- you could reference the experimental design figure in the supplement here.-->
+We monitored the response of the fish and epibenthic macroinvertebrate communities during each summer sampling event.
+On each sampling occasion, all fish were identified to the lowest possible taxonomic unit, counted, and recorded withi each plot during a five minute period.
+Small silvery pelagic fishes which form large schools (e.g. fishes in the families Atherinopsidae and Clupeidae) were excluded from analyses following @Peters2015.
+The macroinvertebrate community was quantified within a 3 m × 1 m band extending from the center of the plot [expdesign figure].
 All macroinvertebrates were identified to lowest possible taxanomic level and recorded.
 If identification was not possible *in situ*, a representative sample was photographed and subsequently collected.
-For clonal tunicates an accurate count of individuals was not feasible and we recorded them as present/absent within plots. 
-Fish, non-clonal invertebrates, and clonal invertebrates were therefore considered separately in all analyses. 
-<!-- Fish, non-clonal invertebrates (i.e., all invertebrates other than clonal tunicates), and clonal invertebrates were therefore considered separately in all analyses.-->\par
+Fish and macroinvertebrates were considered separately in all analyses. \par
 
 ## Primary producer covariates
 
-@Archer2021 recently showed that *I. felix* can enhance primary producers in a seagrass bed using this same experimental design we performed.
-<!-- @Archer2021 recently showed that *I. felix* facilitated primary producers in these same plots.-->
-Data from @Archer2021 (https://doi.org/10.5061/dryad.qfttdz0gw) were used to calculate seagrass structure and productivity, and macroalgal structure.
-These variables were calculated from seagrass growth, and seagrass and macroalgal abundance in the same plots measured at the same time as the community variables presented here. 
-We use this data for the primary producer variables seagrass stucture, seagrass productivity, and macroalgal structure in our analysis [@Archer2021].
-<!-- I would take the past three sentences and combine them in a sentence something like this:
+@Archer2021 recently showed that *I. felix* facilitated primary producers in these same plots.
 Seagrass growth, and seagrass and macroalgal abundance from @Archer2021 were used to calculate seagrass productivity, and seagrass and macroalgal structure for our analysis.
-Then I would remove the paragraph break.-->\par
-
-Seagrass productivity was calculated by multiplying the average growth per shoot by the total shoot density for *T. testudinum* <!-- for each plot at each sampling point-->.
-Seagrass structure was calculated as the <!-- mean--> number of seagrass shoots (i.e. shoot density) for all seagrass species (*Halodule wrightii, Syringodium filiforme, and T. testudinum*) in <!-- twelve -->20 × 20  cm “sub-quadrats” <!-- per plot -->at each sampling event.
+Seagrass productivity was calculated by multiplying the average growth per shoot by the total shoot density for *T. testudinum* for each plot at each sampling point.
+Seagrass structure was calculated as the mean number of seagrass shoots (i.e., shoot density) for all seagrass species (*Halodule wrightii, Syringodium filiforme, and T. testudinum*) in twelve 20 × 20  cm “sub-quadrats” per plot at each sampling event.
 Macroalgal structure was calculated as the total macroalgal abundance across all taxa at each sampling event.
-Drift algae was not included. 
+Drift algae (e.g., *Karenia brevis*) were not included. 
 Seagrass productivity, seagrass structure, and macroalgal structure were centered and standardized by two standard deviations to allow effect size comparisons between continuous and factor covariates within models [@Schielzeth2010]. \par
 
 ## Statistical Analyses
