@@ -120,17 +120,15 @@ All statistical analyses were conducted in R version 4.1.0 [@RCoreTeam2021].
 
 We analyzed total abundance and taxa richness on three faunal communities: fish, non-clonal invertebrates, and clonal invertebrates.
 First, we used analysis of variance (ANOVA) to confirm that none of the faunal communities differed in total abundance or taxa richness between the treatment plot types at the start of the experiment (sampling month = 0).
-Next, we tested for differences in overall abundance and taxa richness of each faunal community among treatments using univariate Generalized Linear Mixed Models (GLMMs), with sponge presence as the reference level.
-<!-- because not all models have treatment in them I think this sentence would more accurately be:
-Next, we tested for differences in overall abundance and taxa richness of each faunal community univariate Generalized Linear Mixed Models (GLMMs), with sponge presence as the reference level when treatment was included in the model.-->
+Next, we tested for differences in overall abundance and taxa richness of each faunal community using univariate Generalized Linear Mixed Models (GLMMs), with sponge presence as the reference level when treatment was included in the model.
 We chose multiple model configurations to represent the biological hypotheses that could best explain community changes within seagrass plots.
-Specifically, sponge presence, seagrass productivity, seagrass structure, and macroalgal structure were each modeled separately and additively to represent sponge presence alone, three parts of primary production within the seagrass system, and the combined effects of changes in primary production and the presence of the sponge (Table S1-3).
-Additionally, all models included a random effect for plot, sampling month as a factor, and for models including treatment an interaction between treatment and time.
-All models were fit with a Conway–Maxwell–Poisson distribution, parametrized via the mean and a log link, and implemented using the `glmmTMB` package [@Brooks2017; @Huang2017].
+Specifically, sponge presence, seagrass productivity, seagrass structure, and macroalgal structure were each modeled separately and additively to represent sponge presence alone, three characteristics of primary producers, and the combined effects of changes in primary producers and the presence of the sponge (Table S1-3).
+All models included a random effect for plot, sampling month as a factor, and, for models including treatment, an interaction between treatment and time.
+All models were fitted with a Conway–Maxwell–Poisson distribution, parametrized via the mean and a log link and implemented using the `glmmTMB` package [@Brooks2017; @Huang2017].
 We reviewed the residuals of all model configurations to confirm that GLMM assumptions were met.
-<!-- Be more specific here, residuals were tested for compliance with model assumptions using the DHARMa package and a custom-built function to test for over-dispersion.-->
-We used the package `AICcmodavg` [@Mazerolle2020] to create a model selection tables based on Akaike Information Criterion scores (AICc).
-All models within two $\delta AICc of the best supported model are considered to be well-supported.\par
+Specifically, residuals were tested for compliance with model assumptions using the DHARMa package and a custom-built function to test for over-dispersion.
+We used the package `AICcmodavg` [@Mazerolle2020] to create model selection tables based on Akaike Information Criterion scores (AICc).
+All models within two $\delta$ AICc of the best-supported model are considered to be well-supported.\par
 
 *Taxa Turnover*
 
