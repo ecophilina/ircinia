@@ -198,7 +198,7 @@ efsize.tmb<-function(rtable,row){
   cil<-format(round(cil, digits=decicount), scientific=F)
   cih<-rtable$coefficients$cond[row,1]+1.96*se
   cih<-format(round(cih, digits=decicount), scientific=F)
-  return(paste0(betas,", ",cil," to ",cih))
+  return(paste0(betas,", CI = ",cil," to ",cih))
 }
 
 # overall anovas
@@ -234,7 +234,7 @@ tukey.res<-function(rtable,row){
 *Fish*  
 
 Throughout the experiment, a total of 15 fish taxa were observed.
-At the start of the experiment between 0 and 2 individual fish, never of the same taxa, were found in each plot (mean = `r round(mean(fish.uni[fish.uni$sampling == 0, ]$f.abund),1)`). 
+At the start of the experiment between 0 and 2 individual fish, never of the same taxa, were found in each plot (mean = `r round(mean(fish.uni[fish.uni$sampling == 0, ]$f.abund),1)`, sd= `r round(sd(fish.uni[fish.uni$sampling == 0, ]$f.abund),1)`). 
 *Halichoeres bivittatus* (Slippery Dick) was the most common taxa. 
 One month later, the maximum number of individuals per plot was 4, belonging to as many as 4 different taxa (mean abundance = `r round(mean(fish.uni[fish.uni$sampling == 1, ]$f.abund),1)` and mean richness = `r round(mean(fish.uni[fish.uni$sampling == 1, ]$spr),1)`) with *H. bivittatus* remaining the most abundant taxa across treatment types.
 By the second summer of the experiment, the maximum number of individuals had increased to 7, belonging to as many as 6 different taxa (mean abundance = `r round(mean(fish.uni[fish.uni$sampling == 12, ]$f.abund),1)` and mean richness = `r round(mean(fish.uni[fish.uni$sampling == 12, ]$spr),1)`).
