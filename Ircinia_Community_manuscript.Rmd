@@ -283,34 +283,33 @@ By 12 months into the experiment, the invertebrate communities had no difference
 
 # Discussion  
 
-Ecosystem engineers can affect habitat structure, resource availability and location, and community structure and dynamics [@Jones1994; @Anderson1992; @Byers2006].
+Ecosystem engineers can affect habitat structure, resource availability, and location, as well as community structure and dynamics [@Jones1994; @Anderson1992; @Byers2006].
 Here we present, to the best of our knowledge, the first *in situ* experiment examining if sponges act as ecosystem engineers in seagrass beds.
-We did this by testing the affect of *I. felix* presence in subtropical seagrass beds on taxa richness, abundance, taxa turnover, and community compositional vectors over a 1.5 year experiment.
-We found that sponge presence alone explained the most variance in fish and non-clonal invertebrate communities, while no changes in the clonal invertebrate community were detected.
-In fish and non-clonal invertebrates, taxa richness and abundance increased over time with the presence of *I. felix* while decreasing or remaining non-significantly changed without the sponge presence in seagrass ecosystems. 
-Overtime, sponge presence increased taxa gained for fish and non-clonal invertebrates, while showing little to no change in taxa turnover for clonal invertebrates.
+We did this by testing the affect of *I. felix* presence in subtropical seagrass beds on taxa richness, abundance, taxa turnover, and community compositional vectors over a 1.5 yr experiment.
+We found that sponge presence alone explained the most variance in fish and invertebrate communities.
+In fish and invertebrates, taxa richness and abundance increased over time with the presence of *I. felix* while decreasing or remaining unchanged without the sponge presence. 
+Overtime, sponge presence was associated with more taxa for fish and invertebrates.
 Finally, we found that sponge presence shifted the entire fish community over time across taxa space. \par
 
-Our results showed that fish richness and abundance was positively correlated with sponge presence treatment types. 
-It is possible that the added structural complexity from the sponge to the seagrass bed could contribute to the increase in fish richness and abundance. 
+Our results showed that fish richness and abundance were positively correlated with sponge presence.
+The added structural complexity from the sponge may contribute to the increase in fish richness and abundance. 
 @Ferrari2018 showed that fish abundance could be best explained by benthic biota and complexity metrics in subtropical reefs. 
-@Gratwicke2005 also found similar results with fish species richness being positively correlated with rugosity and a variety of growth forms in multiple subtropical habitats, including seagrass beds.
-However, our results suggest *I. felix* effects on fish species richness and abundance exceed what would be expected from it’s structure alone
-In addition, there was an increase of non-clonal invertebrate species richness and abundance in the sponge presence plots, which could add more prey species available for fish to feed on. 
-@Brook1977 suggested that the fish population in *T. testudinum* dominant seagrass beds in Florida were limited by abundance of polychaetes and crustaceans. 
-The added structural complexity of the seagrass bed from the sponge along with the increase of food availability with sponge presence could be a reasonable hypothesis for the increase in fish richness and abundance.
+@Gratwicke2005 also found similar results with fish species richness being positively correlated with rugosity and a variety of growth forms in subtropical habitats, including seagrass beds.
+However, our results suggest *I. felix* effects on fish species richness and abundance exceed what would be expected from structure alone.
+In addition, there was an increase of invertebrate species richness and abundance in the sponge presence plots, which could provide more prey species available for fish to feed on. 
+@Brook1977 suggested that fish population in *T. testudinum* dominant seagrass beds were limited by abundance of polychaetes and crustaceans. 
+@Yeager2012 results parrellel the hypothesis that higher food availability associated with increase seagrass cover positively correlates with abundance of white grunts (*Haemulon plumierii*).
+The added structural complexity of the seagrass bed from the sponge, along with the increase of food availability with sponge presence, could be a reasonable hypothesis for the increase in fish richness and abundance.
  However, further research is needed to tease apart the relative importance of structural complexity and food availability via sponge presence. \par
  
-In addition to the increase in fish richness and abundance, we also saw a shift in the fish community. 
-We propose through anecdotal observations and collected species richness that fish communities found in the sponge presence, typically included more coral reef-associated fish like grunts, damselfish, and nassau grouper **scientific names needed***.
-Other research has shown grunts to be associated with coral reefs and seagrass beds across the Caribbean[@Nagelkerken2008; @CocheretdelaMoriniere2003].
-Juvenile grunts have been well-documented for using seagrass as nursery habitat [@Arrivillaga1999; @Yeager2012; @CocheretdelaMoriniere2003], however little has been assessed about their relation to sponges. 
-Again, it is reasonable to hypothesize that the increase of non-clonal invertebrate species richness and abundance in the sponge presence plots could add more prey species available for fish to feed on.
-Both juvenile grunts and beaugregory damselfish partially rely on invertebrates as a food source [@Cervigon1966] . 
-Nassau groupers are also a well known coral reef predator and use seagrass beds as feeding grounds.
-@Eggleston1998 found that the small (i.e. juvenile) and midsize nassau groupers diet depended heavily on crustaceans compared to larger adult fish.
-It is a probable hypothesis that again the increased species richness and abundance of non-conal invertebrates with the sponge presence influenced the fish community and shifted it more towards predatory coral reef fish species.
- We recommend more experiments to test this complex interaction to confirm that the community shift is consistent and replicable with sponge presence.\par
+In addition to the increase in fish richness and abundance, we also saw a shift in the fish community structure. 
+With sponge presence, the fish community includede species typically associated with reefs, such as grunts (*Haemulidae* spp.), damselfish (*Pomacentridae* spp.), and Nassau grouper (*Epinephelus striatus*).
+Other research has shown grunts to be associated with coral reefs and seagrass beds across the Caribbean [@Nagelkerken2008; @CocheretdelaMoriniere2003].
+Juvenile grunts (*Haemulidae* spp.) have been well-documented for using seagrass as nursery habitat [@Arrivillaga1999; @Yeager2012; @CocheretdelaMoriniere2003], however, little has been studied on their relation to sponges. 
+Both juvenile grunts (*Haemulidae* spp.) and beaugregory damselfish (*Stegastes leucostictus*) partially rely on invertebrates as a food source [@Cervigon1966]. 
+Nassau groupers (*Epinephelus striatus*) associate with structure and use seagrass beds as feeding grounds.
+@Eggleston1998 found that the juvenile and midsize Nassau grouper (*Epinephelus striatus*) depend on crustaceans as a food source.
+Likely, the increased species richness and abundance of non-clonal invertebrates with sponge presence contributed to the colonization of structure-associated fish species that could take advantage of increased invertebrate abundance.\par
 
 Although the sponge presence model explained the most variance for non-clonal invertebrate taxa richness and abundance, there were some models that fell within less than 2 $\delta AICc values that cannot be ruled out: macroalgal structure, sponge presence + seagrass productivity, sponge presence + seagrass structure(Table 1). 
 This suggests that sponge presence by enhancement of primary producers(i.e. seagrass and macroalgal structure) may impact the invertebrate communities, however, not as much as sponge presence alone. 
