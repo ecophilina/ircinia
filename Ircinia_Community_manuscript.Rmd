@@ -34,8 +34,7 @@ Sponge presence alone explained the most variance in fish and invertebrate commu
 Fish and invertebrate taxa richness and abundance significantly increased over time in the presence of *I. felix*, but decreased or remained stable in the other plot types.
 Sponge presence increased the number of new taxa gained, and reduced the number lost, for both fish and invertebrates.
 Finally, we found that sponge presence shifted the entire fish community over time and across taxa space. 
-Our study exemplifies sponges acting as ecosystem engineers in seagrass systems, however, repetition of our research is needed to support confirm our results.\par 
-<!-- PE: How about "Our study shows that sponges can act as ecosystem engineers in seagrass systems, however, additional research is needed to determine the full extent and implications of their effects." -->
+How about "Our study shows that sponges can act as ecosystem engineers in seagrass systems, however, additional research is needed to determine the full extent and implications of their effects.\par 
 
 ##### break
 
@@ -46,14 +45,10 @@ They can create or modify entire habitats, ultimately influencing the distributi
 @Jones1994 coined the term ecosystem engineer almost 30 years ago, however, we still lack an understanding of which taxa fill this role in many systems [@Byers2006]. 
 More so, we lack an understanding of the multitude of ecosystem engineers within one system and their potential to affect the community and ecosystem characteristics interactively.
 \par 
-<!-- PE: how about  "More so, we lack an understanding of what happens when multiple ecosystem engineers occur within one system ..." -->
 
-Seagrasses are ecosystem engineers that form beds supporting a wide range of organisms [@Hori2009]. 
-<!-- PE: bed = marine meadows? just here, call them seagrass beds makes sense to me, but without the word seagrass right next to it, all I visualize is the kind of bed I sleep in...-->
+Seagrasses are ecosystem engineers that form meadows (or beds) supporting a wide range of organisms [@Hori2009]. 
 They provide shelter to numerous species at multiple life stages [@James1994; @Nakamura2012], are a food source [@Vicente1980], and play a key role in nutrient cycling [@Hemminga1991].
-*Thalassia testudinum*, turtle grass, positively affects crustacean and fish abundance, species diversity, and species evenness when compared to sand habitat [@Arrivillaga1999; @Duffy2006; @Heck &
-Orth 1980; Orth1984)].
-<!-- SA: Check citations here -->
+*Thalassia testudinum*, turtle grass, positively affects crustacean and fish abundance, species diversity, and species evenness when compared to sand habitat [@Arrivillaga1999; @Duffy2006; @Heck1980; @Orth1984)].
 In addition, fish and invertebrate diversity and abundance are influenced by the morphological components and structural complexity of seagrass beds [@Duffy2006; @Hori2009 @Bell2006).
 Sponges are among the many organisms seagrass beds support.
 Sponges possess many traits (e.g., create complex structure) that suggest they may also act as ecosystem engineers in seagrass systems.\par
@@ -61,8 +56,7 @@ Sponges possess many traits (e.g., create complex structure) that suggest they m
 Sponges can add to the structural complexity of a habitat, alter localized water flow, stabilize substrate, and act as a settlement substrate for sessile organisms [@Bell2008; @Wulff1984].
 Some sponges have extensive microbial communities and macrofauna in and on their tissue [@Wulff2006; @Taylor2007; @Bell2008] and can provide camouflage and protection to other organisms [@McClay1983; @Martin1992]. 
 Sponges  and their associated microbial communities can also act as a source of bioavailable forms of phosphorus and nitrogen in seagrass beds, especially important under oligotrophic conditions [@Archer2017; @Southwell2008; @Diaz1997].
-Likely as a result of the this nutrient cycling, one sponge has been experimentally shown to facilitate primary production in sub-tropical seagrass beds [@Archer2021].
-<!-- SA: Check text for phrases like "has been"  this is often an indication of passive voice. Here I'd change this sentence to be ..., at lease one sponge, *Ircinia felix* facilitates primary producers (seagrasses and macroalgae) in sub-tropical seagrass beds.. -->
+Likely as a result of the this nutrient cycling, at lease one sponge, *Ircinia felix* facilitates primary producers (seagrasses and macroalgae) in sub-tropical seagrass beds [@Archer2021].
 Combined, these traits suggest sponges have considerable potential to enhance the biodiversity of seagrass communities.\par
 
 Despite their potential to significantly affect the distribution, diversity, and abundance of other organisms within a system, the effects of sponges on communities have been underappreciated [@Bell2008].
@@ -72,21 +66,13 @@ Therefore, it is important to understand what drives diversity in these systems 
 To this end, we investigated the effect of sponge presence on biodiversity within a relatively undisturbed seagrass ecosystem.\par
 
 We investigated the impact of the sponge, *Ircinia felix*, on seagrass bed-associated communities. 
-Using a 1 yr field-based experiment, we examined how sponge presence influenced fish and invertebrate taxa richness, abundance, taxa turnover, and community compositional vectors.
-<!-- SA: For now I'd say community composition, the compositional vectors is how we assessed changes in community composition  Also changed this to 1 year field experiment because we only used the first year of data.-->
-Because seagrass bed characteristics affect fish and invertebrate communities, and *I. felix* increases growth and abundance of seagrasses and macroalgae, we further explored direct and indirect affects of sponge presence on the community.
-<!-- SA: Here's another example of passive voice you don't need "have previously been shown to" this sentence works just as well without them and fewer words conveying the same thing is almost always better. Also I might consider being a bit more explicit about you mean by seagrass bed characteristics. You are specifically talking about structural complexity and productivity. You can just say that here.  -->
-If an effect on the community variables was detected, we tested whether it was better explained by the presence of the sponge alone (i.e., a direct effect), the enhancement of the dominant primary producers (macroalgae and seagrasses; i.e, an indirect effect), or a combination of the two.
-<!-- SA: I think you can take out the "if an effect on the community was detected part here. That makes it sound like this sentence belongs in the methods just start the sentence with: We tested if the fish and invertebrate communities were influenced by...-->
-We predicted that seagrass beds with *I. felix* would have higher taxa richness and abundance than seagrass beds without *I felix*.
+Using a 1 yr field-based experiment, we examined how sponge presence influenced fish and invertebrate taxa richness, abundance, taxa turnover, and community composition.
+Because seagrass bed structural complexity and productivity affect fish and invertebrate communities, and *I. felix* increases growth and abundance of seagrasses and macroalgae, we further explored direct and indirect affects of sponge presence on the community.
+We tested if the fish and invertebrate communities were influenced by the presence of the sponge alone (i.e., a direct effect), the enhancement of the dominant primary producers (macroalgae and seagrasses; i.e, an indirect effect), or a combination of the two.
+We predicted that seagrass plots with *I. felix* would have higher taxa richness and abundance than seagrass plots without *I felix*.
 We hypothesized that, if an effect was detected, the presence of *I. felix* would affect the community more than the abundance of the dominant primary producers [@Archer2021].
-<!-- FC not sure if I made this more clear or if I should just remove the sentence all together# -->
-We hypothesized that community richness would be influenced by a combination of direct effects of the presence of *I. felix* and indirect effects through changes in the abundance of the dominant primary producers.
-We hypothesized that changes in taxa richness observed when *I. felix* is present would be explained by both fewer lost taxa and more taxa gained over time compared to other treatments, resulting in lower taxa turnover.
-As a result of these predicted changes, we expected that the presence of *I.felix* would result in a change in community structure over time.\par
-<!-- SA: These last few sentences of this paragraph get a bit repetitive. I think there's a way to combine them to be more succinct. How about: 
-We predicted that seagrass beds with *I. felix* would have higher taxa richness and abundance than seagrass beds without *I felix* and that this would be predominantly driven by the direct effect of the sponge on both the colonization and retention of species. As a result we hypothesize that the presence of *I.felix* would result in a change in community structure over time.   -->
-<!-- PE: I like this! But I'm not sure I would have predicted "predominently by the direct effect..." Maybe my prediction is different because I know less about sponges, but would say "that this would be driven by a combination of direct effects and indirect effects on both the colonization and retention of species." OR maybe I'd have even expected "that this would be mostly driven by indirect effects on the colonization and retention of species resulting from changes in primary producer abundance." But those are just my personal predictions... thinking back, Finella, what do you think you expected?-->
+Further, we predicted that seagrass plots with *I. felix* would have higher taxa richness and abundance than seagrass plots without *I felix* and that this would be mostly driven by indirect effects on the colonization and retention of species resulting from increases in structural complexity and productivity of the primary producers caused by sponge presence. As a result we hypothesize that the presence of *I.felix* would result in a change in community structure over time.
+
 
 # Methods  
 
@@ -112,8 +98,9 @@ Small silvery pelagic fishes which form large schools (e.g. fishes in the famili
 The macroinvertebrate community was quantified within a 3 m × 1 m band extending from the center of the plot (Figure S1).
 All macroinvertebrates were identified to lowest possible taxanomic level and recorded.
 If identification was not possible *in situ*, a representative sample was photographed and subsequently collected.
+Colonial tunicates were excluded from analysis, as counts are not an accurate reflection of their abundance. 
 Fish and macroinvertebrates were considered separately in all analyses. \par
-<!-- SA: his paragraph would be a good place to talk about how colonial invertebrates were excluded, similar to the small silvery fish sentence :)  -->
+
 
 ## Primary producer covariates
 
@@ -147,8 +134,8 @@ All models within two $\delta$ AICc of the best-supported model are considered t
 
 Increases in taxa richness through time can result from either increases in colonization rates, or a reduction in the loss of taxa. 
 To assess the relative rates at which taxa were gained or lost between sampling events, we used the `turnover` function in `codyn` package [@Hallett2020]. 
-We assessed both components of taxa turnover separately for each faunal community in each plot type, and compared patterns of turnover among treatments at 1 and 12 months into the experiment.\par
-<!-- SA: Need to add statistical methods here. I think you can just start this sentence you can saw: Using analysis of variance we ... Then add in a sentence about Tukey Post hoc tests like you have below-->
+Using analysis of variance we assessed both components of taxa turnover separately for each faunal community in each plot type, and compared patterns of turnover among treatments at 1 and 12 months into the experiment.
+When significant differences were detected we compared treatments using Tukey Post Hoc tests.\par
 
 *Compositional Vectors*
 
@@ -257,21 +244,17 @@ Juvenile grunts (*Haemulidae* spp.) were slightly more abundant than *H. bivitta
 Changes in fish abundance and fish taxa richness were best explained by sponge presence (Table 1, S1-3), such that in the presence of a sponge, both increased during the experiment (abundance: $\beta$ = `r efsize.tmb(fa.treat.sum,4)` and $\beta$ = `r efsize.tmb(fa.treat.sum,5)` at 1 and 12 months respectively, Fig. \@ref(fig:ab-plots); richness: $\beta$ = `r efsize.tmb(fspr.treat.sum,4)` and $\beta$ = `r efsize.tmb(fspr.treat.sum,5)` at 1 and 12 months respectively, Fig. \@ref(fig:turnover-plots)A).
 By contrast, changes were non-significant for both control and structure plots (Figs. \@ref(fig:ab-plots) and \@ref(fig:turnover-plots)A).
 Only control plots differed significantly from sponge plots after 12 months into the experiment (abundance: $\beta$ = `r efsize.tmb(fa.treat.sum,8)`; richness: $\beta$ = `r efsize.tmb(fspr.treat.sum,8)`).\par
-<!-- PE: we don't need to say effect size and confidence intervals now that I've added the definition of $\beta$ and CI to the end of the results. I also think that we don't need to repeat taxa inside the brackets if richness is qualified at taxa richness at the start of the sentence or even paragraph. Likewise when we only talk about fish in a given sentence/paragraph. Does the above still seem clear to you both? -->
 
 *Invertebrates*
 
-A total of 37 invertebrate taxa were observed in the experiment.
-<!-- FMC- is this sentence above inclusding clonal? -->
+A total of 32 invertebrate taxa were observed in the experiment.
 At the start of the experiment, between 0 and 4 individuals invertebrates from up to 3 taxa were found in each plot (mean abundance = `r round(mean(inv.uni[inv.uni$sampling == 0, ]$i.abund),1)`, sd = `r round(sd(inv.uni[inv.uni$sampling == 0,]$i.abund),1)` and mean richness = `r round(mean(inv.uni[inv.uni$sampling == 0, ]$spr),1)`,sd = `r round(sd(inv.uni[inv.uni$sampling == 0,]$spr),1)`).
 Variable dog whelks (*Phrontis alba*) were the most abundant taxa. 
 One month later, the maximum number of individuals per plot was up to `r range(inv.uni[inv.uni$sampling == 1, ]$i.abund)[2]` individuals belonging to up to `r range(inv.uni[inv.uni$sampling == 1, ]$spr)[2]` different taxa (mean abundance = `r round(mean(inv.uni[inv.uni$sampling == 1, ]$i.abund),1)`,sd = `r round(sd(inv.uni[inv.uni$sampling == 1,]$i.abund),1)` and mean richness = `r round(mean(inv.uni[inv.uni$sampling == 1, ]$spr),1)`, sd = `r round(sd(inv.uni[inv.uni$sampling == 1,]$spr),1)`) with more turtle grass anemones (*Viatrix globulifera*) and ceriths (*Cerithium spp.*) recorded than *P. alba*.
-By the second summer of the experiment, the maximum number of individuals was `r range(inv.uni[inv.uni$sampling == 12, ]$i.abund)[2]`, belonging to as many as `r range(inv.uni[inv.uni$sampling == 12, ]$spr)[2]` different taxa (mean abundance = `r round(mean(inv.uni[inv.uni$sampling == 12, ]$i.abund),1)`, sd = `r round(sd(inv.uni[inv.uni$sampling == 12,]$i.abund),1)` and mean richness = `r round(mean(inv.uni[inv.uni$sampling == 12, ]$spr),1)`, sd = `r round(sd(inv.uni[inv.uni$sampling == 12,]spr),1)`) and *P. alba* were once again the most abundant taxa per plot, followed by Blue crabs (*Callinectes sapidus*). \par
-<!-- PE: Since you start with "*Halichoeres bivittatus* (Slippery Dick)" above, I might stick to putting the common name in brackets in most cases. I would however keep this one "Juvenile grunts (*Haemulidae* spp.)" the way you have it. -->
+By the second summer of the experiment, the maximum number of individuals was `r range(inv.uni[inv.uni$sampling == 12, ]$i.abund)[2]`, belonging to as many as `r range(inv.uni[inv.uni$sampling == 12, ]$spr)[2]` different taxa (mean abundance = `r round(mean(inv.uni[inv.uni$sampling == 12, ]$i.abund),1)`, sd = `r round(sd(inv.uni[inv.uni$sampling == 12,]$i.abund),1)` and mean richness = `r round(mean(inv.uni[inv.uni$sampling == 12, ]$spr),1)`, sd = `r round(sd(inv.uni[inv.uni$sampling == 12,]$spr),1)`) and *P. alba* were once again the most abundant taxa per plot, followed by Blue crabs (*Callinectes sapidus*). \par
 
 Changes in invertebrate abundance and taxa richness were also best explained by sponge presence (Table 1), but other models were equally well-supported for both abundance and taxa richness  (Table 1; S1).
 Abundance of invertebrates significantly increased after 1 and 12 months in the presence of a sponge ($\beta$ = `r efsize.tmb(ia.treat.sum,4)` and $\beta$ = `r efsize.tmb(ia.treat.sum,5)` respectively, Fig. \@ref(fig:ab-plots)).
-<!-- SA: Search for and get rid of non-clonal throughout. You don't need to specify now that we're not including clonal inverts -->
 Only after 12 months were abundances significantly lower in both control and structure plots than in sponge plots ($\beta$ = `r efsize.tmb(ia.treat.sum,8)` and $\beta$ = `r efsize.tmb(ia.treat.sum,9)` respectively).
 Seagrass productivity appeared to explain some of this change ($\beta$ = `r efsize.tmb(ia.treat.prod.sum,6)`), but there was still a significant difference between structure plots and sponge plots after accounting for the differences in seagrass productivity ($\beta$ = `r efsize.tmb(ia.treat.prod.sum,10)`).
 Likewise, the model including seagrass structure was well-supported (Table 1); however, it's contribution did not reach significance ($\beta$ = `r efsize.tmb(ia.treat.struct.sum,6)`) suggesting that new growth rather than shoot density alone had some impact on the invertebrate abundance. 
@@ -301,76 +284,49 @@ By 12 months into the experiment, the invertebrate communities had no difference
 
 # Discussion  
 
-Ecosystem engineers can affect habitat structure, resource availability, and location, as well as community structure and dynamics [@Jones1994; @Anderson1992; @Byers2006].
-<!-- PE: what does location mean here? -->
+Ecosystem engineers can affect habitat structure, resource availability, and community structure and dynamics [@Jones1994; @Anderson1992; @Byers2006].
 Here we present, to the best of our knowledge, the first *in situ* experiment examining if sponges act as ecosystem engineers in seagrass beds.
 We did this by testing the affect of *I. felix* presence in subtropical seagrass beds on taxa richness, abundance, taxa turnover, and community compositional vectors over a 1 yr experiment.
 We found that sponge presence alone explained the most variance in fish and invertebrate communities.
-In fish and invertebrates, taxa richness and abundance increased over time with the presence of *I. felix* while decreasing or remaining unchanged without the sponge presence. 
-<!-- PE: "For both fish and invertebrates, taxa richness and abundance increased over time in the presence of *I. felix* while decreasing or remaining unchanged in the absence of a sponge."  -->
-Overtime, sponge presence was associated with more fish and invertebrate taxa.
-<!-- PE: Doesn't this repeat the same point as the sentence before it? I'd take it out. 
-OR maybe we are trying to talk about turnover here?
-If so, maybe "Overtime, sponge presence was associated with gaining more fish and invertebrate taxa and an increase in the retention of fish taxa but not of invertebrates."
--->
-Finally, we found that sponge presence shifted the entire fish community over time across taxa space. \par
-<!-- PE: And maybe finish with "This resulted in a shift in overall *taxa space* for the fish community but not for the invertebrate community." -->
-
-
-Our results showed that fish richness and abundance were positively correlated with sponge presence.
-<!-- PE: I think this first sentence can be dropped because it's covered by the 5th sentence in the para above. And your next sentence sounds like a great topic sentence to me! :) -->
-The added structural complexity from the sponge may contribute to the increase in fish richness and abundance. @Ferrari2018 showed that fish abundance could be best explained by benthic biota and complexity metrics in subtropical reefs. 
-@Gratwicke2005 also found similar results with fish species richness being positively correlated with rugosity in subtropical habitats, including seagrass beds.
-However, our results suggest *I. felix* effects on fish taxa richness and abundance exceed what would be expected from structure alone.
-<!-- SA: Remind readers why that is. I almost forgot and I thought up the experiment :)  -->
-There was an increase of invertebrate taxa richness and abundance in the sponge presence plots, which could provide more prey species available for fish to feed on. 
-@Brook1977 suggested that fish population in *T. testudinum* dominant seagrass beds were limited by abundance of polychaetes and crustaceans. 
-@Yeager2012 results parrellel the hypothesis that higher food availability associated with increase seagrass cover positively correlates with abundance of white grunts (*Haemulon plumierii*).
-<!-- PE: Again, I might put the common name in brackets in this case.-->
-The added structural complexity of the seagrass bed from the sponge, along with the increase of food availability with sponge presence, could be a reasonable hypothesis for the increase in fish richness and abundance.
-<!-- SA: change "could be a reasonable hypothesis" with "could explain the increase" -->
-<!-- PE: The above might work even better as a topic sentence to start this para? I think if you moved it up, you can just drop the however from the start of your last sentence and it should flow nicely. -->
- However, further research is needed to tease apart the relative importance of increased structural complexity and food availability as a result of sponge presence. \par
- 
-In addition to the increase in fish richness and abundance, we also saw a shift in the fish community structure. 
-Where sponges were present, the fish community included species typically associated with reefs, such as grunts (*Haemulidae* spp.), damselfish (*Pomacentridae* spp.), and Nassau grouper (*Epinephelus striatus*).
-Other research has shown grunts to be associated with coral reefs and seagrass beds across the Caribbean [@Nagelkerken2008; @CocheretdelaMoriniere2003].
-<!-- SA: get rid of "Other research has shown" and just start the sentence with "Grunts are associated with..." Although this says the exact same thing as the previous sentence so you could just add the citations to the previous sentence and get rid of this one all together -->
-Juvenile grunts (*Haemulidae* spp.) are well-documented for using seagrass as nursery habitat [@Arrivillaga1999; @Yeager2012; @CocheretdelaMoriniere2003], however, little has been studied on their relation to sponges. 
-<!-- SA: replace have been well-documented for using with use (again, passive voice) -->
-Both juvenile grunts (*Haemulidae* spp.) and beaugregory damselfish (*Stegastes leucostictus*) partially rely on invertebrates as a food source [@Cervigon1966]. 
-Nassau groupers (*Epinephelus striatus*) associate with structure and use seagrass beds as feeding grounds.
-@Eggleston1998 found that the juvenile and midsize Nassau grouper (*Epinephelus striatus*) depend on crustaceans as a food source.
-Likely, the increased taxa richness and abundance of invertebrates with sponge presence contributed to the colonization of structure-associated fish species that could take advantage of increased invertebrate abundance.\par
-<!-- SA: I'd combine this paragraph with the last one. It has the same take home point - the increase in structure combined with more invertbrate food in sponge plots likely drove the increase in, and change in community composition of fish -->
-<!-- PE: I agree. I'd open with something like "The added structural complexity of a seagrass bed when it contain sponges could explain the changes in the fish and invertebrate communities." -->
+Overtime, sponge presence was associated with gaining more fish and invertebrate taxa and an increase in the retention of fish taxa but not of invertebrates.
+This resulted in a shift in overall *taxa space* for the fish community but not for the invertebrate community.\par
 
 Although the sponge presence model explained the most variance for invertebrate taxa richness and abundance, some models fell within less than 2 $\delta \Delta$ AICc values that cannot be ruled out: macroalgal structure, sponge presence + seagrass productivity, and sponge presence + seagrass structure(Table 1). 
-This suggests that sponge presence by enhancement of primary producers (i.e. seagrass and macroalgae) may impact the invertebrate communities, although not as much as sponge presence alone. 
-<!-- SA: This sentence has a little bit of yoda speak going on in it. I suggest reordering so it reads ...sponge presence may impact the invertebrate community indirectly via the enhancement... -->
+This suggests that sponge presence may impact the invertebrate community indirectly via the enhancement of primary producers (i.e. seagrass and macroalgae), although not as much as sponge presence alone. 
 In @Archer2021, macroalgal and seagrass abundance significantly increased over time in the presence of *I. felix*. 
-Other studies support the idea that marcoinvertebrates richness and abundance increase with increasing seagrass shoot density[@Webster1998;x;x]. 
-Marine sponges can have a range of microbes and macrofauna (e.g., invertebrates) living on and in their tissues[@Wulff2006; @Taylor2007; @Bell2008] which could explain the increase in invertebrate taxa richness and abundance via habitat availability.
-<!-- SA: this sentence feels out of place - how is this related to how invertebrates respond to increased seargass structure? -->
+Other studies support the idea that marcoinvertebrates richness and abundance increase with increasing seagrass shoot density[@Webster1998]. 
+<!--Marine sponges can have a range of microbes and macrofauna (e.g., invertebrates) living on and in their tissues[@Wulff2006; @Taylor2007; @Bell2008] which could explain the increase in invertebrate taxa richness and abundance via habitat availability.
+SA: this sentence feels out of place - how is this related to how invertebrates respond to increased seargass structure? -->
 Notably, we did not measure sediment infauna invertebrate communities nor invertebrates residing within the sponge, so the influence of the sponge on invertebrate communities could be much larger than what we present.
 <!-- SA: this sentence feels out of place - how is this related to how invertebrates respond to increased seargass structure? Same comment as previous sentence. Make sure each paragraph has a topic sentence and a related conclusion and everything in that paragraph expands on or provides more detail about those points. This paragraph drifts from the impact of sponges on the invertebrate community may be indirect to sponge infauna to sediment infauna to we need more research.-->
 Further research is needed to capture the affects of sponge presence in seagrass beds for invertebrates that include sediment infauna and resident sponge habitat invertebrates. \par
-<!-- PE: Because an increase in inverts becomes part of our explanation for changes in the fish community, I think we may want to put the paragraph about invert before the para about fish. -->
 
-Overall, we found that sponge presence was correlated with taxa retention and taxa gain. 
+The added structural complexity of the seagrass bed from the sponge, along with the increase of food availability with sponge presence, could explain the increase in fish and richness and abundance.
+@Ferrari2018 showed that fish abundance could be best explained by benthic biota and complexity metrics in subtropical reefs. 
+@Gratwicke2005 also found similar results with fish species richness being positively correlated with rugosity in subtropical habitats, including seagrass beds.
+However, our results suggest *I. felix* effects on fish taxa richness and abundance exceed what would be expected from structure alone as the presence of a sponge replica did not result in increased fish richness or abundance.
+There was an increase of invertebrate taxa richness and abundance in the sponge presence plots, which could provide more prey species available for fish to feed on. 
+@Brook1977 suggested that fish population in *T. testudinum* dominant seagrass beds were limited by abundance of polychaetes and crustaceans. 
+@Yeager2012 results parrellel the hypothesis that higher food availability associated with increase seagrass cover positively correlates with abundance of white grunts (*Haemulon plumierii*).
+Where sponges were present, the fish community included species typically associated with reefs, such as grunts (*Haemulidae* spp.), damselfish (*Pomacentridae* spp.), and Nassau grouper (*Epinephelus striatus*)[@Nagelkerken2008; @CocheretdelaMoriniere2003].
+Juvenile grunts (*Haemulidae* spp.) use seagrass as nursery habitat [@Arrivillaga1999; @Yeager2012; @CocheretdelaMoriniere2003], however, little has been studied on their relation to sponges. 
+Both juvenile grunts (*Haemulidae* spp.) and beaugregory damselfish (*Stegastes leucostictus*) partially rely on invertebrates as a food source [@Cervigon1966]. 
+Nassau groupers (*Epinephelus striatus*) associate with structure and use seagrass beds as feeding grounds.
+@Eggleston1998 found that the juvenile and midsize Nassau grouper (*Epinephelus striatus*) depend on crustaceans as a food source.
+Likely, the increased taxa richness and abundance of invertebrates with sponge presence contributed to the colonization of structure-associated fish species that could take advantage of increased invertebrate abundance.
+Further research is needed to tease apart the relative importance of increased structural complexity and food availability as a result of sponge presence. \par
+ 
+Overall, we found that sponge presence was correlated with taxa retention and taxa gain.
 For fish and invertebrates, we saw a maintenance and/or a shift towards taxa gained after 12 months (Fig. \@ref(fig:turnover-plots)), while control and structure treatment plots showed loss in taxa (Fig. \@ref(fig:turnover-plots)). 
 This indicates that sponges may assuage conditions that lead to taxa loss in sub-tropical seagrass beds. 
-<!-- SA: alludes to the idea or suggests that alludes that is a bit off for me.  -->
 <!-- SA: This sentence needs to be followed up with a sentence or two on what conditions might lead to taxa loss in sub-tropical seagrass beds - there's lots of research out there about drivers of biodiversity in seagrass beds -  and then with a couple sentences addressing how sponges might alleviate those conditions -->
 Sponge grounds are well known to enhance diversity of the community around them [@Maldonado2017; @Beazley2013]. 
 Here we show that even a single sponge may sufficiently alter local conditions such that shifts in the community structur and ecosystem processes occur.
 Even more so, their role in providing structural complexity, increasing habitat availability, enhancement to primary producers, and serving other functional roles help alleviate taxa loss in sub-tropical seagrass beds [@Ferrari2018;@Gratwicke2005;@Wulff2006; @Taylor2007; @Bell2008; @Archer2021].
 We suggest more *in situ* experiments of sponges on seagrass beds with the addition of stressors that could contribute to taxa loss. \par
-<!-- SA: I think you could lose these last three sentences right now, or re-word them and add them to the conclusions. Also, I think its a bit unecessary to have every paragraph end with some variation on we need more research (although I understand the impulse).  -->
 
 It is important to understand the effects of ecosystem engineers on the organisms around them because it can result in changes in the community structure and dynamics, therefore indirectly influencing ecosystem functions and services provided by the community.
-We studied the effect of the presence of an ecosystem engineer, *I felix*, on taxa richness, abundance, turnover, and community composition in low-impact seagrass beds and found that sponge presence can increase taxa richness and abundance, maintain turnover rates, and shift fish communities.
-<!-- PE: aren't we reducing turnover by reducing species loss? we already say that richness is increasing so that form of taxt change is clear. -->
+We studied the effect of the presence of an ecosystem engineer, *I felix*, on taxa richness, abundance, turnover, and community composition in low-impact seagrass beds and found that sponge presence can increase taxa richness and abundance, reduce turnover rates, and shift fish communities.
 This study is another *in situ* example of how an ecosystem engineer can affect an entire community while other ecosystem engineers exist within that system.
 More research is needed on the scenarios when one ecosystem engineer species is embedded in an ecosystem created by another.
 Finally, this experiment was conducted in a low anthropogenic impact environment; thus, further research is needed to understand how sponge presence affects seagrass communities in high-impact environments. \par
