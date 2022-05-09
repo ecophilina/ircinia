@@ -49,7 +49,7 @@ More so, we lack an understanding of the multitude of ecosystem engineers within
 Seagrasses are ecosystem engineers that form meadows (or beds) supporting a wide range of organisms [@Hori2009]. 
 They provide shelter to numerous species at multiple life stages [@James1994; @Nakamura2012], are a food source [@Vicente1980], and play a key role in nutrient cycling [@Hemminga1991].
 *Thalassia testudinum*, turtle grass, positively affects crustacean and fish abundance, species diversity, and species evenness when compared to sand habitat [@Arrivillaga1999; @Duffy2006; @Heck1980; @Orth1984)].
-In addition, fish and invertebrate diversity and abundance are influenced by the morphological components and structural complexity of seagrass beds [@Duffy2006; @Hori2009 @Bell2006).
+In addition, fish and invertebrate diversity and abundance are influenced by the morphological components and structural complexity of seagrass beds (@Duffy2006; @Hori2009; @Bell2006).
 Sponges are among the many organisms seagrass beds support.
 Sponges possess many traits (e.g., create complex structure) that suggest they may also act as ecosystem engineers in seagrass systems.\par
 

@@ -385,7 +385,11 @@ col.inv.segments<-left_join(col.inv.env4,col.inv.mid)
     scale_color_viridis_d(option="A", begin=0, end=0.65,name="Treatment",labels=c("Control","Structure","Sponge"))+
     scale_shape_discrete(name = "Sampling"))
 
-fish.vplot / inv.plot / col.inv.plot + plot_layout(guides="collect")
+
+
+## THIS IS THE PLOT FOR THE PAPER
+
+fish.vplot / inv.plot  + plot_layout(guides="collect")
 
 ggsave("figures/community_vector_plots.jpg",dpi=300,width=4,height=7)
 ggsave("figures/community_vector_plots.png",dpi=300,width=4,height=7)
@@ -497,55 +501,55 @@ isp2<-filter(isp,sp %in% c("cerith", "little white snail", "ground tunicate"))%>
               nudge_y = c(.1,-.1,-.1)))#+
 #add_phylopic(crabpng,x=-.8,y=.9,ysize=.25,alpha=1))
 
-#colonial inverts
-cisp<-scores(ci.pca,choices=c(1,2),display = "species")
-cisp<-data.frame(cisp)%>%
-  mutate(sp=row.names(.))
-
-# the denominator of the diameter is the number of principle components where the
-# eigenvalue is >0
-circ <- circleFun(center = c(0, 0), diameter = sqrt(2 / 7), npoints = 500)
-
-# make one plot to see who to keep
-ggplot(data=cisp)+
-  geom_segment(aes(x=0,xend=PC1,y=0,yend=PC2,group=sp,color=sp),
-               arrow = arrow(length = unit(0.3, "cm")))+
-  geom_path(data = circ, aes(x, y), lty = 2, color = "grey", alpha = 0.7)
-
-# keep cerith, little white snail, and ground tunicate
-
-
-cisp2<-filter(cisp,sp %in% c("black and orange tunicate", "pinkish brown tunicate", "white and green tunicate"))%>%
-  mutate(vlength = sqrt(PC1^2 +PC2^2),
-         vlength.rsc = vlength/max(vlength),
-         angle = atan2(PC2,PC1),
-         plot.start = 0,
-         plot.end.x = cos(angle)*vlength.rsc,
-         plot.end.y = sin(angle)*vlength.rsc,)
-
-#now make pretty graph
-(cinvrt.spp<-ggplot(data=cisp2)+
-    # geom_vline(aes(xintercept=0),linetype="dashed",alpha=.5)+
-    # geom_hline(aes(yintercept=0),linetype="dashed",alpha=.5)+
-    geom_segment(aes(x=0,xend=PC1,y=0,yend=PC2),
-                 arrow = arrow(length = unit(0.3, "cm")))+
-    coord_fixed(xlim=c(-1.5,1.5),ylim=c(-1.5,1.5))+
-    #geom_path(data = circ, aes(x, y), lty = 2, alpha = 0.5)+
-    theme(panel.grid = element_blank(),
-          panel.background = element_blank(),
-          axis.text = element_blank(),
-          axis.ticks = element_blank(),
-          axis.title = element_blank())+
-    # ylab("PC2")+
-    # xlab("PC1")+
-    geom_text(aes(x=PC1,y=PC2,
-                  label=c("Tunicate-white","Tunicate-pink","Tunciate-black + orange")),
-              nudge_x = c(-.57,0,.1),
-              nudge_y = c(.18,.15,-.15)))#+
-#add_phylopic(clonalpng,x=-.8,y=.9,ysize=.25,alpha=1))
+# #colonial inverts
+# cisp<-scores(ci.pca,choices=c(1,2),display = "species")
+# cisp<-data.frame(cisp)%>%
+#   mutate(sp=row.names(.))
+# 
+# # the denominator of the diameter is the number of principle components where the
+# # eigenvalue is >0
+# circ <- circleFun(center = c(0, 0), diameter = sqrt(2 / 7), npoints = 500)
+# 
+# # make one plot to see who to keep
+# ggplot(data=cisp)+
+#   geom_segment(aes(x=0,xend=PC1,y=0,yend=PC2,group=sp,color=sp),
+#                arrow = arrow(length = unit(0.3, "cm")))+
+#   geom_path(data = circ, aes(x, y), lty = 2, color = "grey", alpha = 0.7)
+# 
+# # keep cerith, little white snail, and ground tunicate
 
 
-(fish.vplot +fish.spp) / (inv.plot +invrt.spp) / (col.inv.plot + cinvrt.spp)+ plot_layout(guides="collect")
+# cisp2<-filter(cisp,sp %in% c("black and orange tunicate", "pinkish brown tunicate", "white and green tunicate"))%>%
+#   mutate(vlength = sqrt(PC1^2 +PC2^2),
+#          vlength.rsc = vlength/max(vlength),
+#          angle = atan2(PC2,PC1),
+#          plot.start = 0,
+#          plot.end.x = cos(angle)*vlength.rsc,
+#          plot.end.y = sin(angle)*vlength.rsc,)
+# 
+# #now make pretty graph
+# (cinvrt.spp<-ggplot(data=cisp2)+
+#     # geom_vline(aes(xintercept=0),linetype="dashed",alpha=.5)+
+#     # geom_hline(aes(yintercept=0),linetype="dashed",alpha=.5)+
+#     geom_segment(aes(x=0,xend=PC1,y=0,yend=PC2),
+#                  arrow = arrow(length = unit(0.3, "cm")))+
+#     coord_fixed(xlim=c(-1.5,1.5),ylim=c(-1.5,1.5))+
+#     #geom_path(data = circ, aes(x, y), lty = 2, alpha = 0.5)+
+#     theme(panel.grid = element_blank(),
+#           panel.background = element_blank(),
+#           axis.text = element_blank(),
+#           axis.ticks = element_blank(),
+#           axis.title = element_blank())+
+#     # ylab("PC2")+
+#     # xlab("PC1")+
+#     geom_text(aes(x=PC1,y=PC2,
+#                   label=c("Tunicate-white","Tunicate-pink","Tunciate-black + orange")),
+#               nudge_x = c(-.57,0,.1),
+#               nudge_y = c(.18,.15,-.15)))#+
+# #add_phylopic(clonalpng,x=-.8,y=.9,ysize=.25,alpha=1))
+# 
+
+(fish.vplot +fish.spp) / (inv.plot +invrt.spp) + plot_layout(guides="collect")
 
 ggsave("figures/community_vector_plots_withspp.jpg",dpi=300,width=6,height=9)
 
@@ -569,16 +573,16 @@ ggsave("figures/community_vector_plots_withspp.jpg",dpi=300,width=6,height=9)
   ggsidekick::theme_sleek()+ theme(axis.title.x = element_blank()) +
   add_phylopic(crabpng,x=-1.9,y=.95,ysize=.75,alpha=1))
 
-(by3 <- ggplot(col.inv.env4, aes(angle, vlength, colour=treatment)) + 
-  geom_jitter(size = 4, alpha = 0.6, width = 0.2, height = 0.0) + 
-  ylab(" ") + 
-  xlab("Vector angle") +
-  scale_color_viridis_d(option="A", begin=0, end=0.65,name="Treatment",labels=c("Control","Structure","Sponge"))+
-  ggsidekick::theme_sleek()+
-  add_phylopic(clonalpng,x=-2.6,y=1.2,ysize=.65,alpha=1))
+# (by3 <- ggplot(col.inv.env4, aes(angle, vlength, colour=treatment)) + 
+#   geom_jitter(size = 4, alpha = 0.6, width = 0.2, height = 0.0) + 
+#   ylab(" ") + 
+#   xlab("Vector angle") +
+#   scale_color_viridis_d(option="A", begin=0, end=0.65,name="Treatment",labels=c("Control","Structure","Sponge"))+
+#   ggsidekick::theme_sleek()+
+#   add_phylopic(clonalpng,x=-2.6,y=1.2,ysize=.65,alpha=1))
 
 
-(by1 / by2 / by3)+ plot_layout(guides="collect")
+(by1 / by2 )+ plot_layout(guides="collect")
 
 ggsave("figures/vect-length-by-angle-plot.jpg", dpi=300, width = 4, height = 8)
 
