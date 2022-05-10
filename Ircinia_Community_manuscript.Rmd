@@ -28,13 +28,14 @@ Finella Campanino^1^, Philina A. English^2^, Craig A. Layman^3^, Stephanie K. Ar
 Ecosystem engineers can have profound effects on biodiversity and community structure.
 Seagrasses act as ecosystem engineers and support a wide variety of organisms.
 Sponges are another possible example, but we know little about their relationships with fish and invertebrate communities in seagrass systems.
+<!-- I'd like to avoid repeating fish and invertebrate two sentences in a row and to justify the possibility of sponges being engineers a bit better. What about: "Sponges have been shown to impact the structure of the vegetative structure of seagrass ecosystems, but we know little about their influence on animal communities." -->
 This study explored the effects of the marine sponge, *Ircinia felix*, on fish and invertebrate taxa richness, abundance, turnover, and community composition in a subtropical seagrass bed through a 1-year field experiment performed in The Bahamas.
 We recorded the fish and invertebrate communities present in 5 × 5 m plots with the addition of either a live sponge, a polypropylene sponge replica (structure), or no additional structure (control).
 Sponge presence alone explained the most variance in fish and invertebrate communities.
 Fish and invertebrate taxa richness and abundance significantly increased over time in the presence of *I. felix*, but decreased or remained stable in the other plot types.
 Sponge presence increased the number of new taxa gained, and reduced the number lost, for both fish and invertebrates.
 Finally, we found that sponge presence shifted the entire fish community over time and across taxa space. 
-Our study shows that sponges can act as ecosystem engineers in seagrass systems, however, additional research is needed to determine the full extent and implications of their effects.\par 
+Our study shows that sponges can act as ecosystem engineers in seagrass systems; however, additional research is needed to determine the full extent and implications of their effects.\par 
 
 ##### break
 
@@ -49,6 +50,7 @@ More so, we lack an understanding of the multitude of ecosystem engineers within
 Seagrasses are ecosystem engineers that form meadows (or beds) supporting a wide range of organisms [@Hori2009]. 
 They provide shelter to numerous species at multiple life stages [@James1994; @Nakamura2012], are a food source for animals [@Vicente1980], and play a key role in nutrient cycling [@Hemminga1991].
 *Thalassia testudinum*, turtle grass, positively affects crustacean and fish abundance, species diversity, and species evenness when compared to sand habitat [@Arrivillaga1999; @Duffy2006; @Heck1980; @Orth1984].
+<!-- Are we capitalizing common names? Journal may have a policy on this? -->
 In addition, fish and invertebrate diversity and abundance are influenced by the morphological components and structural complexity of seagrass beds [@Duffy2006; @Hori2009].
 Sponges are among the many organisms seagrass beds support and possess many traits (e.g., create complex structure) that suggest they may also act as ecosystem engineers in seagrass systems [@Bell2008].\par
 
@@ -131,7 +133,7 @@ All models within two $\delta$ AICc of the best-supported model are considered t
 
 Increases in taxa richness through time can result from either increases in colonization rates, or a reduction in the loss of taxa. 
 To assess the relative rates at which taxa were gained or lost between sampling events, we used the `turnover` function in `codyn` package [@Hallett2020]. 
-Using analysis of variance we assessed both components of taxa turnover separately for each faunal community in each plot type, and compared patterns of turnover among treatments at 1 and 12 months into the experiment.
+Using analysis of variance, we assessed both components of taxa turnover separately for each faunal community in each plot type, and compared patterns of turnover among treatments at 1 and 12 months into the experiment.
 When significant differences were detected we compared treatments using a Tukey Honest Significant Difference test.\par
 
 *Compositional Vectors*
@@ -245,9 +247,10 @@ Only control plots differed significantly from sponge plots after 12 months into
 *Invertebrates*
 
 A total of 32 invertebrate taxa were observed in the experiment.
-At the start of the experiment, between 0 and 4 individuals invertebrates from up to 3 taxa were found in each plot (mean abundance = `r round(mean(inv.uni[inv.uni$sampling == 0, ]$i.abund),1)`, sd = `r round(sd(inv.uni[inv.uni$sampling == 0,]$i.abund),1)` and mean richness = `r round(mean(inv.uni[inv.uni$sampling == 0, ]$spr),1)`,sd = `r round(sd(inv.uni[inv.uni$sampling == 0,]$spr),1)`).
+At the start of the experiment, between 0 and 4 individual invertebrates from up to 3 taxa were found in each plot (mean abundance = `r round(mean(inv.uni[inv.uni$sampling == 0, ]$i.abund),1)`, sd = `r round(sd(inv.uni[inv.uni$sampling == 0,]$i.abund),1)` and mean richness = `r round(mean(inv.uni[inv.uni$sampling == 0, ]$spr),1)`,sd = `r round(sd(inv.uni[inv.uni$sampling == 0,]$spr),1)`).
 *Phrontis alba*, Variable dog whelks, were the most abundant taxa. 
-One month later, the maximum number of individuals per plot was up to `r range(inv.uni[inv.uni$sampling == 1, ]$i.abund)[2]` individuals belonging to up to `r range(inv.uni[inv.uni$sampling == 1, ]$spr)[2]` different taxa (mean abundance = `r round(mean(inv.uni[inv.uni$sampling == 1, ]$i.abund),1)`,sd = `r round(sd(inv.uni[inv.uni$sampling == 1,]$i.abund),1)` and mean richness = `r round(mean(inv.uni[inv.uni$sampling == 1, ]$spr),1)`, sd = `r round(sd(inv.uni[inv.uni$sampling == 1,]$spr),1)`) with more *Viatrix globulifera* (turtle grass anemones) and *Cerithium spp.* (ceriths) recorded than *P. alba*.
+One month later, the maximum number of individuals per plot was up to `r range(inv.uni[inv.uni$sampling == 1, ]$i.abund)[2]` individuals belonging to up to `r range(inv.uni[inv.uni$sampling == 1, ]$spr)[2]` different taxa (mean abundance = `r round(mean(inv.uni[inv.uni$sampling == 1, ]$i.abund),1)`, sd = `r round(sd(inv.uni[inv.uni$sampling == 1,]$i.abund),1)` and mean richness = `r round(mean(inv.uni[inv.uni$sampling == 1, ]$spr),1)`, sd = `r round(sd(inv.uni[inv.uni$sampling == 1,]$spr),1)`) with more *Viatrix globulifera* (turtle grass anemones) and *Cerithium spp.* (ceriths) recorded than *P. alba*. 
+<!-- Un-capitalized common name?  -->
 By the second summer of the experiment, the maximum number of individuals was `r range(inv.uni[inv.uni$sampling == 12, ]$i.abund)[2]`, belonging to as many as `r range(inv.uni[inv.uni$sampling == 12, ]$spr)[2]` different taxa (mean abundance = `r round(mean(inv.uni[inv.uni$sampling == 12, ]$i.abund),1)`, sd = `r round(sd(inv.uni[inv.uni$sampling == 12,]$i.abund),1)` and mean richness = `r round(mean(inv.uni[inv.uni$sampling == 12, ]$spr),1)`, sd = `r round(sd(inv.uni[inv.uni$sampling == 12,]$spr),1)`) and *P. alba* were once again the most abundant taxa per plot, followed by *Callinectes sapidus* (Blue crabs). \par
 
 Changes in invertebrate abundance and taxa richness were also best explained by sponge presence (Table 1), but other models were equally well-supported for both abundance and taxa richness  (Table 1; S1).
@@ -262,21 +265,22 @@ However, the other well-supported model did not include a treatment effect, sugg
 ## Taxa Turnover  
 
 For both fish and invertebrates, between the start of the experiment and the first sampling event, most plots across treatment types gained more taxa than they lost (Fig. \@ref(fig:turnover-plots) B left panel), and this resulted in no difference between treatments for both fish (gained: F~`r aov.df(fishgain1[[1]], 1)`~ `r aov.res(fishgain1[[1]], 1)`; lost: F~`r aov.df(fishloss1[[1]], 1)`~ `r aov.res(fishloss1[[1]], 1)`) and invertebrates (gained: F~`r aov.df(invgain1[[1]], 1)`~ `r aov.res(invgain1[[1]], 1)`; lost: F~`r aov.df(invloss1[[1]], 1)`~ `r aov.res(invloss1[[1]], 1)`).
+<!-- I think "For both fish and invertebrates," is unnecessary above and the meaning is a bit clearer without it.-->
 After 12 months, however, sponge treatment plots tended to gain the most new fish (F~`r aov.df(fishgain12[[1]], 1)`~ `r aov.res(fishgain12[[1]], 1)` with sponge-control = `r tukey.res(fishgain12.tuk[[1]], 2)` and sponge-structure = `r tukey.res(fishgain12.tuk[[1]], 3)` while structure-control = `r tukey.res(fishgain12.tuk[[1]], 1)`) and invertebrate (F~`r aov.df(invgain12[[1]], 1)`~ `r aov.res(invgain12[[1]], 1)` with sponge-control = `r tukey.res(invgain12.tuk[[1]], 2)` and sponge-structure = `r tukey.res(invgain12.tuk[[1]], 3)` while structure-control = `r tukey.res(invgain12.tuk[[1]], 1)`) taxa.
-Sponge plots while also retained more fish taxa (F~`r aov.df(fishloss12[[1]], 1)`~ `r aov.res(fishloss12[[1]], 1)` with sponge-control = `r tukey.res(fishloss12.tuk[[1]], 2)` and sponge-structure = `r tukey.res(fishloss12.tuk[[1]], 3)` while structure-control = `r tukey.res(fishloss12.tuk[[1]], 1)`); Fig. \@ref(fig:turnover-plots) B right panel).
+Sponge plots also retained more fish taxa (F~`r aov.df(fishloss12[[1]], 1)`~ `r aov.res(fishloss12[[1]], 1)` with sponge-control = `r tukey.res(fishloss12.tuk[[1]], 2)` and sponge-structure = `r tukey.res(fishloss12.tuk[[1]], 3)` while structure-control = `r tukey.res(fishloss12.tuk[[1]], 1)`); Fig. \@ref(fig:turnover-plots) B right panel).
 This pattern is similar for both fish and invertebrates, although overall the proportion of invertebrates lost did not differ between treatments (F~`r aov.df(invloss12[[1]], 1)`~ `r aov.res(invloss12[[1]], 1)`). \par
 
 
 ## Compositional Vectors
 
-By 12 months into the experiment, the fish communities differed significantly by treatment for both vector length and angle, meaning they differed in the how much they changed over time and in direction of change across taxa space (vector length:  F~`r aov.df2(fish.vl.aov.sum,1)`~ `r aov.res(fish.vl.aov.sum,1)`; vector angle: F~`r aov.df2(fish.angle.aov.sum,1)`~ `r aov.res(fish.angle.aov.sum,1)`). 
-The post-hoc analysis of vector lengths showed a significant difference in how much the fish communities changed over time between the control and sponge presence treatment plots and between the structure and sponge presence treatment plots, with control and structure treatment plots both having less change in community over time when compared to the sponge presence treatment plots (control-sponge: `r tukey.res(fish.vl.aov.tuk,1)`; structure-sponge `r tukey.res(fish.vl.aov.tuk,2)`). 
+By 12 months into the experiment, the fish communities differed significantly between treatments for both vector length and angle, meaning that treatments differed in the how much they changed over time and in the direction of change across taxa space (vector length:  F~`r aov.df2(fish.vl.aov.sum,1)`~ `r aov.res(fish.vl.aov.sum,1)`; vector angle: F~`r aov.df2(fish.angle.aov.sum,1)`~ `r aov.res(fish.angle.aov.sum,1)`). 
+The post-hoc analysis of vector lengths showed a significant difference in how much the fish communities changed over time between the control and sponge presence treatment plots and between the structure and sponge presence treatment plots, with control and structure treatment plots both having less change in community when compared to the sponge presence treatment plots (control-sponge: `r tukey.res(fish.vl.aov.tuk,1)`; structure-sponge `r tukey.res(fish.vl.aov.tuk,2)`). 
 However, there was no difference in the amount of change in the fish community between structure and control treatment plots (`r tukey.res(fish.vl.aov.tuk,3)`). 
-The post-hoc analysis of the vector angles showed no significant difference in the direction in which the fish communities shifted across taxa space between the control and sponge presence treatment plots, which may be due to the small change in the control plot communities over time (control-sponge: `r tukey.res(fish.angle.aov.tuk,1)`; Fig. \@ref(fig:vector-plots)). 
-By contrast, there were differences in the direction of the communities across taxa space between the structure and sponge presence treatment plots, as well as between the structure and control treatment plots, with structure treatment plots having less change in communities across taxa space than both sponge presence or control (structure-sponge: `r tukey.res(fish.vl.aov.tuk,2)`; structure-control `r tukey.res(fish.vl.aov.tuk,3)`). \par
+The post-hoc analysis of the vector angles showed no significant difference in the direction in which the fish communities shifted across taxa space between the control and sponge presence treatment plots (control-sponge: `r tukey.res(fish.angle.aov.tuk,1)`; Fig. \@ref(fig:vector-plots)), although this may be due to the small change in the control plot communities over time.
+By contrast, there were differences in the direction of change in taxa space between the structure and sponge presence treatment plots, as well as between the structure and control treatment plots, with structure treatment plots having less change in communities than both sponge presence or control (structure-sponge: `r tukey.res(fish.vl.aov.tuk,2)`; structure-control `r tukey.res(fish.vl.aov.tuk,3)`). \par
 
-By 12 months into the experiment, the invertebrate communities had no differences across treatment plot types for vector length and angle, meaning they did not differ in the amount of change over time nor in direction of change across taxa space (vector length:  F~`r aov.df2(inv.vl.aov.sum,1)`~ `r aov.res(inv.vl.aov.sum,1)`; vector angle: F~`r aov.df2(inv.angle.aov.sum,1)`~ `r aov.res(inv.angle.aov.sum,1)`).
-While all sponge plots shifted a similar amount in a similar direction, control and structure control plots shifted in inconsistent directions and amounts (Fig. \@ref(fig:vector-plots).
+By 12 months into the experiment, the invertebrate communities showed no significant differences between treatments for vector length and angle (vector length:  F~`r aov.df2(inv.vl.aov.sum,1)`~ `r aov.res(inv.vl.aov.sum,1)`; vector angle: F~`r aov.df2(inv.angle.aov.sum,1)`~ `r aov.res(inv.angle.aov.sum,1)`).
+However, while control and structure control plots shifted in variable directions and amounts, all sponge plots tended to shift a similar amount in a somewhat more consistent direction (Fig. \@ref(fig:vector-plots).
 \par
 
 
