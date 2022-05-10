@@ -289,22 +289,28 @@ We found that sponge presence alone explained the most variance in fish and inve
 Overtime, sponge presence was associated with gaining more fish and invertebrate taxa and an increase in the retention of fish taxa but not of invertebrates.
 This resulted in a shift in overall *taxa space* for the fish community but not for the invertebrate community.\par
 
-Although the sponge presence model explained the most variance for invertebrate taxa richness and abundance, other models fell within less than 2 $\delta \Delta$ AICc values that cannot be ruled out: macroalgal structure, sponge presence + seagrass productivity, and sponge presence + seagrass structure(Table 1). 
-This suggests that sponge presence may impact the invertebrate community indirectly via the enhancement of primary producers (i.e. seagrass and macroalgae), although not as much as sponge presence alone. 
-Other studies support the idea that marcoinvertebrates richness and abundance increase with increasing seagrass shoot density[@Webster1998].
-In @Archer2021, macroalgal and seagrass abundance significantly increased over time in the presence of *I. felix*. 
-MORE SENTENCES HERE
+Although the sponge presence model explained the most variance for invertebrate taxa richness and abundance, other models fell within less than 2 $\delta \Delta$ AICc values that cannot be ruled out: macroalgal structure, sponge presence + seagrass productivity, and sponge presence + seagrass structure (Table 1). 
+This suggests that sponge presence may impact the invertebrate community indirectly via the enhancement of primary producers as the presence of *I. felix* increases the abundance macroalgae and both the abundance and productivity of seagrasses [@Archer2021].  
+Many studies have reported increasing invertebrate taxa richness and diversity related to the productive and structural complex habitat dense seagrass provides [@Heck1977;@Orth1984;@Edgar1992;[@Webster1998];@Barry2021].
+Our results are consistent with this well-supported paradigm.
+However, the inclusion of sponge presence in two of three best supported models suggests that sponges may contribute more to invertebrate biodiversity than indirectly increasing the structural complexity of the seagrass bed.
+Sponges host diverse invertebrate communities such as shrimps, amphipods, copepods, and brittle stars within their aquiferous systems and tissues [@Pearse1950;@Duffy1996;@Ribeiro2003].
+In fact, *I. felix* can host over 6 species of infaunal invertebrates at densities up to 33 individuals per cm^-3^ of sponge [@Greene2008].
+Although we did not account for these infaunal invertebrate communities in this study, these infaunal residents play a role in the link between sponges and larger fauna abundance.
+For example, the snapping shrimp living within large sponges contribute contribute to the auditory cues that juvenile spiny lobsters (*Panulirus argus*) use to identify suitable settlement habitat and  [@Butler1995; @Butler2016].
+While spiny lobsters were not a large contributor to the patterns observed in this study (only one was observed, in a sponge plot), the use of sound as a settlement cue is common within marine taxa [@Mann2007;@Lillis2014;@Radford2007;@Vermeij2010].
+Sponge presence can result in increased soundscape complexity in nearshore environments [@Butler2016], but it is unclear if this mechanism influenced our results. 
 <!--Marine sponges can have a range of microbes and macrofauna (e.g., invertebrates) living on and in their tissues[@Wulff2006; @Taylor2007; @Bell2008] which could explain the increase in invertebrate taxa richness and abundance via habitat availability.
 SA: this sentence feels out of place - how is this related to how invertebrates respond to increased seargass structure? -->
 <!-- Notably, we did not measure sediment infauna invertebrate communities nor invertebrates residing within the sponge, so the influence of the sponge on invertebrate communities could be much larger than what we present. -->
 <!-- SA: this sentence feels out of place - how is this related to how invertebrates respond to increased seargass structure? Same comment as previous sentence. Make sure each paragraph has a topic sentence and a related conclusion and everything in that paragraph expands on or provides more detail about those points. This paragraph drifts from the impact of sponges on the invertebrate community may be indirect to sponge infauna to sediment infauna to we need more research.-->
-Further research is needed to capture the affects of sponge presence in seagrass beds for invertebrates that include sediment infauna and resident sponge habitat invertebrates. \par
+ \par
 
-The added structural complexity of the seagrass bed from the sponge, along with the increase of food availability with sponge presence, could explain the increase in fish and richness and abundance.
+Regardless of the mechanism responsible, the presence of a sponge increased the richness and diversity of both fish and invertebrates. 
 @Ferrari2018 showed that fish abundance could be best explained by benthic biota and complexity metrics in subtropical reefs. 
 @Gratwicke2005 also found similar results with fish species richness being positively correlated with rugosity in subtropical habitats, including seagrass beds.
 However, our results suggest *I. felix* effects on fish taxa richness and abundance exceed what would be expected from structure alone as the presence of a sponge replica did not result in increased fish richness or abundance.
-There was an increase of invertebrate taxa richness and abundance in the sponge presence plots, which could provide more prey species available for fish to feed on. 
+It is possible that the increase in fish richness and abundance is related to the increase in invertebrates.
 @Brook1977 suggested that fish populations in *T. testudinum* dominant seagrass beds were limited by abundance of polychaetes and crustaceans. 
 @Yeager2012 results parrellel the hypothesis that higher food availability associated with increase seagrass cover positively correlates with abundance of white grunts (*Haemulon plumierii*).
 Where sponges were present, the fish community included species typically associated with reefs, such as grunts (*Haemulidae* spp.), damselfish (*Pomacentridae* spp.), and Nassau grouper (*Epinephelus striatus*)[@Nagelkerken2008; @CocheretdelaMoriniere2003].
@@ -312,15 +318,14 @@ Juvenile grunts (*Haemulidae* spp.) use seagrass as nursery habitat [@Arrivillag
 Both juvenile grunts (*Haemulidae* spp.) and beaugregory damselfish (*Stegastes leucostictus*) partially rely on invertebrates as a food source [@Cervigon1966]. 
 Nassau groupers (*Epinephelus striatus*) associate with structure and use seagrass beds as feeding grounds.
 @Eggleston1998 found that the juvenile and midsize Nassau grouper (*Epinephelus striatus*) depend on crustaceans as a food source.
-Likely, the increased taxa richness and abundance of invertebrates with sponge presence contributed to the colonization of structure-associated fish species that could take advantage of increased invertebrate abundance.
-Further research is needed to tease apart the relative importance of increased structural complexity and food availability as a result of sponge presence. \par
+Likely, the increased taxa richness and abundance of invertebrates with sponge presence contributed to the colonization of structure-associated fish species that could take advantage of increased invertebrate abundance.\par
  
 It is important to understand the effects of ecosystem engineers on the organisms around them because it can result in changes in the community structure and dynamics, therefore indirectly influencing ecosystem functions and services provided by the community.
 We studied the effect of the presence of an ecosystem engineer, *I felix*, on taxa richness, abundance, turnover, and community composition in low-impact seagrass beds and found that sponge presence can increase taxa richness and abundance, reduce turnover rates, and shift fish communities.
 This study is another *in situ* example of how an ecosystem engineer can affect an entire community while other ecosystem engineers exist within that system.
 Overall, we found that sponge presence was correlated with taxa retention and taxa gain.
 For fish and invertebrates, we saw a shift towards taxa gained after 12 months (Fig. \@ref(fig:turnover-plots)), while control and structure treatment plots showed loss in taxa (Fig. \@ref(fig:turnover-plots)). 
-This indicates that sponges may assuage conditions that lead to taxa loss in sub-tropical seagrass beds. 
+This indicates that sponges may assuage conditions that lead to taxa loss in sub-tropical seagrass beds and suggests that sponges should be considered when managing seagrass ecosystems. 
 <!-- SA: This sentence needs to be followed up with a sentence or two on what conditions might lead to taxa loss in sub-tropical seagrass beds - there's lots of research out there about drivers of biodiversity in seagrass beds -  and then with a couple sentences addressing how sponges might alleviate those conditions -->
 Sponge grounds enhance diversity of the community around them [@Maldonado2017; @Beazley2013]. 
 Here we show that even a single sponge may sufficiently alter local conditions such that shifts in the community structure and ecosystem processes occur.
