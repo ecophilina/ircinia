@@ -1,6 +1,7 @@
 ---
 title: "Sponge presence increases the diversity and abundance of fish and invertebrates in a subtropical seagrass bed"
 output:   
+  # bookdown::pdf_document2:
   bookdown::word_document2:
     number_sections: false
     reference_docx: "template.docx"
@@ -12,6 +13,7 @@ csl: estuaries-and-coasts.csl
 ```{r setup, include=FALSE}
 source("scripts_comm/02_community_data_org.R")
 source("scripts_comm/08_import_results.R")
+
 if(!require(kableExtra))install.packages("kableExtra");library(kableExtra)
 ```
 
@@ -353,35 +355,37 @@ We would like to thank Friends of the Environment (NGO, Abaco, The Bahamas), Dia
 <div id="refs"></div>  
 
 ##### break  
-
 Table 1: Best supported models (those within two *∆ AICc* of the top model) of changes in abundance and taxa richness.
+<!-- Need to change above to knit to pdf in order to get the table -->
+<!-- Table 1: Best supported models (those within two *$delta$ AICc* of the top model) of changes in abundance and taxa richness. -->
 
 ```{r table, echo=FALSE, message=F, warning=FALSE, results='asis'}
-# best.models<-best.models%>%
-#   filter(Community!="Clonal Invertebrates")%>%
-#   mutate(Community=ifelse(Community=="Fish","Fish","Invertebrates"))
-# 
-# kbl(best.models[,c(-1:-2,-7,-10)],
-#                           format = "latex",
-#     booktabs=T,
-#     escape = FALSE,
-#     col.names = c("","$k$","$AIC_c$","$\\Delta AIC_c$",
-#                   "$Akaike$ $Weight$","$LL$")#,
-#     # caption="Best models, i.e., those within two
-#     # $\\Delta AIC_c$ of the top model, explaining changes in fish
-#     # and invertebrate abundance and taxa richness as well
-#     # as clonal invertebrate taxa richness."
-#     )%>%
-#   # kableExtra::kable_styling(latex_options = "scale_down",font_size=11)%>%
-#   kableExtra::pack_rows("Abundance",1,4,bold=T)%>%
-#   kableExtra::pack_rows("Fish",1,1,bold=F,italic=TRUE)%>%
-#   kableExtra::pack_rows("invertebrates",2,4,bold=F,italic=TRUE)%>%
-#   kableExtra::pack_rows("taxa richness",5,7,bold=T)%>%
-#   kableExtra::pack_rows("Fish",5,5,bold=F,italic=TRUE)%>%
-#   kableExtra::pack_rows("invertebrate",6,7,bold=F,italic=TRUE)%>%
+best.models<-best.models%>%
+  filter(Community!="Clonal Invertebrates")%>%
+  mutate(Community=ifelse(Community=="Fish","Fish","Invertebrates"))
+
+kable(best.models[,c(-1:-2,-7,-10)],
+                          format = "latex",
+    booktabs=T,
+    escape = FALSE,
+    col.names = c("","$k$","$AIC_c$","$\\Delta AIC_c$",
+                  "$Akaike$ $Weight$","$LL$")#,
+    # caption="Best models, i.e., those within two
+    # $\\Delta AIC_c$ of the top model, explaining changes in fish
+    # and invertebrate abundance and taxa richness as well
+    # as clonal invertebrate taxa richness."
+    )%>%
+  # kableExtra::kable_styling(latex_options = "scale_down",font_size=11)%>%
+  kableExtra::pack_rows("Abundance",1,4,bold=T)%>%
+  kableExtra::pack_rows("Fish",1,1,bold=F,italic=TRUE)%>%
+  kableExtra::pack_rows("Invertebrates",2,4,bold=F,italic=TRUE)%>%
+  kableExtra::pack_rows("Taxa richness",5,7,bold=T)%>%
+  kableExtra::pack_rows("Fish",5,5,bold=F,italic=TRUE)%>%
+  kableExtra::pack_rows("Invertebrate",6,7,bold=F,italic=TRUE)#%>%
+  #save_kable(file = "figures/table.1.pdf")
 #   as_image()
 
-knitr::include_graphics("figures/Table1.png")
+knitr::include_graphics("figures/Table1-new.png")
 ```
 
 ##### break  
