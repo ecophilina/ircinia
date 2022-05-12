@@ -17,7 +17,7 @@ source("scripts_comm/08_import_results.R")
 if(!require(kableExtra))install.packages("kableExtra");library(kableExtra)
 ```
 
-Finella Campanino^1^, Philina A. English^2^, Craig A. Layman^3^, Stephanie K. Archer^1^*
+Finella M. Campanino^1^, Philina A. English^2^, Craig A. Layman^3^, Stephanie K. Archer^1^*
   
 1. Louisiana Universities Marine Consortium, Chauvin, Louisiana, USA
 2. Pacific Biological Station, Fisheries and Oceans Canada, Nanaimo, British Columbia, Canada
@@ -31,6 +31,7 @@ Ecosystem engineers can have profound effects on biodiversity and community stru
 Seagrasses act as ecosystem engineers and support a wide variety of organisms.
 Sponges are another possible example, but we know little about their relationships with fish and invertebrate communities in seagrass systems.
 <!-- I'd like to avoid repeating fish and invertebrate two sentences in a row and to justify the possibility of sponges being engineers a bit better. What about: "Sponges have been shown to impact the structure of the vegetative structure of seagrass ecosystems, but we know little about their influence on animal communities." -->
+<!-- FMC- I like changing fish and invertebrate to animal in the sentence to avoid repeating that phrase. I think for the abstract saying they are possibly an ecosystem engineer is good and then if the reader wants to know how they can dig into the intro/discussion. Or maybe "Sponges possess many traits (e.g., create complex structure) that suggest they may be another example, but we know little about their relationships with animal communities in seagrass systems.  -->
 This study explored the effects of the marine sponge, *Ircinia felix*, on fish and invertebrate taxa richness, abundance, turnover, and community composition in a subtropical seagrass bed through a 1-year field experiment performed in The Bahamas.
 We recorded the fish and invertebrate communities present in 5 × 5 m plots with the addition of either a live sponge, a polypropylene sponge replica (structure), or no additional structure (control).
 Sponge presence alone explained the most variance in fish and invertebrate communities.
@@ -58,11 +59,12 @@ Sponges are among the many organisms seagrass beds support and possess many trai
 
 Sponges can add to the structural complexity of a habitat, alter localized water flow, stabilize substrate, and act as a settlement substrate for sessile organisms [@Bell2008; @Wulff1984].
 Some sponges have extensive microbial communities and macrofauna in and on their tissue [@Wulff2006; @Taylor2007; @Bell2008] and can provide camouflage and protection to other organisms [@McClay1983; @Martin1992]. 
-Sponges  and their associated microbial communities can also act as a source of bioavailable forms of phosphorus and nitrogen in seagrass beds, especially important under oligotrophic conditions [@Archer2017; @Southwell2008; @Diaz1997].
+Sponges and their associated microbial communities can also act as a source of bioavailable forms of phosphorus and nitrogen in seagrass beds, especially important under oligotrophic conditions [@Archer2017; @Southwell2008; @Diaz1997].
 Likely as a result of the this nutrient cycling, at least one sponge, *Ircinia felix* facilitates primary producers (seagrasses and macroalgae) in sub-tropical seagrass beds [@Archer2021].
 Combined, these traits suggest sponges have considerable potential to enhance the biodiversity of seagrass communities.\par
 
 Despite their potential to significantly affect the distribution, diversity, and abundance of other organisms within a system, the effects of sponges on communities are often underappreciated [@Bell2008].
+<!-- I feel like something is missing in between these two sentences. Maybe another reminder of how sponges are common in seagrass beds? Just a sentence to help transition from talking about sponges to talking about seagrass -->
 Seagrass beds are influenced by anthropogenic factors that threaten their biodiversity and function world wide [@Tin2021; @Orth2006; @Waycott2009]. 
 Therefore, it is important to understand what drives diversity in these systems so that we can facilitate management and restoration. 
 To this end, we investigated the effect of sponge presence on biodiversity within a relatively undisturbed seagrass ecosystem.\par
@@ -239,6 +241,7 @@ Throughout the experiment, a total of 15 fish taxa were observed.
 At the start of the experiment between 0 and 2 individual fish, never of the same taxa, were found in each plot (mean = `r round(mean(fish.uni[fish.uni$sampling == 0, ]$f.abund,na.rm = FALSE),1)`, sd= `r round(sd(fish.uni[fish.uni$sampling == 0, ]$f.abund,na.rm = FALSE),1)`). 
 *Halichoeres bivittatus* (Slippery Dick) was the most common taxa. 
 One month later, the maximum number of individuals per plot was 4, belonging to as many as 4 different taxa (mean abundance = `r round(mean(fish.uni[fish.uni$sampling == 1, ]$f.abund,na.rm = FALSE),1)`, sd = `r round(sd(fish.uni[fish.uni$sampling == 1,]$f.abund,na.rm = FALSE),1)` and mean richness = `r round(mean(fish.uni[fish.uni$sampling == 1, ]$spr,na.rm = FALSE),1)`, sd = `r round(sd(fish.uni[fish.uni$sampling == 1,]$f.spr,na.rm = FALSE),1)`) with *H. bivittatus* remaining the most abundant taxa across treatment types.
+<!-- The last 2 sd in this paragraph are showing up as NA.... not sure why though -->
 By the second summer of the experiment, the maximum number of individuals had increased to 7, belonging to as many as 6 different taxa (mean abundance = `r round(mean(fish.uni[fish.uni$sampling == 12, ]$f.abund,na.rm = FALSE),1)`, sd = `r round(sd(fish.uni[fish.uni$sampling == 12,]$f.abund,na.rm = FALSE),1)` and mean richness = `r round(mean(fish.uni[fish.uni$sampling == 12, ]$spr,na.rm = FALSE),1)`, sd = `r round(sd(fish.uni[fish.uni$sampling == 12,]$f.spr,na.rm = FALSE),1)`).
 Juvenile grunts (*Haemulidae* spp.) were slightly more abundant than *H. bivittatus*.\par
 
@@ -268,6 +271,7 @@ However, the other well-supported model did not include a treatment effect, sugg
 
 For both fish and invertebrates, between the start of the experiment and the first sampling event, most plots across treatment types gained more taxa than they lost (Fig. \@ref(fig:turnover-plots) B left panel), and this resulted in no difference between treatments for both fish (gained: F~`r aov.df(fishgain1[[1]], 1)`~ `r aov.res(fishgain1[[1]], 1)`; lost: F~`r aov.df(fishloss1[[1]], 1)`~ `r aov.res(fishloss1[[1]], 1)`) and invertebrates (gained: F~`r aov.df(invgain1[[1]], 1)`~ `r aov.res(invgain1[[1]], 1)`; lost: F~`r aov.df(invloss1[[1]], 1)`~ `r aov.res(invloss1[[1]], 1)`).
 <!-- I think "For both fish and invertebrates," is unnecessary above and the meaning is a bit clearer without it.-->
+<!-- Agreed -->
 After 12 months, however, sponge treatment plots tended to gain the most new fish (F~`r aov.df(fishgain12[[1]], 1)`~ `r aov.res(fishgain12[[1]], 1)` with sponge-control = `r tukey.res(fishgain12.tuk[[1]], 2)` and sponge-structure = `r tukey.res(fishgain12.tuk[[1]], 3)` while structure-control = `r tukey.res(fishgain12.tuk[[1]], 1)`) and invertebrate (F~`r aov.df(invgain12[[1]], 1)`~ `r aov.res(invgain12[[1]], 1)` with sponge-control = `r tukey.res(invgain12.tuk[[1]], 2)` and sponge-structure = `r tukey.res(invgain12.tuk[[1]], 3)` while structure-control = `r tukey.res(invgain12.tuk[[1]], 1)`) taxa.
 Sponge plots also retained more fish taxa (F~`r aov.df(fishloss12[[1]], 1)`~ `r aov.res(fishloss12[[1]], 1)` with sponge-control = `r tukey.res(fishloss12.tuk[[1]], 2)` and sponge-structure = `r tukey.res(fishloss12.tuk[[1]], 3)` while structure-control = `r tukey.res(fishloss12.tuk[[1]], 1)`); Fig. \@ref(fig:turnover-plots) B right panel).
 This pattern is similar for both fish and invertebrates, although overall the proportion of invertebrates lost did not differ between treatments (F~`r aov.df(invloss12[[1]], 1)`~ `r aov.res(invloss12[[1]], 1)`). \par
@@ -294,9 +298,10 @@ We did this by testing the affect of *I. felix* presence in subtropical seagrass
 We found that sponge presence alone explained the most variance in fish and invertebrate communities.
 Overtime, sponge presence was associated with the addition of new fish and invertebrate taxa and the retention of previously present fish taxa.
 This resulted in a shift in overall *taxa space* for the fish community, but not for the invertebrate community.\par
+<!-- Taxa space has not been italicized up to this point -->
 
 Although the sponge presence model explained the most variation in invertebrate taxa richness and abundance, other models fell within 2 $\delta \Delta$ AICc values and thus cannot be ruled out: macroalgal structure, sponge presence + seagrass productivity, and sponge presence + seagrass structure (Table 1). 
-This suggests that sponge presence may impact the invertebrate community indirectly via the enhancement of primary producers.  This is consistent with the presence of *I. felix* having been shown to increase the abundance macroalgae and both the abundance and productivity of seagrasses [@Archer2021].  
+This suggests that sponge presence may impact the invertebrate community indirectly via the enhancement of primary producers. This is consistent with the presence of *I. felix* having been shown to increase the abundance macroalgae and both the abundance and productivity of seagrasses [@Archer2021].  
 Many studies have reported increasing invertebrate taxa richness and diversity related to the productive and structural complex habitat dense seagrass provides [@Heck1977;@Orth1984;@Edgar1992;[@Webster1998];@Barry2021].
 Our results are consistent with this well-supported paradigm.
 However, the inclusion of sponge presence in two of three best supported models suggests that sponges may contribute more to invertebrate biodiversity than indirectly increasing the structural complexity of the seagrass bed.
@@ -304,7 +309,7 @@ However, the inclusion of sponge presence in two of three best supported models 
 Sponges host diverse invertebrate communities such as shrimps, amphipods, copepods, and brittle stars within their aquiferous systems and tissues [@Pearse1950;@Duffy1996;@Ribeiro2003].
 In fact, *I. felix* can host over 6 species of infaunal invertebrates at densities up to 33 individuals per cm^-3^ of sponge [@Greene2008].
 Although we did not account for these infaunal invertebrate communities in this study, these infaunal residents play a role in the link between sponges and the abundance of larger fauna.
-For example, the snapping shrimp living within large sponges contribute contribute to the auditory cues that juvenile spiny lobsters (*Panulirus argus*) use to identify suitable settlement habitat and  [@Butler1995; @Butler2016].
+For example, the snapping shrimp living within large sponges contribute to the auditory cues that juvenile spiny lobsters (*Panulirus argus*) use to identify suitable settlement habitat [@Butler1995; @Butler2016].
 <!-- PE: Should we stay consistent with putting the common names in () here? -->
 While spiny lobsters were not a large contributor to the patterns observed in this study (only one was observed--in a sponge plot), the use of sound as a settlement cue is common within marine taxa [@Mann2007;@Lillis2014;@Radford2007;@Vermeij2010].
 Sponge presence can result in increased soundscape complexity in nearshore environments [@Butler2016], but it is unclear if this mechanism influenced our results. 
