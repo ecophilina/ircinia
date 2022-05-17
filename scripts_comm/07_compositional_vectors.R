@@ -551,7 +551,7 @@ isp2<-filter(isp,sp %in% c("cerith", "little white snail", "ground tunicate"))%>
 
 (fish.vplot +fish.spp) / (inv.plot +invrt.spp) + plot_layout(guides="collect")+plot_annotation(tag_levels="a")
 
-ggsave("figures/fig4.tiff",dpi=300,width=174,height=200,units = c("mm"))
+ggsave("figures/fig4.tiff",dpi=600,width=174,height=200,units = c("mm"))
 
 
 # Plot vector traits where amount of change (vector length) vs. direction of change (vector angle)

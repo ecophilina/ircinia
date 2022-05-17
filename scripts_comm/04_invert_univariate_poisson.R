@@ -312,7 +312,7 @@ ggplot(data = inv.uni %>% filter(season == "summer") %>%
   ylab("Invertebrate Taxa Richness") +
   coord_cartesian(expand = F, ylim = c(-0.1,7.5), xlim = c(-0.1,35.35)) +
   ggsidekick::theme_sleek()
-ggsave("figures/fig3.tiff", units=c("mm"),width = 129, height = 100)
+ggsave("figures/fig3.tiff", units=c("mm"),dpi=600,width = 129, height = 100)
 ggsave("figures/invert_spr_by_algae.png", width = 5, height = 3)
 ggsave("figures/invert_spr_by_algae.pdf", width = 5, height = 3)
 

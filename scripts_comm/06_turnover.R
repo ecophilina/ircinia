@@ -492,7 +492,7 @@ wrap_elements(grid::textGrob("Taxa Richness",rot=90,vjust =2,gp=gpar(fontsize=16
     title = '    a', theme = theme(plot.title = element_text(size = 16, vjust = -3))
   )
 # 
-# ggsave("figures/Fig2.tiff",dpi=300,width=174,height=200,units = c("mm"))
+ ggsave("figures/Fig2.tiff",dpi=600,width=174,height=200,units = c("mm"))
 # ggsave("figures/Species_Richness_Turnover_A_B.png",dpi=300,width=8,height=9.5)
 # ggsave("figures/Species_Richness_Turnover_A_B.pdf",dpi=300,width=8,height=9.5)
 # 
@@ -623,7 +623,7 @@ wrap_elements(grid::textGrob("Abundance",rot=90,vjust =1,gp=gpar(fontsize=16))) 
   l1+
   plot_layout(design=layouta)
  
-ggsave("figures/fig1_use.tiff",dpi=300,units = c("mm"), width = 174, height = 150)
+ggsave("figures/fig1_use.tiff",dpi=600,units = c("mm"), width = 174, height = 150)
 
 # ggsave("figures/fish_ncinvert_abundance figure.png", width = 7, height = 5)
 # ggsave("figures/fish_ncinvert_abundance figure.pdf", width = 7, height = 5)
