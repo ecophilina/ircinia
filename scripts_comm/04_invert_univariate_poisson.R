@@ -301,14 +301,15 @@ ggplot(data = inv.uni %>% filter(season == "summer") %>%
       levels = c("blank", "fake", "real"), 
       labels = c("Control", "Structure", "Sponge")))) + 
   geom_ribbon(data = alg.pr,
-              aes(x , ymin = conf.low, ymax = conf.high), alpha = 0.2)+
+              aes(x , ymin = conf.low, ymax = conf.high),alpha=.2)+
   geom_jitter(aes(a.abund, spr, colour = treatment, alpha = as.factor(sampling)), 
     width = 0.3, height = 0.1, size = 2.5) + 
   geom_line(data=alg.pr,aes(x=x,y=predicted))+
   scale_alpha_discrete(range = c(0.3,1), name = "Months") + 
+
   scale_color_viridis_d(option="A", begin=0, end=0.65,"")+
   xlab("Algae Abundance") +
-  ylab("Invertebrate Species Richness") +
+  ylab("Invertebrate Taxa Richness") +
   coord_cartesian(expand = F, ylim = c(-0.1,7.5), xlim = c(-0.1,35.35)) +
   ggsidekick::theme_sleek()
 ggsave("figures/fig3.tiff", units=c("mm"),width = 129, height = 100)
