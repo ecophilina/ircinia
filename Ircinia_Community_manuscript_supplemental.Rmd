@@ -1,7 +1,6 @@
 ---
-title: "Supplemental Materials" 
-# subtitle: "For *Sponges presence increases diversity and abundance of fish and invertebrates in subtropical seagrass beds*"
-# author: "Finella M. Campanino, Philina A. English, Craig A. Layman, Stephanie K. Archer,"
+title: "Electronic Supplemental Material" 
+subtitle: "For *Sponges presence increases diversity and abundance of fish and invertebrates in subtropical seagrass beds*"
 output:
   bookdown::pdf_document2:
       toc: false
@@ -28,10 +27,19 @@ if(!require(kableExtra))install.packages("kableExtra");library(kableExtra)
 ```{r, include=FALSE}
 options(tinytex.verbose = TRUE)
 ```
-***Any supplemental text including paper title?***
-<!-- Remove this and add Please include in each file the following information: article title, journal name, author names; affiliations, e-mail address of the corresponding author, and submission date. The first line should state: “Electronic Supplementary Material.” -->
-<!-- Seems like you can just copy and paste how the title is set up for the manuscript underneath the main Electronic Supplementary Material title -->
 
+Journal name: Estuaries and Coasts
+
+Author names: Finella M. Campanino^1^, Philina A. English^2^, Craig A. Layman^3^, Stephanie K. Archer^1^*
+ 
+Affiliations: 
+1. Louisiana Universities Marine Consortium, Chauvin, Louisiana, USA
+2. Pacific Biological Station, Fisheries and Oceans Canada, Nanaimo, British Columbia, Canada
+3. Center for Energy, Environment, and Sustainability, Department of Biology, Wake Forest University, Winston-Salem, North Carolina, USA
+  
+*corresponding author: sarcher@lumcon.edu
+
+Submission Date: May XX, 2022
 
 
 ```{r expdes, echo=FALSE, fig.align='left', out.width="100%", message=FALSE, warning=FALSE}
@@ -41,15 +49,7 @@ knitr::include_graphics("figures/Experimental_design_2.pdf")
 Figure S1. Illustrates the experimental design and sampling scheme. Data was collected prior to treatment establishment, and 1 and 12 months after treatments were established. Fish abundance and taxa richness were counted for whole plots. Other taxonomic groups and seagrass measurements were made in the locations indicated. 
 
 \clearpage
-<!-- remove s2 -->
-```{r turnover-clonal, echo=FALSE, fig.align='center', out.width="105%", message=FALSE, warning=FALSE}
 
-knitr::include_graphics("figures/turnover-plots-tunicates2.jpg")
-```
-
-Figure S2. Change in clonal invertebrate taxa richness and the components of species turnover from start of experiment to the first experimental sample (1 month into experiment), and between that first experimental sample and one year later (12 months into experiment). All species encountered were tunicates.   
-
-\clearpage
 
 \captionsetup[table]{labelformat=empty}
 
@@ -67,7 +67,7 @@ knitr::kable(fish.models[,c(-1:-2,-7,-10)],
 ```
 
 \clearpage
-<!-- change to just invertebrate -->
+
 ```{r inverttab}
 knitr::kable(invert.models[,c(-1:-2,-7,-10)],
              # format = "latex",
@@ -75,24 +75,9 @@ knitr::kable(invert.models[,c(-1:-2,-7,-10)],
              # escape = FALSE,
     col.names = c("","k","AICc","Delta AICc",
                   "Akaike Weight","LL"),
-    caption="Table S2. All models tested evaluating competing hypotheses of the drivers of non-clonal invertebrate abundance and taxa richness.")%>%
+    caption="Table S2. All models tested evaluating competing hypotheses of the drivers of invertebrate abundance and taxa richness.")%>%
   kable_styling(latex_options = "scale_down",font_size=11)%>%
   pack_rows("Abundance",1,14)%>%
   pack_rows("Taxa Richness",15,28)
-```
-
-\clearpage
-<!-- Remove from supplement and reference in manuscript -->
-```{r clonaltab}
-cispr2<-cispr[,c(-1:-2,-7,-10)]
-rownames(cispr2)<-NULL
-knitr::kable(cispr2,
-             booktabs=T,
-             # escape = FALSE,
-    col.names = c("","k","AICc","Delta AIC_c",
-                  "Akaike Weight","LL"),
-    caption="Table S3. All models tested evaluating competing hypotheses of the drivers of clonal invertebrate taxa richness.")%>%
-  kable_styling(latex_options = "scale_down",font_size=11)%>%
-  pack_rows("Taxa Richness",1,14)
 ```
 
