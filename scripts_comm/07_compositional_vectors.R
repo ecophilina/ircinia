@@ -549,9 +549,9 @@ isp2<-filter(isp,sp %in% c("cerith", "little white snail", "ground tunicate"))%>
 # #add_phylopic(clonalpng,x=-.8,y=.9,ysize=.25,alpha=1))
 # 
 
-(fish.vplot +fish.spp) / (inv.plot +invrt.spp) + plot_layout(guides="collect")
+(fish.vplot +fish.spp) / (inv.plot +invrt.spp) + plot_layout(guides="collect")+plot_annotation(tag_levels="a")
 
-ggsave("figures/community_vector_plots_withspp.jpg",dpi=300,width=6,height=9)
+ggsave("figures/fig4.tiff",dpi=300,width=174,height=200,units = c("mm"))
 
 
 # Plot vector traits where amount of change (vector length) vs. direction of change (vector angle)
@@ -582,7 +582,7 @@ ggsave("figures/community_vector_plots_withspp.jpg",dpi=300,width=6,height=9)
 #   add_phylopic(clonalpng,x=-2.6,y=1.2,ysize=.65,alpha=1))
 
 
-(by1 / by2 )+ plot_layout(guides="collect")
+(by1 / by2 )+ plot_layout(guides="collect") + plot_annotation(tag_levels = 'a')
 
-ggsave("figures/vect-length-by-angle-plot.jpg", dpi=300, width = 4, height = 8)
+# ggsave("figures/upload_vect-length-by-angle-plot.tiff", dpi=300, width = 4, height = 8)
 

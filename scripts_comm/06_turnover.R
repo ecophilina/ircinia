@@ -113,41 +113,41 @@ write_rds(summary(fish.loss1),"working_data/fishloss1.rds")
 write_rds(summary(fish.loss12),"working_data/fishloss12.rds")
 write_rds(TukeyHSD(fish.loss12),"working_data/fishloss12_tukey.rds")
 
-#colonial inverts
-col.inv.turn<-col.inv.com.full%>%
-  mutate(dummy=1)%>%
-  pivot_longer(-treatment:-a.abund.c,names_to="taxa",values_to="abundance")%>%
-  filter(!sampling %in% c(5,17))
-
-col.inv.appear <- turnover(df=col.inv.turn,
-                       time.var = "sampling",
-                       species.var = "taxa",
-                       abundance.var = "abundance",
-                       replicate.var = "plot",
-                       metric="appearance")%>%
-  mutate(plot=as.numeric(plot))%>%
-  left_join(col.inv.env)
-
-
-col.inv.dis <- turnover(df=col.inv.turn,
-                    time.var = "sampling",
-                    species.var = "taxa",
-                    abundance.var = "abundance",
-                    replicate.var = "plot",
-                    metric="disappearance")%>%
-  mutate(plot=as.numeric(plot))%>%
-  left_join(col.inv.appear)
-
-col.inv.turnover <- turnover(df=col.inv.turn,
-                         time.var = "sampling",
-                         species.var = "taxa",
-                         abundance.var = "abundance",
-                         replicate.var = "plot")%>%
-  mutate(plot=as.numeric(plot))%>%
-  left_join(col.inv.dis)%>%
-  left_join(col.inv.uni)
-
-
+# #colonial inverts
+# col.inv.turn<-col.inv.com.full%>%
+#   mutate(dummy=1)%>%
+#   pivot_longer(-treatment:-a.abund.c,names_to="taxa",values_to="abundance")%>%
+#   filter(!sampling %in% c(5,17))
+# 
+# col.inv.appear <- turnover(df=col.inv.turn,
+#                        time.var = "sampling",
+#                        species.var = "taxa",
+#                        abundance.var = "abundance",
+#                        replicate.var = "plot",
+#                        metric="appearance")%>%
+#   mutate(plot=as.numeric(plot))%>%
+#   left_join(col.inv.env)
+# 
+# 
+# col.inv.dis <- turnover(df=col.inv.turn,
+#                     time.var = "sampling",
+#                     species.var = "taxa",
+#                     abundance.var = "abundance",
+#                     replicate.var = "plot",
+#                     metric="disappearance")%>%
+#   mutate(plot=as.numeric(plot))%>%
+#   left_join(col.inv.appear)
+# 
+# col.inv.turnover <- turnover(df=col.inv.turn,
+#                          time.var = "sampling",
+#                          species.var = "taxa",
+#                          abundance.var = "abundance",
+#                          replicate.var = "plot")%>%
+#   mutate(plot=as.numeric(plot))%>%
+#   left_join(col.inv.dis)%>%
+#   left_join(col.inv.uni)
+# 
+# 
 # exploratory plots for non-clonal inverts
 ggplot(inv.turnover)+
   geom_line(aes(x=sampling, y=appearance,color=treatment,group=plot), alpha = 0.5)
@@ -160,15 +160,15 @@ ggplot(inv.turnover)+
   facet_wrap(~sampling)
 
 # exploratory plots for clonal inverts
-ggplot(col.inv.turnover)+
-  geom_line(aes(x=sampling, y=appearance,color=treatment,group=plot), alpha = 0.5)
-ggplot(col.inv.turnover)+
-  geom_line(aes(x=sampling, y=disappearance,color=treatment,group=plot), alpha = 0.5)
-  # geom_line(aes(x=sampling, y=total,color=treatment,group=plot))
-
-ggplot(col.inv.turnover)+
-  geom_jitter(aes(y=appearance,x=disappearance,color=treatment,size=spr))+
-  facet_wrap(~sampling)
+# ggplot(col.inv.turnover)+
+#   geom_line(aes(x=sampling, y=appearance,color=treatment,group=plot), alpha = 0.5)
+# ggplot(col.inv.turnover)+
+#   geom_line(aes(x=sampling, y=disappearance,color=treatment,group=plot), alpha = 0.5)
+#   # geom_line(aes(x=sampling, y=total,color=treatment,group=plot))
+# 
+# ggplot(col.inv.turnover)+
+#   geom_jitter(aes(y=appearance,x=disappearance,color=treatment,size=spr))+
+#   facet_wrap(~sampling)
 
 
 #### Make multipanel figure for paper ####
@@ -246,30 +246,30 @@ ispr.sum<-inv.uni%>%
     ylab("")+
     xlab("Months into the Experiment"))
 
-cspr.sum<-col.inv.uni%>%
-  group_by(treatment,sampling)%>%
-  summarize(spr.m=mean(spr),
-    spr.sd=sd(spr))%>%
-  filter(sampling %in% c(0,1,12))
-
-(cspr<-ggplot()+
-    geom_point(data=col.inv.uni%>%filter(sampling %in% c(0,1,12)),
-      aes(x=as.factor(sampling),y=spr,color=treatment),alpha=.3,position=position_dodge(0.3))+
-    geom_point(data=cspr.sum,
-      aes(x=as.factor(sampling),y=spr.m,color=treatment),alpha=.7,size=5,position=position_dodge(0.3))+
-    geom_errorbar(data=cspr.sum,
-      aes(x=as.factor(sampling),ymin=spr.m-spr.sd,ymax=spr.m+spr.sd,color=treatment),alpha=.7,width=.3,position=position_dodge(0.3))+ 
-    scale_color_viridis_d(option="A", begin=0, end=0.65,name="Treatment",labels=c("Control","Structure","Sponge"))+
-    ggsidekick::theme_sleek(base_size = 16) +
-    theme(
-      axis.title.x = element_blank(),
-      # axis.title.y = element_blank(),
-      legend.position = "none"
-    )+
-    add_phylopic(crabpng,x=0.75,y=5,ysize = 3,alpha = 1)+
-    ylab("Taxa Richness")+
-    ggtitle("Months into the Experiment"))
-
+# cspr.sum<-col.inv.uni%>%
+#   group_by(treatment,sampling)%>%
+#   summarize(spr.m=mean(spr),
+#     spr.sd=sd(spr))%>%
+#   filter(sampling %in% c(0,1,12))
+# 
+# (cspr<-ggplot()+
+#     geom_point(data=col.inv.uni%>%filter(sampling %in% c(0,1,12)),
+#       aes(x=as.factor(sampling),y=spr,color=treatment),alpha=.3,position=position_dodge(0.3))+
+#     geom_point(data=cspr.sum,
+#       aes(x=as.factor(sampling),y=spr.m,color=treatment),alpha=.7,size=5,position=position_dodge(0.3))+
+#     geom_errorbar(data=cspr.sum,
+#       aes(x=as.factor(sampling),ymin=spr.m-spr.sd,ymax=spr.m+spr.sd,color=treatment),alpha=.7,width=.3,position=position_dodge(0.3))+ 
+#     scale_color_viridis_d(option="A", begin=0, end=0.65,name="Treatment",labels=c("Control","Structure","Sponge"))+
+#     ggsidekick::theme_sleek(base_size = 16) +
+#     theme(
+#       axis.title.x = element_blank(),
+#       # axis.title.y = element_blank(),
+#       legend.position = "none"
+#     )+
+#     add_phylopic(crabpng,x=0.75,y=5,ysize = 3,alpha = 1)+
+#     ylab("Taxa Richness")+
+#     ggtitle("Months into the Experiment"))
+# 
 
 # make separate legend for placement using patchwork
 l1 <- ggpubr::get_legend(ispr + theme(legend.position = c(0.9,0.9)))
@@ -279,11 +279,11 @@ l1 <- ggpubr::get_legend(ispr + theme(legend.position = c(0.9,0.9)))
 
 fish.turnover$group <- "fish"
 inv.turnover$group <- "invert"
-col.inv.turnover$group <- "clonal"  
+# col.inv.turnover$group <- "clonal"  
 
 fish.turnover$spr
 inv.turnover$spr
-col.inv.turnover$spr
+# col.inv.turnover$spr
 
 # specialized function for plotting different animal shapes ("groups") with or without colouring by treatments ( with categories of "real","fake","control")
 plot_png <- function(dat, 
@@ -408,32 +408,32 @@ ggsave("figures/turnover-plots-legend.png", width = 12.5, height = 6)
 
 
 # since tunicates show a different pattern, I'm putting them on different panels
-(p1c <- plot_png(filter(col.inv.turnover, sampling == 1), png_list = list(clonalpng), scal_fac = c(80)) +
-    ylab("Proportion of Taxa Gained") + xlab("Proportion of Taxa Lost")+
-    # theme(axis.title.x = element_blank(),axis.title.y = element_blank()) +
-    ggtitle("1 month into experiment"))
-
-(p12c <- plot_png(filter(col.inv.turnover, sampling == 12), png_list = list(clonalpng), scal_fac = c(80)) + 
-    ylab("") + xlab("Proportion of Taxa Lost") +
-    # theme(axis.title.x = element_blank(),axis.title.y = element_blank()) +
-    ggtitle("12 months into experiment") + 
-    theme(axis.text.y = element_blank(),axis.ticks.y = element_blank()))
-
-# create legend for tunicates
-ldat3 <- filter(ldat, group== "fish") # manually convert legend to scale for tunicates
-ldat3$group <- "clonal"
-ldat3$spr <- c(0, round(max(col.inv.turnover$spr)/2)-1, round(quantile(col.inv.turnover$spr, 0.95)))
-ldat3$disappearance <- c(0.1, 0.1, 0.1)
-ldat3$appearance <- c(0.66, 0.72, 0.79)
-
-(l3 <- plot_png(ldat3, png_list = list(clonalpng), plot_treatments = F, 
-  scal_fac = c(80), xlim = c(0.05, 0.25)) +
-    geom_text( aes( x=0.2, y=0.79, label= round(quantile(col.inv.turnover$spr, 0.95)))) +
-    geom_text( aes( x=0.2, y=0.72, label= round(max(col.inv.turnover$spr)/2)-1)) +
-    geom_text( aes( x=0.2, y=0.66, label= "0")) +
-    theme_void()+ theme(plot.title = element_text(hjust = 0.5)) +
-    ggtitle("Taxa Richness"))
-
+# (p1c <- plot_png(filter(col.inv.turnover, sampling == 1), png_list = list(clonalpng), scal_fac = c(80)) +
+#     ylab("Proportion of Taxa Gained") + xlab("Proportion of Taxa Lost")+
+#     # theme(axis.title.x = element_blank(),axis.title.y = element_blank()) +
+#     ggtitle("1 month into experiment"))
+# 
+# (p12c <- plot_png(filter(col.inv.turnover, sampling == 12), png_list = list(clonalpng), scal_fac = c(80)) + 
+#     ylab("") + xlab("Proportion of Taxa Lost") +
+#     # theme(axis.title.x = element_blank(),axis.title.y = element_blank()) +
+#     ggtitle("12 months into experiment") + 
+#     theme(axis.text.y = element_blank(),axis.ticks.y = element_blank()))
+# 
+# # create legend for tunicates
+# ldat3 <- filter(ldat, group== "fish") # manually convert legend to scale for tunicates
+# ldat3$group <- "clonal"
+# ldat3$spr <- c(0, round(max(col.inv.turnover$spr)/2)-1, round(quantile(col.inv.turnover$spr, 0.95)))
+# ldat3$disappearance <- c(0.1, 0.1, 0.1)
+# ldat3$appearance <- c(0.66, 0.72, 0.79)
+# 
+# (l3 <- plot_png(ldat3, png_list = list(clonalpng), plot_treatments = F, 
+#   scal_fac = c(80), xlim = c(0.05, 0.25)) +
+#     geom_text( aes( x=0.2, y=0.79, label= round(quantile(col.inv.turnover$spr, 0.95)))) +
+#     geom_text( aes( x=0.2, y=0.72, label= round(max(col.inv.turnover$spr)/2)-1)) +
+#     geom_text( aes( x=0.2, y=0.66, label= "0")) +
+#     theme_void()+ theme(plot.title = element_text(hjust = 0.5)) +
+#     ggtitle("Taxa Richness"))
+# 
 # layout2 <- c(
 #   area(t=1, b=14, l=1, r=6),
 #   area(t=1, b=14, l=7, r=12),
@@ -472,7 +472,7 @@ layout<-c(
   area(t=7,b=11,l=2,r=4), # 1 month turnover
   area(t=7,b=11,l=5,r=7), # 12 months turnover
   area(t=2,b=3,l=6,r=6), # treatment legend
-  area(t=5,b=7,l=6,r=7), # animal richness legend
+  area(t=4,b=7,l=6,r=7), # animal richness legend
   # area(t=0,b=1,l=1,r=1),# A. tag (but positioning didn't work so use title option in plot_annotation to add this)
   area(t=6,b=7,l=1,r=1)# B. tag
   )
@@ -486,13 +486,13 @@ wrap_elements(grid::textGrob("Taxa Richness",rot=90,vjust =2,gp=gpar(fontsize=16
   p1 + p12 + # turnover plots
   l1 + l2 + # legends
   # wrap_elements(grid::textGrob("A.",vjust =-1,gp=gpar(fontsize=16))) +
-  wrap_elements(grid::textGrob("B.",vjust =0.5,hjust=1.1,gp=gpar(fontsize=16))) +
+  wrap_elements(grid::textGrob("b",vjust =0.5,hjust=1.1,gp=gpar(fontsize=16))) +
   plot_layout(design=layout) + 
   plot_annotation( # using to add tag that wouldn't cooperate otherwise
-    title = '    A.', theme = theme(plot.title = element_text(size = 16, vjust = -3))
+    title = '    a', theme = theme(plot.title = element_text(size = 16, vjust = -3))
   )
 # 
-# ggsave("figures/Species_Richness_Turnover_A_B.jpg",dpi=300,width=8,height=9.5)
+# ggsave("figures/Fig2.tiff",dpi=300,width=174,height=200,units = c("mm"))
 # ggsave("figures/Species_Richness_Turnover_A_B.png",dpi=300,width=8,height=9.5)
 # ggsave("figures/Species_Richness_Turnover_A_B.pdf",dpi=300,width=8,height=9.5)
 # 
@@ -500,35 +500,35 @@ wrap_elements(grid::textGrob("Taxa Richness",rot=90,vjust =2,gp=gpar(fontsize=16
 
 # update tunicates to match layout of Fish and Inverts
 
-(cspr <- cspr + theme(axis.title.x = element_blank(),axis.title.y = element_blank()))
-(p1c <- p1c + theme(axis.title.x = element_blank(),axis.title.y = element_blank()))
-(p12c <- p12c + theme(axis.title.x = element_blank()))
-
-layout2c<-c(
-  area(t=2,b=5,l=1,r=1),# A - y axis label
-  area(t=7,b=11,l=1,r=1),# B - y axis label
-  area(t=12,b=12,l=2,r=7), # B - y axis label
-  area(t=1,b=5,l=2,r=5),# clonal richness plot
-  area(t=7,b=11,l=2,r=4), # 1 month turnover
-  area(t=7,b=11,l=5,r=7), # 12 months turnover
-  area(t=2,b=3,l=5,r=6), # treatment legend
-  area(t=4,b=7,l=6,r=7), # animal richness legend
-  # area(t=0,b=1,l=1,r=1),# A. tag (but positioning didn't work so use title option in plot_annotation to add this)
-  area(t=6,b=7,l=1,r=1)# B. tag
-)
-
-wrap_elements(grid::textGrob("Taxa Richness",rot=90,vjust =2,gp=gpar(fontsize=16))) +
-  wrap_elements(grid::textGrob("Proportion Gained",rot=90,vjust =2,gp=gpar(fontsize=16))) +
-  wrap_elements(grid::textGrob("Proportion Lost",vjust =0,gp=gpar(fontsize=16))) +
-  cspr + # richness plot
-  p1c + p12c + # turnover plots
-  l1 + l3 + # legends
-  # wrap_elements(grid::textGrob("A.",vjust =-1,gp=gpar(fontsize=16))) +
-  wrap_elements(grid::textGrob("B.",vjust =0.5,hjust=1.1,gp=gpar(fontsize=16))) +
-  plot_layout(design=layout2c) + 
-  plot_annotation( # using to add tag that wouldn't cooperate otherwise
-    title = '    A.', theme = theme(plot.title = element_text(size = 16, vjust = -3))
-  )
+# (cspr <- cspr + theme(axis.title.x = element_blank(),axis.title.y = element_blank()))
+# (p1c <- p1c + theme(axis.title.x = element_blank(),axis.title.y = element_blank()))
+# (p12c <- p12c + theme(axis.title.x = element_blank()))
+# 
+# layout2c<-c(
+#   area(t=2,b=5,l=1,r=1),# A - y axis label
+#   area(t=7,b=11,l=1,r=1),# B - y axis label
+#   area(t=12,b=12,l=2,r=7), # B - y axis label
+#   area(t=1,b=5,l=2,r=5),# clonal richness plot
+#   area(t=7,b=11,l=2,r=4), # 1 month turnover
+#   area(t=7,b=11,l=5,r=7), # 12 months turnover
+#   area(t=2,b=3,l=5,r=6), # treatment legend
+#   area(t=4,b=7,l=6,r=7), # animal richness legend
+#   # area(t=0,b=1,l=1,r=1),# A. tag (but positioning didn't work so use title option in plot_annotation to add this)
+#   area(t=6,b=7,l=1,r=1)# B. tag
+# )
+# 
+# wrap_elements(grid::textGrob("Taxa Richness",rot=90,vjust =2,gp=gpar(fontsize=16))) +
+#   wrap_elements(grid::textGrob("Proportion Gained",rot=90,vjust =2,gp=gpar(fontsize=16))) +
+#   wrap_elements(grid::textGrob("Proportion Lost",vjust =0,gp=gpar(fontsize=16))) +
+#   cspr + # richness plot
+#   p1c + p12c + # turnover plots
+#   l1 + l3 + # legends
+#   # wrap_elements(grid::textGrob("A.",vjust =-1,gp=gpar(fontsize=16))) +
+#   wrap_elements(grid::textGrob("b.",vjust =0.5,hjust=1.1,gp=gpar(fontsize=16))) +
+#   plot_layout(design=layout2c) + 
+#   plot_annotation( # using to add tag that wouldn't cooperate otherwise
+#     title = '    a.', theme = theme(plot.title = element_text(size = 16, vjust = -3))
+#   )
 
 # 
 # ggsave("figures/turnover-plots-tunicates2.jpg",dpi=300,width=8,height=9.5)
@@ -571,7 +571,8 @@ iab.sum<-inv.uni%>%
       # plot.margin=margin(t=5,r=1,b=1,l=5),
       axis.ticks.x = element_blank(),
       axis.text.x = element_blank())+
-    add_phylopic(fishpng,x=.75,y=6,ysize = 1.5,alpha=1))
+    add_phylopic(fishpng,x=.75,y=6,ysize = 1.5,alpha=1)+
+  labs(tag="a"))
 
 
 (iab<-ggplot()+
@@ -591,7 +592,8 @@ iab.sum<-inv.uni%>%
     )+
     add_phylopic(crabpng,x=0.75,y=11,ysize = 4,alpha = 1)+
     #    ggtitle("Invertebrates")+
-    ylab(""))
+    ylab("")+
+    labs(tag="b"))
 
 
 
@@ -620,6 +622,8 @@ wrap_elements(grid::textGrob("Abundance",rot=90,vjust =1,gp=gpar(fontsize=16))) 
                                gp=gpar(fontsize=16))) +
   l1+
   plot_layout(design=layouta)
-# 
+ 
+ggsave("figures/fig1_use.tiff",dpi=300,units = c("mm"), width = 174, height = 150)
+
 # ggsave("figures/fish_ncinvert_abundance figure.png", width = 7, height = 5)
 # ggsave("figures/fish_ncinvert_abundance figure.pdf", width = 7, height = 5)
