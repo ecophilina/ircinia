@@ -29,6 +29,9 @@ if(!require(kableExtra))install.packages("kableExtra");library(kableExtra)
 options(tinytex.verbose = TRUE)
 ```
 ***Any supplemental text including paper title?***
+<!-- Remove this and add Please include in each file the following information: article title, journal name, author names; affiliations, e-mail address of the corresponding author, and submission date. The first line should state: “Electronic Supplementary Material.” -->
+<!-- Seems like you can just copy and paste how the title is set up for the manuscript underneath the main Electronic Supplementary Material title -->
+
 
 
 ```{r expdes, echo=FALSE, fig.align='left', out.width="100%", message=FALSE, warning=FALSE}
@@ -38,7 +41,7 @@ knitr::include_graphics("figures/Experimental_design_2.pdf")
 Figure S1. Illustrates the experimental design and sampling scheme. Data was collected prior to treatment establishment, and 1 and 12 months after treatments were established. Fish abundance and taxa richness were counted for whole plots. Other taxonomic groups and seagrass measurements were made in the locations indicated. 
 
 \clearpage
-
+<!-- remove s2 -->
 ```{r turnover-clonal, echo=FALSE, fig.align='center', out.width="105%", message=FALSE, warning=FALSE}
 
 knitr::include_graphics("figures/turnover-plots-tunicates2.jpg")
@@ -64,7 +67,7 @@ knitr::kable(fish.models[,c(-1:-2,-7,-10)],
 ```
 
 \clearpage
-
+<!-- change to just invertebrate -->
 ```{r inverttab}
 knitr::kable(invert.models[,c(-1:-2,-7,-10)],
              # format = "latex",
@@ -79,7 +82,7 @@ knitr::kable(invert.models[,c(-1:-2,-7,-10)],
 ```
 
 \clearpage
-
+<!-- Remove from supplement and reference in manuscript -->
 ```{r clonaltab}
 cispr2<-cispr[,c(-1:-2,-7,-10)]
 rownames(cispr2)<-NULL
