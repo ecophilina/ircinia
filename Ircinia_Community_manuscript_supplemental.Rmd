@@ -34,7 +34,9 @@ Author names: Finella M. Campanino^1^, Philina A. English^2^, Craig A. Layman^3^
  
 Affiliations: 
 1. Louisiana Universities Marine Consortium, Chauvin, Louisiana, USA
+
 2. Pacific Biological Station, Fisheries and Oceans Canada, Nanaimo, British Columbia, Canada
+
 3. Center for Energy, Environment, and Sustainability, Department of Biology, Wake Forest University, Winston-Salem, North Carolina, USA
   
 *corresponding author: sarcher@lumcon.edu
