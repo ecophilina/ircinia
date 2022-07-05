@@ -62,7 +62,7 @@ Sponges and their associated microbial communities can also act as a source of b
 Likely as a result of the this nutrient cycling, at least one sponge, *Ircinia felix* facilitates primary producers (seagrasses and macroalgae) in sub-tropical seagrass beds [@Archer2021a].
 Combined, these traits suggest sponges have considerable potential to enhance the biodiversity of seagrass communities.\par
 
-Despite their potential to significantly affect the distribution, diversity, and abundance of other organisms within a system, the effects of sponges on communities are 
+Despite their potential to significantly affect the distribution, diversity, and abundance of other organisms within a system, the effects of sponges on communities are often underappreciated [@Bell2008a].
 Seagrass beds, where sponges can be common, are influenced by anthropogenic factors that threaten their biodiversity and function world wide [@Tin2021; @Orth2006; @Waycott2009]. 
 Therefore, it is important to understand what drives diversity in these systems so that we can facilitate management and restoration. 
 To this end, we investigated the effect of sponge presence on biodiversity within a relatively undisturbed seagrass ecosystem.\par
