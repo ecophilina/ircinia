@@ -71,8 +71,8 @@ We investigated the impact of the sponge, *Ircinia felix*, on seagrass bed-assoc
 Using a 1 yr field-based experiment, we examined how sponge presence influenced fish and invertebrate taxa richness, abundance, taxa turnover, and community composition.
 Because seagrass bed structural complexity and productivity affect fish and invertebrate communities, and *I. felix* increases growth and abundance of seagrasses and macroalgae, we further explored direct and indirect affects of sponge presence on the community.
 We tested if the fish and invertebrate communities were influenced by the presence of the sponge alone (i.e., a direct effect), the enhancement of the dominant primary producers (macroalgae and seagrasses; i.e, an indirect effect), or a combination of the two.
-We predicted that seagrass plots with *I. felix* would have higher taxa richness and abundance than seagrass plots without *I felix* and that this would be mostly driven by indirect effects on the colonization and retention of species resulting from increases in structural complexity and productivity of the primary producers caused by sponge presence. 
-As a result we hypothesize that the presence of *I.felix* would result in a change in community structure over time.
+We predicted that seagrass plots with *I. felix* would have higher taxa richness and abundance than seagrass plots without *I. felix* and that this would be mostly driven by indirect effects on the colonization and retention of species resulting from increases in structural complexity and productivity of the primary producers caused by sponge presence. 
+As a result we hypothesize that the presence of *I. felix* would result in a change in community structure over time.
 
 
 # Methods  
@@ -129,7 +129,7 @@ All models were fitted with a Conway–Maxwell–Poisson distribution, parametri
 We reviewed the residuals of all model configurations to confirm that GLMM assumptions were met.
 Specifically, residuals were tested for compliance with model assumptions using the DHARMa package and a custom-built function to test for over-dispersion.
 We used the package `AICcmodavg` [@Mazerolle2020] to create model selection tables based on corrected Akaike Information Criterion scores (AICc).
-All models within two $\delta$ AICc of the best-supported model are considered to be well-supported.\par
+All models within two $\delta$ ***is this correct?*** AICc of the best-supported model are considered to be well-supported.\par
 
 *Taxa Turnover*
 
@@ -280,7 +280,7 @@ The post-hoc analysis of the vector angles showed no significant difference in t
 By contrast, there were differences in the direction of change in taxa space between the structure and sponge presence treatment plots, as well as between the structure and control treatment plots, with structure treatment plots having less change in communities than both sponge presence or control (structure-sponge: `r tukey.res(fish.vl.aov.tuk,2)`; structure-control `r tukey.res(fish.vl.aov.tuk,3)`). \par
 
 By 12 months into the experiment, the invertebrate communities showed no significant differences between treatments for vector length and angle (vector length:  F~`r aov.df2(inv.vl.aov.sum,1)`~ `r aov.res(inv.vl.aov.sum,1)`; vector angle: F~`r aov.df2(inv.angle.aov.sum,1)`~ `r aov.res(inv.angle.aov.sum,1)`).
-However, while control and structure control plots shifted in variable directions and amounts, all sponge plots tended to shift a similar amount in a somewhat more consistent direction (Fig. \@ref(fig:vector-plots).
+However, while control and structure control plots shifted in variable directions and amounts, all sponge plots tended to shift a similar amount in a somewhat more consistent direction (Fig. \@ref(fig:vector-plots)).
 \par
 
 
@@ -293,7 +293,7 @@ We found that sponge presence alone explained the most variance in fish and inve
 Overtime, sponge presence was associated with the addition of new fish and invertebrate taxa and the retention of previously present fish taxa.
 This resulted in a shift in overall taxa space for the fish community, but not for the invertebrate community.\par
 
-Although the sponge presence model explained the most variation in invertebrate taxa richness and abundance, other models fell within 2 $\delta \Delta$ AICc values and thus cannot be ruled out: macroalgal structure, sponge presence + seagrass productivity, and sponge presence + seagrass structure (Table 1). 
+Although the sponge presence model explained the most variation in invertebrate taxa richness and abundance, other models fell within 2 $\delta \Delta$ ***both symbols are here*** AICc values and thus cannot be ruled out: macroalgal structure, sponge presence + seagrass productivity, and sponge presence + seagrass structure (Table 1). 
 This suggests that sponge presence may impact the invertebrate community indirectly via the enhancement of primary producers. This is consistent with the presence of *I. felix* increasing the abundance macroalgae and both the abundance and productivity of seagrasses [@Archer2021a].  
 Many studies have reported increasing invertebrate taxa richness and diversity related to the productive and structural complex habitat dense seagrass provides [@Heck1977;@Orth1984;@Edgar1992;@Webster1998;@Barry2021].
 Our results are consistent with this well-supported paradigm.
@@ -397,7 +397,7 @@ knitr::include_graphics("figures/Species_Richness_Turnover_A_B.png")
 
 ##### break  
 
-```{r inverts-by-algae, fig.align='center', out.width="75%", echo=FALSE, message=FALSE, fig.cap="invertebrate taxa richness can be explained by algae abundance almost as well as by experimental treatment. Line and shading represent the predicted relationship at 12 months after initiation of experiment from a GLMM with only algae abundance and time as fixed effects."}
+```{r inverts-by-algae, fig.align='center', out.width="75%", echo=FALSE, message=FALSE, fig.cap="Invertebrate taxa richness can be explained by algae abundance almost as well as by experimental treatment. Line and shading represent the predicted relationship at 12 months after initiation of experiment from a GLMM with only algae abundance and time as fixed effects."}
 
 knitr::include_graphics("figures/invert_spr_by_algae.png")
 ```
