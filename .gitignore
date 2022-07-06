@@ -11,6 +11,8 @@
 *.docx
 *.doc
 *.rds
+*.pptx
+/figures/
 # History files
 .Rhistory
 .Rapp.history
