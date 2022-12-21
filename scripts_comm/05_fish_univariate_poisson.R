@@ -602,6 +602,71 @@ write_rds(fabund.aic,"working_data/FishAbundAIC.rds")
 (fa.treat.sum<-summary(fa.treat))
 write_rds(fa.treat.sum,"working_data/FishAbundTreatSum.rds")
 
+# calculate % changes
+
+# abundance
+fa.treat.prop <- as.data.frame(fa.treat.sum$coefficients$cond)
+(fish.a.0 <- exp(fa.treat.prop[1,1]))
+(fish.a.1 <- exp(fa.treat.prop[1,1]+ fa.treat.prop[4,1]))
+(fish.a.12 <- exp(fa.treat.prop[1,1]+ fa.treat.prop[5,1]))
+
+fish.a.1/fish.a.0
+fish.a.12/fish.a.0
+
+(fish.a.b.12 <- exp(fa.treat.prop[1,1]+ fa.treat.prop[2,1]+fa.treat.prop[5,1]+fa.treat.prop[8,1]))
+fish.a.12/fish.a.b.12
+
+(fish.a.f.12 <- exp(fa.treat.prop[1,1]+ fa.treat.prop[3,1]+fa.treat.prop[5,1]+fa.treat.prop[9,1]))
+fish.a.12/fish.a.f.12
+
+
+# richness
+fspr.treat.prop <- as.data.frame(fspr.treat.sum$coefficients$cond)
+(fish.spr.0 <- exp(fspr.treat.prop[1,1]))
+(fish.spr.1 <- exp(fspr.treat.prop[1,1]+ fspr.treat.prop[4,1]))
+(fish.spr.12 <- exp(fspr.treat.prop[1,1]+ fspr.treat.prop[5,1]))
+
+fish.spr.1/fish.spr.0
+fish.spr.12/fish.spr.0
+
+(fish.spr.b.12 <- exp(fspr.treat.prop[1,1]+ fspr.treat.prop[2,1]+fspr.treat.prop[5,1]+fspr.treat.prop[8,1]))
+
+fish.spr.12/fish.spr.b.12
+
+(fish.spr.f.12 <- exp(fspr.treat.prop[1,1]+ fspr.treat.prop[3,1]+fspr.treat.prop[5,1]+fspr.treat.prop[9,1]))
+
+fish.spr.12/fish.spr.f.12
+
+
+# get missing B and CI for structure plots
+decimalplaces <- function(x) {
+  if ((x - round(x)) != 0) {
+    strs <- strsplit(as.character(format(x, scientific = F)), "\\.")
+    n <- nchar(strs[[1]][2])
+  } else {
+    n <- 0
+  }
+  return(n) 
+}
+
+efsize.tmb<-function(rtable,row){
+  betas<-signif(rtable$coefficients$cond[row,1], 2)
+  betas<-ifelse(abs(betas)<10,
+                formatC(signif(betas,2), digits=2, format="fg", flag="#"), 
+                round(betas))
+  betas2 <- as.numeric(betas)
+  decicount <- ifelse(betas2>1 & betas2 <10, 1, decimalplaces(betas2))
+  se<-rtable$coefficients$cond[row,2]
+  cil<-rtable$coefficients$cond[row,1]-1.96*se
+  cil<-format(round(cil, digits=decicount), scientific=F)
+  cih<-rtable$coefficients$cond[row,1]+1.96*se
+  cih<-format(round(cih, digits=decicount), scientific=F)
+  return(paste0(betas,", CI = ",cil," to ",cih))
+}
+
+efsize.tmb(fa.treat.sum,9)
+efsize.tmb(fspr.treat.sum,9)
+
 # confirm that the control plots don't change sig with time
 fa.treat.f <- glmmTMB(f.abund ~ treatment * as.factor(sampling) +
     (1 | plot),

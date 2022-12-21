@@ -540,3 +540,97 @@ ia.treat.prod.b <- glmmTMB(i.abund ~ treatment * as.factor(sampling) +
 
 summary(ia.treat.prod.f)
 summary(ia.treat.prod.b)
+
+
+# calculate % changes
+
+# abundance of inverts considering only treatment
+(ia.treat.prop <- as.data.frame(ia.treat.sum$coefficients$cond))
+(ia.0 <- exp(ia.treat.prop[1,1]))
+(ia.1 <- exp(ia.treat.prop[1,1]+ ia.treat.prop[4,1]))
+(ia.12 <- exp(ia.treat.prop[1,1]+ ia.treat.prop[5,1]))
+
+# change at 1 month
+ia.1/ia.0
+# change at 12 months
+ia.12/ia.0
+
+# control plot at 12 months
+(ia.b.12 <- exp(ia.treat.prop[1,1]+ ia.treat.prop[2,1]+ia.treat.prop[5,1]+ia.treat.prop[8,1]))
+# how much less than sponge
+ia.12/ia.b.12
+
+# structure plot at 12 months
+(ia.f.12 <- exp(ia.treat.prop[1,1]+ ia.treat.prop[3,1]+ia.treat.prop[5,1]+ia.treat.prop[9,1]))
+# how much less than sponge
+ia.12/ia.f.12
+
+(ia.treat.prod.prop <- as.data.frame(ia.treat.prod.sum$coefficients$cond))
+
+(ia.prod.0 <- exp(ia.treat.prod.prop[1,1]))
+(ia.prod.1 <- exp(ia.treat.prod.prop[1,1]+ ia.treat.prod.prop[4,1]))
+(ia.prod.12 <- exp(ia.treat.prod.prop[1,1]+ ia.treat.prod.prop[5,1]))
+
+# change at 1 month
+ia.prod.1/ia.prod.0
+# change at 12 months
+ia.prod.12/ia.prod.0
+
+# effect of productivity
+# (ia.prod <- exp(ia.treat.prod.prop[1,1] + ia.treat.prod.prop[5,1] + ia.treat.prod.prop[6,1]))
+# (ia.prod.2 <- exp(ia.treat.prod.prop[1,1] + ia.treat.prod.prop[5,1]))
+# ia.prod/ia.prod.2
+(ia.prod.only <- exp(ia.treat.prod.prop[6,1]))
+
+# get missing B and CI f
+decimalplaces <- function(x) {
+  if ((x - round(x)) != 0) {
+    strs <- strsplit(as.character(format(x, scientific = F)), "\\.")
+    n <- nchar(strs[[1]][2])
+  } else {
+    n <- 0
+  }
+  return(n) 
+}
+
+efsize.tmb<-function(rtable,row){
+  betas<-signif(rtable$coefficients$cond[row,1], 2)
+  betas<-ifelse(abs(betas)<10,
+                formatC(signif(betas,2), digits=2, format="fg", flag="#"), 
+                round(betas))
+  betas2 <- as.numeric(betas)
+  decicount <- ifelse(betas2>1 & betas2 <10, 1, decimalplaces(betas2))
+  se<-rtable$coefficients$cond[row,2]
+  cil<-rtable$coefficients$cond[row,1]-1.96*se
+  cil<-format(round(cil, digits=decicount), scientific=F)
+  cih<-rtable$coefficients$cond[row,1]+1.96*se
+  cih<-format(round(cih, digits=decicount), scientific=F)
+  return(paste0(betas,", CI = ",cil," to ",cih))
+}
+
+efsize.tmb(ia.treat.prod.sum,5)
+# efsize.tmb(fspr.treat.sum,9)
+
+# richness of inverts considering only treatment
+ispr.treat.prop <- as.data.frame(ispr.treat.sum$coefficients$cond)
+(ispr.0 <- exp(ispr.treat.prop[1,1]))
+(ispr.1 <- exp(ispr.treat.prop[1,1]+ ispr.treat.prop[4,1]))
+(ispr.12 <- exp(ispr.treat.prop[1,1]+ ispr.treat.prop[5,1]))
+
+ispr.1/ispr.0
+ispr.12/ispr.0
+
+(ispr.b.12 <- exp(ispr.treat.prop[1,1]+ ispr.treat.prop[2,1]+ispr.treat.prop[5,1]+ispr.treat.prop[8,1]))
+
+ispr.12/ispr.b.12
+
+(ispr.f.12 <- exp(ispr.treat.prop[1,1]+ ispr.treat.prop[3,1]+ispr.treat.prop[5,1]+ispr.treat.prop[9,1]))
+
+ispr.12/ispr.f.12
+
+# effect of algae
+(ispr.alg.prop <- as.data.frame(ispr.alg.sum$coefficients$cond))
+(ispr.alg <- exp(ispr.alg.prop[4,1]))
+
+
+
