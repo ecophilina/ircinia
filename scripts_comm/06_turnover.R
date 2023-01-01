@@ -212,7 +212,9 @@ ispr.sum<-inv.uni%>%
     geom_point(data=fspr.sum,
       aes(x=as.factor(sampling),y=spr.m,color=treatment),alpha=.7,size=5,position=position_dodge(0.3))+
     geom_errorbar(data=fspr.sum,
-      aes(x=as.factor(sampling),ymin=spr.m-spr.sd,ymax=spr.m+spr.sd,color=treatment),alpha=.7,width=.3,position=position_dodge(0.3))+ 
+      aes(x=as.factor(sampling),
+          ymin=ifelse(spr.m-spr.sd < 0, 0, spr.m-spr.sd),
+          ymax=spr.m+spr.sd,color=treatment),alpha=.7,width=.3,position=position_dodge(0.3))+ 
     scale_color_viridis_d(option="A", begin=0, end=0.65,name="Treatment",labels=c("Control","Structure","Sponge"))+
     # theme_bw()+
     ggsidekick::theme_sleek(base_size = 16) +
@@ -232,7 +234,9 @@ ispr.sum<-inv.uni%>%
     geom_point(data=ispr.sum,
       aes(x=as.factor(sampling),y=spr.m,color=treatment),alpha=.7,size=5,position=position_dodge(0.3))+
     geom_errorbar(data=ispr.sum,
-      aes(x=as.factor(sampling),ymin=spr.m-spr.sd,ymax=spr.m+spr.sd,color=treatment),alpha=.7,width=.3,position=position_dodge(0.3))+ 
+      aes(x=as.factor(sampling),
+          ymin=ifelse(spr.m-spr.sd < 0, 0, spr.m-spr.sd),
+          ymax=spr.m+spr.sd,color=treatment),alpha=.7,width=.3,position=position_dodge(0.3))+ 
     scale_color_viridis_d(option="A", begin=0, end=0.65,name="Treatment",labels=c("Control","Structure","Sponge"))+
     # theme_bw()+
     ggsidekick::theme_sleek(base_size = 16) +
@@ -560,7 +564,9 @@ iab.sum<-inv.uni%>%
     geom_point(data=fab.sum,
                aes(x=as.factor(sampling),y=abund.m,color=treatment),alpha=.7,size=5,position=position_dodge(0.3))+
     geom_errorbar(data=fab.sum,
-                  aes(x=as.factor(sampling),ymin=abund.m-abund.sd,ymax=abund.m+abund.sd,color=treatment),alpha=.7,width=.3,position=position_dodge(0.3))+ 
+                  aes(x=as.factor(sampling),
+                      ymin=ifelse(abund.m-abund.sd < 0, 0, abund.m-abund.sd),
+                      ymax=abund.m+abund.sd,color=treatment),alpha=.7,width=.3,position=position_dodge(0.3))+ 
     scale_color_viridis_d(option="A", begin=0, end=0.65,name="Treatment",labels=c("Control","Structure","Sponge"))+
     # theme_bw()+
     ggsidekick::theme_sleek(base_size = 16) +
@@ -581,7 +587,9 @@ iab.sum<-inv.uni%>%
     geom_point(data=iab.sum,
                aes(x=as.factor(sampling),y=abund.m,color=treatment),alpha=.7,size=5,position=position_dodge(0.3))+
     geom_errorbar(data=iab.sum,
-                  aes(x=as.factor(sampling),ymin=abund.m-abund.sd,ymax=abund.m+abund.sd,color=treatment),alpha=.7,width=.3,position=position_dodge(0.3))+ 
+                  aes(x=as.factor(sampling),
+                      ymin=ifelse(abund.m-abund.sd < 0, 0, abund.m-abund.sd),
+                      ymax=abund.m+abund.sd,color=treatment),alpha=.7,width=.3,position=position_dodge(0.3))+ 
     scale_color_viridis_d(option="A", begin=0, end=0.65,name="Treatment",labels=c("Control","Structure","Sponge"))+
     # theme_bw()+
     ggsidekick::theme_sleek(base_size = 16) +
