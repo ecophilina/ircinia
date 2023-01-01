@@ -73,6 +73,7 @@ hist(fish.env4$vlength)
 
 #Look at just differences in vector angle between treatments
 fish.angle.aov<-aov(angle~treatment,data=fish.env4%>%
+                      filter(vlength>0.0001)%>%
                      mutate(treatment = relevel(treatment, ref = "real")))
 summary(fish.angle.aov)
 TukeyHSD(fish.angle.aov)
@@ -205,6 +206,7 @@ hist(inv.env4$vlength)
 
 #Look at differences in vector length between treatments
 inv.angle.aov<-aov(angle~treatment,data=inv.env4%>%
+                     filter(vlength>0.0001)%>%
                     mutate(treatment = relevel(treatment, ref = "real")))
 summary(inv.angle.aov)
 # TukeyHSD(inv.angle.aov) # not sig above so not needed
