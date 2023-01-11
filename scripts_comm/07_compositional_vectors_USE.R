@@ -12,6 +12,7 @@ library(FSA)
 if(!require(circular))install.packages("circular");library(circular)
 if(!require(bpnreg))install.packages("bpnreg");library(bpnreg)
 if(!require(gridGraphics))install.packages("gridGraphics");library(gridGraphics)
+if(!require(effectsize))install.packages("effectsize");library(effectsize)
 source("scripts_comm/02_community_data_org.R")
 
 # load animal shapes----
@@ -199,3 +200,25 @@ trialy<-circular(c(180,180,180,180,180,180,180,180,180,180),units="degrees")
 plot(trialx)
 plot(trialy)
 watson.two.test(trialx,trialy)
+
+# try a manova 
+
+inv.ang<-inv.env4%>%
+  filter(vlength>0)
+
+inv.man<-manova(cbind(sin(angle),cos(angle))~treatment,data=inv.ang)
+
+summary(inv.man)# not quite significant but if you look at effect sizes it is large
+eta_squared(inv.man) #effect size - from what I've read 0.14 is considered large, but the confidence interval reaches 0
+
+
+# try a manova where we compare structure plots to live sponge - from looking at 
+# the data control plots to do not move in a consistent direction (sd is more than twice structure and live sponge treatments)
+
+inv.ang2<-filter(inv.ang,treatment!="blank")
+inv.man2<-manova(cbind(sin(angle),cos(angle))~treatment,data=inv.ang2)
+
+summary(inv.man2)# significant
+eta_squared(inv.man2) #effect size - from what I've read 0.14 is considered large
+# for this comparison the effect size is large and the confidence intervals are 
+# above the "large" cutoff
