@@ -36,20 +36,28 @@ Affiliations:
 
 1. Louisiana Universities Marine Consortium, Chauvin, Louisiana, USA
 
-2. Pacific Biological Station, Fisheries and Oceans Canada, Nanaimo, British Columbia, Canada
+2. School of Renewable Natural Resources, Louisiana State University Agricultural Center,	Baton Rouge, LA, USA
 
-3. Center for Energy, Environment, and Sustainability, Department of Biology, Wake Forest University, Winston-Salem, North Carolina, USA
+3. Pacific Biological Station, Fisheries and Oceans Canada, Nanaimo, British Columbia, Canada
+
+4. Center for Energy, Environment, and Sustainability, Department of Biology, Wake Forest University, Winston-Salem, North Carolina, USA
   
 *corresponding author: sarcher@lumcon.edu
 
-Submission Date: May XX, 2022
+Submission Date: July 7, 2022
+Revision 1 Submission Date: January X, 2023
 
+```{r extreats, echo=FALSE, fig.align='left', out.width="100%", message=FALSE, warning=FALSE}
+knitr::include_graphics("figures/plotphotos.png")
+```
+
+Figure S1. Photos of the live sponge (panel A) and structure control (panel B) treatments. Panel A, the photo of the live *Ircinia felix* was taken immediately after the sponge was placed in the plot. The photo of the sponge replica in panel B was taken at the end of this study, 12 months into the experiment.  
 
 ```{r expdes, echo=FALSE, fig.align='left', out.width="100%", message=FALSE, warning=FALSE}
 knitr::include_graphics("figures/Experimental_design_2.pdf")
 ```
 
-Figure S1. Illustrates the experimental design and sampling scheme. Data was collected prior to treatment establishment, and 1 and 12 months after treatments were established. Fish abundance and taxa richness were counted for whole plots. Other taxonomic groups and seagrass measurements were made in the locations indicated. 
+Figure S2. Illustrates the experimental design and sampling scheme. Data was collected prior to treatment establishment, and 1 and 12 months after treatments were established. Fish abundance and taxa richness were counted for whole plots. Other taxonomic groups and seagrass measurements were made in the locations indicated. 
 
 \clearpage
 
@@ -71,6 +79,41 @@ knitr::kable(fish.models[,c(-1:-2,-7,-10)],
 
 \clearpage
 
+```{r fishabund}
+trt.model.terms<-c("Intercept",
+                 "Control",
+                 "Structure",
+                 "+1 month",
+                 "+12 months",
+                 "Control : +1 month",
+                 "Structure : +1 month",
+                 "Control : +12 months",
+                 "Structure : +12 months")
+fa<-data.frame(fa.treat.sum$coefficients$cond)
+row.names(fa)<-trt.model.terms
+knitr::kable(fa,
+             # format = "latex",
+             booktabs=T,
+             # escape = FALSE,
+    caption="Table S2. Effect sizes, error estimates, z values, and p values for all fixed effects in the best fit model for fish abundance.")%>%
+  kableExtra::kable_styling(latex_options = "scale_down",font_size=11)
+```
+
+\clearpage
+
+```{r fistich}
+fspr<-data.frame(fspr.treat.sum$coefficients$cond)
+row.names(fspr)<-trt.model.terms
+knitr::kable(fspr,
+             # format = "latex",
+             booktabs=T,
+             # escape = FALSE,
+    caption="Table S3. Effect sizes, error estimates, z values, and p values for all fixed effects in the best fit model for fish taxa richness.")%>%
+  kableExtra::kable_styling(latex_options = "scale_down",font_size=11)
+```
+
+\clearpage
+
 ```{r inverttab}
 knitr::kable(invert.models[,c(-1:-2,-7,-10)],
              # format = "latex",
@@ -78,9 +121,146 @@ knitr::kable(invert.models[,c(-1:-2,-7,-10)],
              # escape = FALSE,
     col.names = c("","k","AICc","Delta AICc",
                   "Akaike Weight","LL"),
-    caption="Table S2. All models tested evaluating competing hypotheses of the drivers of invertebrate abundance and taxa richness.")%>%
+    caption="Table S4. All models tested evaluating competing hypotheses of the drivers of invertebrate abundance and taxa richness.")%>%
   kable_styling(latex_options = "scale_down",font_size=11)%>%
   pack_rows("Abundance",1,14)%>%
   pack_rows("Taxa Richness",15,28)
 ```
 
+\clearpage
+
+```{r invabund.lsp}
+ia<-data.frame(ia.treat.sum$coefficients$cond)
+row.names(ia)<-trt.model.terms
+knitr::kable(ia,
+             # format = "latex",
+             booktabs=T,
+             # escape = FALSE,
+    caption="Table S5. Effect sizes, error estimates, z values, and p values for all fixed effects in the treatment only model for invertebrate abundance.")%>%
+  kableExtra::kable_styling(latex_options = "scale_down",font_size=11)
+```
+
+\clearpage
+
+```{r invabund.prod}
+ia2<-data.frame(ia.treat.prod.sum$coefficients$cond)
+row.names(ia2)<-c("Intercept",
+                 "Control",
+                 "Structure",
+                 "+1 month",
+                 "+12 months",
+                 "Seagrass productivity",
+                 "Control : +1 month",
+                 "Structure : +1 month",
+                 "Control : +12 months",
+                 "Structure : +12 months")
+knitr::kable(ia2,
+             # format = "latex",
+             booktabs=T,
+             # escape = FALSE,
+    caption="Table S6. Effect sizes, error estimates, z values, and p values for all fixed effects in the treatment + seagrass productivity model for invertebrate abundance.")%>%
+  kableExtra::kable_styling(latex_options = "scale_down",font_size=11)
+```
+
+\clearpage
+
+```{r invabund.struct}
+ia3<-data.frame(ia.treat.struct.sum$coefficients$cond)
+row.names(ia3)<-c("Intercept",
+                 "Control",
+                 "Structure",
+                 "+1 month",
+                 "+12 months",
+                 "Seagrass structure",
+                 "Control : +1 month",
+                 "Structure : +1 month",
+                 "Control : +12 months",
+                 "Structure : +12 months")
+knitr::kable(ia3,
+             # format = "latex",
+             booktabs=T,
+             # escape = FALSE,
+    caption="Table S7. Effect sizes, error estimates, z values, and p values for all fixed effects in the treatment + seagrass structure model for invertebrate abundance.")%>%
+  kableExtra::kable_styling(latex_options = "scale_down",font_size=11)
+```
+
+\clearpage
+
+```{r invspr}
+ispr<-data.frame(ispr.treat.sum$coefficients$cond)
+row.names(ispr)<-c("Intercept",
+                 "Control",
+                 "Structure",
+                 "+1 month",
+                 "+12 months",
+                 "Control : +1 month",
+                 "Structure : +1 month",
+                 "Control : +12 months",
+                 "Structure : +12 months")
+knitr::kable(ispr,
+             # format = "latex",
+             booktabs=T,
+             # escape = FALSE,
+    caption="Table S8. Effect sizes, error estimates, z values, and p values for all fixed effects in the treatment only model for invertebrate taxa richness.")%>%
+  kableExtra::kable_styling(latex_options = "scale_down",font_size=11)
+```
+
+\clearpage
+
+```{r invspr.alg}
+ispr2<-data.frame(ispr.alg.sum$coefficients$cond)
+row.names(ispr2)<-c("Intercept",
+                 "+1 month",
+                 "+12 months",
+                 "Macroalgal abundance")
+knitr::kable(ispr2,
+             # format = "latex",
+             booktabs=T,
+             # escape = FALSE,
+    caption="Table S9. Effect sizes, error estimates, z values, and p values for all fixed effects in the macroalgal abundance model for invertebrate taxa richness.")%>%
+  kableExtra::kable_styling(latex_options = "scale_down",font_size=11)
+```
+
+\clearpage
+
+```{r fish.cv}
+fish.cv.sum$treatment<-c("Control","Structure","Live sponge")
+colnames(fish.cv.sum)<-c("Treatment","Mean vector length","sd of vector length","Number of vectors longer than 0","Mean vector angle","rho","sd of vector angle")
+fish.cv.sum<-fish.cv.sum%>%select(-rho)
+knitr::kable(fish.cv.sum,
+             # format = "latex",
+             booktabs=T,
+             # escape = FALSE,
+    caption="Table S10. Summary of vector lengths and arrows summarizing the movement of the fish community in species space.")%>%
+  kableExtra::kable_styling(latex_options = "scale_down",font_size=11)
+```
+\clearpage
+
+```{r inv.cv}
+inv.cv.sum$treatment<-c("Control","Structure","Live sponge")
+colnames(inv.cv.sum)<-c("Treatment","Mean vector length","sd of vector length","Number of vectors longer than 0","Mean vector angle","rho","sd of vector angle")
+inv.cv.sum<-inv.cv.sum%>%select(-rho)
+knitr::kable(inv.cv.sum,
+             # format = "latex",
+             booktabs=T,
+             # escape = FALSE,
+    caption="Table S10. Summary of vector lengths and arrows summarizing the movement of the invertebrate community in species space.")%>%
+  kableExtra::kable_styling(latex_options = "scale_down",font_size=11)
+```
+
+\clearpage
+
+```{r fish.cv.plot, echo=FALSE, fig.align='left', out.width="100%", message=FALSE, warning=FALSE}
+knitr::include_graphics("fish_compositional_vector_plot.png")
+
+```
+
+Figure S3. The vector lengths and angles for how experimental plots moved in fish species space over the course of the experiment.
+
+\clearpage
+```{r inv.cv.plot, echo=FALSE, fig.align='left', out.width="100%", message=FALSE, warning=FALSE}
+knitr::include_graphics("invert_compositionalvectors_plot.png")
+
+```
+
+Figure S4. The vector lengths and angles for how experimental plots moved in invertebrate species space over the course of the experiment.

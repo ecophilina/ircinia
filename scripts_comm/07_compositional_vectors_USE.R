@@ -129,6 +129,7 @@ fish.ang<-fish.env4%>%
             angle.sd=signif(sd(ang.circ.d),2))
 
 (fish.summary<-left_join(fish.vl,fish.ang))
+write.csv(fish.summary,"working_data/fish_compvector_summary.csv",row.names = FALSE)
 
 #visualize vector lengths
 (fish.vlengths<-ggplot(data=fish.env4)+
@@ -173,6 +174,7 @@ inv.ang<-inv.env4%>%
             angle.sd=signif(sd(ang.circ.d),2))
 
 (inv.summary<-left_join(inv.vl,inv.ang))
+write.csv(inv.summary,"working_data/inv_compvector_summary.csv",row.names = FALSE)
 
 #visualize vector lengths
 (inv.vlengths<-ggplot(data=inv.env4)+
@@ -260,6 +262,6 @@ inv.ang2<-filter(inv.ang,treatment!="blank")
 inv.man2<-manova(cbind(sin(angle),cos(angle))~treatment,data=inv.ang2)
 
 summary(inv.man2)# significant
-eta_squared(inv.man2) #effect size - from what I've read 0.14 is considered large
+eta_squared(inv.man2, ci=.95) #effect size - from what I've read 0.14 is considered large
 # for this comparison the effect size is large and the confidence intervals are 
 # above the "large" cutoff
