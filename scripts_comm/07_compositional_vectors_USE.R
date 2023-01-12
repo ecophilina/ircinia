@@ -13,6 +13,8 @@ if(!require(circular))install.packages("circular");library(circular)
 if(!require(bpnreg))install.packages("bpnreg");library(bpnreg)
 if(!require(gridGraphics))install.packages("gridGraphics");library(gridGraphics)
 if(!require(effectsize))install.packages("effectsize");library(effectsize)
+if(!require(car))install.packages("car");library(car)
+if(!require(onewaytests))install.packages("onewaytests");library(onewaytests)
 source("scripts_comm/02_community_data_org.R")
 
 # load animal shapes----
@@ -210,6 +212,10 @@ ggsave(filename = "inv_vectorlengthplot.jpg",inv.vlengths,width=5,height=4,dpi=3
 # statistics----
 #fish
 #vector length
+# test for equal variance using Brown-Forsythe test
+bf.test(vlength~treatment,data=fish.env4)
+fish.env4%>%group_by(treatment)%>%summarize(sd1=sd(vlength))
+#use kruskal wallace test 
 (fish.vl.kw<-kruskal.test(vlength~treatment,data=fish.env4))
 # significant so look at differences between groups
 dunnTest(vlength~treatment,data=fish.env4)
@@ -221,6 +227,10 @@ dunnTest(vlength~treatment,data=fish.env4)
 
 # inverts
 #vector length
+# test for equal variance using Brown-Forsythe test
+bf.test(vlength~treatment,data=inv.env4)
+inv.env4%>%group_by(treatment)%>%summarize(sd1=sd(vlength))
+
 (inv.vl.kw<-kruskal.test(vlength~treatment,data=inv.env4))
 # no significant difference between vector lengths but we can look at angle here
 # compare structure and control plots
@@ -248,6 +258,9 @@ watson.two.test(trialx,trialy)
 
 inv.ang<-inv.env4%>%
   filter(vlength>0)
+# test for equal variance
+# test for equal variance using Brown-Forsythe test
+bf.test(ang.circ.d~treatment,data=inv.ang)
 
 inv.man<-manova(cbind(sin(angle),cos(angle))~treatment,data=inv.ang)
 
@@ -265,3 +278,147 @@ summary(inv.man2)# significant
 eta_squared(inv.man2, ci=.95) #effect size - from what I've read 0.14 is considered large
 # for this comparison the effect size is large and the confidence intervals are 
 # above the "large" cutoff
+
+# figures for main body of manuscript----
+
+# function to make a circle to put on plots
+circleFun <- function(center = c(0, 0), diameter = 1, npoints = 100) {
+  r <- diameter / 2
+  tt <- seq(0, 2 * pi, length.out = npoints)
+  xx <- center[1] + r * cos(tt)
+  yy <- center[2] + r * sin(tt)
+  return(data.frame(x = xx, y = yy))
+}
+
+circ <- circleFun(center = c(0, 0), diameter = 2, npoints = 500)
+
+#fish plot----
+
+(fish.vplot<-ggplot(data=fish.env4%>%filter(vlength>0))+
+   geom_segment(aes(x = plot.start, y = plot.start,
+                    xend = plot.end.x, yend = plot.end.y,color=treatment,size = as.factor(lsize),alpha=lsize),
+                # xend = plot.end.x2, yend = plot.end.y2,color=treatment,size = as.factor(lsize),alpha=lsize),
+                arrow = arrow(length = unit(0.3, "cm")))+
+   geom_path(data = circ, aes(x, y), lty = 2, alpha = 0.7) +
+   theme_bw()+
+   coord_fixed()+
+   theme(panel.grid = element_blank(),
+         axis.title = element_blank(),
+         axis.text = element_blank(),
+         axis.ticks = element_blank(),
+         line = element_blank(),
+         panel.border = element_blank())+
+   scale_color_viridis_d(option="A", begin=0, end=0.65,name="Treatment",labels=c("Control","Structure","Sponge"))+
+   scale_size_discrete(range=c(1,1.75),name = "Number of Plots")+
+   scale_alpha_continuous(range=c(0.75,1),guide=FALSE)+
+   #  geom_text(aes(x=-1,y=1),label="a",size=10)+
+   add_phylopic(fishpng,x=-.8,y=.9,ysize=.25,alpha=1))
+
+#invert plot
+(inv.plot<-ggplot(data=inv.env4%>%
+                    filter(abs(plot.end.y)>0.000001 | abs(plot.end.x) >0.000001))+
+    geom_segment(aes(x = plot.start, y = plot.start,
+                     xend = plot.end.x, yend = plot.end.y,color=treatment),
+                 # xend = plot.end.x2, yend = plot.end.y2,color=treatment),
+                 alpha=.75,size=1,
+                 arrow = arrow(length = unit(0.3, "cm")))+
+    geom_path(data = circ, aes(x, y), lty = 2, alpha = 0.7) +
+    theme_bw()+
+    coord_fixed()+
+    theme(panel.grid = element_blank(),
+          axis.title = element_blank(),
+          axis.text = element_blank(),
+          axis.ticks = element_blank(),
+          line = element_blank(),
+          panel.border = element_blank(),
+          legend.position = "none")+
+    scale_color_viridis_d(option="A", begin=0, end=0.65)+
+    #  geom_text(aes(x=-1,y=1),label="b",size=10)+
+    add_phylopic(crabpng,x=-.8,y=.9,ysize=.45,alpha=1))
+
+fish.vplot / inv.plot  + plot_layout(guides="collect")
+
+ggsave("figures/community_vector_plots.jpg",dpi=300,width=4,height=7)
+ggsave("figures/community_vector_plots.png",dpi=300,width=4,height=7)
+ggsave("figures/community_vector_plots.pdf",dpi=300,width=4,height=7)
+
+# now making species association plots
+theme_set(theme_bw()+theme(panel.grid=element_blank(),panel.border=element_blank()))
+#fish
+fsp<-scores(f.pca,choices=c(1,2),display = "species")
+fsp<-data.frame(fsp)%>%
+  filter((abs(PC1)+abs(PC2))>.01)%>%
+  mutate(sp=row.names(.))
+
+# keep grunt, damselfish, slippery dick, and green blotch and rescale to vector length 1
+
+
+
+fsp2<-filter(fsp,sp %in% c("grunt", "damselfish", "slippery dick", "green blotch"))%>%
+  mutate(vlength = sqrt(PC1^2 +PC2^2),
+         vlength.rsc = vlength/max(vlength),
+         angle = atan2(PC2,PC1),
+         plot.start = 0,
+         plot.end.x = cos(angle)*vlength.rsc,
+         plot.end.y = sin(angle)*vlength.rsc,)
+
+#now make pretty graph
+(fish.spp<-ggplot(data=fsp2)+
+    # geom_vline(aes(xintercept=0),linetype="dashed",alpha=.5)+
+    # geom_hline(aes(yintercept=0),linetype="dashed",alpha=.5)+
+    geom_segment(aes(x=0,xend=PC1,y=0,yend=PC2),
+                 arrow = arrow(length = unit(0.3, "cm")))+
+    coord_fixed(xlim=c(-1.5,1.5),ylim=c(-1.5,1.5))+
+    #geom_path(data = circ, aes(x, y), lty = 2, alpha = 0.5)+
+    theme(panel.grid = element_blank(),
+          panel.background = element_blank(),
+          axis.text = element_blank(),
+          axis.ticks = element_blank(),
+          axis.title = element_blank())+
+    # ylab("PC2")+
+    # xlab("PC1")+
+    geom_text(aes(x=PC1,y=PC2,
+                  label=c("Slippery dick","Green blotch parrotfish","Damselfish","Grunts")),
+              nudge_x = c(.4,.2,.6,-.3),
+              nudge_y = c(-.15,-.1,.1,.1)))#+
+#add_phylopic(fishpng,x=-.8,y=.9,ysize=.25,alpha=1))
+
+
+#inverts
+isp<-scores(i.pca,choices=c(1,2),display = "species")
+isp<-data.frame(isp)%>%
+  filter((abs(PC1)+abs(PC2))>.1)%>%
+  mutate(sp=row.names(.))
+
+isp2<-filter(isp,sp %in% c("cerith", "little white snail", "ground tunicate"))%>%
+  mutate(vlength = sqrt(PC1^2 +PC2^2),
+         vlength.rsc = vlength/max(vlength),
+         angle = atan2(PC2,PC1),
+         plot.start = 0,
+         plot.end.x = cos(angle)*vlength.rsc,
+         plot.end.y = sin(angle)*vlength.rsc)
+
+#now make pretty graph
+(invrt.spp<-ggplot(data=isp2)+
+    # geom_vline(aes(xintercept=0),linetype="dashed",alpha=.5)+
+    # geom_hline(aes(yintercept=0),linetype="dashed",alpha=.5)+
+    geom_segment(aes(x=0,xend=PC1,y=0,yend=PC2),
+                 arrow = arrow(length = unit(0.3, "cm")))+
+    coord_fixed(xlim=c(-1.5,1.5),ylim=c(-1.5,1.5))+
+    #geom_path(data = circ, aes(x, y), lty = 2, alpha = 0.5)+
+    theme(panel.grid = element_blank(),
+          panel.background = element_blank(),
+          axis.text = element_blank(),
+          axis.ticks = element_blank(),
+          axis.title = element_blank())+
+    # ylab("PC2")+
+    # xlab("PC1")+
+    geom_text(aes(x=PC1,y=PC2,
+                  label=c("Ceriths","Whelk","Sea squirt")),
+              nudge_y = c(.1,-.1,-.1)))
+
+(fish.vplot +fish.spp) / (inv.plot +invrt.spp) + plot_layout(guides="collect")+plot_annotation(tag_levels="a")
+
+ggsave("figures/fig4.tiff",dpi=600,width=160,height=125,units = c("mm"))
+ggsave("figures/community_vector_plots_withspp.png",dpi=600,width=160,height=125,units = c("mm"))
+
