@@ -131,14 +131,33 @@ fish.ang<-fish.env4%>%
 (fish.summary<-left_join(fish.vl,fish.ang))
 
 #visualize vector lengths
-fish.vlengths<-ggplot(data=fish.env4)+
-  geom_jitter(aes(x=treatment,y=vlength),size=4,alpha=.3,width=.1)
+(fish.vlengths<-ggplot(data=fish.env4)+
+    #geom_boxplot(aes(x=treatment,y=vlength))+
+    geom_jitter(aes(x=treatment,y=vlength),size=4,alpha=.3,width=.15)+
+    ylab("Vector length")+
+    xlab("")+
+    scale_x_discrete(labels=c("Control","Structure","Live sponge"))+
+    theme(axis.text = element_text(size=12),
+          axis.title.y=element_text(size=14)))
 
 # joint plot
 fish.1<-fish.vlengths+~plot.circular(fish.env4$ang.circ.d[fish.env4$treatment=="real"&fish.env4$vlength>0],main="live sponge")
 fish.1<-fish.1+~plot.circular(fish.env4$ang.circ.d[fish.env4$treatment=="fake"&fish.env4$vlength>0],main="structure")
 fish.1+~plot.circular(fish.env4$ang.circ.d[fish.env4$treatment=="blank"&fish.env4$vlength>0],main="control")
+# save individual plots to make multipanel figure in gimp
+png(filename="fish_livesponge_angleplot.png",width=500,height=500, units="px")
+plot.circular(fish.env4$ang.circ.d[fish.env4$treatment=="real"&fish.env4$vlength>0],main="Live sponge",cex=2,stack=TRUE,sep=.05,bins=360)
+dev.off()
 
+png(filename="fish_structure_angleplot.png",width=500,height=500, units="px")
+plot.circular(fish.env4$ang.circ.d[fish.env4$treatment=="fake"&fish.env4$vlength>0],main="Structure",cex=2,stack=TRUE,sep=.05,bins=360)
+dev.off()
+
+png(filename="fish_control_angleplot.png",width=500,height=500, units="px")
+plot.circular(fish.env4$ang.circ.d[fish.env4$treatment=="blank"&fish.env4$vlength>0],main="Control",cex=2,stack=TRUE,sep=.05,bins=360)
+dev.off()
+
+ggsave(filename = "fish_vectorlengthplot.jpg",fish.vlengths,width=5,height=4,dpi=300)
 # inverts ----
 
 inv.vl<-inv.env4%>%
@@ -156,13 +175,35 @@ inv.ang<-inv.env4%>%
 (inv.summary<-left_join(inv.vl,inv.ang))
 
 #visualize vector lengths
-inv.vlengths<-ggplot(data=inv.env4)+
-  geom_jitter(aes(x=treatment,y=vlength),size=4,alpha=.3,width=.1)
+(inv.vlengths<-ggplot(data=inv.env4)+
+    #geom_boxplot(aes(x=treatment,y=vlength))+
+    geom_jitter(aes(x=treatment,y=vlength),size=4,alpha=.3,width=.15)+
+    ylab("Vector length")+
+    xlab("")+
+    scale_x_discrete(labels=c("Control","Structure","Live sponge"))+
+    theme(axis.text = element_text(size=12),
+          axis.title.y=element_text(size=14)))
 
 # joint plot
 inv.1<-inv.vlengths|~plot.circular(inv.env4$ang.circ.d[inv.env4$treatment=="real"&inv.env4$vlength>0],main="live sponge")
 inv.1<-inv.1+~plot.circular(inv.env4$ang.circ.d[inv.env4$treatment=="fake"&inv.env4$vlength>0],main="structure")
 inv.1+~plot.circular(inv.env4$ang.circ.d[inv.env4$treatment=="blank"&inv.env4$vlength>0],main="control")
+
+# save individual plots to make multipanel figure in gimp
+png(filename="inv_livesponge_angleplot.png",width=500,height=500, units="px")
+plot.circular(inv.env4$ang.circ.d[inv.env4$treatment=="real"&inv.env4$vlength>0],main="Live sponge",cex=2,stack=TRUE,sep=.05,bins=360)
+dev.off()
+
+png(filename="inv_structure_angleplot.png",width=500,height=500, units="px")
+plot.circular(inv.env4$ang.circ.d[inv.env4$treatment=="fake"&inv.env4$vlength>0],main="Structure",cex=2,stack=TRUE,sep=.05,bins=120)
+dev.off()
+
+png(filename="inv_control_angleplot.png",width=500,height=500, units="px")
+plot.circular(inv.env4$ang.circ.d[inv.env4$treatment=="blank"&inv.env4$vlength>0],main="Control",cex=2,stack=TRUE,sep=.05,bins=360)
+dev.off()
+
+ggsave(filename = "inv_vectorlengthplot.jpg",inv.vlengths,width=5,height=4,dpi=300)
+
 
 # statistics----
 #fish
@@ -192,14 +233,14 @@ watson.two.test(inv.env4$ang.circ.d[inv.env4$treatment=="real"&inv.env4$vlength>
 watson.two.test(inv.env4$ang.circ.d[inv.env4$treatment=="real"&inv.env4$vlength>0],
                 inv.env4$ang.circ.d[inv.env4$treatment=="blank"&inv.env4$vlength>0])
 
-#try the watson williams test
-watson.williams.test(ang.circ.d~treatment,inv.env4)
+# doesn't seem like its actually possible to detect differences with this test and our sample size
+# making a trial data set
+trialx<-circular(c(0,0,0,0,0),units="degrees")
+trialy<-circular(c(180,180,180,180,180),units="degrees")
 
-trialx<-circular(c(0,0,0,0,0,0,0,0,0,0),units="degrees")
-trialy<-circular(c(180,180,180,180,180,180,180,180,180,180),units="degrees")
-plot(trialx)
-plot(trialy)
 watson.two.test(trialx,trialy)
+
+# according to the tables I've found, nope not really possible.
 
 # try a manova 
 
