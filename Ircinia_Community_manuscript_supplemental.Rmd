@@ -1,11 +1,12 @@
 ---
 title: "Electronic Supplemental Material" 
-subtitle: "For *Sponges presence increases diversity and abundance of fish and invertebrates in subtropical seagrass beds*"
+# subtitle: "For *Sponges presence increases diversity and abundance of fish and invertebrates in subtropical seagrass beds*"
 output:
   bookdown::pdf_document2:
       toc: false
 header-includes:
     \usepackage{caption}
+    \renewcommand{\arraystretch}{1.2}
 editor_options:
   markdown:
     wrap: sentence
@@ -20,6 +21,7 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+
 source("scripts_comm/08_import_results.R")
 if(!require(kableExtra))install.packages("kableExtra");library(kableExtra)
 ```
@@ -27,6 +29,10 @@ if(!require(kableExtra))install.packages("kableExtra");library(kableExtra)
 ```{r, include=FALSE}
 options(tinytex.verbose = TRUE)
 ```
+
+Article title: 
+
+*Sponges presence increases diversity and abundance of fish and invertebrates in subtropical seagrass beds*
 
 Journal name: Estuaries and Coasts
 
@@ -47,11 +53,13 @@ Affiliations:
 Submission Date: July 7, 2022
 Revision 1 Submission Date: January X, 2023
 
+\clearpage
+
 ```{r extreats, echo=FALSE, fig.align='left', out.width="100%", message=FALSE, warning=FALSE}
-knitr::include_graphics("figures/plotphotos.png")
+# knitr::include_graphics("figures/plotphotos.png")
 ```
 
-Figure S1. Photos of the live sponge (panel A) and structure control (panel B) treatments. Panel A, the photo of the live *Ircinia felix* was taken immediately after the sponge was placed in the plot. The photo of the sponge replica in panel B was taken at the end of this study, 12 months into the experiment. Mounds are likely burrowing sea cucumber, *Holothuria arenicola*, mounds.
+Figure S1. Photos of the live sponge (panel A) and structure control (panel B) treatments. Panel A, the photo of the live *Ircinia felix* was taken immediately after the sponge was placed in the plot. The photo of the sponge replica in panel B was taken at the end of this study, 12 months into the experiment. Mounds are likely those of burrowing sea cucumbers, *Holothuria arenicola*.
 
 ```{r expdes, echo=FALSE, fig.align='left', out.width="100%", message=FALSE, warning=FALSE}
 knitr::include_graphics("figures/Experimental_design_2.pdf")
@@ -71,17 +79,18 @@ knitr::kable(fish.models[,c(-1:-2,-7,-10)],
              # escape = FALSE,
     col.names = c("","k","AICc","Delta AICc",
                   "Akaike Weight","LL"),
-    caption="Table S1. All models tested evaluating competing hypotheses of the drivers of fish abundance and taxa richness.")%>%
+    caption="Table S1. All models evaluating competing hypotheses of the drivers of fish abundance and taxa richness.")%>%
   kableExtra::kable_styling(latex_options = "scale_down",font_size=11)%>%
   kableExtra::pack_rows("Abundance",1,14)%>%
   kableExtra::pack_rows("Taxa Richness",15,28)
 ```
 
-\clearpage
+<!-- \clearpage -->
+
 \captionsetup[table]{labelformat=empty}
 
 ```{r fishabund}
-trt.model.terms<-c("Intercept",
+trt.model.terms<-c("Intercept (Live sponge)",
                  "Control",
                  "Structure",
                  "+1 month",
@@ -92,13 +101,17 @@ trt.model.terms<-c("Intercept",
                  "Structure : +12 months")
 fa<-data.frame(fa.treat.sum$coefficients$cond)
 row.names(fa)<-trt.model.terms
+
 knitr::kable(round(fa,2),
              # format = "latex",
              booktabs=T,
              # escape = FALSE,
-    caption="Table S2. Effect sizes, error estimates, z values, and p values for all fixed effects in the best fit model for fish abundance.")%>%
+             col.names = c("Estimate","SE","Z","p value"),
+    caption="Table S2. Effect sizes, error estimates (SE), z and p values for fixed effects in the best fit model of fish abundance.")%>%
   column_spec(1:4,width_max = "1.5cm")%>%
-  kableExtra::kable_styling(latex_options = "scale_down",font_size=10,full_width = F)
+  kableExtra::kable_styling(font_size=7, full_width = F)
+
+
 ```
 
 \clearpage
@@ -111,13 +124,15 @@ knitr::kable(round(fspr,2),
              # format = "latex",
              booktabs=T,
              # escape = FALSE,
-    caption="Table S3. Effect sizes, error estimates, z values, and p values for all fixed effects in the best fit model for fish taxa richness.")%>%
+             col.names = c("Estimate","SE","Z","p value"),
+    caption="Table S3. Effect sizes, error estimates (SE), z and p values for fixed effects in the best fit model of fish taxa richness.")%>%
   column_spec(1:4, width_max = "1.5cm")%>%
-  kableExtra::kable_styling(latex_options = "scale_down",font_size=10,full_width = F)
+  kableExtra::kable_styling( font_size=7, full_width = F)
 ```
 
-\clearpage
+
 \captionsetup[table]{labelformat=empty}
+
 
 ```{r inverttab}
 knitr::kable(invert.models[,c(-1:-2,-7,-10)],
@@ -126,7 +141,7 @@ knitr::kable(invert.models[,c(-1:-2,-7,-10)],
              # escape = FALSE,
     col.names = c("","k","AICc","Delta AICc",
                   "Akaike Weight","LL"),
-    caption="Table S4. All models tested evaluating competing hypotheses of the drivers of invertebrate abundance and taxa richness.")%>%
+    caption="Table S4. All models evaluating competing hypotheses of the drivers of invertebrate abundance and taxa richness.")%>%
   kable_styling(latex_options = "scale_down",font_size=11)%>%
   pack_rows("Abundance",1,14)%>%
   pack_rows("Taxa Richness",15,28)
@@ -142,17 +157,19 @@ knitr::kable(round(ia,2),
              # format = "latex",
              booktabs=T,
              # escape = FALSE,
-    caption="Table S5. Effect sizes, error estimates, z values, and p values for all fixed effects in the treatment only model for invertebrate abundance.")%>%
+    col.names = c("Estimate","SE","Z","p value"),
+    caption="Table S5. Effect sizes, error estimates (SE), z and p values for fixed effects in the treatment-only model for invertebrate abundance.")%>%
   column_spec(1:4, width_max = "1.5cm")%>%
-  kableExtra::kable_styling(latex_options = "scale_down",font_size=10,full_width = F)
+  kableExtra::kable_styling( font_size=7, full_width = F)
 ```
 
-\clearpage
+
 \captionsetup[table]{labelformat=empty}
+
 
 ```{r invabundprod}
 ia2<-data.frame(ia.treat.prod.sum$coefficients$cond)
-row.names(ia2)<-c("Intercept",
+row.names(ia2)<-c("Intercept (Live sponge)",
                  "Control",
                  "Structure",
                  "+1 month",
@@ -166,17 +183,19 @@ knitr::kable(round(ia2,2),
              # format = "latex",
              booktabs=T,
              # escape = FALSE,
-    caption="Table S6. Effect sizes, error estimates, z values, and p values for all fixed effects in the treatment + seagrass productivity model for invertebrate abundance.")%>%
+    col.names = c("Estimate","SE","Z","p value"),
+    caption="Table S6. Effect sizes, error estimates (SE), z and p values for fixed effects in the treatment + seagrass productivity model for invertebrate abundance.")%>%
   column_spec(1:4, width_max = "1.5cm")%>%
-  kableExtra::kable_styling(latex_options = "scale_down",font_size=10,full_width = F)
+  kableExtra::kable_styling( font_size=7, full_width = F)
 ```
 
-\clearpage
+
 \captionsetup[table]{labelformat=empty}
+
 
 ```{r invabundstruct}
 ia3<-data.frame(ia.treat.struct.sum$coefficients$cond)
-row.names(ia3)<-c("Intercept",
+row.names(ia3)<-c("Intercept (Live sponge)",
                  "Control",
                  "Structure",
                  "+1 month",
@@ -190,9 +209,10 @@ knitr::kable(round(ia3,2),
              # format = "latex",
              booktabs=T,
              # escape = FALSE,
-    caption="Table S7. Effect sizes, error estimates, z values, and p values for all fixed effects in the treatment + seagrass structure model for invertebrate abundance.")%>%
+             col.names = c("Estimate","SE","Z","p value"),
+    caption="Table S7. Effect sizes, error estimates (SE), z and p values for fixed effects in the treatment + seagrass structure model for invertebrate abundance.")%>%
   column_spec(1:4, width_max = "1.5cm")%>%
-  kableExtra::kable_styling(latex_options = "scale_down",font_size=10,full_width = F)
+  kableExtra::kable_styling( font_size=7, full_width = F)
 ```
 
 \clearpage
@@ -200,7 +220,7 @@ knitr::kable(round(ia3,2),
 
 ```{r invspr}
 ispr<-data.frame(ispr.treat.sum$coefficients$cond)
-row.names(ispr)<-c("Intercept",
+row.names(ispr)<-c("Intercept (Live sponge)",
                  "Control",
                  "Structure",
                  "+1 month",
@@ -213,12 +233,12 @@ knitr::kable(round(ispr,2),
              # format = "latex",
              booktabs=T,
              # escape = FALSE,
-    caption="Table S8. Effect sizes, error estimates, z values, and p values for all fixed effects in the treatment only model for invertebrate taxa richness.")%>%
+    col.names = c("Estimate","SE","Z","p value"),
+    caption="Table S8. Effect sizes, error estimates (SE), z and p values for fixed effects in the treatment only model for invertebrate taxa richness.")%>%
   column_spec(1:4, width_max = "1.5cm")%>%
-  kableExtra::kable_styling(latex_options = "scale_down",font_size=10,full_width = F)
+  kableExtra::kable_styling( font_size=7, full_width = F)
 ```
 
-\clearpage
 \captionsetup[table]{labelformat=empty}
 
 ```{r invspralg}
@@ -231,12 +251,12 @@ knitr::kable(round(ispr2,2),
              # format = "latex",
              booktabs=T,
              # escape = FALSE,
-    caption="Table S9. Effect sizes, error estimates, z values, and p values for all fixed effects in the macroalgal abundance model for invertebrate taxa richness.")%>%
+    col.names = c("Estimate","SE","Z","p value"),
+    caption="Table S9. Effect sizes, error estimates (SE), z and p values for fixed effects in the macroalgal abundance model for invertebrate taxa richness.")%>%
   column_spec(1:4, width_max = "1.5cm")%>%
-  kableExtra::kable_styling(latex_options = "scale_down",font_size=10,full_width = F)
+  kableExtra::kable_styling( font_size=7, full_width = F)
 ```
 
-\clearpage
 \captionsetup[table]{labelformat=empty}
 
 ```{r fishcv}
@@ -247,12 +267,11 @@ knitr::kable(fish.cv.sum,
              # format = "latex",
              booktabs=T,
              # escape = FALSE,
-    caption="Table S10. Summary of vector lengths and arrows summarizing the movement of the fish community in species space.")%>%
+    caption="Table S10. Summary of individual plot vectors representing changes in the fish community in species space over the 1 year experiment.")%>%
   column_spec(2:6, width_max = "1.5cm")%>%
   kableExtra::kable_styling(latex_options = "scale_down",font_size=10,full_width = F)
 ```
 
-\clearpage
 \captionsetup[table]{labelformat=empty}
 
 ```{r invcv}
@@ -263,7 +282,7 @@ kable(inv.cv.sum,
              # format = "latex",
              booktabs=T,
              # escape = FALSE,
-    caption="Table S10. Summary of vector lengths and arrows summarizing the movement of the invertebrate community in species space.")%>%
+    caption="Table S10. Summary of individual plot vectors representing changes in the invertebrate community in species space over the 1 year experiment.")%>%
   column_spec(2:6, width_max = "1.5cm") %>%
   kableExtra::kable_styling(latex_options = "scale_down",font_size=10,full_width = F)
 ```
@@ -271,17 +290,17 @@ kable(inv.cv.sum,
 \clearpage
 
 ```{r fishcvplot, echo=FALSE, fig.align='left', out.width="100%", message=FALSE, warning=FALSE}
-knitr::include_graphics("fish_compositional_vector_plot.jpg")
+# knitr::include_graphics("fish_compositional_vector_plot.jpg")
 
 ```
 
-Figure S3. The vector lengths (A) and angles (Control: B, Structure: C, Live Sponge: D) for how experimental plots moved in fish species space over the course of the experiment.
+Figure S3. The vectors decomposed into their lengths (A) and angles (Control: B, Structure: C, Live Sponge: D) representing how experimental plots moved in fish species space over the course of the experiment.
 
 \clearpage
 
 ```{r invcvplot, echo=FALSE, fig.align='left', out.width="100%", message=FALSE, warning=FALSE}
-knitr::include_graphics("invert_compositionalvectors_plot.jpg")
+# knitr::include_graphics("invert_compositionalvectors_plot.jpg")
 
 ```
 
-Figure S4. The vector lengths (A) and angles (Control: B, Structure: C, Live Sponge: D) for how experimental plots moved in invertebrate species space over the course of the experiment.
+Figure S4. The vectors decomposed into their lengths (A) and angles (Control: B, Structure: C, Live Sponge: D) representing how experimental plots moved in invertebrate species space over the course of the experiment.
