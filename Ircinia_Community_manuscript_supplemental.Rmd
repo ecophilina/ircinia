@@ -56,7 +56,7 @@ Revision 1 Submission Date: January X, 2023
 \clearpage
 
 ```{r extreats, echo=FALSE, fig.align='left', out.width="100%", message=FALSE, warning=FALSE}
-# knitr::include_graphics("figures/plotphotos.png")
+knitr::include_graphics("figures/plotphotos.png")
 ```
 
 Figure S1. Photos of the live sponge (panel A) and structure control (panel B) treatments. Panel A, the photo of the live *Ircinia felix* was taken immediately after the sponge was placed in the plot. The photo of the sponge replica in panel B was taken at the end of this study, 12 months into the experiment. Mounds are likely those of burrowing sea cucumbers, *Holothuria arenicola*.
@@ -290,7 +290,7 @@ kable(inv.cv.sum,
 \clearpage
 
 ```{r fishcvplot, echo=FALSE, fig.align='left', out.width="100%", message=FALSE, warning=FALSE}
-# knitr::include_graphics("fish_compositional_vector_plot.jpg")
+knitr::include_graphics("fish_compositional_vector_plot.jpg")
 
 ```
 
@@ -299,7 +299,7 @@ Figure S3. The vectors decomposed into their lengths (A) and angles (Control: B,
 \clearpage
 
 ```{r invcvplot, echo=FALSE, fig.align='left', out.width="100%", message=FALSE, warning=FALSE}
-# knitr::include_graphics("invert_compositionalvectors_plot.jpg")
+knitr::include_graphics("invert_compositionalvectors_plot.jpg")
 
 ```
 
