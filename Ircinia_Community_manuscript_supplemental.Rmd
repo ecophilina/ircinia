@@ -289,18 +289,18 @@ kable(inv.cv.sum,
 
 \clearpage
 
-```{r fishcvplot, echo=FALSE, fig.align='left', out.width="100%", message=FALSE, warning=FALSE}
+```{r fishcvplot, echo=FALSE, fig.align='left', out.width="60%", message=FALSE, warning=FALSE}
 knitr::include_graphics("fish_compositional_vector_plot.jpg")
 
 ```
 
-Figure S3. The vectors decomposed into their lengths (A) and angles (Control: B, Structure: C, Live Sponge: D) representing how experimental plots moved in fish species space over the course of the experiment.
+Figure S3. Vectors representing how experimental plots moved in fish species space over the 1 year experiment decomposed into their lengths (A) and angles (Control: B, Structure: C, Live Sponge: D).
 
-\clearpage
+<!-- \clearpage -->
 
-```{r invcvplot, echo=FALSE, fig.align='left', out.width="100%", message=FALSE, warning=FALSE}
+```{r invcvplot, echo=FALSE, fig.align='left', out.width="60%", message=FALSE, warning=FALSE}
 knitr::include_graphics("invert_compositionalvectors_plot.jpg")
 
 ```
 
-Figure S4. The vectors decomposed into their lengths (A) and angles (Control: B, Structure: C, Live Sponge: D) representing how experimental plots moved in invertebrate species space over the course of the experiment.
+Figure S4. Vectors representing how experimental plots moved in invertebrate species space over the 1 year experiment decomposed into their lengths (A) and angles (Control: B, Structure: C, Live Sponge: D).
